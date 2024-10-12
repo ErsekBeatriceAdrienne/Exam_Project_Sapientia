@@ -1,22 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class LoginPage extends StatelessWidget
-{
+class LoginPage extends StatelessWidget {
+  final VoidCallback toggleTheme;
+
+  const LoginPage({required this.toggleTheme, super.key});
+
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
+    // Determine the current theme mode
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-        appBar: AppBar(title: Text('Login')),
-        body: Center(
-          child: FloatingActionButton.extended(
-            onPressed: (){},
-            /*icon: Image.asset('assets/images/google_logo.png',
-            height: 32,
-            width: 32,),*/
-            label : Text('Sign in with Google'),
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
+      body: Stack(
+        children: [
+          Center(
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                HapticFeedback.lightImpact();
+              },
+              icon: Image.asset(
+                'assets/images/google_logo.png', // Load the Google logo
+                height: 32, // Adjust the height as needed
+                width: 32,  // Adjust the width as needed
+              ),
+              label: const Text('Sign in with Google'),
+              backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
+              foregroundColor: isDarkMode ? Colors.white : Colors.black,
+            ),
           ),
-        ));
+          Positioned(
+            top: 40,
+            right: 20,
+            child: IconButton(
+              icon: Icon(
+                Icons.brightness_6,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              onPressed: () {
+                HapticFeedback.lightImpact(); // Add haptic feedback
+                toggleTheme(); // Call the toggleTheme function
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
