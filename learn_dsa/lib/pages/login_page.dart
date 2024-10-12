@@ -20,7 +20,7 @@ class LoginPage extends StatelessWidget
           Center(
             child: FloatingActionButton.extended(
               onPressed: () {
-                HapticFeedback.lightImpact();
+                HapticFeedback.mediumImpact();
                 // Navigate to the HomePage when the button is pressed
                 Navigator.push(
                   context,
@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
-                HapticFeedback.lightImpact(); // Add haptic feedback
+                HapticFeedback.mediumImpact(); // Add haptic feedback
                 toggleTheme(); // Call the toggleTheme function
               },
             ),
