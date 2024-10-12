@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'home_page.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatelessWidget
+{
   final VoidCallback toggleTheme;
 
   const LoginPage({required this.toggleTheme, super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     // Determine the current theme mode
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
@@ -18,6 +21,11 @@ class LoginPage extends StatelessWidget {
             child: FloatingActionButton.extended(
               onPressed: () {
                 HapticFeedback.lightImpact();
+                // Navigate to the HomePage when the button is pressed
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
               },
               icon: Image.asset(
                 'assets/images/google_logo.png', // Load the Google logo
