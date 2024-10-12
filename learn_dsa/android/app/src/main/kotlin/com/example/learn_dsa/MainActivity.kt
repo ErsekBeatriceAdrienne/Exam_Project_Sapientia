@@ -1,4 +1,4 @@
-package com.learn_dsa.learn_dsa
+package com.example.learn_dsa
 
 import io.flutter.embedding.android.FlutterActivity
 
