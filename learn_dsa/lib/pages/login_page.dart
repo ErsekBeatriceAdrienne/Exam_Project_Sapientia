@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'home_page.dart';
@@ -88,6 +91,41 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  Future <void> _nativeGoogleSignIn() async
+  {
+    const webClientId = '485441696681-7lt2qm26apvugkcqnos782uhkeihn46b.apps.googleusercontent.com';
+
+    /// iOS Client ID that you registered with Google Cloud.
+    const iosClientId = '485441696681-4q2ph5npc6mn0e3h3ci57kare8soi7vu.apps.googleusercontent.com';
+
+    // Google sign in on Android will work without providing the Android
+    // Client ID registered on Google Cloud.
+
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId: iosClientId,
+      serverClientId: webClientId,
+    );
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser!.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
+
+    if (accessToken == null) {
+      throw 'No Access Token found.';
+    }
+    if (idToken == null) {
+      throw 'No ID Token found.';
+    }
+
+    await supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
+  }
+
+  //flutter run -d chrome --web-port=3000
+
   @override
   Widget build(BuildContext context)
   {
@@ -99,35 +137,10 @@ class _LoginPageState extends State<LoginPage> {
             Text(_user_id ?? 'Not Signed in'),
             ElevatedButton(onPressed: () async
             {
-              const webClientId = '485441696681-7lt2qm26apvugkcqnos782uhkeihn46b.apps.googleusercontent.com';
-
-              /// iOS Client ID that you registered with Google Cloud.
-              const iosClientId = '485441696681-4q2ph5npc6mn0e3h3ci57kare8soi7vu.apps.googleusercontent.com';
-
-              // Google sign in on Android will work without providing the Android
-              // Client ID registered on Google Cloud.
-
-              final GoogleSignIn googleSignIn = GoogleSignIn(
-                clientId: iosClientId,
-                serverClientId: webClientId,
-              );
-              final googleUser = await googleSignIn.signIn();
-              final googleAuth = await googleUser!.authentication;
-              final accessToken = googleAuth.accessToken;
-              final idToken = googleAuth.idToken;
-
-              if (accessToken == null) {
-                throw 'No Access Token found.';
+              if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+                await _nativeGoogleSignIn();
               }
-              if (idToken == null) {
-                throw 'No ID Token found.';
-              }
-
-              await supabase.auth.signInWithIdToken(
-                provider: OAuthProvider.google,
-                idToken: idToken,
-                accessToken: accessToken,
-              );
+              await supabase.auth.signInWithOAuth(OAuthProvider.google);
             },
                 child: Text('Sign in with Google'))
           ],
