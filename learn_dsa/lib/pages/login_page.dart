@@ -1,23 +1,75 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'home_page.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-/*
-class LoginPage extends StatelessWidget
-{
+import 'home_page.dart'; // Make sure this path is correct
+
+class LoginPage extends StatefulWidget {
   final VoidCallback toggleTheme;
 
   const LoginPage({required this.toggleTheme, super.key});
 
   @override
-  Widget build(BuildContext context)
-  {
-    // Determine the current theme mode
+  State<StatefulWidget> createState() => _LoginPageState();
+}
+
+// supabase
+final supabase = Supabase.instance.client;
+
+class _LoginPageState extends State<LoginPage> {
+  String? _userId;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen for authentication state changes
+    supabase.auth.onAuthStateChange.listen((onData) {
+      setState(() {
+        _userId = onData.session?.user.id;
+        if (_userId != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(
+                toggleTheme: widget.toggleTheme,
+                userId: _userId,
+              ),
+            ),
+          );
+        }
+      });
+    });
+  }
+
+  Future<void> _nativeGoogleSignIn() async {
+    const webClientId = '485441696681-7lt2qm26apvugkcqnos782uhkeihn46b.apps.googleusercontent.com';
+    const iosClientId = '485441696681-4q2ph5npc6mn0e3h3ci57kare8soi7vu.apps.googleusercontent.com';
+
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      clientId: iosClientId,
+      serverClientId: webClientId,
+    );
+    final googleUser = await googleSignIn.signIn();
+    final googleAuth = await googleUser!.authentication;
+    final accessToken = googleAuth.accessToken;
+    final idToken = googleAuth.idToken;
+
+    if (accessToken == null || idToken == null) {
+      throw 'No Access Token or ID Token found.';
+    }
+
+    await supabase.auth.signInWithIdToken(
+      provider: OAuthProvider.google,
+      idToken: idToken,
+      accessToken: accessToken,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -25,20 +77,14 @@ class LoginPage extends StatelessWidget
         children: [
           Center(
             child: FloatingActionButton.extended(
-              onPressed: () {
-                HapticFeedback.mediumImpact();
-                // Navigate to the HomePage when the button is pressed
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomePage(toggleTheme: toggleTheme),
-                  ),
-                );
+              onPressed: () async {
+                HapticFeedback.mediumImpact(); // Haptic feedback
+                await _nativeGoogleSignIn();
               },
               icon: Image.asset(
                 'assets/images/google_logo.png', // Load the Google logo
-                height: 32, // Adjust the height as needed
-                width: 32,  // Adjust the width as needed
+                height: 32,
+                width: 32,
               ),
               label: const Text('Sign in with Google'),
               backgroundColor: isDarkMode ? Colors.grey[850] : Colors.white,
@@ -54,95 +100,12 @@ class LoginPage extends StatelessWidget
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
-                HapticFeedback.mediumImpact(); // Add haptic feedback
-                toggleTheme(); // Call the toggleTheme function
+                HapticFeedback.mediumImpact(); // Haptic feedback
+                widget.toggleTheme(); // Toggle theme
               },
             ),
           ),
         ],
-      ),
-    );
-  }
-}*/
-
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _LoginPageState();
-}
-
-// supabase
-final supabase = Supabase.instance.client;
-
-class _LoginPageState extends State<LoginPage> {
-  String? _user_id;
-
-  @override
-  void initState()
-  {
-    super.initState();
-
-    supabase.auth.onAuthStateChange.listen((onData) {
-      setState(() {
-        // user will be signed in
-        _user_id = onData.session?.user.id;
-      });
-    });
-  }
-
-  Future <void> _nativeGoogleSignIn() async
-  {
-    const webClientId = '485441696681-7lt2qm26apvugkcqnos782uhkeihn46b.apps.googleusercontent.com';
-
-    /// iOS Client ID that you registered with Google Cloud.
-    const iosClientId = '485441696681-4q2ph5npc6mn0e3h3ci57kare8soi7vu.apps.googleusercontent.com';
-
-    // Google sign in on Android will work without providing the Android
-    // Client ID registered on Google Cloud.
-
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId: iosClientId,
-      serverClientId: webClientId,
-    );
-    final googleUser = await googleSignIn.signIn();
-    final googleAuth = await googleUser!.authentication;
-    final accessToken = googleAuth.accessToken;
-    final idToken = googleAuth.idToken;
-
-    if (accessToken == null) {
-      throw 'No Access Token found.';
-    }
-    if (idToken == null) {
-      throw 'No ID Token found.';
-    }
-
-    await supabase.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-      accessToken: accessToken,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context)
-  {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(_user_id ?? 'Not Signed in'),
-            ElevatedButton(onPressed: () async
-            {
-              if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-                await _nativeGoogleSignIn();
-              }
-              await supabase.auth.signInWithOAuth(OAuthProvider.google);
-            },
-                child: Text('Sign in with Google'))
-          ],
-        ),
       ),
     );
   }

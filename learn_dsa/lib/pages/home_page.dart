@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learn_dsa/pages/profile_page.dart';
 import 'package:learn_dsa/pages/theme_settings_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'login_page.dart';
 
 class HomePage extends StatelessWidget
 {
   final VoidCallback toggleTheme;
+  final String? userId;
 
-  const HomePage({required this.toggleTheme, super.key});
+  const HomePage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
   Widget build(BuildContext context)
   {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       appBar: AppBar(
         leading: Builder(
@@ -44,7 +46,7 @@ class HomePage extends StatelessWidget
                   Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(toggleTheme: toggleTheme)),
+                    MaterialPageRoute(builder: (context) => HomePage(toggleTheme: toggleTheme, userId: userId)),
                   );
                 },
               ),
@@ -52,10 +54,21 @@ class HomePage extends StatelessWidget
               ListTile(
                 leading: const Icon(Icons.person),
                 title: const Text('Profile'),
-                onTap: () {
+                onTap: () async {
                   HapticFeedback.mediumImpact();
                   Navigator.pop(context);
-                  // Add navigation logic here
+
+                  //final userProfile = await fetchUserProfile();
+
+                  if (userId != null) {
+                    // Navigate to ProfilePage with userId
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(userId: userId),
+                      ),
+                    );
+                  }
                 },
               ),
               // Data Structures
@@ -64,7 +77,7 @@ class HomePage extends StatelessWidget
                 title: const Text('Data Structures'),
                 onExpansionChanged: (isExpanded) {
                   if (isExpanded) {
-                    HapticFeedback.mediumImpact(); // Haptikus visszajelzés nyitáskor
+                    HapticFeedback.mediumImpact();
                   }
                 },
                 children: [
@@ -381,12 +394,22 @@ class HomePage extends StatelessWidget
               ),
               // Logout
               ListTile(
-                leading: const Icon(Icons.logout), // Logout ikon hozzáadása
+                leading: const Icon(Icons.logout),
                 title: const Text('Logout'),
-                onTap: () {
+                onTap: () async {
                   HapticFeedback.mediumImpact();
-                  Navigator.pop(context);
-                  // Add navigation logic here (például kijelentkezés logika)
+
+                  // Sign out the user from Supabase
+                  await Supabase.instance.client.auth.signOut();
+
+                  // Navigate back to the LoginPage and clear the navigation stack
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LoginPage(toggleTheme: toggleTheme), // Ensure to pass toggleTheme if required
+                    ),
+                        (Route<dynamic> route) => false, // This clears all previous routes
+                  );
                 },
               ),
             ],
