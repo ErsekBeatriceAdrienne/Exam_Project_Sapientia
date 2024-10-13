@@ -124,8 +124,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  //flutter run -d chrome --web-port=3000
-
   @override
   Widget build(BuildContext context)
   {
