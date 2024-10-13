@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:learn_dsa/pages/theme_settings_page.dart';
 
 class HomePage extends StatelessWidget
 {
@@ -7,8 +9,8 @@ class HomePage extends StatelessWidget
   const HomePage({required this.toggleTheme, super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Determine if the current theme is dark mode
+  Widget build(BuildContext context)
+  {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -24,71 +26,376 @@ class HomePage extends StatelessWidget
             );
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              isDarkMode ? Icons.wb_sunny : Icons.nightlight_round,
-              color: isDarkMode ? Colors.yellow : Colors.blue,
-            ),
-            onPressed: () {
-              toggleTheme(); // Toggle the theme
-            },
-          ),
-        ],
       ),
       drawer: Container(
-        width: 200, 
+        width: 250,
         child: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
               const SizedBox(height: 50),
+
+              // Home
               ListTile(
-                title: const Text('Array'),
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
                 onTap: () {
-                  Navigator.pop(context); // Close the drawer
-                  // Add your navigation logic here
+                  HapticFeedback.mediumImpact();
+                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage(toggleTheme: toggleTheme)),
+                  );
                 },
               ),
-              const SizedBox(height: 0), // Minimal space between items
+              // Profile
               ListTile(
-                title: const Text('Stack'),
+                leading: const Icon(Icons.person),
+                title: const Text('Profile'),
                 onTap: () {
-                  Navigator.pop(context); // Close the drawer
-                  // Add your navigation logic here
+                  HapticFeedback.mediumImpact();
+                  Navigator.pop(context);
+                  // Add navigation logic here
                 },
               ),
-              const SizedBox(height: 0), // Minimal space between items
+              // Data Structures
+              ExpansionTile(
+                leading: const Icon(Icons.storage),
+                title: const Text('Data Structures'),
+                onExpansionChanged: (isExpanded) {
+                  if (isExpanded) {
+                    HapticFeedback.mediumImpact(); // Haptikus visszajelzés nyitáskor
+                  }
+                },
+                children: [
+
+                  ListTile(
+                    title: const Text('Array'),
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
+                      // Add navigation logic here
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Stack'),
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
+                      // Add navigation logic here
+                    },
+                  ),
+                  ExpansionTile(
+                    title: const Text('Queue'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact();
+                      }
+                    },
+                    children: [
+
+                      ListTile(
+                        title: const Text('Simple Queue'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Circular Queue'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Priority Queue'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: const Text('List'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact();
+                      }
+                    },
+                    children: [
+
+                      ListTile(
+                        title: const Text('Single Linked List'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Double Linked List'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Sorted List'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: const Text('Tree'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact(); // Haptikus visszajelzés nyitáskor
+                      }
+                    },
+                    children: [
+
+                      ListTile(
+                        title: const Text('Binary Search Tree'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Black and Red Tree'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                  ListTile(
+                    title: const Text('Hash Set'),
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
+                      // Add navigation logic here
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Hash Table'),
+                    onTap: () {
+                      HapticFeedback.lightImpact();
+                      Navigator.pop(context);
+                      // Add navigation logic here
+                    },
+                  ),
+                  ExpansionTile(
+                    title: const Text('Graphs'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact();
+                      }
+                    },
+                    children: [
+
+                      ListTile(
+                        title: const Text('Undirected Graph'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Directed Graph'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Even Graph'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                leading: const Icon(Icons.code),
+                title: const Text('Algorithms'),
+                onExpansionChanged: (isExpanded) {
+                  if (isExpanded) {
+                    HapticFeedback.mediumImpact();
+                  }
+                },
+                children: [
+                  ExpansionTile(
+                    title: const Text('Sort'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact();
+                      }
+                    },
+                    children: [
+
+                      ListTile(
+                        title: const Text('Quick Sort'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Bubble Sort'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Merge Sort'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Insertion Sort'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: const Text('Search'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact();
+                      }
+                    },
+                    children: [
+
+                      ListTile(
+                        title: const Text('Linear Search'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Binary Search'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Hash Table'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: const Text('Graph Algorithms'),
+                    onExpansionChanged: (isExpanded) {
+                      if (isExpanded) {
+                        HapticFeedback.mediumImpact();
+                      }
+                    },
+                    children: [
+                      ListTile(
+                        title: const Text('Breadth First Search'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Depth First Search'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Dijkstra'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                      ListTile(
+                        title: const Text('Kruskal'),
+                        onTap: () {
+                          HapticFeedback.lightImpact();
+                          Navigator.pop(context);
+                          // Add navigation logic here
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              // Theme
               ListTile(
-                title: const Text('Queue'),
+                leading: const Icon(Icons.color_lens),
+                title: const Text('Theme Settings'),
                 onTap: () {
-                  Navigator.pop(context); // Close the drawer
-                  // Add your navigation logic here
+                  HapticFeedback.mediumImpact();
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ThemeSettingsPage()),
+                  );
                 },
               ),
-              const SizedBox(height: 0), // Minimal space between items
+              // Logout
               ListTile(
-                title: const Text('List'),
+                leading: const Icon(Icons.logout), // Logout ikon hozzáadása
+                title: const Text('Logout'),
                 onTap: () {
-                  Navigator.pop(context); // Close the drawer
-                  // Add your navigation logic here
-                },
-              ),
-              const SizedBox(height: 0), // Minimal space between items
-              ListTile(
-                title: const Text('Binary Tree'),
-                onTap: () {
-                  Navigator.pop(context); // Close the drawer
-                  // Add your navigation logic here
+                  HapticFeedback.mediumImpact();
+                  Navigator.pop(context);
+                  // Add navigation logic here (például kijelentkezés logika)
                 },
               ),
             ],
           ),
         ),
       ),
-      body: const Center(
-
-      ),
+      body: const Center(),
     );
   }
 }
+
+
