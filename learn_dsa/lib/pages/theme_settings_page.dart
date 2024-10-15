@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ThemeSettingsPage extends StatefulWidget {
+class ThemeSettingsPage extends StatefulWidget
+{
   final bool isDarkMode;
-  final ValueChanged<bool> onThemeChanged;
-  final ValueChanged<Color> onHighlightColorChanged; // New callback for highlight color
+  final ValueChanged < bool > onThemeChanged;
+  final ValueChanged < Color > onHighlightColorChanged;
 
   const ThemeSettingsPage({
     Key? key,
     required this.isDarkMode,
     required this.onThemeChanged,
-    required this.onHighlightColorChanged, // Add the new parameter
+    required this.onHighlightColorChanged,
   }) : super(key: key);
 
   @override
@@ -18,7 +19,7 @@ class ThemeSettingsPage extends StatefulWidget {
 
 class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
   late bool _isDarkMode;
-  Color _highlightColor = Colors.blue; // Default highlight color
+  Color _highlightColor = Colors.blue;
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
     setState(() {
       _highlightColor = color;
     });
-    widget.onHighlightColorChanged(color); // Notify parent about the color change
+    widget.onHighlightColorChanged(color);
   }
 
   @override
@@ -77,8 +78,8 @@ class _ThemeSettingsPageState extends State<ThemeSettingsPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20), // Add some spacing
-            //const Text('Choose Highlight Color'),
+            const SizedBox(height: 20),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

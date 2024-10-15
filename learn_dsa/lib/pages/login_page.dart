@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'home_page.dart';
 
-import 'home_page.dart'; // Make sure this path is correct
-
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatefulWidget
+{
   final VoidCallback toggleTheme;
-
   const LoginPage({required this.toggleTheme, super.key});
-
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 }
@@ -18,15 +16,18 @@ class LoginPage extends StatefulWidget {
 // supabase
 final supabase = Supabase.instance.client;
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+{
   String? _userId;
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
 
     // Listen for authentication state changes
-    supabase.auth.onAuthStateChange.listen((onData) {
+    supabase.auth.onAuthStateChange.listen((onData)
+    {
       setState(() {
         _userId = onData.session?.user.id;
         if (_userId != null) {
@@ -44,7 +45,8 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Future<void> _nativeGoogleSignIn() async {
+  Future < void > _nativeGoogleSignIn() async
+  {
     const webClientId = '485441696681-7lt2qm26apvugkcqnos782uhkeihn46b.apps.googleusercontent.com';
     const iosClientId = '485441696681-4q2ph5npc6mn0e3h3ci57kare8soi7vu.apps.googleusercontent.com';
 
@@ -57,7 +59,8 @@ class _LoginPageState extends State<LoginPage> {
     final accessToken = googleAuth.accessToken;
     final idToken = googleAuth.idToken;
 
-    if (accessToken == null || idToken == null) {
+    if (accessToken == null || idToken == null)
+    {
       throw 'No Access Token or ID Token found.';
     }
 
@@ -69,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -78,11 +82,11 @@ class _LoginPageState extends State<LoginPage> {
           Center(
             child: FloatingActionButton.extended(
               onPressed: () async {
-                HapticFeedback.mediumImpact(); // Haptic feedback
+                HapticFeedback.mediumImpact();
                 await _nativeGoogleSignIn();
               },
               icon: Image.asset(
-                'assets/images/google_logo.png', // Load the Google logo
+                'assets/images/google_logo.png',
                 height: 32,
                 width: 32,
               ),
@@ -100,8 +104,8 @@ class _LoginPageState extends State<LoginPage> {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onPressed: () {
-                HapticFeedback.mediumImpact(); // Haptic feedback
-                widget.toggleTheme(); // Toggle theme
+                HapticFeedback.mediumImpact();
+                widget.toggleTheme();
               },
             ),
           ),

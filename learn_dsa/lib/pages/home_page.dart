@@ -15,8 +15,24 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+{
   bool isDarkMode = false; // This is the theme mode state
+  ThemeMode _themeMode = ThemeMode.light; // Initial theme mode
+  Color _highlightColor = Colors.blue; // Default highlight color
+
+  void _toggleTheme(bool isDark) {
+    setState(() {
+      _themeMode = isDark ? ThemeMode.dark : ThemeMode.light;
+    });
+    widget.toggleTheme(); // Call the external toggle
+  }
+
+  void _changeSeedColor(Color newColor) {
+    setState(() {
+      _highlightColor = newColor;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                   title: const Text('Tree'),
                   onExpansionChanged: (isExpanded) {
                     if (isExpanded) {
-                      HapticFeedback.mediumImpact(); // Haptikus visszajelzés nyitáskor
+                      HapticFeedback.mediumImpact();
                     }
                   },
                   children: [
@@ -384,16 +400,9 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ThemeSettingsPage(
-                    isDarkMode: isDarkMode,
-                    onThemeChanged: (isDark) {
-                      setState(() {
-                        isDarkMode = isDark;
-                        widget.toggleTheme(); // Apply the theme change
-                        });
-                      },
-                      onHighlightColorChanged: (color) {
-                        // Update your app's highlight color logic here
-                      },
+                      isDarkMode: _themeMode == ThemeMode.dark,
+                      onThemeChanged: _toggleTheme,
+                      onHighlightColorChanged: _changeSeedColor,
                     ),
                   ),
                 );
