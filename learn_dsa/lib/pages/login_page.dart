@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -49,9 +51,10 @@ class _LoginPageState extends State<LoginPage>
   {
     const webClientId = '485441696681-7lt2qm26apvugkcqnos782uhkeihn46b.apps.googleusercontent.com';
     const iosClientId = '485441696681-4q2ph5npc6mn0e3h3ci57kare8soi7vu.apps.googleusercontent.com';
+    const androidClientId = '485441696681-c11mgobo2u777so6sgknfuo2hhtuer67.apps.googleusercontent.com';
 
     final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId: iosClientId,
+      clientId: Platform.isAndroid ? androidClientId : iosClientId,
       serverClientId: webClientId,
     );
     final googleUser = await googleSignIn.signIn();
