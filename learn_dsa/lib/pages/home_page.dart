@@ -5,7 +5,8 @@ import 'package:learn_dsa/pages/theme_settings_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'login_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget
+{
   final VoidCallback toggleTheme;
   final String? userId;
 
