@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 
 import 'package:learn_dsa/pages/login_page.dart';
 
-void main() {
+void main()
+{
   runApp(const MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatefulWidget
+{
   const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp>
+{
   ThemeMode _themeMode = ThemeMode.light;
 
   void _toggleTheme() {
@@ -23,7 +26,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

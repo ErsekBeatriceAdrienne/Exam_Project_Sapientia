@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'home_page.dart';
+
 class LoginPage extends StatelessWidget
 {
   final VoidCallback toggleTheme;
@@ -19,7 +21,19 @@ class LoginPage extends StatelessWidget
           Center(
             child: FloatingActionButton.extended(
               onPressed: () {
+                // Trigger haptic feedback
                 HapticFeedback.lightImpact();
+
+                // Navigate to HomePage after pressing the button
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(
+                      toggleTheme: toggleTheme,
+                      userId: 'user_id', // You can pass the actual userId here
+                    ),
+                  ),
+                );
               },
               icon: Image.asset(
                 'assets/images/google_logo.png', // Load the Google logo
