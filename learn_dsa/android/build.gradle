@@ -1,36 +1,14 @@
-// Root-level build.gradle file
-
-buildscript {
-    ext.kotlin_version = '1.8.10' // Define the Kotlin version inside the buildscript block
-
-    repositories {
-        google() // Important: Make sure this is included
-        mavenCentral() // Important: Make sure this is included
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:8.0.2" // Adjust based on your version
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.gms:google-services:4.3.10" // Corrected notation for Google Services
-    }
-}
-
-plugins {
-    id "com.google.gms.google-services" version "4.4.2" apply false
-}
-
 allprojects {
     repositories {
-        google() // Important: Make sure this is included
-        mavenCentral() // Important: Make sure this is included
+        google()
+        mavenCentral()
     }
 }
 
 rootProject.buildDir = "../build"
-
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
-
 subprojects {
     project.evaluationDependsOn(":app")
 }
