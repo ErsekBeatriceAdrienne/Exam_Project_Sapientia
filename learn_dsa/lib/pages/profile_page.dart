@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 
+import 'custom_scaffold.dart';
+
 class ProfilePage extends StatelessWidget
 {
+  final VoidCallback toggleTheme;
   final String? userId;
 
-  const ProfilePage({Key? key, required this.userId}) : super(key: key);
+  const ProfilePage({Key? key, required this.userId, required this.toggleTheme}) : super(key: key);
 
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold(
+    return CustomScaffold(
+      toggleTheme: toggleTheme,
+      userId: userId,
       appBar: AppBar(
         title: const Text('Profile'),
       ),
       body: Center(
-        child: Text('Email: $userId'),
+
       ),
     );
   }
