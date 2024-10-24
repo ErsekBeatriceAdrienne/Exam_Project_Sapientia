@@ -26,6 +26,9 @@ class CustomScaffold extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+    bool isDarkTheme = false; // Replace with your actual theme state
+    String currentLanguage = 'en';
+
     return Scaffold(
       appBar: appBar ?? AppBar(),
       drawer: Container(
@@ -386,14 +389,25 @@ class CustomScaffold extends StatelessWidget
               ),
               // Theme
               ListTile(
-                leading: const Icon(Icons.color_lens),
-                title: const Text('Theme Settings'),
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
                 onTap: () {
                   HapticFeedback.mediumImpact();
                   Navigator.pop(context);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ThemeSettingsPage()),
+                    MaterialPageRoute(
+                      builder: (context) => ThemeSettingsPage(
+                        isDarkTheme: isDarkTheme,
+                        onThemeChanged: (newValue) {
+                          // Handle theme change
+                        },
+                        currentLanguage: currentLanguage,
+                        onLanguageChanged: (newLang) {
+                          // Handle language change
+                        },
+                      ),
+                    ),
                   );
                 },
               ),
