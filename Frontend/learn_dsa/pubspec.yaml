@@ -28,9 +28,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/google_logo.png
-    - assets/images/array.png
+    - assets/images/array_photos/array.png
     - assets/images/app_icon.png
-    - assets/images/object_array.png
-    - assets/images/shelf_array.png
-    - assets/images/shelf_array_or.png
-    - assets/images/shelf_array1.png
+    - assets/images/array_photos/connector_array.png

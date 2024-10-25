@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../styles/app_colors.dart';
 import '../custom_scaffold.dart';
 
 class ArrayPage extends StatelessWidget
@@ -19,7 +20,7 @@ class ArrayPage extends StatelessWidget
       userId: userId,
       appBar: AppBar(
         title: const Text(
-          'Array',
+          '',
           style: TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: 23,
@@ -31,19 +32,41 @@ class ArrayPage extends StatelessWidget
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-            const SizedBox(height: 10),
+            Text(
+              'Array',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.normal,
+                color: isDarkTheme ? AppColors.textDark : AppColors.textLight,
+              ),
+            ),
+
+            const SizedBox(height: 20),
 
             Container(
-              alignment: Alignment.centerLeft, // Align text to the left
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundLight,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 8.0,
+                    spreadRadius: 2.0,
+                    offset: const Offset(2, 2),
+                  ),
+                ],
+              ),
+
               child: Text(
-                ' - Before we start',
+                'What is an array ?!',
                 style: TextStyle(
-                  color: isDarkTheme ? Colors.white : Colors.black,
+                  color: isDarkTheme ? AppColors.textDark : AppColors.textLight,
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.normal,
                 ),
               ),
             ),
@@ -53,44 +76,32 @@ class ArrayPage extends StatelessWidget
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Color.alphaBlend(
-                  Colors.black.withOpacity(isDarkTheme ? 0.5 : 0.05),
-                  Theme.of(context).colorScheme.background,
-                ),
+                color: isDarkTheme ? AppColors.primaryColorLight : AppColors.primaryColorDark,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: isDarkTheme ? Colors.black54 : Colors.grey.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.4),
                     blurRadius: 8.0,
                     spreadRadius: 2.0,
                     offset: const Offset(2, 2),
                   ),
                 ],
               ),
-              alignment: Alignment.center,
-              child: // Text outside the rectangular container
-              Text(
-                'Imagine you want to put 4 things on a shelf. Where do you start?',
+              child: const Text(
+                'An array is a collection of a datatype where the elements are stored along each-other so we can access every item quickly.',
                 style: TextStyle(
-                  color: isDarkTheme ? Colors.white : Colors.black,
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.normal,
+                  color: Colors.black,
                 ),
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
-            Container(
-              alignment: Alignment.centerLeft, // Align text to the left
-              child: Text(
-                ' - Here is our shelf',
-                style: TextStyle(
-                  color: isDarkTheme ? Colors.white : Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+            Image.asset(
+              'assets/images/array_photos/array.png',
+              fit: BoxFit.cover,
             ),
 
             const SizedBox(height: 10),
@@ -98,132 +109,96 @@ class ArrayPage extends StatelessWidget
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Color.alphaBlend(
-                  Colors.black.withOpacity(isDarkTheme ? 0.5 : 0.05),
-                  Theme.of(context).colorScheme.background,
-                ),
+                color: isDarkTheme ? AppColors.primaryColorLight : AppColors.primaryColorDark,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: isDarkTheme ? Colors.black54 : Colors.grey.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.4),
                     blurRadius: 8.0,
                     spreadRadius: 2.0,
                     offset: const Offset(2, 2),
                   ),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/images/shelf_array_or.png',
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Let\'s say we put some objects. We can count them to see how many are there.',
-                    style: TextStyle(
-                      color: isDarkTheme ? Colors.white : Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            Container(
-              alignment: Alignment.centerLeft, // Align text to the left
-              child: Text(
-                ' - I know, I know we said 4 items. But here is the next part.',
+              child: const Text(
+                'This is an int type array, where the elements are integer numbers. We count the amount of items from 0, not 1, because the computer memory can’t. There is a solution to this, but first let’s understand the basics.',
                 style: TextStyle(
-                  color: isDarkTheme ? Colors.white : Colors.black,
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.normal,
+                  color: Colors.black,
                 ),
               ),
             ),
 
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Color.alphaBlend(
-                  Colors.black.withOpacity(isDarkTheme ? 0.5 : 0.05),
-                  Theme.of(context).colorScheme.background,
-                ),
+                color: isDarkTheme ? AppColors.backgroundDark : AppColors.backgroundLight,
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: isDarkTheme ? Colors.black54 : Colors.grey.withOpacity(0.5),
+                    color: Colors.black.withOpacity(0.4),
                     blurRadius: 8.0,
                     spreadRadius: 2.0,
                     offset: const Offset(2, 2),
                   ),
                 ],
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/images/shelf_array1.png',
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    'Let\'s say we put some objects. We can count them to see how many are there.',
-                    style: TextStyle(
-                      color: isDarkTheme ? Colors.white : Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            /*// Text outside the rectangular container
-            Text(
-              'This is an array of integer numbers',
-              style: TextStyle(
-                color: isDarkTheme ? Colors.white : Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Image inside a rectangular container
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Color.alphaBlend(
-                  Colors.black.withOpacity(isDarkTheme ? 0.5 : 0.05),
-                  Theme.of(context).colorScheme.background,
+              child: const Text(
+                'int array[ ] = { 3, 12, 4, 8, 20, 6 };',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.black,
                 ),
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: isDarkTheme ? Colors.black54 : Colors.grey.withOpacity(0.5),
-                    blurRadius: 8.0,
-                    spreadRadius: 2.0,
-                    offset: const Offset(2, 2),
-                  ),
-                ],
-              ),
-              child: Image.asset(
-                'assets/images/array.png',
-                fit: BoxFit.cover, // Ensures the image fills the container nicely
               ),
             ),
-
-            const SizedBox(height: 20),*/
           ],
         ),
       ),
     );
   }
 }
+
+/*
+Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Color.alphaBlend(
+                  Colors.black.withOpacity(isDarkTheme ? 0.5 : 0.05),
+                  Theme.of(context).colorScheme.background,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: isDarkTheme ? Colors.black54 : Colors.grey.withOpacity(0.4),
+                    blurRadius: 8.0,
+                    spreadRadius: 2.0,
+                    offset: const Offset(2, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'assets/images/array_photos/array.png',
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Text(
+                      'int array[5];',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+*/
