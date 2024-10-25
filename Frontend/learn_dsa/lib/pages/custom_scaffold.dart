@@ -26,7 +26,7 @@ class CustomScaffold extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    bool isDarkTheme = false; // Replace with your actual theme state
+    bool isDarkTheme = false;
     String currentLanguage = 'en';
 
     return Scaffold(
