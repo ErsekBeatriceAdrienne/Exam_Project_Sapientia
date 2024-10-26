@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:learn_dsa/images/array_images.dart';
 import '../../styles/app_colors.dart';
 import '../custom_scaffold.dart';
+import '../../strings/array_strings.dart';
 
 class ArrayPage extends StatelessWidget
 {
@@ -36,7 +38,7 @@ class ArrayPage extends StatelessWidget
           children: [
 
             Text(
-              'Array',
+              ArrayStrings.title,
               style: TextStyle(
                 fontSize: 40,
                 fontWeight: FontWeight.normal,
@@ -62,7 +64,7 @@ class ArrayPage extends StatelessWidget
               ),
 
               child: Text(
-                'What is an array ?!',
+                ArrayStrings.question,
                 style: TextStyle(
                   color: isDarkTheme ? AppColors.textDark : AppColors.textLight,
                   fontSize: 18,
@@ -88,7 +90,7 @@ class ArrayPage extends StatelessWidget
                 ],
               ),
               child: const Text(
-                'An array is a collection of a datatype where the elements are stored along each-other so we can access every item quickly.',
+                ArrayStrings.definition,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
@@ -100,7 +102,7 @@ class ArrayPage extends StatelessWidget
             const SizedBox(height: 20),
 
             Image.asset(
-              'assets/images/array_photos/array.png',
+              ArrayImage.array_example,
               fit: BoxFit.cover,
             ),
 
@@ -121,7 +123,7 @@ class ArrayPage extends StatelessWidget
                 ],
               ),
               child: const Text(
-                'This is an int type array, where the elements are integer numbers. We count the amount of items from 0, not 1, because the computer memory can’t. There is a solution to this, but first let’s understand the basics.',
+               ArrayStrings.example_image_explanation,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
@@ -147,7 +149,7 @@ class ArrayPage extends StatelessWidget
                 ],
               ),
               child: const Text(
-                'int array[ ] = { 3, 12, 4, 8, 20, 6 };',
+                ArrayStrings.regular_array_initialization,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
