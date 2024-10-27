@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/pages/profile_page.dart';
 import 'package:learn_dsa/pages/theme_settings_page.dart';
-import 'datastructures/array_page.dart';
+import 'datastructures/array/array_page.dart';
 import 'home_page.dart';
 import 'login_page.dart';
 
@@ -20,7 +20,7 @@ class CustomScaffold extends StatelessWidget
     required this.body,
     required this.toggleTheme,
     required this.userId,
-    this.appBar,
+    this.appBar
   }) : super(key: key);
 
   @override
