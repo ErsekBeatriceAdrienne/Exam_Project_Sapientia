@@ -2,41 +2,46 @@ import 'package:flutter/material.dart';
 
 class AppColors
 {
-  /*--------------------------------------------- B&W THEME -------------------------------------------------------- */
+  /*--------------------------------------------- CyberPunk THEME -------------------------------------------------------- */
   // Questions background
-  static const Color questionColorLightBAW = Color(0xFF282828);
-  static const Color questionColorDarkBAW = Color(0xFFdabcff);
+  static const Color questionColorLightCP = Color(0xFFff8aff);
+  static const Color questionColorDarkCP = Color(0xFFdabcff);
   // Question text color
-  static const Color textQuestionLightBAW = Colors.white;
-  static const Color textQuestionDarkBAW = Colors.white;
+  static const Color textQuestionLightCP = Color(0xFF14ffe0);
+  static const Color textQuestionDarkCP = Colors.white;
 
   // Answer background
-  static const Color answerColorLightBAW = Color(0xFFe0e0e0);
-  static const Color answerColorDarkBAW = Color(0xFFE5D0FF);
+  static const Color answerColorLightCP = Color(0xFfd89eff);
+  static const Color answerColorDarkCP = Color(0xFFE5D0FF);
   // Answer
-  static const Color textAnswerLightBAW = Colors.black;
-  static const Color textAnswerDarkBAW = Colors.white;
+  static const Color textAnswerLightCP = Color(0xFF5c0051);
+  static const Color textAnswerDarkCP = Colors.white;
+
+  // App Bar text
+  static const Color appBarTextLightCP = Color(0xFF14ffe0);
+  static const Color appBarTextDarkCP = Color(0xFFFF74B1);
 
   // App Bar background color
-  static const Color backgroundAppBarLightBAW = Colors.white;
-  static const Color backgroundAppBarDarkBAW = Colors.black;
-  // App Bar text
-  static const Color appBarTextLightBAW = Color(0xFF737373);
-  static const Color appBarTextDarkBAW = Color(0xFFFF74B1);
-
+  static const Color backgroundAppBarLightCP = Color(0xFF461a65);
+  static const Color backgroundAppBarDarkCP = Colors.black;
   // Background of page
-  static const Color backgroundLightBAW = Colors.white;
-  static const Color backgroundDarkBAW = Colors.black;
+  static const Color backgroundLightCP = Color(0xFF461a65);
+  static const Color backgroundDarkCP = Colors.black;
+
   // DropDown background color
-  static const Color menuBackgroundLightBAW = Color(0xFFD0D0D0);
-  static const Color menuBackgroundDarkBAW = Color(0xFFFFC6C6);
+  static const Color menuBackgroundLightCP = Color(0xFfd89eff);
+  static const Color menuBackgroundDarkCP = Color(0xFFFFC6C6);
   // Dropdown menu answer background color
-  static const Color menuAnswerBackgroundLightBAW = Color(0xFFF0F0F0);
+  static const Color menuAnswerBackgroundLightBAW = Color(0xFFd074ec);
   static const Color menuAnswerBackgroundDarkBAW = Color(0xFFFFC6C6);
 
   // Code box background
-  static const Color backgroundLightCodeBoxBAW = Colors.white;
-  static const Color backgroundDarkCodeBoxBAW = Colors.black;
+  static const Color backgroundLightCodeBoxCP = Color(0xFfd074ec);
+  static const Color backgroundDarkCodeBoxCP = Colors.black;
+
+  // Code text
+  static const Color textCodeLightCP = Color(0xFF14ffe0);
+  static const Color textCodeDarkCP = Color(0xFFFFC6C6);
 
   /*--------------------------------------------- PINK THEME -------------------------------------------------------- */
   // Questions background

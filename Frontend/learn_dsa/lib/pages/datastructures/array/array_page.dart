@@ -22,13 +22,13 @@ class ArrayPage extends StatelessWidget
       userId: userId,
       appBar: AppBar(
 
-        backgroundColor: isDarkTheme ? AppColors.backgroundAppBarDarkBAW : AppColors.backgroundAppBarLightBAW,
+        backgroundColor: isDarkTheme ? AppColors.backgroundAppBarDarkCP : AppColors.backgroundAppBarLightCP,
         title: Text(
           ArrayStrings.title,
           style: TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: 23,
-            color: isDarkTheme ? AppColors.appBarTextDarkBAW : AppColors.appBarTextLightBAW,
+            color: isDarkTheme ? AppColors.appBarTextDarkCP : AppColors.appBarTextLightCP,
           ),
         ),
         centerTitle: false,
@@ -36,7 +36,7 @@ class ArrayPage extends StatelessWidget
       ),
 
       body: Container(
-        color: isDarkTheme ? AppColors.backgroundDarkBAW : AppColors.backgroundLightBAW,
+        color: isDarkTheme ? AppColors.backgroundDarkCP : AppColors.backgroundLightCP,
 
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -53,7 +53,7 @@ class ArrayPage extends StatelessWidget
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                      color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -66,7 +66,7 @@ class ArrayPage extends StatelessWidget
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
-                            color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                            color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                           ),
                         ),
 
@@ -82,7 +82,7 @@ class ArrayPage extends StatelessWidget
                                 padding: const EdgeInsets.all(8),
                                 margin: const EdgeInsets.only(bottom: 10),
                                 decoration: BoxDecoration(
-                                  color: isDarkTheme ? AppColors.backgroundDarkCodeBoxBAW : AppColors.backgroundLightCodeBoxBAW,
+                                  color: isDarkTheme ? AppColors.backgroundDarkCodeBoxCP : AppColors.backgroundLightCodeBoxCP,
                                   borderRadius: BorderRadius.circular(8),
                                   boxShadow: [
                                     BoxShadow(
@@ -99,7 +99,7 @@ class ArrayPage extends StatelessWidget
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontFamily: 'monospace',
-                                    color: isDarkTheme ? Colors.white : Colors.black87,
+                                    color: isDarkTheme ? AppColors.textCodeDarkCP : AppColors.textCodeLightCP,
                                   ),
                                 ),
                               ),
@@ -135,7 +135,7 @@ class ArrayPage extends StatelessWidget
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
-                            color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                            color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                           ),
                         ),
 
@@ -155,14 +155,14 @@ class ArrayPage extends StatelessWidget
                     left: 16,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                        color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                       child: Text(
                         ArrayStrings.question,
                         style: TextStyle(
-                          color: isDarkTheme ? AppColors.textQuestionDarkBAW : AppColors.textQuestionLightBAW,
+                          color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -176,7 +176,7 @@ class ArrayPage extends StatelessWidget
             // In real life example drop down
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -189,9 +189,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme
-                          ? AppColors.textQuestionDarkPink
-                          : AppColors.textQuestionLightPink,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -200,7 +198,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: SingleChildScrollView(
@@ -213,7 +211,7 @@ class ArrayPage extends StatelessWidget
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -232,7 +230,7 @@ class ArrayPage extends StatelessWidget
             // Introduction drop down
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -246,7 +244,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkBAW : AppColors.textQuestionLightBAW,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -255,7 +253,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.menuBackgroundDarkBAW : AppColors.menuBackgroundLightBAW,
+                        color: isDarkTheme ? AppColors.menuBackgroundDarkCP : AppColors.menuBackgroundLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
 
@@ -274,7 +272,7 @@ class ArrayPage extends StatelessWidget
                               child: Text(
                                 ArrayStrings.example_image_explanation,
                                 style: TextStyle(
-                                  color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                  color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -312,7 +310,7 @@ class ArrayPage extends StatelessWidget
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
-                                      color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                      color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                                     ),
                                   ),
                                 ),
@@ -323,14 +321,14 @@ class ArrayPage extends StatelessWidget
                                   left: 16,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                                      color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                                     child: Text(
                                       ArrayStrings.regular_array_initialization_question,
                                       style: TextStyle(
-                                        color: isDarkTheme ? AppColors.textQuestionDarkBAW : AppColors.textQuestionLightBAW,
+                                        color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                                         fontSize: 16,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -357,7 +355,7 @@ class ArrayPage extends StatelessWidget
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
-                                      color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                      color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                                     ),
                                   ),
                                 ),
@@ -368,7 +366,7 @@ class ArrayPage extends StatelessWidget
                                   left: 16,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                                      color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -377,7 +375,7 @@ class ArrayPage extends StatelessWidget
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.normal,
-                                        color: isDarkTheme ? AppColors.textQuestionDarkBAW : AppColors.textQuestionLightBAW,
+                                        color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                                       ),
                                     ),
                                   ),
@@ -399,7 +397,7 @@ class ArrayPage extends StatelessWidget
             // Regular Array
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -412,7 +410,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkPink : AppColors.textQuestionLightPink,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -421,7 +419,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: SingleChildScrollView(
@@ -434,7 +432,7 @@ class ArrayPage extends StatelessWidget
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -453,7 +451,7 @@ class ArrayPage extends StatelessWidget
             // Dynamic Array
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -466,7 +464,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkPink : AppColors.textQuestionLightPink,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -475,7 +473,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: SingleChildScrollView(
@@ -488,7 +486,7 @@ class ArrayPage extends StatelessWidget
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -507,7 +505,7 @@ class ArrayPage extends StatelessWidget
             // Struct Array
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -520,7 +518,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkPink : AppColors.textQuestionLightPink,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -529,7 +527,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: SingleChildScrollView(
@@ -542,7 +540,7 @@ class ArrayPage extends StatelessWidget
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -561,7 +559,7 @@ class ArrayPage extends StatelessWidget
             // Functions
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -574,7 +572,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkPink : AppColors.textQuestionLightPink,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -583,7 +581,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: SingleChildScrollView(
@@ -596,7 +594,7 @@ class ArrayPage extends StatelessWidget
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                               ),
                             ),
                             const SizedBox(height: 20),
@@ -615,7 +613,7 @@ class ArrayPage extends StatelessWidget
             // Strict Rules
             Container(
               decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkBAW : AppColors.questionColorLightBAW,
+                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Theme(
@@ -628,7 +626,7 @@ class ArrayPage extends StatelessWidget
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkPink : AppColors.textQuestionLightPink,
+                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
                     ),
                   ),
                   initiallyExpanded: false,
@@ -637,7 +635,7 @@ class ArrayPage extends StatelessWidget
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkBAW : AppColors.answerColorLightBAW,
+                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: SingleChildScrollView(
@@ -650,7 +648,7 @@ class ArrayPage extends StatelessWidget
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkBAW : AppColors.textAnswerLightBAW,
+                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
                               ),
                             ),
                             const SizedBox(height: 20),
