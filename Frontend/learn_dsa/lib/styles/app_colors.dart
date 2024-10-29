@@ -11,21 +11,21 @@ class AppColors
   static const Color textQuestionDarkBAW = Colors.white;
 
   // Answer background
-  static const Color answerColorLightBAW = Color(0xFFD0D0D0);
+  static const Color answerColorLightBAW = Color(0xFFe0e0e0);
   static const Color answerColorDarkBAW = Color(0xFFE5D0FF);
   // Answer
   static const Color textAnswerLightBAW = Colors.black;
   static const Color textAnswerDarkBAW = Colors.white;
 
   // App Bar background color
-  static const Color backgroundAppBarLightBAW = Color(0xFFEAEAEA);
+  static const Color backgroundAppBarLightBAW = Colors.white;
   static const Color backgroundAppBarDarkBAW = Colors.black;
   // App Bar text
   static const Color appBarTextLightBAW = Color(0xFF737373);
   static const Color appBarTextDarkBAW = Color(0xFFFF74B1);
 
   // Background of page
-  static const Color backgroundLightBAW = Color(0xFFEAEAEA);
+  static const Color backgroundLightBAW = Colors.white;
   static const Color backgroundDarkBAW = Colors.black;
   // DropDown background color
   static const Color menuBackgroundLightBAW = Color(0xFFD0D0D0);
@@ -34,6 +34,9 @@ class AppColors
   static const Color menuAnswerBackgroundLightBAW = Color(0xFFF0F0F0);
   static const Color menuAnswerBackgroundDarkBAW = Color(0xFFFFC6C6);
 
+  // Code box background
+  static const Color backgroundLightCodeBoxBAW = Colors.white;
+  static const Color backgroundDarkCodeBoxBAW = Colors.black;
 
   /*--------------------------------------------- PINK THEME -------------------------------------------------------- */
   // Questions background
