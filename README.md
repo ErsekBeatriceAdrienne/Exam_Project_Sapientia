@@ -3,6 +3,8 @@
 
 - Figma plan:
   https://www.figma.com/design/QYd8tHchh6gSXMDwPAP0e3/Learn_DSA?node-id=0-1&t=k4HBwP3qJbyXYrzo-1
+- Database plan:
+  https://drawsql.app/teams/bea-2/diagrams/learndsa
 
 # For development:
   https://docs.flutter.dev/get-started/install
