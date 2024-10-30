@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/images/array_images.dart';
-import '../../../styles/app_colors.dart';
+import '../../../themes/app_colors.dart';
 import '../../custom_scaffold.dart';
 import '../../../strings/array_strings.dart';
 
