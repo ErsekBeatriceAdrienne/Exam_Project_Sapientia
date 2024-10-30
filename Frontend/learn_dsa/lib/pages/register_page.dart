@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class RegisterPage extends StatefulWidget
 {
@@ -18,6 +20,16 @@ class _RegisterPageState extends State<RegisterPage>
   final TextEditingController confirmPasswordController = TextEditingController();
   bool _obscurePassword = true;
   File? _profileImage;
+
+  Future<void> _pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _profileImage = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context)
@@ -42,6 +54,19 @@ class _RegisterPageState extends State<RegisterPage>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              // Profile Image Section
+              GestureDetector(
+                onTap: _pickImage,
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundColor: Colors.grey[200],
+                  backgroundImage: _profileImage != null ? FileImage(_profileImage!) : null,
+                  child: _profileImage == null ? const Icon(Icons.add_a_photo, size: 70) : null,
+                ),
+              ),
+
+              const SizedBox(height: 16),
 
               // First Name and Last Name fields side by side
               SizedBox(
@@ -95,6 +120,7 @@ class _RegisterPageState extends State<RegisterPage>
                   ],
                 ),
               ),
+
               const SizedBox(height: 16),
 
               // Username TextField
@@ -349,6 +375,7 @@ class _RegisterPageState extends State<RegisterPage>
               const SizedBox(height: 20),
 
               // Register Button with fixed width
+              // Register Button with fixed width
               ElevatedButton(
                 onPressed: ()
                 {
@@ -356,21 +383,51 @@ class _RegisterPageState extends State<RegisterPage>
 
                   final firstName = firstNameController.text;
                   final lastName = lastNameController.text;
+                  final username = usernameController.text;
                   final email = emailController.text;
                   final password = passwordController.text;
+                  final confirmPassword = confirmPasswordController.text;
 
+                  // Basic validation
+                  if (firstName.isEmpty ||
+                      lastName.isEmpty ||
+                      username.isEmpty ||
+                      email.isEmpty ||
+                      password.isEmpty ||
+                      confirmPassword.isEmpty)
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Please fill all fields.')),
+                    );
+                    return;
+                  }
+
+                  if (password != confirmPassword)
+                  {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Passwords do not match.')),
+                    );
+                    return;
+                  }
+
+                  // Handle registration logic here
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Registration successful!')),
+                  );
+
+                  // Clear the fields after registration
+                  firstNameController.clear();
+                  lastNameController.clear();
+                  usernameController.clear();
+                  emailController.clear();
+                  passwordController.clear();
+                  confirmPasswordController.clear();
+                  setState(() {
+                    _profileImage = null; // Reset profile image if needed
+                  });
                 },
                 child: const Text('Register'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: isDarkMode ? Colors.grey[850] : Colors.blue,
-                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
               ),
-
             ],
           ),
         ),
