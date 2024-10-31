@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1019588583817",
-    "project_id": "learndsa-64a20",
-    "storage_bucket": "learndsa-64a20.appspot.com"
+    "project_number": "1016682253001",
+    "project_id": "learningdsa-6248c",
+    "storage_bucket": "learningdsa-6248c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1019588583817:android:425691fdafb2d7fc904158",
+        "mobilesdk_app_id": "1:1016682253001:android:a59a70667238191afd9b18",
         "android_client_info": {
           "package_name": "com.learning.learn_dsa"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDX8CoPnXQSt9gHv-pKANE0-7Br0Ym4bWA"
+          "current_key": "AIzaSyAKtzxxLYGOo5NLJaXOkkMbluMNRAZvgHY"
         }
       ],
       "services": {
