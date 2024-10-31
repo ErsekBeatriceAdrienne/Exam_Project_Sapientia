@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -22,10 +21,16 @@ class _RegisterPageState extends State<RegisterPage> {
   File? _profileImage;
   Map<String, String> _errors = {};
 
+  int? selectedYear;
+  int? selectedMonth;
+  int? selectedDay;
+  final List<int> years = List.generate(100, (index) => DateTime.now().year - index);
+  final List<int> months = List.generate(12, (index) => index + 1);
+  final List<int> days = List.generate(31, (index) => index + 1);
+
   @override
   void initState() {
     super.initState();
-    // Add listeners to clear errors when fields are not empty
     _addListeners();
   }
 
@@ -75,26 +80,21 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _pickImage() async {
-    // Check for permissions
     final status = await Permission.photos.request();
 
     if (status.isGranted) {
       try {
-        final pickedFile = await ImagePicker().pickImage(
-            source: ImageSource.gallery);
+        final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
         if (pickedFile != null) {
           setState(() {
-            _profileImage = File(pickedFile
-                .path); // Directly set the profile image without cropping
+            _profileImage = File(pickedFile.path);
           });
         } else {
-          // Handle case where no image was selected
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('No image selected')),
           );
         }
       } catch (e) {
-        // Catch any error that occurs during image picking
         print('Error picking image: $e');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to pick image: $e')),
@@ -112,24 +112,22 @@ class _RegisterPageState extends State<RegisterPage> {
       context: context,
       builder: (context) =>
           AlertDialog(
-            title: const Text("Engedély szükséges"),
+            title: const Text("Permission Required"),
             content: const Text(
-                "Az alkalmazásnak engedélyre van szüksége a galéria eléréséhez. Kérjük, engedélyezd a hozzáférést a kép kiválasztásához."),
+                "The app needs permission to access the gallery. Please allow access to select an image."),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text("Mégse"),
+                child: const Text("Cancel"),
               ),
               TextButton(
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  if (await Permission.storage
-                      .request()
-                      .isGranted) {
-                    _pickImage(); // Folytatja a képkiválasztást az engedélyezés után
+                  if (await Permission.storage.request().isGranted) {
+                    _pickImage();
                   }
                 },
-                child: const Text("Engedélyezés"),
+                child: const Text("Allow"),
               ),
             ],
           ),
@@ -140,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
     HapticFeedback.lightImpact();
 
     setState(() {
-      _errors.clear(); // Clear previous errors
+      _errors.clear();
     });
 
     final firstName = firstNameController.text;
@@ -152,7 +150,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
     bool hasError = false;
 
-    // Validate fields and add errors to the map
     if (firstName.isEmpty) {
       _errors['firstName'] = '*required';
       hasError = true;
@@ -181,6 +178,12 @@ class _RegisterPageState extends State<RegisterPage> {
       hasError = true;
     }
 
+    if (password.length < 8) {
+      _errors['password'] = 'Password must be at least 8 characters long.';
+    } else if (!RegExp(r'^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$').hasMatch(password)) {
+      _errors['password'] = 'Password must contain at least one uppercase letter and one number, and cannot contain special characters.';
+    }
+
     if (!hasError) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Registration successful!')),
@@ -197,25 +200,18 @@ class _RegisterPageState extends State<RegisterPage> {
         _profileImage = null; // Reset profile image if needed
       });
     }
+
+    if (_errors.isEmpty) {
+      // Regisztrációs logika itt
+    } else {
+      // Hibaüzenet megjelenítése
+      setState(() {});
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    final isDarkMode = Theme
-        .of(context)
-        .brightness == Brightness.dark;
-
-    // Birth Date
-    int? selectedYear;
-    int? selectedMonth;
-    int? selectedDay;
-    final List<int> years = List.generate(100, (index) =>
-    DateTime
-        .now()
-        .year - index);
-    final List<int> months = List.generate(12, (index) => index + 1);
-    final List<int> days = List.generate(31, (index) => index + 1);
-
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create Account'),
@@ -228,10 +224,11 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
+                // Profile image
                 GestureDetector(
                   onTap: _pickImage,
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.8, // Set the width to 80% of the screen
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: CircleAvatar(
                       radius: 70,
                       backgroundColor: Colors.grey[200],
@@ -268,10 +265,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(color: Colors.blue),
                             ),
+                            errorText: _errors['firstName'],
                           ),
                         ),
                       ),
-                      const SizedBox(width: 16), // Space between fields
+
+                      const SizedBox(width: 16),
 
                       // Last Name TextField
                       Expanded(
@@ -292,12 +291,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(color: Colors.blue),
                             ),
+                            errorText: _errors['lastName'],
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
+
                 const SizedBox(height: 16),
 
                 // Username TextField
@@ -320,8 +321,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.blue),
                       ),
+                      errorText: _errors['username'],
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.text,
                   ),
                 ),
 
@@ -342,7 +344,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
 
                 // Birth Date Picker with separate year, month, and day dropdowns
                 SizedBox(
@@ -455,11 +457,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 const SizedBox(height: 16),
 
-                // Email TextField with rounded corners and fixed width
+                // Email TextField
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: TextField(
-                    key: const Key('emailField'),
+                    key: Key('emailField'),
                     controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
@@ -475,19 +477,20 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.blue),
                       ),
+                      errorText: _errors['email'],
                     ),
                     keyboardType: TextInputType.emailAddress,
                   ),
                 ),
+
                 const SizedBox(height: 16),
 
-                // Password TextField with rounded corners and fixed width
+                // Password TextField
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: TextField(
-                    key: const Key('passwordField'),
+                    key: Key('passwordField'),
                     controller: passwordController,
-                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(
@@ -502,10 +505,10 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.blue),
                       ),
+                      errorText: _errors['password'],
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons
-                              .visibility,
+                          _obscurePassword ? Icons.visibility_off : Icons.visibility, // Megfordított ikonok
                         ),
                         onPressed: () {
                           setState(() {
@@ -514,6 +517,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         },
                       ),
                     ),
+                    obscureText: _obscurePassword,
                   ),
                 ),
 
@@ -525,7 +529,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextField(
                     key: Key('confirmPasswordField'),
                     controller: confirmPasswordController,
-                    obscureText: _obscurePassword,
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
                       border: OutlineInputBorder(
@@ -540,51 +543,48 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.blue),
                       ),
+                      errorText: _errors['confirmPassword'],
                       suffixIcon: IconButton(
                         icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons
-                              .visibility,
+                          _obscurePassword ? Icons.visibility_off : Icons.visibility, // Megfordított ikonok
                         ),
                         onPressed: () {
                           setState(() {
-                            _obscurePassword = !_obscurePassword;
+                            _obscurePassword = !_obscurePassword; // Esetleg, külön változó is lehet
                           });
                         },
                       ),
                     ),
+                    obscureText: _obscurePassword,
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 16),
 
-                // Register Button with fixed width
-                ElevatedButton(
-                  onPressed: () {
-                    HapticFeedback.lightImpact();
-
-                    final firstName = firstNameController.text;
-                    final lastName = lastNameController.text;
-                    final email = emailController.text;
-                    final password = passwordController.text;
-                  },
-                  child: const Text('Register'),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: isDarkMode ? Colors.grey[850] : Colors
-                        .blue,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 32, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                // Register Button
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: ElevatedButton(
+                    onPressed: _register,
+                    child: const Text('Register'),
                   ),
                 ),
-
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
   }
 }

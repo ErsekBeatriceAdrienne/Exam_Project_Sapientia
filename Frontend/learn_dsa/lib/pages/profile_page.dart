@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_scaffold.dart';
+import 'customClasses/custom_scaffold.dart';
 
 class ProfilePage extends StatelessWidget
 {

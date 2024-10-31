@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/pages/profile_page.dart';
 import 'package:learn_dsa/pages/theme_settings_page.dart';
-import 'datastructures/array/array_page.dart';
-import 'home_page.dart';
-import 'login_page.dart';
+import '../datastructures/array/array_page.dart';
+import '../home_page.dart';
+import '../login_page.dart';
 
 // A.K.A. MENU BAR
 

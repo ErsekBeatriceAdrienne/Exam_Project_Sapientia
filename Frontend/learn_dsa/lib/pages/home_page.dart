@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'custom_scaffold.dart';
+import 'customClasses/custom_scaffold.dart';
 
 class HomePage extends StatelessWidget
 {
