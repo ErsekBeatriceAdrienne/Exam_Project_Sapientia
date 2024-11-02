@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:regexed_validator/regexed_validator.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 
@@ -22,6 +23,56 @@ class _LoginPageState extends State<LoginPage>
 
   // State variable for password visibility
   bool _obscurePassword = true;
+
+  // Function to handle login
+  Future<void> _handleLogin() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    // Validate email and password
+    if (email.isEmpty || password.isEmpty) {
+      _showMessage("Please fill in both fields.");
+      return;
+    }
+
+    if (!validator.email(email)) {
+      _showMessage("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      // Sign in with email and password
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Navigate to HomePage after successful login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(
+            toggleTheme: widget.toggleTheme,
+            userId: userCredential.user?.uid,
+          ),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        _showMessage("No user found for that email.");
+      } else if (e.code == 'wrong-password') {
+        _showMessage("Wrong password provided for that user.");
+      } else {
+        _showMessage("An error occurred: ${e.message}");
+      }
+    } catch (e) {
+      _showMessage("An unexpected error occurred.");
+    }
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
 
   @override
   Widget build(BuildContext context)
@@ -104,20 +155,10 @@ class _LoginPageState extends State<LoginPage>
 
                   // Sign in button with less rounded corners
                   ElevatedButton(
-                    onPressed: () {
-                      // Trigger haptic feedback
+                    onPressed: ()
+                    {
                       HapticFeedback.lightImpact();
-
-                      // Navigate to HomePage after pressing the button
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            toggleTheme: widget.toggleTheme,
-                            userId: 'user_id',
-                          ),
-                        ),
-                      );
+                      _handleLogin();
                     },
 
                     child: const Text(
