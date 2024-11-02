@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends StatefulWidget
 {
@@ -19,16 +17,16 @@ class _RegisterPageState extends State<RegisterPage>
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
-  bool _obscurePassword = true;
-  File? _profileImage;
-  Map<String, String> _errors = {};
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  int? selectedYear;
-  int? selectedMonth;
-  int? selectedDay;
+  bool _obscurePassword = true;
+  Map<String, String> _errors = {};
+  int? selectedYear, selectedMonth, selectedDay;
+
   final List<int> years = List.generate(100, (index) => DateTime.now().year - index);
   final List<int> months = List.generate(12, (index) => index + 1);
   final List<int> days = List.generate(31, (index) => index + 1);
+
 
   @override
   void initState() {
@@ -37,177 +35,46 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   void _addListeners() {
-    firstNameController.addListener(() {
-      if (firstNameController.text.isNotEmpty) {
-        setState(() {
-          _errors.remove('firstName');
-        });
-      }
-    });
-    lastNameController.addListener(() {
-      if (lastNameController.text.isNotEmpty) {
-        setState(() {
-          _errors.remove('lastName');
-        });
-      }
-    });
-    usernameController.addListener(() {
-      if (usernameController.text.isNotEmpty) {
-        setState(() {
-          _errors.remove('username');
-        });
-      }
-    });
-    emailController.addListener(() {
-      if (emailController.text.isNotEmpty) {
-        setState(() {
-          _errors.remove('email');
-        });
-      }
-    });
-    passwordController.addListener(() {
-      if (passwordController.text.isNotEmpty) {
-        setState(() {
-          _errors.remove('password');
-        });
-      }
-    });
-    confirmPasswordController.addListener(() {
-      if (confirmPasswordController.text.isNotEmpty) {
-        setState(() {
-          _errors.remove('confirmPassword');
-        });
-      }
-    });
+    // Listener for clearing errors
+    firstNameController.addListener(() => _clearError('firstName', firstNameController));
+    lastNameController.addListener(() => _clearError('lastName', lastNameController));
+    usernameController.addListener(() => _clearError('username', usernameController));
+    emailController.addListener(() => _clearError('email', emailController));
+    passwordController.addListener(() => _clearError('password', passwordController));
+    confirmPasswordController.addListener(() => _clearError('confirmPassword', confirmPasswordController));
   }
 
-  Future<void> _pickImage() async {
-    final status = await Permission.photos.request();
-
-    if (status.isGranted) {
-      try {
-        final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-        if (pickedFile != null) {
-          setState(() {
-            _profileImage = File(pickedFile.path);
-          });
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('No image selected')),
-          );
-        }
-      } catch (e) {
-        print('Error picking image: $e');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to pick image: $e')),
-        );
-      }
-    } else if (status.isDenied) {
-      _showPermissionDialog();
-    } else if (status.isPermanentlyDenied) {
-      openAppSettings();
-    }
-  }
-
-  Future<void> _showPermissionDialog() async {
-    return showDialog(
-      context: context,
-      builder: (context) =>
-          AlertDialog(
-            title: const Text("Permission Required"),
-            content: const Text(
-                "The app needs permission to access the gallery. Please allow access to select an image."),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text("Cancel"),
-              ),
-              TextButton(
-                onPressed: () async {
-                  Navigator.of(context).pop();
-                  if (await Permission.storage.request().isGranted) {
-                    _pickImage();
-                  }
-                },
-                child: const Text("Allow"),
-              ),
-            ],
-          ),
-    );
-  }
-
-  void _register() {
-    HapticFeedback.lightImpact();
-
-    setState(() {
-      _errors.clear();
-    });
-
-    final firstName = firstNameController.text;
-    final lastName = lastNameController.text;
-    final username = usernameController.text;
-    final email = emailController.text;
-    final password = passwordController.text;
-    final confirmPassword = confirmPasswordController.text;
-
-    bool hasError = false;
-
-    if (firstName.isEmpty) {
-      _errors['firstName'] = '*required';
-      hasError = true;
-    }
-
-    if (lastName.isEmpty) {
-      _errors['lastName'] = '*required';
-      hasError = true;
-    }
-
-    if (username.isEmpty) {
-      _errors['username'] = '*required';
-      hasError = true;
-    }
-
-    if (email.isEmpty) {
-      _errors['email'] = '*required';
-      hasError = true;
-    }
-
-    if (password.isEmpty) {
-      _errors['password'] = '*required';
-      hasError = true;
-    } else if (password != confirmPassword) {
-      _errors['confirmPassword'] = 'Passwords do not match';
-      hasError = true;
-    }
-
-    if (password.length < 8) {
-      _errors['password'] = 'Password must be at least 8 characters long.';
-    } else if (!RegExp(r'^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$').hasMatch(password)) {
-      _errors['password'] = 'Password must contain at least one uppercase letter and one number, and cannot contain special characters.';
-    }
-
-    if (!hasError) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registration successful!')),
-      );
-
-      // Clear the fields after registration
-      firstNameController.clear();
-      lastNameController.clear();
-      usernameController.clear();
-      emailController.clear();
-      passwordController.clear();
-      confirmPasswordController.clear();
+  void _clearError(String key, TextEditingController controller) {
+    if (controller.text.isNotEmpty) {
       setState(() {
-        _profileImage = null; // Reset profile image if needed
+        _errors.remove(key);
       });
     }
+  }
 
-    if (_errors.isEmpty) {
-      // Regisztrációs logika itt
-    } else {
-      // Hibaüzenet megjelenítése
-      setState(() {});
+  Future<void> _register() async {
+    try {
+      // Create user with email and password
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      // Store additional user data in Firestore
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
+        'firstName': firstNameController.text,
+        'lastName': lastNameController.text,
+        'username': usernameController.text,
+        'email': emailController.text,
+        'birthdate': DateTime(selectedYear!, selectedMonth!, selectedDay!),
+        'password' : passwordController.text
+      });
+
+      print("User registered and data saved: ${userCredential.user?.uid}");
+    } on FirebaseAuthException catch (e) {
+      print("Registration failed: ${e.message}");
+    } catch (e) {
+      print("Error saving user data: $e");
     }
   }
 
@@ -225,22 +92,6 @@ class _RegisterPageState extends State<RegisterPage>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-                // Profile image
-                GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.grey[200],
-                      backgroundImage: _profileImage != null ? FileImage(_profileImage!) : null,
-                      child: _profileImage == null ? const Icon(Icons.add_a_photo, size: 70) : null,
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
 
                 // First Name and Last Name fields side by side
                 SizedBox(
