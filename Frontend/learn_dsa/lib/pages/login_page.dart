@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:regexed_validator/regexed_validator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_page.dart';
 import 'register_page.dart';
 
@@ -25,39 +27,54 @@ class _LoginPageState extends State<LoginPage>
   bool _obscurePassword = true;
 
   // Function to handle login
-  Future<void> _handleLogin() async {
+  Future<void> _handleLogin() async
+  {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
     // Validate email and password
-    if (email.isEmpty || password.isEmpty) {
+    if (email.isEmpty || password.isEmpty)
+    {
       _showMessage("Please fill in both fields.");
       return;
     }
 
-    if (!validator.email(email)) {
+    if (!validator.email(email))
+    {
       _showMessage("Please enter a valid email address.");
       return;
     }
 
-    try {
+    try
+    {
       // Sign in with email and password
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Navigate to HomePage after successful login
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(
-            toggleTheme: widget.toggleTheme,
-            userId: userCredential.user?.uid,
+      String? userId = userCredential.user?.uid;
+      var userSnapshot = await FirebaseFirestore.instance.collection('users').doc(userId).get();
+
+      if (userSnapshot.exists)
+      {
+        // Save user ID to SharedPreferences
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString('userId', userId!);
+
+        // Navigate to HomePage with userId
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomePage(
+              toggleTheme: widget.toggleTheme,
+              userId: userId,
+            ),
           ),
-        ),
-      );
-    } on FirebaseAuthException catch (e) {
+        );
+      } else _showMessage("User data not found in Firestore.");
+    } on FirebaseAuthException catch (e)
+    {
       if (e.code == 'user-not-found') {
         _showMessage("No user found for that email.");
       } else if (e.code == 'wrong-password') {
@@ -65,7 +82,7 @@ class _LoginPageState extends State<LoginPage>
       } else {
         _showMessage("An error occurred: ${e.message}");
       }
-    } catch (e) {
+    }  catch (e) {
       _showMessage("An unexpected error occurred.");
     }
   }
@@ -92,7 +109,7 @@ class _LoginPageState extends State<LoginPage>
 
                   // Email TextField
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8, // 80% width
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: TextField(
                       controller: emailController,
                       decoration: InputDecoration(

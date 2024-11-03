@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/pages/profile_page.dart';
 import 'package:learn_dsa/pages/theme_settings_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../datastructures/array/array_page.dart';
 import '../home_page.dart';
 import '../login_page.dart';
@@ -22,6 +23,17 @@ class CustomScaffold extends StatelessWidget
     required this.userId,
     this.appBar
   }) : super(key: key);
+
+  Future<void> _handleSignOut(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('userId');
+
+    // Navigate back to LoginPage
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage(toggleTheme: toggleTheme)),
+    );
+  }
 
   @override
   Widget build(BuildContext context)
@@ -417,15 +429,7 @@ class CustomScaffold extends StatelessWidget
                 title: const Text('Logout'),
                 onTap: () async {
                   HapticFeedback.mediumImpact();
-
-                  // Navigate back to the LoginPage and clear the navigation stack
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginPage(toggleTheme: toggleTheme), // Ensure to pass toggleTheme if required
-                    ),
-                        (Route<dynamic> route) => false, // This clears all previous routes
-                  );
+                  _handleSignOut(context);
                 },
               ),
             ],

@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget
             String firstName = userData['firstName'] ?? 'FirstName';
             String lastName = userData['lastName'] ?? 'LastName';
 
-            String fullName = '$firstName $lastName'; // Concatenate first and last name
+            String fullName = '$firstName $lastName';
 
             return Text('Welcome, $fullName!', style: const TextStyle(fontSize: 24));
           },
