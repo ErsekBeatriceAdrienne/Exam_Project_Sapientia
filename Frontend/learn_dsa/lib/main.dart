@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:learn_dsa/pages/home_page.dart';
-import 'package:learn_dsa/pages/login_page.dart';
+import 'package:flutter/services.dart';
+import 'package:learn_dsa/pages/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:learn_dsa/pages/profile/login/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   runApp(const MyApp());
 }
 
@@ -62,20 +69,22 @@ class SplashScreen extends StatelessWidget
 
   const SplashScreen({Key? key, required this.toggleTheme}) : super(key: key);
 
-  Future<void> _checkLoginStatus(BuildContext context) async {
+  Future <void> _checkLoginStatus(BuildContext context) async
+  {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
 
-    if (userId != null) {
-      // User is logged in, navigate to HomePage
+    if (userId != null)
+    {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => HomePage(toggleTheme: toggleTheme, userId: userId),
         ),
       );
-    } else {
-      // User is not logged in, navigate to LoginPage
+    }
+    else
+    {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -86,7 +95,8 @@ class SplashScreen extends StatelessWidget
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     _checkLoginStatus(context);
     return Scaffold(
       body: Center(child: CircularProgressIndicator()),

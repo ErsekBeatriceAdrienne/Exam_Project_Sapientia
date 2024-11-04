@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'home_page.dart';
-import 'register_page.dart';
+import '../../home/home_page.dart';
+import '../registration/register_page.dart';
 
 class LoginPage extends StatefulWidget
 {

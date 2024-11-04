@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'customClasses/custom_scaffold.dart';
+
+import '../../custom_classes/custom_bottomnavigationbar.dart';
 
 class HomePage extends StatelessWidget
 {
@@ -12,11 +13,13 @@ class HomePage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    return CustomScaffold (
+    return CustomBottomNavigationBar(
+      currentIndex: 0,
+      onTap: (index) {},
       toggleTheme: toggleTheme,
       userId: userId,
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text(''),
       ),
       body: Center(
         child: FutureBuilder<DocumentSnapshot>(
