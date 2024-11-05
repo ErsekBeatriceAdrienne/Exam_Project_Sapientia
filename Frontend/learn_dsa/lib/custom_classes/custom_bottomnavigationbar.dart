@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../pages/algorithms/algorithms_page.dart';
 import '../pages/datastructures/datastructures_page.dart';
 import '../pages/home/home_page.dart';
@@ -17,10 +18,9 @@ class CustomBottomNavigationBar extends StatefulWidget
   _CustomBottomNavigationBarState createState() => _CustomBottomNavigationBarState();
 }
 
-class _CustomBottomNavigationBarState extends State <CustomBottomNavigationBar>
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 {
   int _currentIndex = 0;
-
   final List<Widget> _pages = [];
 
   @override
@@ -38,9 +38,13 @@ class _CustomBottomNavigationBarState extends State <CustomBottomNavigationBar>
 
   void _onTap(int index)
   {
-    setState(() {
-      _currentIndex = index;
-    });
+    if (index != _currentIndex)
+    {
+      HapticFeedback.heavyImpact();
+      setState(() {
+        _currentIndex = index;
+      });
+    }
   }
 
   Future<String> _fetchUserName() async
@@ -61,8 +65,9 @@ class _CustomBottomNavigationBarState extends State <CustomBottomNavigationBar>
   {
     return Scaffold(
       appBar: AppBar(
+
         // Profile Page appbar
-        title: _currentIndex == 4 ? FutureBuilder<String> (
+        title: _currentIndex == 4 ? FutureBuilder<String>(
           future: _fetchUserName(),
           builder: (context, snapshot)
           {
@@ -73,54 +78,54 @@ class _CustomBottomNavigationBarState extends State <CustomBottomNavigationBar>
         )
             : const Text(''), // Placeholder title for other pages
 
-        // Profile page action
-        actions: _currentIndex == 4 ? [
+        // Profile Page appbar action
+        actions: _currentIndex == 4 ?
+        [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
               (_pages[_currentIndex] as ProfilePage).signOut(context);
             },
           ),
-        ]
-            : null,
+        ] : null,
       ),
+
       body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTap,
-        items: const [
-          // Home
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          // Data Structures
-          BottomNavigationBarItem(
-            icon: Icon(Icons.storage),
-            label: 'Data Structures',
-          ),
-          // Algorithms
-          BottomNavigationBarItem(
-            icon: Icon(Icons.code),
-            label: 'Algorithms',
-          ),
-          // Settings
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          // Profile
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        selectedItemColor: Colors.pink,
-        unselectedItemColor: Colors.black,
-        type: BottomNavigationBarType.fixed,
-        iconSize: 30.0,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
+      bottomNavigationBar: Container(
+        color: Colors.white, // Set the background color
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildNavItem(Icons.home, 0),
+            _buildNavItem(Icons.storage, 1),
+            _buildNavItem(Icons.code, 2),
+            _buildNavItem(Icons.settings, 3),
+            _buildNavItem(Icons.person, 4),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNavItem(IconData icon, int index)
+  {
+    bool isSelected = _currentIndex == index;
+
+    return GestureDetector(
+      onTap: () => _onTap(index),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? Colors.pink : Colors.black,
+              size: 30.0,
+            ),
+            const SizedBox(height: 4),
+          ],
+        ),
       ),
     );
   }
