@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../algorithms/algorithms_page.dart';
-import '../datastructures/datastructures_page.dart';
-import '../home/home_page.dart';
-import '../profile/profile_page.dart';
-import '../settings/settings_page.dart';
+import '../pages/algorithms/algorithms_page.dart';
+import '../pages/datastructures/datastructures_page.dart';
+import '../pages/home/home_page.dart';
+import '../pages/profile/profile_page.dart';
+import '../pages/settings/settings_page.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget
 {
