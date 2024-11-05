@@ -1,23 +1,38 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../custom_classes/custom_scaffold.dart';
+
+import 'login/login_page.dart';
 
 class ProfilePage extends StatelessWidget
 {
   final VoidCallback toggleTheme;
-  final String? userId;
 
-  const ProfilePage({Key? key, required this.userId, required this.toggleTheme}) : super(key: key);
+  const ProfilePage({Key? key, required this.toggleTheme}) : super(key: key);
+
+  Future<void> signOut(BuildContext context) async
+  {
+    try {
+      await FirebaseAuth.instance.signOut();
+      // Navigate back to LoginPage with toggleTheme
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(toggleTheme: toggleTheme),
+        ),
+            (route) => false, // Clear all previous routes
+      );
+    } catch (e) {
+      // Show error message if sign-out fails
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error signing out: $e")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context)
   {
-    return CustomScaffold(
-      toggleTheme: toggleTheme,
-      userId: userId,
-      appBar: AppBar(
-        title: const Text('Profile'),
-      ),
-
+    return Scaffold(
       body: Center(
 
       ),

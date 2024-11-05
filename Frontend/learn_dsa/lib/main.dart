@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/pages/home/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:learn_dsa/pages/profile/login/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'custom_classes/custom_bottomnavigationbar.dart';
 
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
@@ -20,27 +19,59 @@ void main() async
 
 class MyApp extends StatefulWidget
 {
-  const MyApp ( { super.key } );
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp>
+class _MyAppState extends State <MyApp>
 {
   ThemeMode _themeMode = ThemeMode.light;
+  bool _isLoading = true;
+  Widget? _initialScreen;
 
-  void _toggleTheme()
+  @override
+  void initState()
   {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  void _toggleTheme() {
+    setState(() {
+      _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
+
+  Future <void> _checkLoginStatus() async
+  {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? userId = prefs.getString('userId');
+
     setState(()
     {
-      _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      _initialScreen = userId != null
+          ? CustomBottomNavigationBar(toggleTheme: _toggleTheme, userId: userId,)
+          : LoginPage(toggleTheme: _toggleTheme);
+      _isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context)
   {
+    if (_isLoading)
+    {
+      return const MaterialApp(
+        home: Scaffold(
+          body: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
+      );
+    }
+
     return MaterialApp(
       title: 'Learn DSA',
       theme: ThemeData(
@@ -58,48 +89,7 @@ class _MyAppState extends State<MyApp>
         useMaterial3: true,
       ),
       themeMode: _themeMode,
-      home: SplashScreen(toggleTheme: _toggleTheme),//LoginPage(toggleTheme: _toggleTheme),
-    );
-  }
-}
-
-class SplashScreen extends StatelessWidget
-{
-  final VoidCallback toggleTheme;
-
-  const SplashScreen({Key? key, required this.toggleTheme}) : super(key: key);
-
-  Future <void> _checkLoginStatus(BuildContext context) async
-  {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString('userId');
-
-    if (userId != null)
-    {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomePage(toggleTheme: toggleTheme, userId: userId),
-        ),
-      );
-    }
-    else
-    {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(toggleTheme: toggleTheme),
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context)
-  {
-    _checkLoginStatus(context);
-    return Scaffold(
-      body: Center(child: CircularProgressIndicator()),
+      home: _initialScreen,
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../home/home_page.dart';
+import '../../../custom_classes/custom_bottomnavigationbar.dart';
 import '../registration/register_page.dart';
 
 class LoginPage extends StatefulWidget
@@ -19,20 +19,17 @@ class LoginPage extends StatefulWidget
 
 class _LoginPageState extends State<LoginPage>
 {
-  // Controllers for text fields
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   // State variable for password visibility
   bool _obscurePassword = true;
 
-  // Function to handle login
   Future<void> _handleLogin() async
   {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    // Validate email and password
     if (email.isEmpty || password.isEmpty)
     {
       _showMessage("Please fill in both fields.");
@@ -66,7 +63,7 @@ class _LoginPageState extends State<LoginPage>
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomePage(
+            builder: (context) => CustomBottomNavigationBar(
               toggleTheme: widget.toggleTheme,
               userId: userId,
             ),
@@ -87,14 +84,14 @@ class _LoginPageState extends State<LoginPage>
     }
   }
 
-  void _showMessage(String message) {
+  void _showMessage(String message)
+  {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context)
   {
-    // Determine the current theme mode
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(

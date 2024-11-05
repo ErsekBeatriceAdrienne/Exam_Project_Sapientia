@@ -79,7 +79,7 @@ class CustomScaffold extends StatelessWidget
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfilePage(userId: userId, toggleTheme: () {  },),
+                        builder: (context) => ProfilePage(toggleTheme: toggleTheme),
                       ),
                     );
                   }
