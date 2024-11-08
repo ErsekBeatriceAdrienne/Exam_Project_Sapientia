@@ -7,7 +7,7 @@ class ProfilePage extends StatelessWidget
 {
   final VoidCallback toggleTheme;
 
-  const ProfilePage({Key? key, required this.toggleTheme}) : super(key: key);
+  const ProfilePage({Key? key, required this.toggleTheme, String? userId}) : super(key: key);
 
   Future<void> signOut(BuildContext context) async
   {

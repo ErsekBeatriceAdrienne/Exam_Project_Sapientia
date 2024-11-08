@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/pages/profile_page.dart';
-import 'package:learn_dsa/pages/theme_settings_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../datastructures/array/array_page.dart';
-import '../home_page.dart';
-import '../login_page.dart';
+import '../home/home_page.dart';
+import '../profile/login/login_page.dart';
+import '../profile/profile_page.dart';
+import '../settings/theme_settings_page.dart';
 
 // A.K.A. MENU BAR
 
@@ -79,7 +79,7 @@ class CustomScaffold extends StatelessWidget
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfilePage(userId: userId, toggleTheme: () {  },),
+                        builder: (context) => ProfilePage(userId: userId, toggleTheme: toggleTheme),
                       ),
                     );
                   }
