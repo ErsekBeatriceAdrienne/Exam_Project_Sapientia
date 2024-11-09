@@ -1,6 +1,10 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:learn_dsa/strings/cloudinary/cloudinary_apis.dart';
+import '../../../database/cloudinary_service.dart';
 
 class RegisterPage extends StatefulWidget
 {
@@ -18,7 +22,10 @@ class _RegisterPageState extends State<RegisterPage>
   final TextEditingController confirmPasswordController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final ImagePicker _picker = ImagePicker();
+  final CloudinaryService _cloudinaryService = CloudinaryService();
 
+  File? _profileImage;
   bool _obscurePassword = true;
   Map<String, String> _errors = {};
   int? selectedYear, selectedMonth, selectedDay;
@@ -26,7 +33,6 @@ class _RegisterPageState extends State<RegisterPage>
   final List<int> years = List.generate(100, (index) => DateTime.now().year - index);
   final List<int> months = List.generate(12, (index) => index + 1);
   final List<int> days = List.generate(31, (index) => index + 1);
-
 
   @override
   void initState() {
@@ -52,22 +58,48 @@ class _RegisterPageState extends State<RegisterPage>
     }
   }
 
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _profileImage = File(image.path);
+      });
+    }
+  }
+
+  Future<String?> _uploadImage() async {
+    if (_profileImage == null) return null;
+
+    try {
+      const presetName = CloudinaryData.presetName;
+      final imageUrl = await _cloudinaryService.uploadImageUnsigned(
+        _profileImage!,
+        presetName,
+      );
+      return imageUrl;
+    } catch (e) {
+      print('Kép feltöltési hiba: $e');
+      return null;
+    }
+  }
+
   Future<void> _register() async {
     try {
-      // Create user with email and password
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
 
-      // Store additional user data in Firestore
+      final String? profileImageUrl = await _uploadImage();
+
       await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
         'firstName': firstNameController.text,
         'lastName': lastNameController.text,
         'username': usernameController.text,
         'email': emailController.text,
-        'birthdate': DateTime(selectedYear!, selectedMonth!, selectedDay!),
-        'password' : passwordController.text
+        'password': passwordController.text,
+        'birthdate': DateTime(selectedYear!, selectedMonth!, selectedDay!).toString(),
+        'profilePicture': profileImageUrl ?? '',
       });
 
       print("User registered and data saved: ${userCredential.user?.uid}");
@@ -92,6 +124,21 @@ class _RegisterPageState extends State<RegisterPage>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundImage: _profileImage != null
+                        ? FileImage(_profileImage!)
+                        : AssetImage('assets/default_profile_picture.jpg') as ImageProvider,
+                    child: _profileImage == null
+                        ? Icon(Icons.camera_alt, size: 40)
+                        : null,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
 
                 // First Name and Last Name fields side by side
                 SizedBox(
