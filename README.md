@@ -3,7 +3,8 @@
  I really want to help others by creating this app.
 
 # For development:
-  https://docs.flutter.dev/get-started/install
+- Android Studio : https://developer.android.com/studio
+- Flutter SDK : https://docs.flutter.dev/get-started/install
 
 # Other resources:
 - Figma plan:
