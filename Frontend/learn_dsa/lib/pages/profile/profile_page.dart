@@ -6,12 +6,14 @@ import 'package:image_picker/image_picker.dart';
 import '../../database/cloudinary_service.dart';
 import 'login/login_page.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatefulWidget
+{
   final VoidCallback toggleTheme;
 
   const ProfilePage({Key? key, required this.toggleTheme, String? userId}) : super(key: key);
 
-  Future<void> signOut(BuildContext context) async {
+  Future<void> signOut(BuildContext context) async
+  {
     try {
       await FirebaseAuth.instance.signOut();
       // Navigate back to LoginPage with toggleTheme
@@ -33,14 +35,16 @@ class ProfilePage extends StatefulWidget {
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _ProfilePageState extends State<ProfilePage>
+{
   String? _profileImageUrl;
   String? _oldProfileImageUrl;
 
   final CloudinaryService _cloudinaryService = CloudinaryService();
   final ImagePicker _picker = ImagePicker();
 
-  Future<Map<String, dynamic>?> _fetchUserData() async {
+  Future<Map<String, dynamic>?> _fetchUserData() async
+  {
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) return null;
 
@@ -52,10 +56,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return userDoc.data() as Map<String, dynamic>?;
   }
 
-  Future<void> _updateProfileImage(File image) async {
-    try {
+  Future<void> _updateProfileImage(File image) async
+  {
+    try
+    {
       // Upload the new image to Cloudinary
-      String? imageUrl = await _cloudinaryService.uploadImageUnsigned(image, 'your_preset_name');
+      String? imageUrl = await _cloudinaryService.uploadImageUnsigned(
+          image, 'your_preset_name');
 
       if (imageUrl != null) {
         // Update Firestore with the new image URL
@@ -85,7 +92,8 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Future<void> _pickImage() async {
+  Future<void> _pickImage() async
+  {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
@@ -94,15 +102,19 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  String _getPublicIdFromUrl(String url) {
+  String _getPublicIdFromUrl(String url)
+  {
     // Extract the publicId from the URL (you may need to adjust this based on your Cloudinary setup)
     final uri = Uri.parse(url);
     final segments = uri.pathSegments;
-    return segments.isNotEmpty ? segments.last.split('.').first : '';
+    return segments.isNotEmpty ? segments.last
+        .split('.')
+        .first : '';
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     return Scaffold(
       body: FutureBuilder<Map<String, dynamic>?>(
         future: _fetchUserData(),
@@ -125,22 +137,52 @@ class _ProfilePageState extends State<ProfilePage> {
 
           final String firstName = userData['firstName'] ?? 'First Name';
           final String lastName = userData['lastName'] ?? 'Last Name';
+          final String username = userData['username'] ?? 'Username';
+          final String email = FirebaseAuth.instance.currentUser?.email ??
+              'Email not available';
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: _pickImage,
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: _profileImageUrl != null && _profileImageUrl!.isNotEmpty
-                        ? NetworkImage(_profileImageUrl!)
-                        : const AssetImage('assets/default_profile_picture.png') as ImageProvider,
-                    child: _profileImageUrl == null || _profileImageUrl!.isEmpty
-                        ? const Icon(Icons.person, size: 60)
-                        : null,
+                // Profile picture section
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: _profileImageUrl != null &&
+                      _profileImageUrl!.isNotEmpty
+                      ? NetworkImage(_profileImageUrl!)
+                      : const AssetImage(
+                      'assets/default_profile_picture.png') as ImageProvider,
+                ),
+                const SizedBox(width: 16),
+                // User data section
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$firstName $lastName',
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '$email',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+
+                      /*const SizedBox(height: 2),
+                      ElevatedButton.icon(
+                        onPressed: () => widget.signOut(context),
+                        label: const Text('Sign Out'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 14, vertical: 8),
+                        ),
+                      ),*/
+                    ],
                   ),
                 ),
               ],

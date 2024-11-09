@@ -5,7 +5,7 @@ import '../datastructures/array/array_page.dart';
 import '../home/home_page.dart';
 import '../profile/login/login_page.dart';
 import '../profile/profile_page.dart';
-import '../settings/theme_settings_page.dart';
+import '../profile/settings/theme_settings_page.dart';
 
 // A.K.A. MENU BAR
 
