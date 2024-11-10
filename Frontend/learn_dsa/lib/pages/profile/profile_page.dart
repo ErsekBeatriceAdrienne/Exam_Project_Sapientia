@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:learn_dsa/pages/profile/profile_components/profile_design/profile_page_design.dart';
 import 'package:learn_dsa/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
+import 'package:learn_dsa/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import '../../database/cloudinary_service.dart';
 import 'login/login_page.dart';
 
@@ -62,7 +62,8 @@ class _ProfilePageState extends State<ProfilePage>
   {
     try {
       // Upload the new image to Cloudinary
-      String? imageUrl = await _cloudinaryService.uploadImageUnsigned(image, 'your_preset_name');
+      String? imageUrl = await _cloudinaryService.uploadImageUnsigned(
+          image, 'your_preset_name');
 
       if (imageUrl != null) {
         // Update Firestore with the new image URL
@@ -102,12 +103,13 @@ class _ProfilePageState extends State<ProfilePage>
     }
   }
 
-  String _getPublicIdFromUrl(String url)
-  {
+  String _getPublicIdFromUrl(String url) {
     // Extract the publicId from the URL (you may need to adjust this based on your Cloudinary setup)
     final uri = Uri.parse(url);
     final segments = uri.pathSegments;
-    return segments.isNotEmpty ? segments.last.split('.').first : '';
+    return segments.isNotEmpty ? segments.last
+        .split('.')
+        .first : '';
   }
 
   @override
@@ -130,14 +132,15 @@ class _ProfilePageState extends State<ProfilePage>
 
           final String firstName = userData['firstName'] ?? 'First Name';
           final String lastName = userData['lastName'] ?? 'Last Name';
-          final String username = userData['username'] ?? 'Username';
-          final String email = FirebaseAuth.instance.currentUser?.email ?? 'Email not available';
+          final String email = FirebaseAuth.instance.currentUser?.email ??
+              'Email not available';
 
           return SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
+
                   Container(
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
@@ -151,6 +154,7 @@ class _ProfilePageState extends State<ProfilePage>
                         ),
                       ],
                     ),
+
                     child: Column(
                       children: [
                         ProfileHeader(
@@ -169,6 +173,11 @@ class _ProfilePageState extends State<ProfilePage>
                       ],
                     ),
                   ),
+
+                  const SizedBox(height: 20),
+
+                  // progress bars
+                  
                 ],
               ),
             ),
