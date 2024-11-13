@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../customClasses/custom_scaffold.dart';
 import '../../../strings/img_strings/array_images.dart';
 import '../../../themes/app_colors.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
@@ -17,9 +16,7 @@ class ArrayPage extends StatelessWidget
   {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
-    return CustomScaffold(
-      toggleTheme: toggleTheme,
-      userId: userId,
+    return Scaffold(
       appBar: AppBar(
 
         backgroundColor: isDarkTheme ? AppColors.backgroundAppBarDarkCP : AppColors.backgroundAppBarLightCP,
@@ -383,168 +380,6 @@ class ArrayPage extends StatelessWidget
                               ],
                             ),
 
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Regular Array
-            Container(
-              decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  dividerColor: Colors.transparent,
-                ),
-                child: ExpansionTile(
-                  title: Text(
-                    "Regular Array",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
-                    ),
-                  ),
-                  initiallyExpanded: false,
-                  tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Add your real-life example content here
-                            Text(
-                              "In real life, arrays can be used to store a list of student names in a classroom.",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            // Additional content can be added here
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Dynamic Array
-            Container(
-              decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  dividerColor: Colors.transparent,
-                ),
-                child: ExpansionTile(
-                  title: Text(
-                    "Dynamic Array",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
-                    ),
-                  ),
-                  initiallyExpanded: false,
-                  tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Add your real-life example content here
-                            Text(
-                              "In real life, arrays can be used to store a list of student names in a classroom.",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            // Additional content can be added here
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 10),
-
-            // Struct Array
-            Container(
-              decoration: BoxDecoration(
-                color: isDarkTheme ? AppColors.questionColorDarkCP : AppColors.questionColorLightCP,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  dividerColor: Colors.transparent,
-                ),
-                child: ExpansionTile(
-                  title: Text(
-                    "Struct Array",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: isDarkTheme ? AppColors.textQuestionDarkCP : AppColors.textQuestionLightCP,
-                    ),
-                  ),
-                  initiallyExpanded: false,
-                  tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: isDarkTheme ? AppColors.answerColorDarkCP : AppColors.answerColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // Add your real-life example content here
-                            Text(
-                              "In real life, arrays can be used to store a list of student names in a classroom.",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: isDarkTheme ? AppColors.textAnswerDarkCP : AppColors.textAnswerLightCP,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            // Additional content can be added here
                           ],
                         ),
                       ),
