@@ -36,7 +36,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     super.initState();
     _pages.addAll([
       HomePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      DataStructuresPage(),
+      DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(),
       TestsPage(),
       ProfilePage(toggleTheme: widget.toggleTheme),
@@ -90,10 +90,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     return Scaffold(
       appBar: AppBar(
         // Profile Page appbar
-        title: _currentIndex == 4 && _username != null
-            ? Container(
-          padding: const EdgeInsets.only(left: 16.0),
-          child: Text(_username!),) : const Text(''),
+        title: _currentIndex == 4 && _username != null ? Container(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Text(_username!))
+            : _currentIndex == 1 ? Container(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Text('Datastructures'))
+            : const Text(''),
 
         // Profile Page appbar action
         actions: _currentIndex == 4 ? [
