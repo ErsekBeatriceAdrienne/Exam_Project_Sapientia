@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learn_dsa/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
 import 'package:learn_dsa/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import '../../database/cloudinary_service.dart';
+import '../settings/settings_page.dart';
 import 'login/login_page.dart';
 
 class ProfilePage extends StatefulWidget
@@ -37,8 +38,7 @@ class ProfilePage extends StatefulWidget
   _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage>
-{
+class _ProfilePageState extends State<ProfilePage> {
   String? _profileImageUrl;
   String? _oldProfileImageUrl;
 
@@ -113,19 +113,22 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<Map<String, dynamic>?>(
         future: _fetchUserData(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          if (snapshot.hasError)
+          }
+          if (snapshot.hasError) {
             return const Center(child: Text('Error loading profile data.'));
+          }
+
           final userData = snapshot.data;
-          if (userData == null)
+          if (userData == null) {
             return const Center(child: Text('User data not found.'));
+          }
 
           _profileImageUrl = userData['profilePicture'];
           _oldProfileImageUrl = _profileImageUrl;
@@ -135,52 +138,110 @@ class _ProfilePageState extends State<ProfilePage>
           final String email = FirebaseAuth.instance.currentUser?.email ??
               'Email not available';
 
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-
-                  Container(
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-
-                    child: Column(
-                      children: [
-                        ProfileHeader(
-                          profileImageUrl: _profileImageUrl,
-                          firstName: firstName,
-                          lastName: lastName,
-                          email: email,
-                        ),
-                        const SizedBox(height: 10),
-                        ProfileActions(
-                          onPickImage: _pickImage,
-                          onNotes: () {
-                            // Action for Notes button
-                          },
-                        ),
-                      ],
+          return CustomScrollView(
+            slivers: [
+              // SliverAppBar with disappearing on scroll
+              SliverAppBar(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                pinned: false,
+                floating: true,
+                expandedHeight: 70,
+                flexibleSpace: const FlexibleSpaceBar(
+                  titlePadding: EdgeInsets.only(left: 16, bottom: 16),
+                  title: Text(
+                    "Profile",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.pinkAccent,
                     ),
                   ),
-
-                  const SizedBox(height: 20),
-
-                  // progress bars
-                  
+                ),
+                actions: [
+                  PopupMenuButton<String>(
+                    icon: const Icon(Icons.menu, color: Colors.black),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    ),
+                    color: Colors.white,
+                    onSelected: (String value) async {
+                      if (value == 'settings') {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SettingsPage(),
+                          ),
+                        );
+                      } else if (value == 'logout') {
+                        await widget.signOut(context);
+                      }
+                    },
+                    itemBuilder: (BuildContext context) => [
+                      PopupMenuItem<String>(
+                        value: 'settings',
+                        child: Row(
+                          children: const [
+                            Icon(Icons.settings, color: Colors.pink),
+                            SizedBox(width: 8),
+                            Text('Settings', style: TextStyle(fontSize: 16)),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem<String>(
+                        value: 'logout',
+                        child: Row(
+                          children: const [
+                            Icon(Icons.logout, color: Colors.red),
+                            SizedBox(width: 8),
+                            Text('Logout', style: TextStyle(fontSize: 16)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
-            ),
+              // Profile Content
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            ProfileHeader(
+                              profileImageUrl: _profileImageUrl,
+                              firstName: firstName,
+                              lastName: lastName,
+                              email: email,
+                            ),
+                            const SizedBox(height: 10),
+                            ProfileActions(
+                              onPickImage: _pickImage,
+                              onNotes: () {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            ],
           );
         },
       ),

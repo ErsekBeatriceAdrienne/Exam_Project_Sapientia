@@ -88,14 +88,21 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: AppBar(
+      /*appBar: AppBar(
         // Profile Page appbar
         title: _currentIndex == 4 && _username != null ? Container(
                     padding: const EdgeInsets.only(left: 16.0),
                     child: Text(_username!))
             : _currentIndex == 1 ? Container(
             padding: const EdgeInsets.only(left: 16.0),
-            child: Text('Datastructures'))
+            child: const Text(
+              "Data Structures",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.pinkAccent,
+              ),
+            ))
             : const Text(''),
 
         // Profile Page appbar action
@@ -143,7 +150,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
           ),
         ] : null,
 
-      ),
+      ),*/
       body: _pages[_currentIndex],
 
       // Bottom nav bar settings
