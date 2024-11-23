@@ -1,245 +1,378 @@
+import 'dart:convert';
+import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:learn_dsa/pages/datastructures/queue/queue_page.dart';
+import 'package:learn_dsa/pages/datastructures/stack/stack_page.dart';
+import 'package:learn_dsa/pages/datastructures/tree/tree_page.dart';
+import 'package:learn_dsa/strings/firestore/firestore_docs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'array/array_page.dart';
+import 'graph/graph_page.dart';
+import 'hash/hashtable_page.dart';
+import 'list/list_page.dart';
 
-class DataStructuresPage extends StatelessWidget {
+class DataStructuresPage extends StatefulWidget  {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const DataStructuresPage(
-      {Key? key, required this.toggleTheme, required this.userId})
-      : super(key: key);
+  const DataStructuresPage({
+    Key? key,
+    required this.toggleTheme,
+    required this.userId,
+  }) : super(key: key);
+
+  @override
+  _DataStructuresPageState createState() => _DataStructuresPageState();
+}
+
+class _DataStructuresPageState extends State<DataStructuresPage> {
+  late Future<Map<String, dynamic>> _dataFuture;
+  Map<String, dynamic>? _cachedData;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load data only once
+    _dataFuture = _fetchData();
+  }
+
+  Future<Map<String, dynamic>> _fetchData() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    String? cachedData = prefs.getString('dataStructuresPage');
+
+    if (cachedData != null) return json.decode(cachedData);
+    else {
+      final data = await _fetchDataFromFirestore();
+      prefs.setString('dataStructuresPage', json.encode(data));
+      return data;
+    }
+  }
+
+  Future<Map<String, dynamic>> _fetchDataFromFirestore() async
+  {
+    // Check if data is already cached
+    if (_cachedData != null) {
+      return _cachedData!;
+    }
+
+    final DocumentSnapshot documentSnapshot =
+    await FirebaseFirestore.instance.collection(FirestoreDocs.page_doc).doc(FirestoreDocs.dataStructurePage).get();
+
+    if (documentSnapshot.exists) {
+      final data = documentSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        _cachedData = data;
+      });
+      return data;
+    } else {
+      throw Exception('Data not found');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          // SliverAppBar with disappearing title on scroll
-          SliverAppBar(
-            backgroundColor: isDarkTheme ? Colors.black : Colors.white,
-            pinned: false,
-            floating: true,
-            expandedHeight: 70,
-            flexibleSpace: const FlexibleSpaceBar(
-              titlePadding: EdgeInsets.only(left: 16, bottom: 16),
-              title: Text(
-                "Data Structures",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.pinkAccent,
+    return FutureBuilder<Map<String, dynamic>>(
+      future: _dataFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(child: Text('Error: ${snapshot.error}')),
+          );
+        } else if (!snapshot.hasData) {
+          return Scaffold(
+            body: Center(child: Text('No data available')),
+          );
+        }
+
+        // Extracting data from snapshot
+        final data = snapshot.data!;
+
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                pinned: true,
+                floating: false,
+                expandedHeight: 70,
+                flexibleSpace: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Container(
+                      color: Theme.of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.2),
+                      child: FlexibleSpaceBar(
+                        titlePadding: EdgeInsets.only(left: 16, bottom: 16),
+                        title: Text(
+                          data[FirestoreDocs.dataStructurePageTitle],
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFDFAEE8),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
 
-          // Main Content as a SliverList
-          SliverPadding(
-            padding: const EdgeInsets.all(16.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  // Title and Description in a rounded rectangle with shadow
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white60,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 6,
-                          offset: Offset(0, 4),
+              // Main Content as a SliverList
+              SliverPadding(
+                padding: const EdgeInsets.all(16.0),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      // Title and Description in a rounded rectangle with shadow
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.15),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "What is a Data Structure?",
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data[FirestoreDocs.dataStructurePageDefinitionQuestion],
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              data[FirestoreDocs.dataStructurePageDefinitionText] ,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
-                          "A data structure is a particular way of organizing data in a computer so that it can be used effectively. The idea is to reduce the space and time complexities of different tasks.",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
+                      ),
+                      const SizedBox(height: 16),
 
-                  // Linear Data Structure Section
-                  const Text(
-                    "Linear Data Structure",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "A data structure in which data elements are arranged sequentially or linearly, where each element is attached to its previous and next adjacent elements, is called a linear data structure.",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
-                  ),
+                      // Linear Data Structure Section
+                      Text(
+                        data[FirestoreDocs.dataStructurePageLinearDsaTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.dataStructurePageLinearDsaDefinition] ,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
 
-                  // Linear Data Structure Buttons
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 2.2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _buildCategoryButton(context, "Array", isDarkTheme),
-                      _buildCategoryButton(context, "Stack", isDarkTheme),
-                      _buildCategoryButton(context, "Queue", isDarkTheme),
-                      _buildCategoryButton(context, "List", isDarkTheme),
+                      // Linear Data Structure Buttons
+                      GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 2.2,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageArrayButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageStackButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageQueueButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageListButtonText], isDarkTheme),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+
+                      // Non-Linear Data Structure Section
+                      Text(
+                        data[FirestoreDocs.dataStructurePageNonlinearDsaTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.dataStructurePageNonlinearDsaDefinition] ,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      // Non-Linear Data Structure Buttons
+                      GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 2.2,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageGraphButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageBstButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageHashButtonText], isDarkTheme),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+
+                      // Complexity Table Section
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white60,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data[FirestoreDocs.dataStructurePageComplexityTableDsaText] ,
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 65),
                     ],
                   ),
-                  const SizedBox(height: 24),
-
-                  // Non-Linear Data Structure Section
-                  const Text(
-                    "Non-Linear Data Structure",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "Data structures where data elements are not placed sequentially or linearly are called non-linear data structures.",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
-                  ),
-
-                  // Non-Linear Data Structure Buttons
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 2.2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _buildCategoryButton(context, "Graph", isDarkTheme),
-                      _buildCategoryButton(context, "Binary Tree", isDarkTheme),
-                      _buildCategoryButton(context, "Hashtable", isDarkTheme),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Complexity Table Section
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white60,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 1,
-                          blurRadius: 6,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(16.0),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Data Structure Complexity Table",
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        // Placeholder for table image or content
-                        Text("Table image coming soon..."),
-                      ],
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
-  Widget _buildCategoryButton(
-      BuildContext context, String title, bool isDarkTheme) {
+  Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
+
+    // Define the gradient colors
+    final gradient = LinearGradient(
+      // Gradient colors
+      colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
+
+    // Define a map for title-to-page navigation
+    final pageMap = {
+      "Array": () => ArrayPage(
+        toggleTheme: widget.toggleTheme,
+        userId: widget.userId,
+      ),
+      "Stack": () => StackPage(),
+      "Queue": () => QueuePage(),
+      "List": () => ListPage(),
+      "HashTable": () => HashTablePage(),
+      "Binary Search Tree": () => BSTPage(),
+      "Graph": () => GraphPage(),
+    };
+
     return ElevatedButton(
       onPressed: () {
-        if (title == "Array") {
+        HapticFeedback.heavyImpact();
+
+        // Navigate to the appropriate page using the map
+        final pageBuilder = pageMap[title];
+        if (pageBuilder != null) {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ArrayPage(
-                toggleTheme: toggleTheme,
-                userId: userId,
-              ),
-            ),
+            MaterialPageRoute(builder: (context) => pageBuilder()),
           );
+        } else {
+          // Handle cases where the title doesn't match any page
+          print("Page not found for title: $title");
         }
       },
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.pinkAccent,
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        backgroundColor: Colors.transparent,
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        elevation: 6,
+        elevation: 0,
       ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(16),
+          gradient: gradient,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              const Positioned(
+                top: 8,
+                right: 8,
+                child: Icon(
+                  Icons.arrow_circle_right_outlined,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ],
           ),
-          const Positioned(
-            top: 8,
-            right: 8,
-            child: Icon(
-              Icons.arrow_circle_right_outlined,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

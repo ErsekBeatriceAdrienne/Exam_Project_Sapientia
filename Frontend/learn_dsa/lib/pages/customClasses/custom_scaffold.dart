@@ -189,7 +189,7 @@ class CustomScaffold extends StatelessWidget
                     ],
                   ),
                   ExpansionTile(
-                    title: const Text('Tree'),
+                    title: const Text('tree'),
                     onExpansionChanged: (isExpanded) {
                       if (isExpanded) {
                         HapticFeedback.mediumImpact(); // Haptikus visszajelzés nyitáskor
@@ -198,7 +198,7 @@ class CustomScaffold extends StatelessWidget
                     children: [
 
                       ListTile(
-                        title: const Text('Binary Search Tree'),
+                        title: const Text('Binary Search tree'),
                         onTap: () {
                           HapticFeedback.lightImpact();
                           Navigator.pop(context);
@@ -206,7 +206,7 @@ class CustomScaffold extends StatelessWidget
                         },
                       ),
                       ListTile(
-                        title: const Text('Black and Red Tree'),
+                        title: const Text('Black and Red tree'),
                         onTap: () {
                           HapticFeedback.lightImpact();
                           Navigator.pop(context);

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,7 +6,6 @@ import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../home/home_page.dart';
 import '../profile/profile_page.dart';
-import '../profile/settings/settings_page.dart';
 import '../testDatastructure/tests.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget
@@ -87,104 +87,85 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   @override
   Widget build(BuildContext context)
   {
+    /*This is the rounded rectangle version
     return Scaffold(
-      /*appBar: AppBar(
-        // Profile Page appbar
-        title: _currentIndex == 4 && _username != null ? Container(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Text(_username!))
-            : _currentIndex == 1 ? Container(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: const Text(
-              "Data Structures",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.pinkAccent,
-              ),
-            ))
-            : const Text(''),
+      body: Stack(
+        children: [
+          _pages[_currentIndex],
 
-        // Profile Page appbar action
-        actions: _currentIndex == 4 ? [
-          PopupMenuButton<String>(
-            icon: const Icon(Icons.menu),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
-            ),
-            color: Colors.white,
-            onSelected: (String value) async {
-              if (value == 'settings') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SettingsPage(),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              margin: const EdgeInsets.all(6.0),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.8),
+                borderRadius: BorderRadius.circular(24.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),//color: Colors.transparent,
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
                   ),
-                );
-              } else if (value == 'logout') {
-                await (_pages[_currentIndex] as ProfilePage).signOut(context);
-              }
-            },
-            itemBuilder: (BuildContext context) => [
-              PopupMenuItem<String>(
-                value: 'settings',
-                child: Row(
-                  children: const [
-                    Icon(Icons.settings, color: Colors.pink),
-                    SizedBox(width: 8),
-                    Text('Settings', style: TextStyle(fontSize: 16)),
-                  ],
-                ),
+                ],
               ),
-              PopupMenuItem<String>(
-                value: 'logout',
-                child: Row(
-                  children: const [
-                    Icon(Icons.logout, color: Colors.red),
-                    SizedBox(width: 8),
-                    Text('Logout', style: TextStyle(fontSize: 16)),
-                  ],
-                ),
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildNavItem(Icons.home, 0),
+                  _buildNavItem(Icons.storage, 1),
+                  _buildNavItem(Icons.code, 2),
+                  _buildNavItem(Icons.terminal_rounded, 3),
+                  _buildNavItem(Icons.person, 4),
+                ],
               ),
-            ],
-          ),
-        ] : null,
-
-      ),*/
-      body: _pages[_currentIndex],
-
-      // Bottom nav bar settings
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(6.0),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(24.0),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 2),
             ),
-          ],
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildNavItem(Icons.home, 0),
-            _buildNavItem(Icons.storage, 1),
-            _buildNavItem(Icons.code, 2),
-            _buildNavItem(Icons.terminal_rounded, 3),
-            _buildNavItem(Icons.person, 4),
-          ],
-        ),
+          ),
+        ],
       ),
+    );*/
+    return Scaffold(
+      body: Stack(
+        children: [
+          _pages[_currentIndex],
 
+          // Menu bar
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Material(
+              color: Colors.transparent,
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+                    padding: const EdgeInsets.symmetric(vertical: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        _buildNavItem(Icons.home_outlined, 0),
+                        _buildNavItem(Icons.storage_rounded, 1),
+                        _buildNavItem(Icons.code_rounded, 2),
+                        _buildNavItem(Icons.terminal_rounded, 3),
+                        _buildNavItem(Icons.perm_identity_rounded, 4),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
+
   }
 
-  Widget _buildNavItem(IconData icon, int index)
-  {
+  Widget _buildNavItem(IconData icon, int index) {
     bool isSelected = _currentIndex == index;
 
     return GestureDetector(
@@ -194,9 +175,26 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            // Apply gradient if the item is selected
+            isSelected
+                ? ShaderMask(
+              shaderCallback: (rect) => LinearGradient(
+                colors: [
+                  Color(0xFFa1f7ff),
+                  Color(0xFFDFAEE8),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ).createShader(rect),
+              child: Icon(
+                icon,
+                color: Colors.white, // Use white as the base color for gradient
+                size: 31.0,
+              ),
+            )
+                : Icon(
               icon,
-              color: isSelected ? Colors.pink : Colors.black,
+              color: Colors.black,
               size: 31.0,
             ),
             const SizedBox(height: 4),
@@ -205,4 +203,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       ),
     );
   }
+
+
 }

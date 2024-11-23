@@ -24,7 +24,7 @@ dependencies {
 
 android {
     namespace = "com.learning.learn_dsa"
-    compileSdkVersion 33
+    compileSdkVersion 34
     compileSdk = 34
     ndkVersion = flutter.ndkVersion
 
@@ -39,8 +39,8 @@ android {
 
     defaultConfig {
         applicationId = "com.learning.learn_dsa"
-        minSdkVersion 23
-        targetSdkVersion 33
+        minSdkVersion 31
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
     }

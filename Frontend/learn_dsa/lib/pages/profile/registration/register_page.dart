@@ -132,9 +132,6 @@ class _RegisterPageState extends State<RegisterPage>
                     backgroundImage: _profileImage != null
                         ? FileImage(_profileImage!)
                         : AssetImage('assets/default_profile_picture.jpg') as ImageProvider,
-                    child: _profileImage == null
-                        ? Icon(Icons.camera_alt, size: 40)
-                        : null,
                   ),
                 ),
 

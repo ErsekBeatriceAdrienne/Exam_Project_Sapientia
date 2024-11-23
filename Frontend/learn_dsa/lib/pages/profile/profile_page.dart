@@ -1,12 +1,14 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learn_dsa/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
 import 'package:learn_dsa/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
+import 'package:learn_dsa/pages/profile/settings/settings_page.dart';
+import 'package:learn_dsa/strings/firestore/firestore_docs.dart';
 import '../../database/cloudinary_service.dart';
-import '../settings/settings_page.dart';
 import 'login/login_page.dart';
 
 class ProfilePage extends StatefulWidget
@@ -51,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
     if (currentUser == null) return null;
 
     DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection('users')
+        .collection(FirestoreDocs.user_doc)
         .doc(currentUser.uid)
         .get();
 
@@ -63,16 +65,16 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       // Upload the new image to Cloudinary
       String? imageUrl = await _cloudinaryService.uploadImageUnsigned(
-          image, 'your_preset_name');
+          image, '?');
 
       if (imageUrl != null) {
         // Update Firestore with the new image URL
         User? currentUser = FirebaseAuth.instance.currentUser;
         if (currentUser != null) {
           await FirebaseFirestore.instance
-              .collection('users')
+              .collection(FirestoreDocs.user_doc)
               .doc(currentUser.uid)
-              .update({'profilePicture': imageUrl});
+              .update({FirestoreDocs.userProfilePic: imageUrl});
 
           // If there was an old image URL, delete it from Cloudinary
           if (_oldProfileImageUrl != null) {
@@ -130,11 +132,11 @@ class _ProfilePageState extends State<ProfilePage> {
             return const Center(child: Text('User data not found.'));
           }
 
-          _profileImageUrl = userData['profilePicture'];
+          _profileImageUrl = userData[FirestoreDocs.userProfilePic];
           _oldProfileImageUrl = _profileImageUrl;
 
-          final String firstName = userData['firstName'] ?? 'First Name';
-          final String lastName = userData['lastName'] ?? 'Last Name';
+          final String firstName = userData[FirestoreDocs.userFirstName];
+          final String lastName = userData[FirestoreDocs.userLastName];
           final String email = FirebaseAuth.instance.currentUser?.email ??
               'Email not available';
 
@@ -142,28 +144,36 @@ class _ProfilePageState extends State<ProfilePage> {
             slivers: [
               // SliverAppBar with disappearing on scroll
               SliverAppBar(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                pinned: false,
-                floating: true,
+                backgroundColor: Colors.transparent,
+                pinned: true,
+                floating: false,
                 expandedHeight: 70,
-                flexibleSpace: const FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.only(left: 16, bottom: 16),
-                  title: Text(
-                    "Profile",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.pinkAccent,
+                flexibleSpace: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Container(
+                      color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+                      child: FlexibleSpaceBar(
+                        titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
+                        title: Text(
+                          userData[FirestoreDocs.userUsername],
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFDFAEE8)
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 actions: [
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.menu, color: Colors.black),
+                    icon: const Icon(Icons.pending_outlined, color: Colors.black),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    color: Colors.white,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     onSelected: (String value) async {
                       if (value == 'settings') {
                         Navigator.push(
@@ -210,7 +220,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         padding: const EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(16.0),
                           boxShadow: [
                             BoxShadow(
@@ -236,6 +246,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
+
+                      // For showing all content
+                      const SizedBox(height: 65)
                     ],
                   ),
                 ),

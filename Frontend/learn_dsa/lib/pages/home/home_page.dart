@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/pages/profile/login/login_page.dart';
 
+import '../../strings/firestore/firestore_docs.dart';
+
 class HomePage extends StatefulWidget
 {
   final VoidCallback toggleTheme;
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage>
     return Scaffold(
       body: Center(
         child: FutureBuilder <DocumentSnapshot> (
-          future: FirebaseFirestore.instance.collection('users').doc(userId).get(),
+          future: FirebaseFirestore.instance.collection(FirestoreDocs.user_doc).doc(userId).get(),
           builder: (context, snapshot)
           {
             if (snapshot.connectionState == ConnectionState.waiting) return const CircularProgressIndicator();
@@ -56,8 +58,8 @@ class _HomePageState extends State<HomePage>
             if (!snapshot.hasData || !snapshot.data!.exists) return const Text('User does not exist.');
 
             var userData = snapshot.data!.data() as Map<String, dynamic>;
-            String firstName = userData['firstName'] ?? 'FirstName';
-            String lastName = userData['lastName'] ?? 'LastName';
+            String firstName = userData[FirestoreDocs.userFirstName];
+            String lastName = userData[FirestoreDocs.userLastName];
 
             String fullName = '$firstName $lastName';
 

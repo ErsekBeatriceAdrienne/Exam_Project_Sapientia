@@ -48,5 +48,15 @@ flutter:
     - assets/images/app_icon.png
     - assets/images/array_photos/connector_array.png
     - assets/images/array_photos/array_explanation.png
-    - assets/navbar_icons/datastructure_icon.png
+    - assets/images/dsa_shadow.png
+
     - assets/default_profile_picture.jpg
+
+    - assets/navbar_icons/add.png
+    - assets/navbar_icons/arrow.png
+    - assets/navbar_icons/arrows.png
+    - assets/navbar_icons/back.png
+    - assets/navbar_icons/check-mark.png
+    - assets/navbar_icons/writing.png
+    - assets/navbar_icons/home.png
+    - assets/navbar_icons/document.png
