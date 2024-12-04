@@ -37,7 +37,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     _pages.addAll([
       HomePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      AlgorithmsPage(),
+      AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       TestsPage(),
       ProfilePage(toggleTheme: widget.toggleTheme),
     ]);

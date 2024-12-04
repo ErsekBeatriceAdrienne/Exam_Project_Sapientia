@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:learn_dsa/strings/cloudinary/cloudinary_apis.dart';
-import '../../../database/cloudinary_service.dart';
+
+import '../../../../backend/database/cloudinary_service.dart';
+import '../../../strings/cloudinary/cloudinary_apis.dart';
 
 class RegisterPage extends StatefulWidget
 {

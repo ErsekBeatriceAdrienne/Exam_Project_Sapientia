@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:learn_dsa/pages/customClasses/custom_bottomnavigationbar.dart';
-import 'package:learn_dsa/pages/profile/login/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'frontend/pages/customClasses/custom_bottomnavigationbar.dart';
+import 'frontend/pages/profile/login/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

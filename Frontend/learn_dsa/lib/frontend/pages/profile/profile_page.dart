@@ -4,11 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:learn_dsa/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
-import 'package:learn_dsa/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
-import 'package:learn_dsa/pages/profile/settings/settings_page.dart';
-import 'package:learn_dsa/strings/firestore/firestore_docs.dart';
-import '../../database/cloudinary_service.dart';
+import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
+import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
+import 'package:learn_dsa/frontend/pages/profile/settings/settings_page.dart';
+import '../../../backend/database/cloudinary_service.dart';
+import '../../strings/firestore/firestore_docs.dart';
 import 'login/login_page.dart';
 
 class ProfilePage extends StatefulWidget

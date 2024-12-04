@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
-import '../strings/cloudinary/cloudinary_apis.dart';
+import '../../frontend/strings/cloudinary/cloudinary_apis.dart';
 
 class CloudinaryService {
   late Cloudinary cloudinary;
