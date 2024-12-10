@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../strings/img_strings/array_images.dart';
-import '../../../themes/app_colors.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
 
 class ArrayPage extends StatelessWidget
