@@ -1,75 +1,38 @@
-import 'dart:convert';
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/pages/datastructures/queue/queue_page.dart';
-import 'package:learn_dsa/pages/datastructures/stack/stack_page.dart';
-import 'package:learn_dsa/pages/datastructures/tree/tree_page.dart';
-import 'package:learn_dsa/strings/firestore/firestore_docs.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'array/array_page.dart';
-import 'graph/graph_page.dart';
-import 'hash/hashtable_page.dart';
-import 'list/list_page.dart';
+import 'package:learn_dsa/frontend/pages/algorithms/searching/searching_algorithms_page.dart';
+import 'package:learn_dsa/frontend/pages/algorithms/sorting/sorting_algorithms_page.dart';
+import '../../../backend/database/firestore_service.dart';
+import '../../strings/firestore/firestore_docs.dart';
 
-class DataStructuresPage extends StatefulWidget  {
+class AlgorithmsPage extends StatefulWidget  {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const DataStructuresPage({
+  const AlgorithmsPage({
     Key? key,
     required this.toggleTheme,
     required this.userId,
   }) : super(key: key);
 
   @override
-  _DataStructuresPageState createState() => _DataStructuresPageState();
+  _AlgorithmsPageState createState() => _AlgorithmsPageState();
 }
 
-class _DataStructuresPageState extends State<DataStructuresPage> {
+class _AlgorithmsPageState extends State<AlgorithmsPage> {
+  final FirestoreService _firestoreService = FirestoreService();
   late Future<Map<String, dynamic>> _dataFuture;
-  Map<String, dynamic>? _cachedData;
 
   @override
   void initState() {
     super.initState();
-    // Load data only once
-    _dataFuture = _fetchData();
-  }
-
-  Future<Map<String, dynamic>> _fetchData() async
-  {
-    final prefs = await SharedPreferences.getInstance();
-    String? cachedData = prefs.getString('dataStructuresPage');
-
-    if (cachedData != null) return json.decode(cachedData);
-    else {
-      final data = await _fetchDataFromFirestore();
-      prefs.setString('dataStructuresPage', json.encode(data));
-      return data;
-    }
-  }
-
-  Future<Map<String, dynamic>> _fetchDataFromFirestore() async
-  {
-    // Check if data is already cached
-    if (_cachedData != null) {
-      return _cachedData!;
-    }
-
-    final DocumentSnapshot documentSnapshot =
-    await FirebaseFirestore.instance.collection(FirestoreDocs.page_doc).doc(FirestoreDocs.dataStructurePage).get();
-
-    if (documentSnapshot.exists) {
-      final data = documentSnapshot.data() as Map<String, dynamic>;
-      setState(() {
-        _cachedData = data;
-      });
-      return data;
-    } else {
-      throw Exception('Data not found');
-    }
+    // Load Firestore data using the service
+    _dataFuture = _firestoreService.fetchData(
+      collection: FirestoreDocs.page_doc,
+      documentId: FirestoreDocs.algorithmsPage,
+      cacheKey: FirestoreDocs.algorithmsPage,
+    );
   }
 
   @override
@@ -114,7 +77,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                       child: FlexibleSpaceBar(
                         titlePadding: EdgeInsets.only(left: 16, bottom: 16),
                         title: Text(
-                          data[FirestoreDocs.dataStructurePageTitle],
+                          data[FirestoreDocs.algorithmsPageTitle],
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -152,7 +115,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              data[FirestoreDocs.dataStructurePageDefinitionQuestion],
+                              data[FirestoreDocs.algorithmsPageSearchingButtonText],//data[FirestoreDocs.dataStructurePageDefinitionQuestion],
                               style: TextStyle(
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600,
@@ -161,7 +124,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              data[FirestoreDocs.dataStructurePageDefinitionText] ,
+                              data[FirestoreDocs.algorithmsPageDefinitionText],
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey,
@@ -174,7 +137,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
 
                       // Linear Data Structure Section
                       Text(
-                        data[FirestoreDocs.dataStructurePageLinearDsaTitle],
+                        data[FirestoreDocs.algorithmsPageSortingTitle],
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -183,14 +146,14 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        data[FirestoreDocs.dataStructurePageLinearDsaDefinition] ,
+                        data[FirestoreDocs.algorithmsPageSortingDefinition],
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
                         ),
                       ),
 
-                      // Linear Data Structure Buttons
+                      // Button
                       GridView.count(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
@@ -199,17 +162,14 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageArrayButtonText], isDarkTheme),
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageStackButtonText], isDarkTheme),
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageQueueButtonText], isDarkTheme),
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageListButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.algorithmsPageSortingButtonText] ?? 'See Sorting Details', isDarkTheme),
                         ],
                       ),
+
                       const SizedBox(height: 24),
 
-                      // Non-Linear Data Structure Section
                       Text(
-                        data[FirestoreDocs.dataStructurePageNonlinearDsaTitle],
+                        data[FirestoreDocs.algorithmsPageSearchingTitle],
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -218,14 +178,14 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        data[FirestoreDocs.dataStructurePageNonlinearDsaDefinition] ,
+                        data[FirestoreDocs.algorithmsPageSearchingDefinition],
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey,
                         ),
                       ),
 
-                      // Non-Linear Data Structure Buttons
+                      // Button
                       GridView.count(
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
@@ -234,15 +194,14 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageGraphButtonText], isDarkTheme),
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageBstButtonText], isDarkTheme),
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageHashButtonText], isDarkTheme),
+                          _buildCategoryButton(context, data[FirestoreDocs.algorithmsPageSearchingButtonText] ?? 'See Searching Details', isDarkTheme),
                         ],
                       ),
+
                       const SizedBox(height: 16),
 
                       // Complexity Table Section
-                      Container(
+                      /*Container(
                         decoration: BoxDecoration(
                           color: Colors.white60,
                           borderRadius: BorderRadius.circular(16),
@@ -269,8 +228,157 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             ),
                           ],
                         ),
+                      ),*/
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        data[FirestoreDocs.algorithmsPageGreedyTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.algorithmsPageGreedyDefinition],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        data[FirestoreDocs.algorithmsPageRecursiveTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.algorithmsPageRecursiveDefinition],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        data[FirestoreDocs.algorithmsPageDivideEtImperaTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.algorithmsPageDivideEtImperaDefinition],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        data[FirestoreDocs.algorithmsPageBacktrackingTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.algorithmsPageBacktrackingDefinition],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        data[FirestoreDocs.algorithmsPageDynamicProgrammingTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.algorithmsPageDynamicProgrammingDefinition],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      Text(
+                        data[FirestoreDocs.algorithmsPageHashTitle],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        data[FirestoreDocs.algorithmsPageHashDefinition],
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 24),
+
+                      // Complexity Table Section
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white60,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data[FirestoreDocs.algorithmsPageComplexityTableDsaText] ?? 'Algorithms Complexity Table',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+
                       const SizedBox(height: 65),
+
                     ],
                   ),
                 ),
@@ -283,7 +391,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
   }
 
   Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
-
     // Define the gradient colors
     final gradient = LinearGradient(
       // Gradient colors
@@ -294,16 +401,8 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
 
     // Define a map for title-to-page navigation
     final pageMap = {
-      "Array": () => ArrayPage(
-        toggleTheme: widget.toggleTheme,
-        userId: widget.userId,
-      ),
-      "Stack": () => StackPage(),
-      "Queue": () => QueuePage(),
-      "List": () => ListPage(),
-      "HashTable": () => HashTablePage(),
-      "Binary Search Tree": () => BSTPage(),
-      "Graph": () => GraphPage(),
+      "See Sorting Details": () => SortingAlgorithmsPage(),
+      "See Searching Details": () => SearchingAlgorithmsPage(),
     };
 
     return ElevatedButton(

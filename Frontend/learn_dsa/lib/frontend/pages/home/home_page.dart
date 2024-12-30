@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_dsa/pages/profile/login/login_page.dart';
 
 import '../../strings/firestore/firestore_docs.dart';
+import '../profile/login/login_page.dart';
 
 class HomePage extends StatefulWidget
 {
