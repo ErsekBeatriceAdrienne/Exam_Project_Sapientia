@@ -323,7 +323,7 @@ class ArrayPage extends StatelessWidget
                         ),
                         child: ExpansionTile(
                           title: Text(
-                            "Static Array",
+                            ArrayStrings.static_array_title,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -345,14 +345,16 @@ class ArrayPage extends StatelessWidget
 
                                   // Static Array explanation
                                   Text(
-                                    "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later.",
-                                    style: TextStyle(
+                                    ArrayStrings.static_array_definition,
+                                      style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     ),
                                   ),
+
                                   const SizedBox(height: 10),
+
                                   Align(
                                     alignment: Alignment.center,
                                     child: Stack(
@@ -392,7 +394,7 @@ class ArrayPage extends StatelessWidget
                                             ),
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
-                                                text: ArrayStrings.array_empty_initialization,
+                                                text: ArrayStrings.static_array_code,
                                               ));
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(content: Text('Code copied!')),
@@ -406,7 +408,7 @@ class ArrayPage extends StatelessWidget
                                   const SizedBox(height: 10),
                                   // Explanation of the array code
                                   Text(
-                                    ArrayStrings.array_empty_explanation,
+                                    ArrayStrings.static_array_printing_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -440,7 +442,7 @@ class ArrayPage extends StatelessWidget
                         ),
                         child: ExpansionTile(
                           title: Text(
-                            "Dynamic Array",
+                            ArrayStrings.dynamic_array_title,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -460,10 +462,9 @@ class ArrayPage extends StatelessWidget
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  // Static Array explanation
                                   Text(
-                                    "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later.",
-                                    style: TextStyle(
+                                    ArrayStrings.dynamic_array_definition,
+                                      style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
@@ -490,7 +491,7 @@ class ArrayPage extends StatelessWidget
                                             ],
                                           ),
                                           child: SelectableText(
-                                            ArrayStrings.static_array_code,
+                                            ArrayStrings.dynamic_array_code,
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: 'monospace',
@@ -509,7 +510,7 @@ class ArrayPage extends StatelessWidget
                                             ),
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
-                                                text: ArrayStrings.array_empty_initialization,
+                                                text: ArrayStrings.dynamic_array_code,
                                               ));
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(content: Text('Code copied!')),
@@ -523,7 +524,7 @@ class ArrayPage extends StatelessWidget
                                   const SizedBox(height: 10),
                                   // Explanation of the array code
                                   Text(
-                                    ArrayStrings.array_empty_explanation,
+                                    ArrayStrings.dynamic_array_allocation_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
