@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
@@ -14,9 +13,7 @@ class ArrayPage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
-    final isDarkTheme = Theme
-        .of(context)
-        .brightness == Brightness.dark;
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
         body: CustomScrollView(
@@ -56,7 +53,7 @@ class ArrayPage extends StatelessWidget
 
                     const SizedBox(height: 15),
 
-                    // what is an array?
+                    // What is an array?
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -113,7 +110,7 @@ class ArrayPage extends StatelessWidget
                                       ),
 
                                       child: SelectableText(
-                                        ArrayStrings.array_empty_inicialization,
+                                        ArrayStrings.array_empty_initialization,
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'monospace',
@@ -134,7 +131,7 @@ class ArrayPage extends StatelessWidget
                                         onPressed: () {
                                           Clipboard.setData(ClipboardData(
                                             text: ArrayStrings
-                                                .array_empty_inicialization,
+                                                .array_empty_initialization,
                                           ));
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
@@ -158,13 +155,6 @@ class ArrayPage extends StatelessWidget
                                   color: Colors.black,
                                 ),
                               ),
-
-                             /* SizedBox(height: 10),
-
-                              Image.asset(
-                                ArrayImage.array_explanation,
-                                fit: BoxFit.contain,
-                              ),*/
                             ],
                           ),
                         ),
@@ -197,11 +187,474 @@ class ArrayPage extends StatelessWidget
                             ),
                           ),
                         ),
-
                       ],
                     ),
                     const SizedBox(height: 20),
 
+                    // Static array
+                    /*Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Container with description and code
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Static Array",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFDFAEE8),
+                                ),
+                              ),
+
+                              const SizedBox(height: 8),
+
+                              // Static Array explanation
+                              Text(
+                                "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later. ",
+                                  style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              Align(
+                                alignment: Alignment.center,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(8),
+                                      margin: const EdgeInsets.only(bottom: 10),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFDFAEE8),
+                                        borderRadius: BorderRadius.circular(8),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black.withOpacity(0.15),
+                                            offset: const Offset(2, 2),
+                                            blurRadius: 6,
+                                            spreadRadius: 2,
+                                          ),
+                                        ],
+                                      ),
+                                      child: SelectableText(
+                                        ArrayStrings.static_array_code,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'monospace',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+
+                                    // Copy button on the top right corner
+                                    Positioned(
+                                      top: 8,
+                                      right: 8,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.copy,
+                                          color: Colors.white,
+                                        ),
+                                        onPressed: () {
+                                          Clipboard.setData(ClipboardData(
+                                            text: ArrayStrings.array_empty_initialization,
+                                          ));
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(content: Text('Code copied!')),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Explanation of the array code
+                              Text(
+                                ArrayStrings.array_empty_explanation,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),*/
+                    SizedBox(height: 20),
+
+                    // Static Array Drop down
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          // Gradient colors
+                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                            "Static Array",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  // Static Array explanation
+                                  Text(
+                                    "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later.",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+                                          child: SelectableText(
+                                            ArrayStrings.static_array_code,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        // Copy button on the top right corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                text: ArrayStrings.array_empty_initialization,
+                                              ));
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Explanation of the array code
+                                  Text(
+                                    ArrayStrings.array_empty_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Dynamic Array Drop down
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          // Gradient colors
+                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                            "Dynamic Array",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  // Static Array explanation
+                                  Text(
+                                    "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later.",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+                                          child: SelectableText(
+                                            ArrayStrings.static_array_code,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        // Copy button on the top right corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                text: ArrayStrings.array_empty_initialization,
+                                              ));
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Explanation of the array code
+                                  Text(
+                                    ArrayStrings.array_empty_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 10),
+
+                    // Dynamic Array Drop down
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          // Gradient colors
+                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,
+                        ),
+                        child: ExpansionTile(
+                          title: Text(
+                            "Struct Array",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  // Static Array explanation
+                                  Text(
+                                    "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later.",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Stack(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+                                          child: SelectableText(
+                                            ArrayStrings.static_array_code,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                        // Copy button on the top right corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                text: ArrayStrings.array_empty_initialization,
+                                              ));
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Explanation of the array code
+                                  Text(
+                                    ArrayStrings.array_empty_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
 /*                    // In real life example drop down
                     Container(
                       decoration: BoxDecoration(
@@ -607,7 +1060,6 @@ class ArrayPage extends StatelessWidget
                         ),
                       ),
                     ),*/
-                  ],
                 ),
               ),
             ),
