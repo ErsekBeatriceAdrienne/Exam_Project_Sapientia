@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
 
-class ArrayPage extends StatelessWidget
-{
+class ArrayPage extends StatelessWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ArrayPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ArrayPage({Key? key, required this.toggleTheme, required this.userId})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context)
-  {
-    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+  Widget build(BuildContext context) {
+    final isDarkTheme = Theme
+        .of(context)
+        .brightness == Brightness.dark;
 
     return Scaffold(
         body: CustomScrollView(
@@ -27,11 +28,14 @@ class ArrayPage extends StatelessWidget
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                   child: Container(
-                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+                    color: Theme
+                        .of(context)
+                        .scaffoldBackgroundColor
+                        .withOpacity(0.2),
                     child: FlexibleSpaceBar(
                       titlePadding: EdgeInsets.only(left: 40, bottom: 20),
                       title: Text(
-                          ArrayStrings.title,
+                        ArrayStrings.title,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -60,7 +64,9 @@ class ArrayPage extends StatelessWidget
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
@@ -90,56 +96,222 @@ class ArrayPage extends StatelessWidget
                               // Code array
                               Align(
                                 alignment: Alignment.center,
-                                child: Stack(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
 
-                                    Container(
-                                      padding: const EdgeInsets.all(8),
-                                      margin: const EdgeInsets.only(bottom: 10),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFDFAEE8),
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black.withOpacity(0.15),
-                                            offset: const Offset(2, 2),
-                                            blurRadius: 6,
-                                            spreadRadius: 2,
-                                          ),
-                                        ],
-                                      ),
-
-                                      child: SelectableText(
-                                        ArrayStrings.array_empty_initialization,
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'monospace',
-                                          color: Colors.white,
-                                        ),
+                                    // Text static array explanation
+                                    Text(
+                                      ArrayStrings.static_array_allocating_explanation,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
                                       ),
                                     ),
 
-                                    // Copy button on right up corner
-                                    Positioned(
-                                      top: 8,
-                                      right: 8,
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.copy,
-                                          color: Colors.white,
+                                    // Static array code snippet with copy button
+                                    Stack(
+                                      children: [
+                                        // Static array code snippet
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(
+                                                8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(
+                                                    0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            ArrayStrings
+                                                .static_array_empty_initialization,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
-                                        onPressed: () {
-                                          Clipboard.setData(ClipboardData(
-                                            text: ArrayStrings
-                                                .array_empty_initialization,
-                                          ));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                                content: Text('Code copied!')),
-                                          );
-                                        },
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                text: ArrayStrings
+                                                    .static_array_empty_initialization,
+                                              ));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 10),
+
+                                    // Text dynamic array explanation
+                                    Text(
+                                      ArrayStrings.dynamic_array_allocating_explanation,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
                                       ),
+                                    ),
+
+                                    // Dynamic array code snippet with copy button
+                                    Stack(
+                                      children: [
+                                        // Dynamic array code snippet
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(
+                                                8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(
+                                                    0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            ArrayStrings
+                                                .dynamic_array_empty_initialization,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                text: ArrayStrings
+                                                    .dynamic_array_empty_initialization,
+                                              ));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
+                                    const SizedBox(height: 10),
+
+                                    // Text struct array explanation
+                                    Text(
+                                      ArrayStrings.struct_array_allocating_explanation,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+
+                                    // Struct array code snippet with copy button
+                                    Stack(
+                                      children: [
+                                        // Struct array code snippet
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(
+                                                8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(
+                                                    0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            ArrayStrings
+                                                .struct_array_empty_initialization,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                text: ArrayStrings
+                                                    .struct_array_empty_initialization,
+                                              ));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        'Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -147,14 +319,14 @@ class ArrayPage extends StatelessWidget
 
                               SizedBox(height: 10),
 
-                              Text(
+                              /*Text(
                                 ArrayStrings.array_empty_explanation,
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.normal,
                                   color: Colors.black,
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),
@@ -327,16 +499,21 @@ class ArrayPage extends StatelessWidget
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
                             ),
                           ),
                           initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          tilePadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0),
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme
+                                    .of(context)
+                                    .scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Column(
@@ -346,7 +523,7 @@ class ArrayPage extends StatelessWidget
                                   // Static Array explanation
                                   Text(
                                     ArrayStrings.static_array_definition,
-                                      style: TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
@@ -361,13 +538,16 @@ class ArrayPage extends StatelessWidget
                                       children: [
                                         Container(
                                           padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10),
                                           decoration: BoxDecoration(
                                             color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(
+                                                8),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
+                                                color: Colors.black.withOpacity(
+                                                    0.15),
                                                 offset: const Offset(2, 2),
                                                 blurRadius: 6,
                                                 spreadRadius: 2,
@@ -394,10 +574,13 @@ class ArrayPage extends StatelessWidget
                                             ),
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
-                                                text: ArrayStrings.static_array_code,
+                                                text: ArrayStrings
+                                                    .static_array_code,
                                               ));
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(content: Text('Code copied!')),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(content: Text(
+                                                    'Code copied!')),
                                               );
                                             },
                                           ),
@@ -408,7 +591,8 @@ class ArrayPage extends StatelessWidget
                                   const SizedBox(height: 10),
                                   // Explanation of the array code
                                   Text(
-                                    ArrayStrings.static_array_printing_explanation,
+                                    ArrayStrings
+                                        .static_array_printing_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -446,16 +630,21 @@ class ArrayPage extends StatelessWidget
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
                             ),
                           ),
                           initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          tilePadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0),
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme
+                                    .of(context)
+                                    .scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Column(
@@ -464,7 +653,7 @@ class ArrayPage extends StatelessWidget
 
                                   Text(
                                     ArrayStrings.dynamic_array_definition,
-                                      style: TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
@@ -477,13 +666,16 @@ class ArrayPage extends StatelessWidget
                                       children: [
                                         Container(
                                           padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10),
                                           decoration: BoxDecoration(
                                             color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(
+                                                8),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
+                                                color: Colors.black.withOpacity(
+                                                    0.15),
                                                 offset: const Offset(2, 2),
                                                 blurRadius: 6,
                                                 spreadRadius: 2,
@@ -510,10 +702,13 @@ class ArrayPage extends StatelessWidget
                                             ),
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
-                                                text: ArrayStrings.dynamic_array_code,
+                                                text: ArrayStrings
+                                                    .dynamic_array_code,
                                               ));
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(content: Text('Code copied!')),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(content: Text(
+                                                    'Code copied!')),
                                               );
                                             },
                                           ),
@@ -524,7 +719,8 @@ class ArrayPage extends StatelessWidget
                                   const SizedBox(height: 10),
                                   // Explanation of the array code
                                   Text(
-                                    ArrayStrings.dynamic_array_allocation_explanation,
+                                    ArrayStrings
+                                        .dynamic_array_allocation_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -562,16 +758,21 @@ class ArrayPage extends StatelessWidget
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
                             ),
                           ),
                           initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          tilePadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0),
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme
+                                    .of(context)
+                                    .scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Column(
@@ -594,13 +795,16 @@ class ArrayPage extends StatelessWidget
                                       children: [
                                         Container(
                                           padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
+                                          margin: const EdgeInsets.only(
+                                              bottom: 10),
                                           decoration: BoxDecoration(
                                             color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
+                                            borderRadius: BorderRadius.circular(
+                                                8),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
+                                                color: Colors.black.withOpacity(
+                                                    0.15),
                                                 offset: const Offset(2, 2),
                                                 blurRadius: 6,
                                                 spreadRadius: 2,
@@ -627,10 +831,13 @@ class ArrayPage extends StatelessWidget
                                             ),
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
-                                                text: ArrayStrings.array_empty_initialization,
+                                                text: ArrayStrings
+                                                    .static_array_empty_initialization,
                                               ));
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(content: Text('Code copied!')),
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(content: Text(
+                                                    'Code copied!')),
                                               );
                                             },
                                           ),
