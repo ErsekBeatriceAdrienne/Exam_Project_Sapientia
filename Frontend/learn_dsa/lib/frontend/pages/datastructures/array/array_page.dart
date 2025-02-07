@@ -737,7 +737,7 @@ class ArrayPage extends StatelessWidget {
 
                     SizedBox(height: 10),
 
-                    // Dynamic Array Drop down
+                    // Struct Array Drop down
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -754,7 +754,7 @@ class ArrayPage extends StatelessWidget {
                         ),
                         child: ExpansionTile(
                           title: Text(
-                            "Struct Array",
+                            ArrayStrings.struct_array_title,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -779,9 +779,9 @@ class ArrayPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  // Static Array explanation
+                                  // Struct Array explanation
                                   Text(
-                                    "\t\t\t A static array is a fixed-size, contiguous block of memory used to store elements of the same type. The size of the array is defined at the time of declaration and cannot be changed later.",
+                                    ArrayStrings.struct_array_allocating_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -812,7 +812,7 @@ class ArrayPage extends StatelessWidget {
                                             ],
                                           ),
                                           child: SelectableText(
-                                            ArrayStrings.static_array_code,
+                                            ArrayStrings.struct_array_code,
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontFamily: 'monospace',
@@ -848,7 +848,7 @@ class ArrayPage extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   // Explanation of the array code
                                   Text(
-                                    ArrayStrings.array_empty_explanation,
+                                    ArrayStrings.struct_array_printing_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
