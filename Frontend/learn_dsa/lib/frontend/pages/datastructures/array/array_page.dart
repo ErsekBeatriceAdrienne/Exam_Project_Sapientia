@@ -122,7 +122,7 @@ class ArrayPage extends StatelessWidget
                                             child: SelectableText(
                                               ArrayStrings.struct_array_empty_initialization,
                                               style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 15,
                                                 fontFamily: 'monospace',
                                                 color: Colors.white,
                                               ),
@@ -901,7 +901,7 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.allocating_memory_function_comment,
                                     style: TextStyle(
-                                      fontSize: 19,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     ),
@@ -968,7 +968,15 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
+                                  // Printing code comment
+                                  Text(
+                                    ArrayStrings.printing_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   // Printing code and copy button
                                   Center(
                                     child: Stack(
@@ -991,7 +999,7 @@ class ArrayPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.b,
+                                            ArrayStrings.printing_function,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -1010,7 +1018,7 @@ class ArrayPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.b,));
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.printing_function,));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -1022,7 +1030,216 @@ class ArrayPage extends StatelessWidget
 
                                   const SizedBox(height: 10),
 
-                                  ///................insert at, insert...
+                                  // Inserting first code title
+                                  Text(
+                                    ArrayStrings.func_inserting_element_first_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Inserting first code comment
+                                  Text(
+                                    ArrayStrings.insert_first_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Inserting first code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            ArrayStrings.insert_first_function,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.insert_first_function,));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Inserting at code title
+                                  Text(
+                                    ArrayStrings.func_inserting_element_at_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Inserting at code comment
+                                  Text(
+                                    ArrayStrings.insert_at_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Inserting at code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            ArrayStrings.insert_at_function,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.insert_at_function,));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Inserting last code title
+                                  Text(
+                                    ArrayStrings.func_inserting_element_last_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Inserting last code comment
+                                  Text(
+                                    ArrayStrings.insert_last_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Inserting last code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            ArrayStrings.insert_last_function,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.insert_last_function,));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -1035,7 +1252,15 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
+                                  // Empty code comment
+                                  Text(
+                                    ArrayStrings.isempty_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   // isEmpty code and copy button
                                   Center(
                                     child: Stack(
@@ -1058,7 +1283,7 @@ class ArrayPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.c,
+                                            ArrayStrings.isempty_function,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -1077,7 +1302,7 @@ class ArrayPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.c,));
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.isempty_function,));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -1098,7 +1323,15 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
+                                  // Full code comment
+                                  Text(
+                                    ArrayStrings.isfull_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   // isFull code and copy button
                                   Center(
                                     child: Stack(
@@ -1121,7 +1354,7 @@ class ArrayPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.d,
+                                            ArrayStrings.isfull_function,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -1140,7 +1373,7 @@ class ArrayPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.d,));
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.isfull_function,));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -1161,7 +1394,15 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
+                                  // Deallocating memory code comment
+                                  Text(
+                                    ArrayStrings.deallocating_memory_function_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
                                   // Deallocating memory code and copy button
                                   Center(
                                     child: Stack(
@@ -1184,7 +1425,7 @@ class ArrayPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.ae,
+                                            ArrayStrings.deallocating_memory_function,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -1203,7 +1444,7 @@ class ArrayPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.ae,));
+                                              Clipboard.setData(ClipboardData(text: ArrayStrings.deallocating_memory_function));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
