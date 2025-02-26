@@ -262,7 +262,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_allocating_memory_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -277,56 +277,6 @@ class ArrayPage extends StatelessWidget
                                     ),
                                   ),
 
-                                  // Allocate array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_allocating_memory_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_allocating_memory_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
                                   const SizedBox(height: 10),
 
                                   // Printing pseudo code title
@@ -334,7 +284,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_printing_array_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -347,55 +297,6 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Printing array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_printing_array_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_printing_array_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -404,7 +305,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_inserting_element_first_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -417,55 +318,6 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Inserting first array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_insertion_element_first_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_insertion_element_first_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -474,7 +326,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_inserting_element_at_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -487,55 +339,6 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Inserting at array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_insertion_element_at_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_insertion_element_at_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -544,7 +347,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_inserting_element_last_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -557,53 +360,25 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Inserting last array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
 
-                                          child: SelectableText(
-                                            ArrayStrings.func_insertion_element_last_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
+                                  const SizedBox(height: 10),
 
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_insertion_element_last_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
+                                  // Get item at pseudo code title
+                                  Text(
+                                    ArrayStrings.func_getitem_at_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Get item at pseudo code
+                                  Text(
+                                    ArrayStrings.func_getitem_at,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
                                     ),
                                   ),
 
@@ -614,7 +389,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_empty_array_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -627,55 +402,6 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Empty array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_empty_array_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_empty_array_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -684,7 +410,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_full_array_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -697,55 +423,6 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Full array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_full_array_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_full_array_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -754,7 +431,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_deleting_element_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -767,55 +444,6 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Deleting array code snippet with copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.func_deleting_element_header,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.func_deleting_element_header,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -824,7 +452,7 @@ class ArrayPage extends StatelessWidget
                                     ArrayStrings.func_deallocating_array_title,
                                     style: TextStyle(
                                       fontSize: 19,
-                                      fontWeight: FontWeight.normal,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
