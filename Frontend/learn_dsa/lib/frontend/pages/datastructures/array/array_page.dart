@@ -1089,7 +1089,7 @@ class ArrayPage extends StatelessWidget
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 40),
 
         // How could we use this is life?
                     Stack(
