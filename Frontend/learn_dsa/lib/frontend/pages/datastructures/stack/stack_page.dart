@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_animations.dart';
 import '../../../strings/datastructure_strings/stack_strings.dart';
 
 class StackPage extends StatelessWidget
@@ -144,7 +145,7 @@ class StackPage extends StatelessWidget
 
                                     const SizedBox(height: 10),
 
-                                    // Struct array explanation
+                                    // Stack explanation
                                     Text(
                                       StackStrings.stack_animation_title,
                                       style: TextStyle(
@@ -157,11 +158,13 @@ class StackPage extends StatelessWidget
                                     const SizedBox(height: 10),
 
                                     // Animation of the stack
-                                    //AnimatedArrayWidget(),
+                                    Center(
+                                      child: AnimatedStackWidget(),
+                                    ),
 
                                     const SizedBox(height: 10),
 
-                                    // Struct array explanation
+                                    // Stack explanation
                                     Text(
                                       StackStrings.stack_allocating_explanation,
                                       style: TextStyle(
@@ -272,6 +275,159 @@ class StackPage extends StatelessWidget
 
                                   const SizedBox(height: 10),
 
+                                  // isFull pseudo code title
+                                  Text(
+                                    StackStrings.func_isfull_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // isFull pseudo code
+                                  Text(
+                                    StackStrings.func_isfull_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // isEmpty pseudo code title
+                                  Text(
+                                    StackStrings.func_isempty_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // isEmpty pseudo code
+                                  Text(
+                                    StackStrings.func_isempty_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Push pseudo code title
+                                  Text(
+                                    StackStrings.func_push_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // Push pseudo code
+                                  Text(
+                                    StackStrings.func_push_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Pop pseudo code title
+                                  Text(
+                                    StackStrings.func_pop_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // Pop pseudo code
+                                  Text(
+                                    StackStrings.func_pop_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Top pseudo code title
+                                  Text(
+                                    StackStrings.func_top_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // Top pseudo code
+                                  Text(
+                                    StackStrings.func_top_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Size pseudo code title
+                                  Text(
+                                    StackStrings.func_size_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // Size pseudo code
+                                  Text(
+                                    StackStrings.func_size_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Destroy pseudo code title
+                                  Text(
+                                    StackStrings.func_destroy_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  // Destroy pseudo code
+                                  Text(
+                                    StackStrings.func_destroy_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
                                 ],
                               ),
                             ),
@@ -279,26 +435,10 @@ class StackPage extends StatelessWidget
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-
-          ],
-        )
-    );
-  }
-}
-
-
-/*
-
-
-
 
                     const SizedBox(height: 10),
 
-                    // Code Drop down
+    // Code Drop down
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -316,7 +456,7 @@ class StackPage extends StatelessWidget
                         child:
                         ExpansionTile(
                           title: Text(
-                            ArrayStrings.code_functions_title,
+                            StackStrings.code_title,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -339,7 +479,7 @@ class StackPage extends StatelessWidget
 
                                   // Allocating memory pseudo code title
                                   Text(
-                                    ArrayStrings.func_allocating_memory_title,
+                                    StackStrings.func_allocating_memory_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.normal,
@@ -348,7 +488,7 @@ class StackPage extends StatelessWidget
                                   ),
                                   // Allocating memory pseudo code comment
                                   Text(
-                                    ArrayStrings.allocating_memory_function_comment,
+                                    StackStrings.allocating_memory_function_comment,
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal,
@@ -377,7 +517,7 @@ class StackPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.allocating_memory_function,
+                                            StackStrings.allocating_memory_function,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -396,291 +536,7 @@ class StackPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.allocating_memory_function,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Printing code title
-                                  Text(
-                                    ArrayStrings.func_printing_array_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Printing code comment
-                                  Text(
-                                    ArrayStrings.printing_function_comment,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Printing code and copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        // Code
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.printing_function,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.printing_function,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Inserting first code title
-                                  Text(
-                                    ArrayStrings.func_inserting_element_first_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Inserting first code comment
-                                  Text(
-                                    ArrayStrings.insert_first_function_comment,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Inserting first code and copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        // Code
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.insert_first_function,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.insert_first_function,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Inserting at code title
-                                  Text(
-                                    ArrayStrings.func_inserting_element_at_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Inserting at code comment
-                                  Text(
-                                    ArrayStrings.insert_at_function_comment,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Inserting at code and copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        // Code
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.insert_at_function,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.insert_at_function,));
-                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                              );
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Inserting last code title
-                                  Text(
-                                    ArrayStrings.func_inserting_element_last_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Inserting last code comment
-                                  Text(
-                                    ArrayStrings.insert_last_function_comment,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Inserting last code and copy button
-                                  Center(
-                                    child: Stack(
-                                      children: [
-                                        // Code
-                                        Container(
-                                          padding: const EdgeInsets.all(8),
-                                          margin: const EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDFAEE8),
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black.withOpacity(0.15),
-                                                offset: const Offset(2, 2),
-                                                blurRadius: 6,
-                                                spreadRadius: 2,
-                                              ),
-                                            ],
-                                          ),
-
-                                          child: SelectableText(
-                                            ArrayStrings.insert_last_function,
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontFamily: 'monospace',
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Copy button on right up corner
-                                        Positioned(
-                                          top: 8,
-                                          right: 8,
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.insert_last_function,));
+                                              Clipboard.setData(ClipboardData(text: StackStrings.allocating_memory_function,));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -694,7 +550,7 @@ class StackPage extends StatelessWidget
 
                                   // Empty code title
                                   Text(
-                                    ArrayStrings.func_empty_array_title,
+                                    StackStrings.func_isempty_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.normal,
@@ -703,7 +559,7 @@ class StackPage extends StatelessWidget
                                   ),
                                   // Empty code comment
                                   Text(
-                                    ArrayStrings.isempty_function_comment,
+                                    StackStrings.func_isempty_comment,
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal,
@@ -732,7 +588,7 @@ class StackPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.isempty_function,
+                                            StackStrings.func_isempty,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -751,7 +607,7 @@ class StackPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.isempty_function,));
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_isempty,));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -765,7 +621,7 @@ class StackPage extends StatelessWidget
 
                                   // Full code title
                                   Text(
-                                    ArrayStrings.func_full_array_title,
+                                    StackStrings.func_isfull_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.normal,
@@ -774,7 +630,7 @@ class StackPage extends StatelessWidget
                                   ),
                                   // Full code comment
                                   Text(
-                                    ArrayStrings.isfull_function_comment,
+                                    StackStrings.func_isfull_comment,
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal,
@@ -803,7 +659,7 @@ class StackPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.isfull_function,
+                                            StackStrings.func_isfull,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -822,7 +678,291 @@ class StackPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.isfull_function,));
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_isfull,));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Top code title
+                                  Text(
+                                    StackStrings.func_top_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Top code comment
+                                  Text(
+                                    StackStrings.func_top_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Top code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            StackStrings.func_destroy,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_destroy));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Push code title
+                                  Text(
+                                    StackStrings.func_push_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Push code comment
+                                  Text(
+                                    StackStrings.func_push_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Push code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            StackStrings.func_push,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_push,));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Pop code title
+                                  Text(
+                                    StackStrings.func_pop_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Pop code comment
+                                  Text(
+                                    StackStrings.func_pop_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Pop code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            StackStrings.func_pop,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_pop,));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Size code title
+                                  Text(
+                                    StackStrings.func_size_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Size code comment
+                                  Text(
+                                    StackStrings.func_size_comment,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Size code and copy button
+                                  Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            StackStrings.func_size,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_size));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -836,7 +976,7 @@ class StackPage extends StatelessWidget
 
                                   // Deallocating memory code title
                                   Text(
-                                    ArrayStrings.func_deallocating_array_title,
+                                    StackStrings.func_destroy_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.normal,
@@ -845,7 +985,7 @@ class StackPage extends StatelessWidget
                                   ),
                                   // Deallocating memory code comment
                                   Text(
-                                    ArrayStrings.deallocating_memory_function_comment,
+                                    StackStrings.func_destroy_comment,
                                     style: TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.normal,
@@ -874,7 +1014,7 @@ class StackPage extends StatelessWidget
                                           ),
 
                                           child: SelectableText(
-                                            ArrayStrings.deallocating_memory_function,
+                                            StackStrings.func_destroy,
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontFamily: 'monospace',
@@ -893,7 +1033,7 @@ class StackPage extends StatelessWidget
                                               color: Colors.white,
                                             ),
                                             onPressed: () {
-                                              Clipboard.setData(ClipboardData(text: ArrayStrings.deallocating_memory_function));
+                                              Clipboard.setData(ClipboardData(text: StackStrings.func_destroy));
                                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                               );
                                             },
@@ -910,139 +1050,147 @@ class StackPage extends StatelessWidget
                       ),
                     ),
 
-                    const SizedBox(height: 40),
+                  ],
+                ),
+              ),
+            ),
 
-                    // How could we use this is life?
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                spreadRadius: 1,
-                                blurRadius: 6,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+/*
+            // How could we use this is life?
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.15),
+                        spreadRadius: 1,
+                        blurRadius: 6,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                              // Examples
-                              Text(
-                                ArrayStrings.where_to_use,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
+                      // Examples
+                      Text(
+                        ArrayStrings.where_to_use,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
                         ),
+                      ),
+                    ],
+                  ),
+                ),
 
-                        // When to use it question box
-                        Positioned(
-                          top: -23,
-                          left: 16,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                // Gradient colors
-                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 8.0,
-                            ),
-                            child: Text(
-                              ArrayStrings.in_life_example,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                // When to use it question box
+                Positioned(
+                  top: -23,
+                  left: 16,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        // Gradient colors
+                        colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-
-                    const SizedBox(height: 30),
-
-                    // How could we use this is life?
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                spreadRadius: 1,
-                                blurRadius: 6,
-                                offset: Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-
-                              // Examples
-                              Text(
-                                ArrayStrings.when_not_to,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // When to use it question box
-                        Positioned(
-                          top: -23,
-                          left: 16,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                // Gradient colors
-                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0,
-                              vertical: 8.0,
-                            ),
-                            child: Text(
-                              ArrayStrings.not_to_use,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 8.0,
                     ),
-*/
+                    child: Text(
+                      ArrayStrings.in_life_example,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 30),
+
+            // How could we use this is life?
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.15),
+                        spreadRadius: 1,
+                        blurRadius: 6,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      // Examples
+                      Text(
+                        ArrayStrings.when_not_to,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                // When to use it question box
+                Positioned(
+                  top: -23,
+                  left: 16,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        // Gradient colors
+                        colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0,
+                      vertical: 8.0,
+                    ),
+                    child: Text(
+                      ArrayStrings.not_to_use,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),*/
+          ],
+        )
+    );
+  }
+}
