@@ -1090,7 +1090,7 @@ class ArrayPage extends StatelessWidget
                     ),
 
                     const SizedBox(height: 40),
-
+/*
         // How could we use this is life?
                     Stack(
                       clipBehavior: Clip.none,
@@ -1224,6 +1224,8 @@ class ArrayPage extends StatelessWidget
                         ),
                       ],
                     ),
+
+ */
                   ],
                 ),
               ),
