@@ -62,7 +62,7 @@ class _AnimatedStackWidgetState extends State<AnimatedStackWidget>
             border: Border.all(color: Colors.black, width: 1),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end, 
+            mainAxisAlignment: MainAxisAlignment.end,
             children: List.generate(
               capacity,
                   (i) => Container(

@@ -5,14 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'frontend/pages/customClasses/custom_bottomnavigationbar.dart';
 import 'frontend/pages/profile/login/login_page.dart';
 
-void main() async {
+void main() async
+{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
 
   runApp(const MyApp());
 }
@@ -38,7 +36,8 @@ class _MyAppState extends State <MyApp>
     _checkLoginStatus();
   }
 
-  void _toggleTheme() {
+  void _toggleTheme()
+  {
     setState(() {
       _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });

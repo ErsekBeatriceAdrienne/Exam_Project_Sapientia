@@ -7,7 +7,6 @@ import 'package:learn_dsa/frontend/pages/datastructures/tree/tree_page.dart';
 import '../../../backend/database/firestore_service.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import 'array/array_page.dart';
-import 'graph/graph_page.dart';
 import 'hash/hashtable_page.dart';
 import 'list/list_page.dart';
 
@@ -202,7 +201,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
-                          _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageGraphButtonText], isDarkTheme),
                           _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageBstButtonText], isDarkTheme),
                           _buildCategoryButton(context, data[FirestoreDocs.dataStructurePageHashButtonText], isDarkTheme),
                         ],
@@ -272,8 +270,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
       "Queue": () => QueuePage(),
       "List": () => ListPage(),
       "HashTable": () => HashTablePage(),
-      "Binary Search Tree": () => BSTPage(),
-      "Graph": () => GraphPage(),
+      "Binary Search Tree": () => BSTPage()
     };
 
     return ElevatedButton(
