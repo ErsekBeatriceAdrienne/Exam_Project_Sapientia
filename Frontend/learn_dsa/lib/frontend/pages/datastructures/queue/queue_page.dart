@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_animations.dart';
-
 import '../../../strings/datastructure_strings/queue_strings.dart';
 
 class QueuePage extends StatelessWidget {
@@ -213,201 +211,203 @@ class QueuePage extends StatelessWidget {
                             ),
                           ),
                         ),
+                      ],
+                    ),
 
-                        const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
     // Functions Drop down
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              // Gradient colors
-                              colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Theme(
-                            data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
-                            child:
-                            ExpansionTile(
-                              title: Text(
-                                QueueStrings.functions_title,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                              ),
-                              initiallyExpanded: false,
-                              tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).scaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-
-                                      // Allocating memory pseudo code title
-                                      Text(
-                                        QueueStrings.func_allocating_memory_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Allocating memory pseudo code
-                                      Text(
-                                        QueueStrings.func_allocating_memory,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // isFull pseudo code title
-                                      Text(
-                                        QueueStrings.func_isfull_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // isFull pseudo code
-                                      Text(
-                                        QueueStrings.func_isfull_explanation,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // isEmpty pseudo code title
-                                      Text(
-                                        QueueStrings.func_isempty_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // isEmpty pseudo code
-                                      Text(
-                                        QueueStrings.func_isempty_explanation,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // Enqueue pseudo code title
-                                      Text(
-                                        QueueStrings.func_enqueue_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Enqueue pseudo code
-                                      Text(
-                                        QueueStrings.func_enqueue_explanation,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // Dequeue pseudo code title
-                                      Text(
-                                        QueueStrings.func_dequeue_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Dequeue pseudo code
-                                      Text(
-                                        QueueStrings.func_dequeue_explanation,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // Print pseudo code title
-                                      Text(
-                                        QueueStrings.func_display_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Print pseudo code
-                                      Text(
-                                        QueueStrings.func_display_explanation,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // Destroy pseudo code title
-                                      Text(
-                                        QueueStrings.func_destroy_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Destroy pseudo code
-                                      Text(
-                                        QueueStrings.func_destroy_explanation,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          // Gradient colors
+                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
+                        child:
+                        ExpansionTile(
+                          title: Text(
+                            QueueStrings.functions_title,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
 
-                        const SizedBox(height: 10),
-/*
+                                  // Allocating memory pseudo code title
+                                  Text(
+                                    QueueStrings.func_allocating_memory_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Allocating memory pseudo code
+                                  Text(
+                                    QueueStrings.func_allocating_memory,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // isFull pseudo code title
+                                  Text(
+                                    QueueStrings.func_isfull_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // isFull pseudo code
+                                  Text(
+                                    QueueStrings.func_isfull_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // isEmpty pseudo code title
+                                  Text(
+                                    QueueStrings.func_isempty_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // isEmpty pseudo code
+                                  Text(
+                                    QueueStrings.func_isempty_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Enqueue pseudo code title
+                                  Text(
+                                    QueueStrings.func_enqueue_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Enqueue pseudo code
+                                  Text(
+                                    QueueStrings.func_enqueue_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Dequeue pseudo code title
+                                  Text(
+                                    QueueStrings.func_dequeue_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Dequeue pseudo code
+                                  Text(
+                                    QueueStrings.func_dequeue_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Print pseudo code title
+                                  Text(
+                                    QueueStrings.func_display_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Print pseudo code
+                                  Text(
+                                    QueueStrings.func_display_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Destroy pseudo code title
+                                  Text(
+                                    QueueStrings.func_destroy_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Destroy pseudo code
+                                  Text(
+                                    QueueStrings.func_destroy_explanation,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
     // Code Drop down
                         Container(
                           decoration: BoxDecoration(
@@ -426,7 +426,7 @@ class QueuePage extends StatelessWidget {
                             child:
                             ExpansionTile(
                               title: Text(
-                                StackStrings.code_title,
+                                QueueStrings.code_title,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -437,6 +437,7 @@ class QueuePage extends StatelessWidget {
                               tilePadding: const EdgeInsets.symmetric(
                                   horizontal: 16.0),
                               children: [
+
                                 Container(
                                   padding: const EdgeInsets.all(16),
                                   decoration: BoxDecoration(
@@ -449,7 +450,7 @@ class QueuePage extends StatelessWidget {
 
                                       // Allocating memory pseudo code title
                                       Text(
-                                        StackStrings.func_allocating_memory_title,
+                                        QueueStrings.func_allocating_memory_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
@@ -458,7 +459,7 @@ class QueuePage extends StatelessWidget {
                                       ),
                                       // Allocating memory pseudo code comment
                                       Text(
-                                        StackStrings.allocating_memory_function_comment,
+                                        QueueStrings.allocating_memory_function_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
@@ -487,7 +488,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.allocating_memory_function,
+                                                QueueStrings.allocating_memory_function,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -506,7 +507,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.allocating_memory_function,));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.allocating_memory_function,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -520,7 +521,7 @@ class QueuePage extends StatelessWidget {
 
                                       // Empty code title
                                       Text(
-                                        StackStrings.func_isempty_title,
+                                        QueueStrings.func_isempty_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
@@ -529,7 +530,7 @@ class QueuePage extends StatelessWidget {
                                       ),
                                       // Empty code comment
                                       Text(
-                                        StackStrings.func_isempty_comment,
+                                        QueueStrings.func_isempty_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
@@ -558,7 +559,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.func_isempty,
+                                                QueueStrings.func_isempty,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -577,7 +578,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_isempty,));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.func_isempty,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -591,7 +592,7 @@ class QueuePage extends StatelessWidget {
 
                                       // Full code title
                                       Text(
-                                        StackStrings.func_isfull_title,
+                                        QueueStrings.func_isfull_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
@@ -600,7 +601,7 @@ class QueuePage extends StatelessWidget {
                                       ),
                                       // Full code comment
                                       Text(
-                                        StackStrings.func_isfull_comment,
+                                        QueueStrings.func_isfull_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
@@ -629,7 +630,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.func_isfull,
+                                                QueueStrings.func_isfull,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -648,7 +649,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_isfull,));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.func_isfull,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -660,25 +661,25 @@ class QueuePage extends StatelessWidget {
 
                                       const SizedBox(height: 10),
 
-                                      // Top code title
+                                      // Enqueue code title
                                       Text(
-                                        StackStrings.func_top_title,
+                                        QueueStrings.func_enqueue_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Top code comment
+                                      // Enqueue code comment
                                       Text(
-                                        StackStrings.func_top_comment,
+                                        QueueStrings.func_enqueue_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Top code and copy button
+                                      // Enqueue code and copy button
                                       Center(
                                         child: Stack(
                                           children: [
@@ -700,7 +701,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.func_destroy,
+                                                QueueStrings.func_enqueue,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -719,7 +720,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_destroy));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.func_enqueue,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -731,25 +732,25 @@ class QueuePage extends StatelessWidget {
 
                                       const SizedBox(height: 10),
 
-                                      // Push code title
+                                      // Dequeue code title
                                       Text(
-                                        StackStrings.func_push_title,
+                                        QueueStrings.func_dequeue_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Push code comment
+                                      // Dequeue code comment
                                       Text(
-                                        StackStrings.func_push_comment,
+                                        QueueStrings.func_dequeue_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Push code and copy button
+                                      // Dequeue code and copy button
                                       Center(
                                         child: Stack(
                                           children: [
@@ -771,7 +772,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.func_push,
+                                                QueueStrings.func_dequeue,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -790,7 +791,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_push,));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.func_dequeue,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -802,25 +803,25 @@ class QueuePage extends StatelessWidget {
 
                                       const SizedBox(height: 10),
 
-                                      // Pop code title
+                                      // Display code title
                                       Text(
-                                        StackStrings.func_pop_title,
+                                        QueueStrings.func_display_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Pop code comment
+                                      // Display code comment
                                       Text(
-                                        StackStrings.func_pop_comment,
+                                        QueueStrings.func_display_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Pop code and copy button
+                                      // Display code and copy button
                                       Center(
                                         child: Stack(
                                           children: [
@@ -842,7 +843,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.func_pop,
+                                                QueueStrings.func_display,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -861,7 +862,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_pop,));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.func_display,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -873,25 +874,25 @@ class QueuePage extends StatelessWidget {
 
                                       const SizedBox(height: 10),
 
-                                      // Size code title
+                                      // Destroy code title
                                       Text(
-                                        StackStrings.func_size_title,
+                                        QueueStrings.func_destroy_title,
                                         style: TextStyle(
                                           fontSize: 19,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Size code comment
+                                      // Destroy code comment
                                       Text(
-                                        StackStrings.func_size_comment,
+                                        QueueStrings.func_destroy_comment,
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.normal,
                                           color: Colors.black,
                                         ),
                                       ),
-                                      // Size code and copy button
+                                      // Destroy code and copy button
                                       Center(
                                         child: Stack(
                                           children: [
@@ -913,7 +914,7 @@ class QueuePage extends StatelessWidget {
                                               ),
 
                                               child: SelectableText(
-                                                StackStrings.func_size,
+                                                QueueStrings.func_destroy,
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontFamily: 'monospace',
@@ -932,7 +933,7 @@ class QueuePage extends StatelessWidget {
                                                   color: Colors.white,
                                                 ),
                                                 onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_size));
+                                                  Clipboard.setData(ClipboardData(text: QueueStrings.func_destroy,));
                                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                   );
                                                 },
@@ -943,75 +944,6 @@ class QueuePage extends StatelessWidget {
                                       ),
 
                                       const SizedBox(height: 10),
-
-                                      // Deallocating memory code title
-                                      Text(
-                                        StackStrings.func_destroy_title,
-                                        style: TextStyle(
-                                          fontSize: 19,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Deallocating memory code comment
-                                      Text(
-                                        StackStrings.func_destroy_comment,
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      // Deallocating memory code and copy button
-                                      Center(
-                                        child: Stack(
-                                          children: [
-                                            // Code
-                                            Container(
-                                              padding: const EdgeInsets.all(8),
-                                              margin: const EdgeInsets.only(bottom: 10),
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFDFAEE8),
-                                                borderRadius: BorderRadius.circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black.withOpacity(0.15),
-                                                    offset: const Offset(2, 2),
-                                                    blurRadius: 6,
-                                                    spreadRadius: 2,
-                                                  ),
-                                                ],
-                                              ),
-
-                                              child: SelectableText(
-                                                StackStrings.func_destroy,
-                                                style: TextStyle(
-                                                  fontSize: 13,
-                                                  fontFamily: 'monospace',
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-
-                                            // Copy button on right up corner
-                                            Positioned(
-                                              top: 8,
-                                              right: 8,
-                                              child: IconButton(
-                                                icon: Icon(
-                                                  Icons.copy,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: StackStrings.func_destroy));
-                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
@@ -1020,149 +952,10 @@ class QueuePage extends StatelessWidget {
                           ),
                         ),
 
- */
-                      ],
-                    ),
-
                   ],
                 ),
               ),
             ),
-
-/*
-            // How could we use this is life?
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      // Examples
-                      Text(
-                        ArrayStrings.where_to_use,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // When to use it question box
-                Positioned(
-                  top: -23,
-                  left: 16,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        // Gradient colors
-                        colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 8.0,
-                    ),
-                    child: Text(
-                      ArrayStrings.in_life_example,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 30),
-
-            // How could we use this is life?
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        spreadRadius: 1,
-                        blurRadius: 6,
-                        offset: Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-
-                      // Examples
-                      Text(
-                        ArrayStrings.when_not_to,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // When to use it question box
-                Positioned(
-                  top: -23,
-                  left: 16,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        // Gradient colors
-                        colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 8.0,
-                    ),
-                    child: Text(
-                      ArrayStrings.not_to_use,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),*/
           ],
         )
     );

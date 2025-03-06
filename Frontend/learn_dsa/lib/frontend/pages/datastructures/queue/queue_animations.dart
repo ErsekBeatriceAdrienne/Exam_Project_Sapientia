@@ -11,6 +11,8 @@ class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget> {
   final int capacity = 5;
   final List<int> values = [3, 5, 8, 1, 7];
   int index = 0;
+  int front = -1;
+  int rear = -1;
 
   @override
   void initState() {
@@ -23,6 +25,8 @@ class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget> {
       if (queue.length < capacity) {
         setState(() {
           queue.add(values[index % values.length]);
+          if (front == -1) front = 0; // Set front when the first element is added
+          rear = (rear + 1) % capacity;
           index++;
         });
       }
@@ -34,11 +38,21 @@ class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget> {
             if (queue.isNotEmpty) {
               setState(() {
                 queue.removeAt(0);
+                if (queue.isEmpty) {
+                  front = -1;
+                  rear = -1;
+                } else {
+                  front = (front + 1) % capacity;
+                }
               });
             } else {
               removeTimer.cancel();
               Future.delayed(Duration(seconds: 1), () {
-                index = 0;
+                setState(() {
+                  index = 0;
+                  front = -1;
+                  rear = -1;
+                });
                 _startAnimation();
               });
             }
@@ -88,9 +102,9 @@ class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget> {
 
         SizedBox(height: 10),
 
-        // Queue info
+        // Front and Rear positions
         Text(
-          'Size: ${queue.length}  |  Capacity: $capacity',
+          'Front: ${front == -1 ? "-1" : front}  |  Rear: ${rear == -1 ? "-1" : rear}  |  Capacity: 5',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],
