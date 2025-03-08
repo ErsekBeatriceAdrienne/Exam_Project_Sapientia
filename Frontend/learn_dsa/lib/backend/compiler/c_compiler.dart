@@ -11,8 +11,14 @@ class CodeCompilerPage extends StatefulWidget {
 class _CodeCompilerPageState extends State<CodeCompilerPage> {
   TextEditingController _controller = TextEditingController();
   String output = "";
+  bool isLoading = false;
 
   Future<void> _compileCode() async {
+    setState(() {
+      isLoading = true;
+      output = "";
+    });
+
     final url = Uri.parse("http://${Compiler.COMPILER_ADDRESS}:${Compiler.PRIVATE_DOMAIN}/compile");
     final response = await http.post(
       url,
@@ -20,43 +26,88 @@ class _CodeCompilerPageState extends State<CodeCompilerPage> {
       body: jsonEncode({"code": _controller.text}),
     );
 
-    if (response.statusCode == 200) {
-      setState(() {
+    setState(() {
+      isLoading = false;
+      if (response.statusCode == 200) {
         output = jsonDecode(response.body)["output"];
-      });
-    } else {
-      setState(() {
-        output = "Hiba: ${jsonDecode(response.body)["error"]}";
-      });
-    }
+      } else {
+        List<String> errors = List<String>.from(jsonDecode(response.body)["errors"]);
+        output = errors.join("\n");
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("C Compiler in Flutter")),
+      appBar: AppBar(
+        title: Text("C Compiler"),
+        actions: [
+          IconButton(
+            onPressed: isLoading ? null : _compileCode,
+            icon: Icon(
+              Icons.play_arrow_rounded,
+              color: Colors.greenAccent,//Color(0xFFDFAEE8),
+              size: 30, 
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: _controller,
-              maxLines: 10,
-              decoration: InputDecoration(
-                hintText: "Írd be a C kódot...",
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _compileCode,
-              child: Text("Futtatás"),
-            ),
+            _buildCodeEditor(),
             SizedBox(height: 20),
-            Text("Eredmény:", style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(output),
+            _buildOutputBox(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCodeEditor() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade400),
+      ),
+      padding: EdgeInsets.all(10),
+      child: TextField(
+        controller: _controller,
+        maxLines: 10,
+        style: TextStyle(fontFamily: 'monospace', fontSize: 14),
+        decoration: InputDecoration(
+          hintText: "Write code here...",
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOutputBox() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black87,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: EdgeInsets.all(12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Result:", style: TextStyle(color: Colors.white70, fontWeight: FontWeight.bold)),
+          SizedBox(height: 5),
+          output.isEmpty
+              ? Text("No output.", style: TextStyle(color: Colors.white54))
+              : SingleChildScrollView(
+            child: Text(
+              output,
+              style: TextStyle(color: Colors.white, fontFamily: "monospace"),
+            ),
+          ),
+        ],
       ),
     );
   }

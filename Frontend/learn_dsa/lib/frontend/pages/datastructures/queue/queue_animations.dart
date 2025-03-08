@@ -6,7 +6,8 @@ class AnimatedQueueWidget extends StatefulWidget {
   _AnimatedQueueWidgetState createState() => _AnimatedQueueWidgetState();
 }
 
-class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget> {
+class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget>
+{
   List<int> queue = [];
   final int capacity = 5;
   final List<int> values = [3, 5, 8, 1, 7];
