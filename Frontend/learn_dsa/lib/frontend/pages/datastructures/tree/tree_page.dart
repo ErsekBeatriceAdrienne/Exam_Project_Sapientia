@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import '../../../strings/datastructure_strings/array_strings.dart';
 
 class BSTPage extends StatelessWidget {
