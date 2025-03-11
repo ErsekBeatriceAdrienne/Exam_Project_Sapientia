@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import 'package:learn_dsa/frontend/pages/profile/settings/settings_page.dart';
+import 'package:learn_dsa/frontend/pages/profile/test_results.dart';
 import '../../../backend/database/cloudinary_service.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import 'login/login_page.dart';
@@ -243,12 +244,17 @@ class _ProfilePageState extends State<ProfilePage> {
                               onPickImage: _pickImage,
                               onNotes: () {},
                             ),
+                            const SizedBox(height: 10),
+
                           ],
                         ),
                       ),
+                      // Pie chart
+                      DonutChart(),
 
-                      // For showing all content
-                      const SizedBox(height: 65)
+                      const SizedBox(height: 65),
+
+
                     ],
                   ),
                 ),
