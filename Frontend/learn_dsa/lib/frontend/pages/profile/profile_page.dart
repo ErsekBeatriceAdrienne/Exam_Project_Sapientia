@@ -249,8 +249,15 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ),
-                      // Pie chart
+
+                      const SizedBox(height: 20),
+
+                      // Donut chart
                       DonutChart(),
+                      Text(
+                        "Test results",
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
 
                       const SizedBox(height: 65),
 
