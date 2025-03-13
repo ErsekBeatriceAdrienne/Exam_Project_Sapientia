@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-class HashTableAnimation extends StatefulWidget {
+class ChainedHashTableAnimation extends StatefulWidget {
   @override
-  _HashTableAnimationState createState() => _HashTableAnimationState();
+  _ChainedHashTableAnimationState createState() => _ChainedHashTableAnimationState();
 }
 
-class _HashTableAnimationState extends State<HashTableAnimation> {
-  List<int?> hashTable = List.filled(7, null); // Hash table with size 7
-  List<int> values = [];
+class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> {
+  List<List<int>> hashTable = List.generate(5, (_) => []);
   int insertCount = 0;
-  final int maxValues = 7;
-  final int tableSize = 7;
+  final int maxValues = 10;
+  final int tableSize = 5;
 
   @override
   void initState() {
@@ -19,35 +18,26 @@ class _HashTableAnimationState extends State<HashTableAnimation> {
     _startAutoInsertion();
   }
 
-  // Automatically insert values with a delay
   void _startAutoInsertion() async {
     while (insertCount < maxValues) {
       await Future.delayed(const Duration(seconds: 1));
       int newValue = Random().nextInt(100);
-
       setState(() {
-        values.add(newValue);
         _insertValue(newValue);
         insertCount++;
       });
     }
   }
 
-  // Insert value into hash table with simple modulo hashing
   void _insertValue(int value) {
     int index = value % tableSize;
-    while (hashTable[index] != null) {
-      // Linear probing for collision resolution
-      index = (index + 1) % tableSize;
-    }
-    hashTable[index] = value;
+    hashTable[index].add(value);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Animated Hash Table Visualization
         Container(
           height: 300,
           padding: const EdgeInsets.all(10),
@@ -56,7 +46,7 @@ class _HashTableAnimationState extends State<HashTableAnimation> {
             borderRadius: BorderRadius.circular(12),
           ),
           child: CustomPaint(
-            painter: HashTablePainter(hashTable),
+            painter: ChainedHashTablePainter(hashTable),
             child: Container(),
           ),
         ),
@@ -66,58 +56,72 @@ class _HashTableAnimationState extends State<HashTableAnimation> {
   }
 }
 
-// Painter to draw the Hash Table
-class HashTablePainter extends CustomPainter {
-  final List<int?> hashTable;
+class ChainedHashTablePainter extends CustomPainter {
+  final List<List<int>> hashTable;
 
-  HashTablePainter(this.hashTable);
+  ChainedHashTablePainter(this.hashTable);
 
   @override
   void paint(Canvas canvas, Size size) {
-    double width = size.width;
-    double height = size.height;
-    double cellWidth = width / hashTable.length;
+    double cellHeight = size.height / hashTable.length;
+    double cellWidth = 60;
+    double borderRadius = 10;
 
     Paint cellPaint = Paint()
-      ..color = Colors.deepPurpleAccent
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 2;
-
-    Paint borderPaint = Paint()
-      ..color = Colors.black26
-      ..style = PaintingStyle.stroke;
-
-    Paint textPaint = Paint()
-      ..color = Colors.white
+      ..color = Colors.purple
       ..style = PaintingStyle.fill;
 
-    // Draw the table cells with rounded corners and shadow
+    Paint borderPaint = Paint()
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke;
+
+    Paint linePaint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 2;
+
     for (int i = 0; i < hashTable.length; i++) {
-      double x = i * cellWidth;
-      double y = 0;
-      Rect cellRect = Rect.fromLTWH(x, y, cellWidth, height);
+      double y = i * cellHeight;
+      RRect cellRect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(10, y, cellWidth, cellHeight - 5),
+        Radius.circular(borderRadius),
+      );
+      canvas.drawRRect(cellRect, cellPaint);
+      canvas.drawRRect(cellRect, borderPaint);
 
-      // Apply rounded corners and shadow
-      canvas.drawRRect(RRect.fromRectAndRadius(cellRect, Radius.circular(8)), cellPaint);
-      canvas.drawRRect(RRect.fromRectAndRadius(cellRect, Radius.circular(8)), borderPaint);
+      TextPainter indexText = TextPainter(
+        text: TextSpan(
+          text: '$i',
+          style: const TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        textDirection: TextDirection.ltr,
+      );
+      indexText.layout();
+      indexText.paint(canvas, Offset(25, y + (cellHeight - indexText.height) / 2));
 
-      // Draw the values inside the cells
-      if (hashTable[i] != null) {
-        TextPainter textPainter = TextPainter(
+      double xOffset = 80;
+      for (int value in hashTable[i]) {
+        RRect valueRect = RRect.fromRectAndRadius(
+          Rect.fromLTWH(xOffset, y, cellWidth, cellHeight - 5),
+          Radius.circular(borderRadius),
+        );
+        canvas.drawRRect(valueRect, cellPaint);
+        canvas.drawRRect(valueRect, borderPaint);
+
+        TextPainter valueText = TextPainter(
           text: TextSpan(
-            text: hashTable[i].toString(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            text: '$value',
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
           textDirection: TextDirection.ltr,
         );
-        textPainter.layout();
-        // Center the text in the cell
-        textPainter.paint(
-            canvas, Offset(x + (cellWidth - textPainter.width) / 2, height / 2 - textPainter.height / 2));
+        valueText.layout();
+        valueText.paint(canvas, Offset(xOffset + 10, y + (cellHeight - valueText.height) / 2));
+
+        if (xOffset > 80) {
+          canvas.drawLine(Offset(xOffset - 10, y + cellHeight / 2), Offset(xOffset, y + cellHeight / 2), linePaint);
+        }
+
+        xOffset += 70;
       }
     }
   }
