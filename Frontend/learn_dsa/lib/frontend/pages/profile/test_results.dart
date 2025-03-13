@@ -49,7 +49,7 @@ class DonutChart extends StatelessWidget {
               ),
             ],
             sectionsSpace: 2,
-            centerSpaceRadius: 70,
+            centerSpaceRadius: 60,
           ),
         ),
       ),

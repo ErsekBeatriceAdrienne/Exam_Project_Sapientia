@@ -158,7 +158,7 @@ class HashTablePage extends StatelessWidget {
                                     const SizedBox(height: 10),
 
                                     // Animation of the Hash Table
-                                    HashTableAnimation(),
+                                    ChainedHashTableAnimation(),
 
                                     const SizedBox(height: 10),
 
