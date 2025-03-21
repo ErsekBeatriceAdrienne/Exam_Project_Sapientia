@@ -210,7 +210,6 @@ class _CodeCompilerPageState extends State<CodeCompilerPage> {
     );
   }
 
-
   Widget _buildOutputBox() {
     return Container(
       decoration: BoxDecoration(
