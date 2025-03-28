@@ -1,12 +1,26 @@
 import 'dart:ui';
+import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/tree/tree_animations.dart';
 import '../../../strings/datastructure_strings/tree_strings.dart';
 
-class BSTPage extends StatelessWidget
+class BSTPage extends StatefulWidget
 {
   const BSTPage({Key? key}) : super(key: key);
+
+  @override
+  _BSTPageState createState() => _BSTPageState();
+}
+
+class _BSTPageState extends State<BSTPage> {
+  bool _isFlipped = false;
+
+  void _toggleFlip() {
+    setState(() {
+      _isFlipped = !_isFlipped; // Átváltás a forgatás állapotán
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +72,9 @@ class BSTPage extends StatelessWidget
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
@@ -99,13 +115,16 @@ class BSTPage extends StatelessWidget
                                           // BST code snippet
                                           Container(
                                             padding: const EdgeInsets.all(8),
-                                            margin: const EdgeInsets.only(bottom: 10),
+                                            margin: const EdgeInsets.only(
+                                                bottom: 10),
                                             decoration: BoxDecoration(
                                               color: Color(0xFFDFAEE8),
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius: BorderRadius
+                                                  .circular(8),
                                               boxShadow: [
                                                 BoxShadow(
-                                                  color: Colors.black.withOpacity(0.15),
+                                                  color: Colors.black
+                                                      .withOpacity(0.15),
                                                   offset: const Offset(2, 2),
                                                   blurRadius: 6,
                                                   spreadRadius: 2,
@@ -114,7 +133,8 @@ class BSTPage extends StatelessWidget
                                             ),
 
                                             child: SelectableText(
-                                              BSTStrings.bst_empty_initialization,
+                                              BSTStrings
+                                                  .bst_empty_initialization,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontFamily: 'monospace',
@@ -133,8 +153,14 @@ class BSTPage extends StatelessWidget
                                                 color: Colors.white,
                                               ),
                                               onPressed: () {
-                                                Clipboard.setData(ClipboardData(text: BSTStrings.bst_empty_initialization,));
-                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                                Clipboard.setData(ClipboardData(
+                                                  text: BSTStrings
+                                                      .bst_empty_initialization,));
+                                                ScaffoldMessenger
+                                                    .of(context)
+                                                    .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                        'Code copied!')),
                                                 );
                                               },
                                             ),
@@ -226,7 +252,8 @@ class BSTPage extends StatelessWidget
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Theme(
-                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
+                        data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,),
                         child:
                         ExpansionTile(
                           title: Text(
@@ -234,21 +261,110 @@ class BSTPage extends StatelessWidget
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: Theme.of(context).scaffoldBackgroundColor,
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
                             ),
                           ),
                           initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          tilePadding: const EdgeInsets.symmetric(
+                              horizontal: 16.0),
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme
+                                    .of(context)
+                                    .scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Text(
+                                    BSTStrings.naming_meanings,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 20),
+
+                                  Center(
+                                    child: GestureDetector(
+                                      onTap: _toggleFlip,
+                                      child: AnimatedSwitcher(
+                                        duration: Duration(seconds: 1),
+                                        child: _isFlipped
+                                            ? Container(
+                                          key: ValueKey(1),
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                spreadRadius: 1,
+                                                blurRadius: 6,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              BSTNewNodeAnimation(),
+                                            ],
+                                          ),
+                                        )
+                                            : Container(
+                                          key: ValueKey(2),
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                spreadRadius: 1,
+                                                blurRadius: 6,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                BSTStrings.func_new_node_title,
+                                                style: TextStyle(
+                                                  fontSize: 19,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                BSTStrings.func_new_node,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.black,
+                                                  fontFamily: 'Courier',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 20),
 
                                   // New node pseudo code title
                                   Text(
@@ -259,13 +375,64 @@ class BSTPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
+                                  // New node function header
+                                  /*Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            BSTStrings.func_new_node_code,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: BSTStrings.func_new_node_code));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),*/
                                   // New node pseudo code
                                   Text(
                                     BSTStrings.func_new_node,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -280,13 +447,64 @@ class BSTPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
+                                  // Insert function header
+                                  /*Center(
+                                    child: Stack(
+                                      children: [
+                                        // Code
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          margin: const EdgeInsets.only(bottom: 10),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFDFAEE8),
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                offset: const Offset(2, 2),
+                                                blurRadius: 6,
+                                                spreadRadius: 2,
+                                              ),
+                                            ],
+                                          ),
+
+                                          child: SelectableText(
+                                            BSTStrings.func_new_node_code,
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontFamily: 'monospace',
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+
+                                        // Copy button on right up corner
+                                        Positioned(
+                                          top: 8,
+                                          right: 8,
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.copy,
+                                              color: Colors.white,
+                                            ),
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(text: BSTStrings.func_new_node_code));
+                                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),*/
                                   // Insert pseudo code
                                   Text(
                                     BSTStrings.func_inserting_element,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -305,9 +523,10 @@ class BSTPage extends StatelessWidget
                                   Text(
                                     BSTStrings.func_inorder_traversal,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -326,9 +545,10 @@ class BSTPage extends StatelessWidget
                                   Text(
                                     BSTStrings.func_min_node,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -347,9 +567,10 @@ class BSTPage extends StatelessWidget
                                   Text(
                                     BSTStrings.func_max_node,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -368,13 +589,15 @@ class BSTPage extends StatelessWidget
                                   Text(
                                     BSTStrings.func_delete,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
                                   const SizedBox(height: 10),
+
 
                                 ],
                               ),
@@ -385,7 +608,7 @@ class BSTPage extends StatelessWidget
                     ),
 
                     const SizedBox(height: 10),
-
+/*
                     // Code Drop down
                     Container(
                       decoration: BoxDecoration(
@@ -855,7 +1078,7 @@ class BSTPage extends StatelessWidget
                         ),
                       ),
                     ),
-
+*/
                     const SizedBox(height: 40),
 
                   ],
