@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/tree/tree_animations.dart';
 import '../../../strings/datastructure_strings/tree_strings.dart';
+import 'animations/tree_insert.dart';
+import 'animations/tree_new_node.dart';
 
 class BSTPage extends StatefulWidget
 {
@@ -252,8 +254,7 @@ class _BSTPageState extends State<BSTPage> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Theme(
-                        data: Theme.of(context).copyWith(
-                          dividerColor: Colors.transparent,),
+                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                         child:
                         ExpansionTile(
                           title: Text(
@@ -273,9 +274,7 @@ class _BSTPageState extends State<BSTPage> {
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Theme
-                                    .of(context)
-                                    .scaffoldBackgroundColor,
+                                color: Theme.of(context).scaffoldBackgroundColor,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Column(
@@ -293,14 +292,12 @@ class _BSTPageState extends State<BSTPage> {
 
                                   const SizedBox(height: 20),
 
-                                  Center(
+                                  /*Center(
                                     child: GestureDetector(
                                       onTap: _toggleFlip,
                                       child: AnimatedSwitcher(
                                         duration: Duration(seconds: 1),
-                                        child: _isFlipped
-                                            ? Container(
-                                          key: ValueKey(1),
+                                        child: _isFlipped ? Container(key: ValueKey(1),
                                           padding: const EdgeInsets.all(16),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -320,9 +317,7 @@ class _BSTPageState extends State<BSTPage> {
                                               BSTNewNodeAnimation(),
                                             ],
                                           ),
-                                        )
-                                            : Container(
-                                          key: ValueKey(2),
+                                        ) : Container(key: ValueKey(2),
                                           padding: const EdgeInsets.all(16),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -362,7 +357,7 @@ class _BSTPageState extends State<BSTPage> {
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ),*/
 
                                   const SizedBox(height: 20),
 
@@ -435,9 +430,76 @@ class _BSTPageState extends State<BSTPage> {
                                       fontFamily: 'Courier',
                                     ),
                                   ),
+                                  BSTNewNodeAnimation(),
 
                                   const SizedBox(height: 10),
 
+                                  /*Center(
+                                    child: GestureDetector(
+                                      onTap: _toggleFlip,
+                                      child: AnimatedSwitcher(
+                                        duration: Duration(seconds: 1),
+                                        child: _isFlipped ? Container(key: ValueKey(1),
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                spreadRadius: 1,
+                                                blurRadius: 6,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              BSTInsertAnimation(),
+                                            ],
+                                          ),
+                                        ) : Container(key: ValueKey(2),
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black.withOpacity(0.15),
+                                                spreadRadius: 1,
+                                                blurRadius: 6,
+                                                offset: Offset(0, 4),
+                                              ),
+                                            ],
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                BSTStrings.func_inserting_element_title,
+                                                style: TextStyle(
+                                                  fontSize: 19,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                BSTStrings.func_inserting_element,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: Colors.black,
+                                                  fontFamily: 'Courier',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),*/
                                   // Insert pseudo code title
                                   Text(
                                     BSTStrings.func_inserting_element_title,
@@ -507,6 +569,7 @@ class _BSTPageState extends State<BSTPage> {
                                       fontFamily: 'Courier',
                                     ),
                                   ),
+                                  BSTInsertAnimation(),
 
                                   const SizedBox(height: 10),
 
