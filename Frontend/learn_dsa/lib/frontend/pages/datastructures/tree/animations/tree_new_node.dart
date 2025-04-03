@@ -29,17 +29,25 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomPaint(
-          painter: BSTNodePainter(node, _fadeAnimation),
-          child: Container(height: 100, width: 300),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black26),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: CustomPaint(
+            painter: BSTNodePainter(node, _fadeAnimation),
+            child: Container(height: 100, width: 300),
+          ),
         ),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () => createNewNode(50),
           child: Text("létrehozás(50)"),
-        )
+        ),
       ],
     );
   }
+
 }
 
 class BSTNodePainter extends CustomPainter {
