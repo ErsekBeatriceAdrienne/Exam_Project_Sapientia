@@ -104,7 +104,7 @@ class BSTNodePainter extends CustomPainter {
     // Node info text on the right side
     TextPainter infoPainter = TextPainter(
       text: TextSpan(
-        text: "Value: ${node.value}\nRight: ${node.right?.value ?? 'NULL'}\nLeft: ${node.left?.value ?? 'NULL'}",
+        text: "info: ${node.value}\njobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
         style: TextStyle(color: Colors.black, fontSize: 14),
       ),
       textDirection: TextDirection.ltr,

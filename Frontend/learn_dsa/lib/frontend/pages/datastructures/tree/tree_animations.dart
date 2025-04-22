@@ -50,13 +50,21 @@ class _BTAnimationState extends State<BTAnimation> {
 
   // Automatically insert nodes from values list with a delay
   void _startAutoInsertion() async {
-    for (int i = 0; i < values.length; i++) {
-      await Future.delayed(const Duration(seconds: 1));
+    while (true) {
+      root = null;
+      insertCount = 0;
 
-      setState(() {
-        root = insert(root, values[i]);
-        insertCount++;
-      });
+      for (int i = 0; i < values.length; i++) {
+        await Future.delayed(const Duration(seconds: 1));
+
+        setState(() {
+          root = insert(root, values[i]);
+          insertCount++;
+        });
+      }
+
+      // Pause before restarting
+      await Future.delayed(const Duration(seconds: 2));
     }
   }
 
@@ -95,7 +103,7 @@ class BTPainter extends CustomPainter {
     double width = size.width;
     double nodeRadius = 20;
 
-    _drawNode(canvas, root, width / 2, 50, width / 4, nodeRadius);
+    _drawNode(canvas, root, width / 2, 50, width / 5, nodeRadius);
   }
 
   void _drawNode(Canvas canvas, BTNode? node, double x, double y, double offset, double radius) {
@@ -180,13 +188,21 @@ class _BSTAnimationState extends State<BSTAnimation> {
 
   // Automatically insert nodes from values list with a delay
   void _startAutoInsertion() async {
-    for (int i = 0; i < values.length; i++) {
-      await Future.delayed(const Duration(seconds: 1));
+    while (true) {
+      root = null;
+      insertCount = 0;
 
-      setState(() {
-        root = insert1(root, values[i]);
-        insertCount++;
-      });
+      for (int i = 0; i < values.length; i++) {
+        await Future.delayed(const Duration(seconds: 1));
+
+        setState(() {
+          root = insert1(root, values[i]);
+          insertCount++;
+        });
+      }
+
+      // Pause before restarting
+      await Future.delayed(const Duration(seconds: 2));
     }
   }
 
@@ -227,7 +243,7 @@ class BSTPainter extends CustomPainter {
     double width = size.width;
     double nodeRadius = 20;
 
-    _drawNode(canvas, root, width / 2, 50, width / 4, nodeRadius);
+    _drawNode(canvas, root, width / 2, 50, width / 5, nodeRadius);
   }
 
   void _drawNode(Canvas canvas, BSTNode? node, double x, double y, double offset, double radius) {

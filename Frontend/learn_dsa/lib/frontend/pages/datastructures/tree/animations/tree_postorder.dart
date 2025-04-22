@@ -38,7 +38,7 @@ class BinaryTreePreorderTraversalAnimation extends StatefulWidget {
 
 class _BinaryTreePreorderTraversalAnimationState extends State<BinaryTreePreorderTraversalAnimation> {
   BinaryTreeNode? root;
-  List<int> values = [20, 5, 19, 3, 87, 56, 89, 88];
+  List<int> values = [20, 5, 19, 3, 87, 56, 89];
   List<int> traversalValues = [];
   int? currentNodeValue;
   bool isAnimating = false;

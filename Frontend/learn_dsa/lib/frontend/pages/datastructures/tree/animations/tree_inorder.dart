@@ -40,7 +40,7 @@ class BinaryTreeInorderTraversalAnimation extends StatefulWidget {
 
 class _BinaryTreeInorderTraversalAnimationState extends State<BinaryTreeInorderTraversalAnimation> {
   BinaryTreeNode? root;
-  List<int> values = [20, 5, 19, 3, 87, 56, 89, 88];
+  List<int> values = [20, 5, 19, 3, 87, 56, 89];
   List<int> traversalValues = [];
   int? currentNodeValue;
   bool isAnimating = false;
@@ -220,7 +220,7 @@ class BSTInorderAnimation extends StatefulWidget {
 
 class _BSTInorderAnimationState extends State<BSTInorderAnimation> {
   BSTNode? root;
-  List<int> values = [20, 5, 19, 3, 87, 56, 89, 88];
+  List<int> values = [20, 5, 19, 3, 87, 56, 89];
   List<int> inorderTraversal = [];
   int? currentNodeValue;
 

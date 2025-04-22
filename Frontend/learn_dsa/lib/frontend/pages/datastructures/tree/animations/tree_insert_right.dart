@@ -99,7 +99,7 @@ class BinaryTreePainter extends CustomPainter {
     }
   }
 
-  void drawNodeText(Canvas canvas, BinaryTreeNode node, double x, double y) {
+  void drawNodeText(Canvas canvas,BinaryTreeNode node, double x, double y) {
     TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: node.value.toString(),
@@ -109,6 +109,18 @@ class BinaryTreePainter extends CustomPainter {
     );
     textPainter.layout();
     textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
+
+    // Node info text on the right side
+    TextPainter infoPainter = TextPainter(
+      text: TextSpan(
+        text: "info: ${node.value}\njobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
+        style: TextStyle(color: Colors.black, fontSize: 14),
+      ),
+      textDirection: TextDirection.ltr,
+      textAlign: TextAlign.left,
+    );
+    infoPainter.layout(maxWidth: 100);
+    infoPainter.paint(canvas, Offset(x + 35, y - 10));
   }
 
   @override

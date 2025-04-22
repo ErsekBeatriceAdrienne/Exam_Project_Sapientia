@@ -36,7 +36,7 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
           ),
           child: CustomPaint(
             painter: BSTNodePainter(node, _fadeAnimation),
-            child: Container(height: 100, width: 300),
+            child: Container(height: 200, width: 300),
           ),
         ),
         const SizedBox(height: 20),
@@ -47,7 +47,6 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
       ],
     );
   }
-
 }
 
 class BSTNodePainter extends CustomPainter {
@@ -59,15 +58,25 @@ class BSTNodePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (node == null) return;
+
     Paint paint = Paint()
       ..color = Color(0xFFDFAEE8)
       ..style = PaintingStyle.fill;
 
     double centerX = size.width / 2;
-    double centerY = size.height / 2;
+    double nodeRadius = 30;
+    double lineLength = 80;
+    double branchHeight = 40;
+    double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
 
-    canvas.drawCircle(Offset(centerX, centerY), 30, paint);
+    // Új: számoljuk ki úgy a kezdő Y-t, hogy az egész struktúra középen legyen
+    double topOffset = (size.height - totalHeight) / 2;
+    double centerY = topOffset + nodeRadius;
 
+    // Csomó
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+
+    // Csomó szöveg
     TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: node!.value.toString(),
@@ -76,19 +85,42 @@ class BSTNodePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     textPainter.layout();
-    textPainter.paint(canvas, Offset(centerX - textPainter.width / 2, centerY - textPainter.height / 2));
+    textPainter.paint(
+      canvas,
+      Offset(centerX - textPainter.width / 2, centerY - textPainter.height / 2),
+    );
 
-    // Node info text on the right side of the node
-    TextPainter infoPainter = TextPainter(
+    final linePaint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 2;
+
+    double lineY = centerY + nodeRadius + 10;
+    double startX = centerX - lineLength / 2;
+    double endX = centerX + lineLength / 2;
+
+    canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
+    canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
+    canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
+
+    final leftText = TextPainter(
       text: TextSpan(
-        text: "info: ${node!.value}\njobb: NULL\nbal: NULL",
+        text: "NULL",
         style: TextStyle(color: Colors.black, fontSize: 14),
       ),
       textDirection: TextDirection.ltr,
-      textAlign: TextAlign.left,
     );
-    infoPainter.layout(maxWidth: size.width);
-    infoPainter.paint(canvas, Offset(centerX + 40, centerY - 10));
+    leftText.layout();
+    leftText.paint(canvas, Offset(startX - 20, lineY + branchHeight + 5));
+
+    final rightText = TextPainter(
+      text: TextSpan(
+        text: " NULL",
+        style: TextStyle(color: Colors.black, fontSize: 14),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    rightText.layout();
+    rightText.paint(canvas, Offset(endX - 20, lineY + branchHeight + 5));
   }
 
   @override
