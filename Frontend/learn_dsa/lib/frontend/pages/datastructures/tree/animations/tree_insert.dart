@@ -39,7 +39,7 @@ class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTick
           ),
           child: CustomPaint(
             painter: BSTNodePainter(rootNode, newNode, _fadeAnimation),
-            child: Container(height: 200, width: 300),
+            child: Container(height: 300, width: 300),
           ),
         ),
         const SizedBox(height: 20),
@@ -62,33 +62,63 @@ class BSTNodePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (rootNode == null) return;
+
+    double nodeRadius = 30;
+    double lineLength = 80;
+    double branchHeight = 40;
+    double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
+
+    double centerX = size.width / 2;
+    double topOffset = (size.height - totalHeight) / 2;
+    double centerY = topOffset + nodeRadius;
+
     Paint paint = Paint()
       ..color = Color(0xFFDFAEE8)
       ..style = PaintingStyle.fill;
 
-    double centerX = size.width / 2;
-    double centerY = size.height / 2;
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    drawNodeText(canvas, rootNode!, centerX, centerY);
 
-    canvas.drawCircle(Offset(centerX, centerY - 50), 30, paint);
-    drawNodeText(canvas, rootNode!, centerX, centerY - 50);
+    final linePaint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 2;
 
+    double lineY = centerY + nodeRadius + 10;
+    double startX = centerX - lineLength / 2;
+    double endX = centerX + lineLength / 2;
+
+    // Vízszintes vonal és ágak
+    canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
+    canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
+    canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
+
+    // NULL szövegek
+    drawText(canvas, "NULL", startX - 20, lineY + branchHeight + 5);
+    drawText(canvas, "" ?? "NULL", endX - 20, lineY + branchHeight + 5);
+
+    // Ha van új csomópont, animálva rajzoljuk le
     if (newNode != null) {
       Paint newPaint = Paint()
         ..color = Colors.purple.withOpacity(fadeAnimation.value)
         ..style = PaintingStyle.fill;
 
-      Paint linePaint = Paint()
-        ..color = Colors.black
-        ..strokeWidth = 2;
+      double newX = endX;
+      double newY = lineY + branchHeight + 45;
 
-      double newX = centerX + 60;
-      double newY = centerY + 20;
-
-      canvas.drawLine(Offset(centerX, centerY - 30), Offset(newX, newY - 30), linePaint);
-      canvas.drawCircle(Offset(newX, newY), 30, newPaint);
+      canvas.drawCircle(Offset(newX, newY), nodeRadius, newPaint);
       drawNodeText(canvas, newNode!, newX, newY);
     }
   }
+
+  void drawText(Canvas canvas, String text, double x, double y) {
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: TextStyle(color: Colors.black, fontSize: 14)),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+    textPainter.paint(canvas, Offset(x, y));
+  }
+
 
   void drawNodeText(Canvas canvas, BSTNode node, double x, double y) {
     TextPainter textPainter = TextPainter(
@@ -104,7 +134,7 @@ class BSTNodePainter extends CustomPainter {
     // Node info text on the right side
     TextPainter infoPainter = TextPainter(
       text: TextSpan(
-        text: "info: ${node.value}\njobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
+        text: "jobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
         style: TextStyle(color: Colors.black, fontSize: 14),
       ),
       textDirection: TextDirection.ltr,

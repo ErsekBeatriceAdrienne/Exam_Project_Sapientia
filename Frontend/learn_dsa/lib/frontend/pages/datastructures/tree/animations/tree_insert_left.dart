@@ -5,7 +5,8 @@ class BinaryTreeInsertLeftAnimation extends StatefulWidget {
   _BinaryTreeInsertLeftAnimationState createState() => _BinaryTreeInsertLeftAnimationState();
 }
 
-class _BinaryTreeInsertLeftAnimationState extends State<BinaryTreeInsertLeftAnimation> with SingleTickerProviderStateMixin {
+class _BinaryTreeInsertLeftAnimationState extends State<BinaryTreeInsertLeftAnimation>
+    with SingleTickerProviderStateMixin {
   BinaryTreeNode? root;
   BinaryTreeNode? leftChild;
   late AnimationController _controller;
@@ -39,13 +40,13 @@ class _BinaryTreeInsertLeftAnimationState extends State<BinaryTreeInsertLeftAnim
           ),
           child: CustomPaint(
             painter: BinaryTreePainter(root, leftChild, _fadeAnimation),
-            child: Container(height: 200, width: 300),
+            child: Container(height: 300, width: 300),
           ),
         ),
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () => insertLeftNode(5),
-          child: Text("beszúrás_balra(csp,5)"),
+          child: Text("beszúrás_balra(csp, 5)"),
         ),
       ],
     );
@@ -63,32 +64,62 @@ class BinaryTreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (root == null) return;
 
+    double nodeRadius = 30;
+    double lineLength = 80;
+    double branchHeight = 40;
+    double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
+
+    double centerX = size.width / 2;
+    double topOffset = (size.height - totalHeight) / 2;
+    double centerY = topOffset + nodeRadius;
+
     Paint paint = Paint()
       ..color = Color(0xFFDFAEE8)
       ..style = PaintingStyle.fill;
 
-    double centerX = size.width / 2;
-    double centerY = size.height / 2;
+    // Gyökér csomópont
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    drawNodeText(canvas, root!, centerX, centerY);
 
-    canvas.drawCircle(Offset(centerX, centerY - 50), 30, paint);
-    drawNodeText(canvas, root!, centerX, centerY - 50);
+    Paint linePaint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 2;
 
-    if (leftChild != null) {
+    // Ágak
+    double lineY = centerY + nodeRadius + 10;
+    double leftX = centerX - lineLength / 2;
+    double rightX = centerX + lineLength / 2;
+
+    canvas.drawLine(Offset(leftX, lineY), Offset(rightX, lineY), linePaint);
+    canvas.drawLine(Offset(leftX, lineY), Offset(leftX, lineY + branchHeight), linePaint);
+    canvas.drawLine(Offset(rightX, lineY), Offset(rightX, lineY + branchHeight), linePaint);
+
+    // "NULL" szövegek vagy bal gyerek kirajzolása
+    if (leftChild == null) {
+      drawText(canvas, "NULL", leftX - 20, lineY + branchHeight + 5);
+    } else {
       Paint leftPaint = Paint()
         ..color = Colors.purple.withOpacity(fadeAnimation.value)
         ..style = PaintingStyle.fill;
 
-      Paint linePaint = Paint()
-        ..color = Colors.black
-        ..strokeWidth = 2;
+      double leftChildX = leftX;
+      double leftChildY = lineY + branchHeight + 45;
 
-      double newX = centerX - 60;
-      double newY = centerY + 20;
-
-      canvas.drawLine(Offset(centerX, centerY - 30), Offset(newX, newY - 30), linePaint);
-      canvas.drawCircle(Offset(newX, newY), 30, leftPaint);
-      drawNodeText(canvas, leftChild!, newX, newY);
+      canvas.drawCircle(Offset(leftChildX, leftChildY), nodeRadius, leftPaint);
+      drawNodeText(canvas, leftChild!, leftChildX, leftChildY);
     }
+
+    // Mindig NULL jobb ágon (mivel nincs jobbChild mező)
+    drawText(canvas, "NULL", rightX - 20, lineY + branchHeight + 5);
+  }
+
+  void drawText(Canvas canvas, String text, double x, double y) {
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: TextStyle(color: Colors.black, fontSize: 14)),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+    textPainter.paint(canvas, Offset(x, y));
   }
 
   void drawNodeText(Canvas canvas, BinaryTreeNode node, double x, double y) {
@@ -102,10 +133,10 @@ class BinaryTreePainter extends CustomPainter {
     textPainter.layout();
     textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
 
-    // Node info text on the right side
+    // Node info text on the right side of the node
     TextPainter infoPainter = TextPainter(
       text: TextSpan(
-        text: "info: ${node.value}\njobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
+        text: "jobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
         style: TextStyle(color: Colors.black, fontSize: 14),
       ),
       textDirection: TextDirection.ltr,

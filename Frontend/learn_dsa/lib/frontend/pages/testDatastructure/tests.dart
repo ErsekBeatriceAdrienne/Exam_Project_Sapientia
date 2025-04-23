@@ -12,6 +12,17 @@ import '../../strings/test/test_strings.dart';
 import '../profile/test_results.dart';
 
 class TestsPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Test Page',
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+  /*
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
@@ -437,7 +448,7 @@ class TestsPage extends StatelessWidget {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
     final gradient = LinearGradient(
@@ -521,14 +532,3 @@ class TestsPage extends StatelessWidget {
   }
 
 }
-
-
-/*@override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Test Page',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }*/

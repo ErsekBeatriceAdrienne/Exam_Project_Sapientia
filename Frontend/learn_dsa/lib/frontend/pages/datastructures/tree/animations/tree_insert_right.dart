@@ -40,7 +40,7 @@ class _BinaryTreeInsertAnimationState extends State<BinaryTreeInsertAnimation> w
           ),
           child: CustomPaint(
             painter: BinaryTreePainter(root, leftChild, rightChild, _fadeAnimation),
-            child: Container(height: 200, width: 300),
+            child: Container(height: 300, width: 300),
           ),
         ),
         const SizedBox(height: 20),
@@ -71,32 +71,59 @@ class BinaryTreePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (root == null) return;
 
+    double nodeRadius = 30;
+    double lineLength = 80;
+    double branchHeight = 40;
+    double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
+
+    double centerX = size.width / 2;
+    double topOffset = (size.height - totalHeight) / 2;
+    double centerY = topOffset + nodeRadius;
+
     Paint paint = Paint()
       ..color = Color(0xFFDFAEE8)
       ..style = PaintingStyle.fill;
 
-    double centerX = size.width / 2;
-    double centerY = size.height / 2;
-
-    canvas.drawCircle(Offset(centerX, centerY - 50), 30, paint);
-    drawNodeText(canvas, root!, centerX, centerY - 50);
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    drawNodeText(canvas, root!, centerX, centerY);
 
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
+
+    double lineY = centerY + nodeRadius + 10;
+    double startX = centerX - lineLength / 2;
+    double endX = centerX + lineLength / 2;
+
+    // Vízszintes vonal és ágak
+    canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
+    canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
+    canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
+
+    // NULL szövegek
+    drawText(canvas, "NULL", startX - 20, lineY + branchHeight + 5);
+    drawText(canvas, "" ?? "NULL", endX - 20, lineY + branchHeight + 5);
 
     if (rightChild != null) {
       Paint rightPaint = Paint()
         ..color = Colors.purple.withOpacity(fadeAnimation.value)
         ..style = PaintingStyle.fill;
 
-      double rightX = centerX + 60;
-      double rightY = centerY + 20;
+      double rightX = endX;
+      double rightY = lineY + branchHeight + 45;
 
-      canvas.drawLine(Offset(centerX, centerY - 30), Offset(rightX, rightY - 30), linePaint);
-      canvas.drawCircle(Offset(rightX, rightY), 30, rightPaint);
+      canvas.drawCircle(Offset(rightX, rightY), nodeRadius, rightPaint);
       drawNodeText(canvas, rightChild!, rightX, rightY);
     }
+  }
+
+  void drawText(Canvas canvas, String text, double x, double y) {
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: TextStyle(color: Colors.black, fontSize: 14)),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+    textPainter.paint(canvas, Offset(x, y));
   }
 
   void drawNodeText(Canvas canvas,BinaryTreeNode node, double x, double y) {
@@ -113,7 +140,7 @@ class BinaryTreePainter extends CustomPainter {
     // Node info text on the right side
     TextPainter infoPainter = TextPainter(
       text: TextSpan(
-        text: "info: ${node.value}\njobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
+        text: "jobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
         style: TextStyle(color: Colors.black, fontSize: 14),
       ),
       textDirection: TextDirection.ltr,

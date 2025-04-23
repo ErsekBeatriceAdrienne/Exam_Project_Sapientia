@@ -48,7 +48,7 @@ class _BSTPageState extends State<BSTPage> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFDFAEE8),
+                          color: Color(0xFFff2cdf), //Color(0xFFDFAEE8),
                         ),
                       ),
                     ),
@@ -126,7 +126,7 @@ class _BSTPageState extends State<BSTPage> {
                                             margin: const EdgeInsets.only(
                                                 bottom: 10),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFDFAEE8),
+                                              color: Color(0xFFff2cdf),
                                               borderRadius: BorderRadius
                                                   .circular(8),
                                               boxShadow: [
@@ -223,7 +223,7 @@ class _BSTPageState extends State<BSTPage> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 // Gradient colors
-                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                                colors: [Color(0xFFffe53b), Color(0xFFff2cdf)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -253,7 +253,7 @@ class _BSTPageState extends State<BSTPage> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           // Gradient colors
-                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          colors: [Color(0xFFffe53b), Color(0xFFff2cdf)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -503,7 +503,7 @@ class _BSTPageState extends State<BSTPage> {
                                             margin: const EdgeInsets.only(
                                                 bottom: 10),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFDFAEE8),
+                                              color: Color(0xFFff2cdf),
                                               borderRadius: BorderRadius
                                                   .circular(8),
                                               boxShadow: [
@@ -600,7 +600,7 @@ class _BSTPageState extends State<BSTPage> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 // Gradient colors
-                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                                colors: [Color(0xFFffe53b), Color(0xFFff2cdf)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -630,7 +630,7 @@ class _BSTPageState extends State<BSTPage> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           // Gradient colors
-                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          colors: [Color(0xFFffe53b), Color(0xFFff2cdf)], //[Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
