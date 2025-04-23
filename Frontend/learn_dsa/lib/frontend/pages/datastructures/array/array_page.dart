@@ -2,6 +2,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
+import 'animations/array_allocating.dart';
+import 'animations/array_deleteAt.dart';
+import 'animations/array_insertAt.dart';
+import 'animations/array_insertFirst.dart';
+import 'animations/array_insertLast.dart';
 import 'array_animations.dart';
 
 class ArrayPage extends StatelessWidget
@@ -266,15 +271,19 @@ class ArrayPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Allocating memory pseudo code
                                   Text(
                                     ArrayStrings.func_allocating_memory,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Center(
+                                    child: ArrayAllocationWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -292,9 +301,10 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_printing_array,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -313,10 +323,14 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_inserting_element_first,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: ArrayInsertFirstWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -334,10 +348,14 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_inserting_element_at,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: ArrayInsertAtWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -355,10 +373,14 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_inserting_element_last,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: ArrayInsertLastWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -376,9 +398,10 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_getitem_at,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -397,9 +420,10 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_empty_array,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -418,9 +442,10 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_full_array,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -439,10 +464,14 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_deleting_element,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: ArrayDeleteAtWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -460,9 +489,10 @@ class ArrayPage extends StatelessWidget
                                   Text(
                                     ArrayStrings.func_deallocating_array,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -476,7 +506,7 @@ class ArrayPage extends StatelessWidget
                     ),
 
                     const SizedBox(height: 10),
-
+/*
         // Code Drop down
                     Container(
                       decoration: BoxDecoration(
@@ -1087,7 +1117,7 @@ class ArrayPage extends StatelessWidget
                           ],
                         ),
                       ),
-                    ),
+                    ),*/
 
                     const SizedBox(height: 40),
 /*
