@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_animations.dart';
 import '../../../strings/datastructure_strings/queue_strings.dart';
+import 'animations/queue_create.dart';
+import 'animations/queue_dequeue.dart';
+import 'animations/queue_enqueue.dart';
 
 class QueuePage extends StatelessWidget {
   const QueuePage({Key? key}) : super(key: key);
@@ -216,7 +219,7 @@ class QueuePage extends StatelessWidget {
 
                     const SizedBox(height: 20),
 
-    // Functions Drop down
+    // Pseudo Codes Drop down
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -265,10 +268,14 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_allocating_memory,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier'
                                     ),
+                                  ),
+                                  Center(
+                                    child: AnimatedQueueCreateWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -286,9 +293,10 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_isfull_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -307,9 +315,10 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_isempty_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -328,10 +337,14 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_enqueue_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: AnimatedEnqueueWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -349,10 +362,14 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_dequeue_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: AnimatedQueueDequeueWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -370,9 +387,10 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_display_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -391,9 +409,10 @@ class QueuePage extends StatelessWidget {
                                   Text(
                                     QueueStrings.func_destroy_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -408,7 +427,7 @@ class QueuePage extends StatelessWidget {
 
                     const SizedBox(height: 10),
 
-    // Code Drop down
+/*    // Code Drop down
                         Container(
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -951,7 +970,7 @@ class QueuePage extends StatelessWidget {
                             ),
                           ),
                         ),
-
+*/
                   ],
                 ),
               ),
