@@ -42,6 +42,10 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
         const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () => createNewNode(50),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
           child: Text("létrehozás(50)"),
         ),
       ],
@@ -59,48 +63,38 @@ class BSTNodePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (node == null) return;
 
-    Paint paint = Paint()
-      ..color = Color(0xFFDFAEE8)
-      ..style = PaintingStyle.fill;
-
     double centerX = size.width / 2;
     double nodeRadius = 30;
-    double lineLength = 80;
+    double lineLength = 90;
     double branchHeight = 40;
     double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
-
-    // Új: számoljuk ki úgy a kezdő Y-t, hogy az egész struktúra középen legyen
     double topOffset = (size.height - totalHeight) / 2;
     double centerY = topOffset + nodeRadius;
-
-    // Csomó
-    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
-
-    // Csomó szöveg
-    TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: node!.value.toString(),
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      ),
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout();
-    textPainter.paint(
-      canvas,
-      Offset(centerX - textPainter.width / 2, centerY - textPainter.height / 2),
-    );
 
     final linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
 
-    double lineY = centerY + nodeRadius + 10;
+    double lineY = centerY + nodeRadius / 2 - 10;
     double startX = centerX - lineLength / 2;
     double endX = centerX + lineLength / 2;
 
     canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
     canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
     canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
+
+    // Small lines when Null
+    double smallLineLength = 15;
+    canvas.drawLine(
+      Offset(startX - smallLineLength / 2, lineY + branchHeight),
+      Offset(startX + smallLineLength / 2, lineY + branchHeight),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(endX - smallLineLength / 2, lineY + branchHeight),
+      Offset(endX + smallLineLength / 2, lineY + branchHeight),
+      linePaint,
+    );
 
     final leftText = TextPainter(
       text: TextSpan(
@@ -121,6 +115,24 @@ class BSTNodePainter extends CustomPainter {
     );
     rightText.layout();
     rightText.paint(canvas, Offset(endX - 20, lineY + branchHeight + 5));
+
+    Paint paint = Paint()
+      ..color = Color(0xFFDFAEE8)
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+
+    TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: node!.value.toString(),
+        style: TextStyle(color: Colors.white, fontSize: 16),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+    textPainter.paint(
+      canvas,
+      Offset(centerX - textPainter.width / 2, centerY - textPainter.height / 2),
+    );
   }
 
   @override

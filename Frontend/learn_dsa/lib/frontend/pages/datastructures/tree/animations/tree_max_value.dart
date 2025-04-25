@@ -80,6 +80,10 @@ class _BSTMaxNodeAnimationState extends State<BSTMaxNodeAnimation> {
         ElevatedButton(
           onPressed: performMaxNodeSearch,
           child: Text("maximum(csp)"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
         ),
       ],
     );

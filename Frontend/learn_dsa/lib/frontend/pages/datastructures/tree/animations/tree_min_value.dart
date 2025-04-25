@@ -80,6 +80,10 @@ class _BSTMinNodeAnimationState extends State<BSTMinNodeAnimation> {
         ElevatedButton(
           onPressed: performMinNodeSearch,
           child: Text("minimum(csp)"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
         ),
       ],
     );

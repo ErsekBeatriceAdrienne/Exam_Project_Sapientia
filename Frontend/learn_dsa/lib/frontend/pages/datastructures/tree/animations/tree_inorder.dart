@@ -124,7 +124,11 @@ class _BinaryTreeInorderTraversalAnimationState extends State<BinaryTreeInorderT
                   isAnimating = false;
                 });
               },
-              child: Text("inbejárás(gy)"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFDFAEE8),
+                foregroundColor: Colors.white,
+              ),
+              child: Text("inorder_bejárás(gy)"),
             ),
           ],
         ),
@@ -270,12 +274,16 @@ class _BSTInorderAnimationState extends State<BSTInorderAnimation> {
 
         const SizedBox(height: 20),
 
-        Text("In Bejárás: ${inorderTraversal.join(", ")}"),
+        Text("Inorder Bejárás: ${inorderTraversal.join(", ")}"),
         ElevatedButton(
           onPressed: () async {
             await performInorderTraversal();
           },
-          child: Text("bejárás()"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
+          child: Text("bejárás(gy)"),
         ),
       ],
     );

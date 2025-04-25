@@ -133,6 +133,10 @@ class _BSTDeleteNodeAnimationState extends State<BSTDeleteNodeAnimation> {
         ElevatedButton(
           onPressed: performNodeDeletion,
           child: Text("törlés(87)"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
         ),
       ],
     );

@@ -2,8 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/list_strings.dart';
+import 'animations/list_newNode.dart';
 import 'list_animations.dart';
-
 
 class ListPage extends StatelessWidget
 {
@@ -148,7 +148,7 @@ class ListPage extends StatelessWidget
 
                                   // List explanation
                                   Text(
-                                    ListStrings.list_definition,
+                                    ListStrings.list_explanation,
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.normal,
@@ -160,18 +160,6 @@ class ListPage extends StatelessWidget
 
                                   // Animation of the list
                                   LinkedListAnimation(),
-
-                                  const SizedBox(height: 10),
-
-                                  // List explanation
-                                  Text(
-                                    ListStrings.list_explanation,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -265,11 +253,13 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_new_node_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
+                                
 
                                 const SizedBox(height: 10),
 
@@ -286,9 +276,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_empty_list_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -307,9 +298,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_search_list_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -328,9 +320,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_insert_node_at_beginning_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -349,9 +342,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_insert_node_after_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -370,9 +364,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_insert_node_at_end_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -391,9 +386,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_delete_from_beginning_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -412,9 +408,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_delete_node_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -433,9 +430,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_delete_from_end_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -454,9 +452,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_print_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -475,9 +474,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_sort_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
 
@@ -496,9 +496,10 @@ class ListPage extends StatelessWidget
                                 Text(
                                   ListStrings.func_insert_into_sorted_comment,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                     color: Colors.black,
+                                    fontFamily: 'Courier',
                                   ),
                                 ),
                               ],
@@ -512,7 +513,7 @@ class ListPage extends StatelessWidget
                   const SizedBox(height: 10),
 
                   // Code Drop down
-                  Container(
+                  /*Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         // Gradient colors
@@ -1406,7 +1407,7 @@ class ListPage extends StatelessWidget
                         ],
                       ),
                     ),
-                  ),
+                  ),*/
 
                   const SizedBox(height: 40),
 

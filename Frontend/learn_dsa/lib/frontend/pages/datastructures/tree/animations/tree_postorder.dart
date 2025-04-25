@@ -122,7 +122,11 @@ class _BinaryTreePreorderTraversalAnimationState extends State<BinaryTreePreorde
                   isAnimating = false;
                 });
               },
-              child: Text("postbejárás(gy)"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFDFAEE8),
+                foregroundColor: Colors.white,
+              ),
+              child: Text("postorder_bejárás(gy)"),
             ),
           ],
         ),

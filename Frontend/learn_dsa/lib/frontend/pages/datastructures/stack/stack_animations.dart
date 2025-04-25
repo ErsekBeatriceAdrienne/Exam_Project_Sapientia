@@ -13,7 +13,7 @@ class _AnimatedStackWidgetState extends State<AnimatedStackWidget>
   final int capacity = 5;
   final List<int> values = [3, 5, 8]; // Elements to be added
   int index = 0;
-  int top = -1; // Empty Stack
+  int top = -1;
 
   @override
   void initState()

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_animations.dart';
 import '../../../strings/datastructure_strings/stack_strings.dart';
+import 'animations/stack_create.dart';
+import 'animations/stack_pop.dart';
+import 'animations/stack_push.dart';
 
 class StackPage extends StatelessWidget
 {
@@ -217,7 +220,7 @@ class StackPage extends StatelessWidget
 
                     const SizedBox(height: 20),
 
-    // Functions Drop down
+    // Pseudo Code Drop down
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -262,15 +265,18 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Allocating memory pseudo code
                                   Text(
                                     StackStrings.func_allocating_memory,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier'
                                     ),
+                                  ),
+                                  Center(
+                                    child: AnimatedStackCreateWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -284,14 +290,14 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // isFull pseudo code
                                   Text(
                                     StackStrings.func_isfull_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                        fontFamily: 'Courier'
                                     ),
                                   ),
 
@@ -306,14 +312,14 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // isEmpty pseudo code
                                   Text(
                                     StackStrings.func_isempty_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier'
                                     ),
                                   ),
 
@@ -328,15 +334,18 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Push pseudo code
                                   Text(
                                     StackStrings.func_push_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier'
                                     ),
+                                  ),
+                                  Center(
+                                    child: AnimatedStackPushWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -350,15 +359,18 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Pop pseudo code
                                   Text(
                                     StackStrings.func_pop_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier'
                                     ),
+                                  ),
+                                  Center(
+                                    child: AnimatedStackPopWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -372,14 +384,14 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Top pseudo code
                                   Text(
                                     StackStrings.func_top_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -394,14 +406,14 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Size pseudo code
                                   Text(
                                     StackStrings.func_size_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -416,14 +428,14 @@ class StackPage extends StatelessWidget
                                       color: Colors.black,
                                     ),
                                   ),
-
                                   // Destroy pseudo code
                                   Text(
                                     StackStrings.func_destroy_explanation,
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
@@ -439,6 +451,7 @@ class StackPage extends StatelessWidget
                     const SizedBox(height: 10),
 
     // Code Drop down
+                    /*
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -1048,7 +1061,7 @@ class StackPage extends StatelessWidget
                           ],
                         ),
                       ),
-                    ),
+                    ),*/
 
                   ],
                 ),

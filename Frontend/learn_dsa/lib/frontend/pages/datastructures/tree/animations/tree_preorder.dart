@@ -118,7 +118,11 @@ class _BinaryTreePreorderAnimationState extends State<BinaryTreePreorderAnimatio
               onPressed: () async {
                 await performTraversal();
               },
-              child: Text("prebejárás(gy)"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFDFAEE8),
+                foregroundColor: Colors.white,
+              ),
+              child: Text("preorder_bejárás(gy)"),
             ),
           ],
         ),

@@ -15,7 +15,7 @@ class _BinaryTreeInsertAnimationState extends State<BinaryTreeInsertAnimation> w
   @override
   void initState() {
     super.initState();
-    root = BinaryTreeNode(10);
+    root = BinaryTreeNode(50);
     _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
   }
@@ -49,8 +49,12 @@ class _BinaryTreeInsertAnimationState extends State<BinaryTreeInsertAnimation> w
           children: [
             const SizedBox(width: 10),
             ElevatedButton(
-              onPressed: () => insertRightNode(15),
-              child: Text("beszúrás_jobbra(csp,15)"),
+              onPressed: () => insertRightNode(75),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFDFAEE8),
+                foregroundColor: Colors.white,
+              ),
+              child: Text("beszúrás_jobbra(csp,75)"),
             ),
           ],
         ),
@@ -72,7 +76,7 @@ class BinaryTreePainter extends CustomPainter {
     if (root == null) return;
 
     double nodeRadius = 30;
-    double lineLength = 80;
+    double lineLength = 90;
     double branchHeight = 40;
     double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
 
@@ -80,27 +84,54 @@ class BinaryTreePainter extends CustomPainter {
     double topOffset = (size.height - totalHeight) / 2;
     double centerY = topOffset + nodeRadius;
 
-    Paint paint = Paint()
-      ..color = Color(0xFFDFAEE8)
-      ..style = PaintingStyle.fill;
-
-    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
-    drawNodeText(canvas, root!, centerX, centerY);
-
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
 
-    double lineY = centerY + nodeRadius + 10;
+    double lineY = centerY + nodeRadius / 2 - 10;
     double startX = centerX - lineLength / 2;
     double endX = centerX + lineLength / 2;
 
-    // Vízszintes vonal és ágak
     canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
     canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
     canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
 
-    // NULL szövegek
+    // Branches
+    double leftX = centerX - lineLength / 2;
+    double rightX = centerX + lineLength / 2;
+
+    if (leftChild == null) {
+      drawText(canvas, "NULL", leftX - 20, lineY + branchHeight + 5);
+
+      double smallLineLength = 15;
+      canvas.drawLine(
+        Offset(leftX - smallLineLength / 2, lineY + branchHeight),
+        Offset(leftX + smallLineLength / 2, lineY + branchHeight),
+        linePaint,
+      );
+    } else {
+      Paint leftPaint = Paint()
+        ..color = Colors.purple.withOpacity(fadeAnimation.value)
+        ..style = PaintingStyle.fill;
+
+      double leftChildX = leftX;
+      double leftChildY = lineY + branchHeight + 30;
+
+      canvas.drawCircle(Offset(leftChildX, leftChildY), nodeRadius, leftPaint);
+      drawNodeText(canvas, leftChild!, leftChildX, leftChildY);
+    }
+
+    if (root?.right == null) {
+      drawText(canvas, "NULL", rightX - 20, lineY + branchHeight + 5);
+
+      double smallLineLength = 15;
+      canvas.drawLine(
+        Offset(rightX - smallLineLength / 2, lineY + branchHeight),
+        Offset(rightX + smallLineLength / 2, lineY + branchHeight),
+        linePaint,
+      );
+    }
+
     drawText(canvas, "NULL", startX - 20, lineY + branchHeight + 5);
     drawText(canvas, "" ?? "NULL", endX - 20, lineY + branchHeight + 5);
 
@@ -110,11 +141,19 @@ class BinaryTreePainter extends CustomPainter {
         ..style = PaintingStyle.fill;
 
       double rightX = endX;
-      double rightY = lineY + branchHeight + 45;
+      double rightY = lineY + branchHeight + 30;
 
       canvas.drawCircle(Offset(rightX, rightY), nodeRadius, rightPaint);
       drawNodeText(canvas, rightChild!, rightX, rightY);
     }
+
+    // Root
+    Paint paint = Paint()
+      ..color = Color(0xFFDFAEE8)
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    drawNodeText(canvas, root!, centerX, centerY);
   }
 
   void drawText(Canvas canvas, String text, double x, double y) {
@@ -136,18 +175,6 @@ class BinaryTreePainter extends CustomPainter {
     );
     textPainter.layout();
     textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
-
-    // Node info text on the right side
-    TextPainter infoPainter = TextPainter(
-      text: TextSpan(
-        text: "jobb: ${node.right?.value ?? 'NULL'}\nbal: ${node.left?.value ?? 'NULL'}",
-        style: TextStyle(color: Colors.black, fontSize: 14),
-      ),
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.left,
-    );
-    infoPainter.layout(maxWidth: 100);
-    infoPainter.paint(canvas, Offset(x + 35, y - 10));
   }
 
   @override
