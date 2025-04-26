@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage>
           {
             if (snapshot.connectionState == ConnectionState.waiting) return const CircularProgressIndicator();
             if (snapshot.hasError) return const Text('Error fetching user data.');
-            if (!snapshot.hasData || !snapshot.data!.exists) return const Text('User does not exist.');
+            if (!snapshot.hasData || !snapshot.data!.exists)  return const Text('App Demo'); // return const Text('User does not exist.');
 
             var userData = snapshot.data!.data() as Map<String, dynamic>;
             String firstName = userData[FirestoreDocs.userFirstName];

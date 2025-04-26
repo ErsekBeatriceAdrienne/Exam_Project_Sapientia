@@ -85,7 +85,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFDFAEE8),
+                            color: Color(0xFFff2cdf), //Color(0xFFDFAEE8),
                           ),
                         ),
                       ),
@@ -255,7 +255,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
     // Define the gradient colors
     final gradient = LinearGradient(
       // Gradient colors
-      colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+      colors: [Color(0xFFffe53b), Color(0xFFff2cdf)], //[Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     );

@@ -7,23 +7,23 @@ class BSTInsertAnimation extends StatefulWidget {
 
 class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTickerProviderStateMixin {
   BSTNode? rootNode;
-  BSTNode? newNode;
+  BSTNode? leftChild;
+  BSTNode? rightChild;
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    rootNode = BSTNode(30); // Alapértelmezett csomópont
+    rootNode = BSTNode(50);
     _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
   }
 
   void insertNewNode(int value) {
     setState(() {
-      newNode = BSTNode(value);
-      // Beállítjuk, hogy a rootNode jobb mutatója a newNode-ra mutasson
-      rootNode?.right = newNode;
+      rightChild = BSTNode(value);
+      rootNode?.right = rightChild;
     });
     _controller.forward(from: 0.0);
   }
@@ -33,14 +33,25 @@ class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTick
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomPaint(
-          painter: BSTNodePainter(rootNode, newNode, _fadeAnimation),
-          child: Container(height: 150, width: 300),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black26),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: CustomPaint(
+            painter: BSTNodePainter(rootNode, leftChild, rightChild, _fadeAnimation),
+            child: Container(height: 300, width: 300),
+          ),
         ),
+        const SizedBox(height: 20),
         ElevatedButton(
-          onPressed: () => insertNewNode(50),
-          child: Text("beszúrás(csp,50)"),
-        )
+          onPressed: () => insertNewNode(64),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
+          child: Text("beszúrás(64)"),
+        ),
       ],
     );
   }
@@ -48,44 +59,115 @@ class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTick
 
 class BSTNodePainter extends CustomPainter {
   final BSTNode? rootNode;
-  final BSTNode? newNode;
+  final BSTNode? leftChild;
+  final BSTNode? rightChild;
   final Animation<double> fadeAnimation;
 
-  BSTNodePainter(this.rootNode, this.newNode, this.fadeAnimation) : super(repaint: fadeAnimation);
+  BSTNodePainter(this.rootNode, this.leftChild, this.rightChild, this.fadeAnimation) : super(repaint: fadeAnimation);
 
   @override
   void paint(Canvas canvas, Size size) {
     if (rootNode == null) return;
+
+    double nodeRadius = 30;
+    double lineLength = 90;
+    double branchHeight = 40;
+    double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
+
+    double centerX = size.width / 2;
+    double topOffset = (size.height - totalHeight) / 2;
+    double centerY = topOffset + nodeRadius;
+
+    final linePaint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 2;
+
+    double lineY = centerY + nodeRadius / 2 - 10;
+    double startX = centerX - lineLength / 2;
+    double endX = centerX + lineLength / 2;
+
+    // Vízszintes vonal és ágak
+    canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
+    canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
+    canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
+
+    // Branches
+    double leftX = centerX - lineLength / 2;
+    double rightX = centerX + lineLength / 2;
+
+    if (rootNode?.right == null) {
+      drawText(canvas, "NULL", rightX - 20, lineY + branchHeight + 5);
+
+      double smallLineLength = 15;
+      canvas.drawLine(
+        Offset(rightX - smallLineLength / 2, lineY + branchHeight),
+        Offset(rightX + smallLineLength / 2, lineY + branchHeight),
+        linePaint,
+      );
+    }
+
+    drawText(canvas, "NULL", startX - 20, lineY + branchHeight + 5);
+    drawText(canvas, "" ?? "NULL", endX - 20, lineY + branchHeight + 5);
+
+
+    if (rightChild != null) {
+      Paint rightPaint = Paint()
+        ..color = Colors.purple.withOpacity(fadeAnimation.value)
+        ..style = PaintingStyle.fill;
+
+      double rightX = endX;
+      double rightY = lineY + branchHeight + 30;
+
+      canvas.drawCircle(Offset(rightX, rightY), nodeRadius, rightPaint);
+      drawNodeText(canvas, rightChild!, rightX, rightY);
+    }
+
+    if (leftChild == null) {
+      drawText(canvas, "NULL", leftX - 20, lineY + branchHeight + 5);
+
+      double smallLineLength = 15;
+      canvas.drawLine(
+        Offset(leftX - smallLineLength / 2, lineY + branchHeight),
+        Offset(leftX + smallLineLength / 2, lineY + branchHeight),
+        linePaint,
+      );
+    } else {
+      Paint leftPaint = Paint()
+        ..color = Colors.purple.withOpacity(fadeAnimation.value)
+        ..style = PaintingStyle.fill;
+
+      double leftChildX = leftX;
+      double leftChildY = lineY + branchHeight + 30;
+
+      canvas.drawCircle(Offset(leftChildX, leftChildY), nodeRadius, leftPaint);
+      drawNodeText(canvas, leftChild!, leftChildX, leftChildY);
+    }
+
+    double smallLineLength = 15;
+    canvas.drawLine(
+      Offset(leftX - smallLineLength / 2, lineY + branchHeight),
+      Offset(leftX + smallLineLength / 2, lineY + branchHeight),
+      linePaint,
+    );
+
+    // Root
     Paint paint = Paint()
       ..color = Color(0xFFDFAEE8)
       ..style = PaintingStyle.fill;
 
-    double centerX = size.width / 2;
-    double centerY = size.height / 2;
-
-    // Rajzoljuk meg az alap csomópontot
-    canvas.drawCircle(Offset(centerX, centerY - 50), 30, paint);
-    drawNodeText(canvas, rootNode!, centerX, centerY - 50);
-
-    // Ha van új csomópont, rajzoljuk meg azt is animációval és kössük össze egy vonallal
-    if (newNode != null) {
-      Paint newPaint = Paint()
-        ..color = Colors.purple.withOpacity(fadeAnimation.value)
-        ..style = PaintingStyle.fill;
-
-      Paint linePaint = Paint()
-        ..color = Colors.black
-        ..strokeWidth = 2;
-
-      double newX = centerX + 60;
-      double newY = centerY + 20;
-
-      // Összekötjük a rootNode-t a newNode-val
-      canvas.drawLine(Offset(centerX, centerY - 30), Offset(newX, newY - 30), linePaint);
-      canvas.drawCircle(Offset(newX, newY), 30, newPaint);
-      drawNodeText(canvas, newNode!, newX, newY);
-    }
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    drawNodeText(canvas, rootNode!, centerX, centerY);
   }
+
+  void drawText(Canvas canvas, String text, double x, double y) {
+    final textPainter = TextPainter(
+      text: TextSpan(text: text, style: TextStyle(color: Colors.black, fontSize: 14)),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
+    textPainter.paint(canvas, Offset(x, y));
+  }
+
 
   void drawNodeText(Canvas canvas, BSTNode node, double x, double y) {
     TextPainter textPainter = TextPainter(
@@ -97,18 +179,6 @@ class BSTNodePainter extends CustomPainter {
     );
     textPainter.layout();
     textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
-
-    // Node info text on the right side
-    TextPainter infoPainter = TextPainter(
-      text: TextSpan(
-        text: "Value: ${node.value}\nRight: ${node.right?.value ?? 'NULL'}\nLeft: ${node.left?.value ?? 'NULL'}",
-        style: TextStyle(color: Colors.black, fontSize: 14),
-      ),
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.left,
-    );
-    infoPainter.layout(maxWidth: 100);
-    infoPainter.paint(canvas, Offset(x + 35, y - 10));
   }
 
   @override

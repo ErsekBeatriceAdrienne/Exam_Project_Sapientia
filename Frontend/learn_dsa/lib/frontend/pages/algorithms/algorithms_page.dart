@@ -37,6 +37,17 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
 
   @override
   Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        'Algorithms Page',
+        style: TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  /*
+  @override
+  Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
     return FutureBuilder<Map<String, dynamic>>(
@@ -474,5 +485,5 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
         ),
       ),
     );
-  }
+  }*/
 }

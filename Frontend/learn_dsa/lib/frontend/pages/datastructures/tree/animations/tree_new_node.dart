@@ -29,14 +29,25 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CustomPaint(
-          painter: BSTNodePainter(node, _fadeAnimation),
-          child: Container(height: 100, width: 300),
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black26),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: CustomPaint(
+            painter: BSTNodePainter(node, _fadeAnimation),
+            child: Container(height: 200, width: 300),
+          ),
         ),
+        const SizedBox(height: 20),
         ElevatedButton(
           onPressed: () => createNewNode(50),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFFDFAEE8),
+            foregroundColor: Colors.white,
+          ),
           child: Text("létrehozás(50)"),
-        )
+        ),
       ],
     );
   }
@@ -51,14 +62,64 @@ class BSTNodePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     if (node == null) return;
+
+    double centerX = size.width / 2;
+    double nodeRadius = 30;
+    double lineLength = 90;
+    double branchHeight = 40;
+    double totalHeight = nodeRadius * 2 + 10 + branchHeight + 20;
+    double topOffset = (size.height - totalHeight) / 2;
+    double centerY = topOffset + nodeRadius;
+
+    final linePaint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 2;
+
+    double lineY = centerY + nodeRadius / 2 - 10;
+    double startX = centerX - lineLength / 2;
+    double endX = centerX + lineLength / 2;
+
+    canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
+    canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
+    canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
+
+    // Small lines when Null
+    double smallLineLength = 15;
+    canvas.drawLine(
+      Offset(startX - smallLineLength / 2, lineY + branchHeight),
+      Offset(startX + smallLineLength / 2, lineY + branchHeight),
+      linePaint,
+    );
+    canvas.drawLine(
+      Offset(endX - smallLineLength / 2, lineY + branchHeight),
+      Offset(endX + smallLineLength / 2, lineY + branchHeight),
+      linePaint,
+    );
+
+    final leftText = TextPainter(
+      text: TextSpan(
+        text: "NULL",
+        style: TextStyle(color: Colors.black, fontSize: 14),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    leftText.layout();
+    leftText.paint(canvas, Offset(startX - 20, lineY + branchHeight + 5));
+
+    final rightText = TextPainter(
+      text: TextSpan(
+        text: " NULL",
+        style: TextStyle(color: Colors.black, fontSize: 14),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    rightText.layout();
+    rightText.paint(canvas, Offset(endX - 20, lineY + branchHeight + 5));
+
     Paint paint = Paint()
       ..color = Color(0xFFDFAEE8)
       ..style = PaintingStyle.fill;
-
-    double centerX = size.width / 2;
-    double centerY = size.height / 2;
-
-    canvas.drawCircle(Offset(centerX, centerY), 30, paint);
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
 
     TextPainter textPainter = TextPainter(
       text: TextSpan(
@@ -68,19 +129,10 @@ class BSTNodePainter extends CustomPainter {
       textDirection: TextDirection.ltr,
     );
     textPainter.layout();
-    textPainter.paint(canvas, Offset(centerX - textPainter.width / 2, centerY - textPainter.height / 2));
-
-    // Node info text on the right side of the node
-    TextPainter infoPainter = TextPainter(
-      text: TextSpan(
-        text: "info: ${node!.value}\njobb: NULL\nbal: NULL",
-        style: TextStyle(color: Colors.black, fontSize: 14),
-      ),
-      textDirection: TextDirection.ltr,
-      textAlign: TextAlign.left,
+    textPainter.paint(
+      canvas,
+      Offset(centerX - textPainter.width / 2, centerY - textPainter.height / 2),
     );
-    infoPainter.layout(maxWidth: size.width);
-    infoPainter.paint(canvas, Offset(centerX + 40, centerY - 10));
   }
 
   @override
