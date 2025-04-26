@@ -162,7 +162,7 @@ class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget>
             ElevatedButton(
               onPressed: queue.isNotEmpty ? _dequeue : null,
               style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-              child: Text('dequeue'),
+              child: Text('dequeue(q)'),
             ),
           ],
         ),
