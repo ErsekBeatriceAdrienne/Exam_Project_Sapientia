@@ -41,6 +41,8 @@ class _BTAnimationState extends State<BTAnimation> {
   BTNode? root;
   List<int> values = [20, 5, 19, 3, 87, 56, 89, 88];
   int insertCount = 0;
+  bool _isRunning = true;
+  bool _resetNeeded = false;
 
   @override
   void initState() {
@@ -51,38 +53,95 @@ class _BTAnimationState extends State<BTAnimation> {
   // Automatically insert nodes from values list with a delay
   void _startAutoInsertion() async {
     while (true) {
-      root = null;
-      insertCount = 0;
-
-      for (int i = 0; i < values.length; i++) {
-        await Future.delayed(const Duration(seconds: 1));
-
-        setState(() {
-          root = insert(root, values[i]);
-          insertCount++;
-        });
+      if (_resetNeeded) {
+        root = null;
+        insertCount = 0;
+        _resetNeeded = false;
       }
 
-      // Pause before restarting
-      await Future.delayed(const Duration(seconds: 2));
+      if (_isRunning && insertCount < values.length) {
+        int waited = 0;
+        // 1 másodperces várás, de közben figyeljük, hogy _isRunning közben nem változik-e
+        while (waited < 1000) {
+          if (!_isRunning) {
+            await Future.delayed(const Duration(milliseconds: 100));
+            continue;
+          }
+          await Future.delayed(const Duration(milliseconds: 50));
+          waited += 50;
+        }
+
+        // Ha valaki közben leállította, akkor ne szúrjunk be új elemet!
+        if (!_isRunning) continue;
+
+        setState(() {
+          root = insert(root, values[insertCount]);
+          insertCount++;
+        });
+      } else if (insertCount >= values.length) {
+        // Befejeztük a beszúrást
+        // Most is: várjuk meg, amíg újra elindítják
+        while (!_isRunning) {
+          await Future.delayed(const Duration(milliseconds: 100));
+        }
+
+        // Most már újra mehet a reset és újraindul
+        await Future.delayed(const Duration(seconds: 2));
+        if (!_isRunning) continue; // Ha közben megint megállították, ne reseteljük!
+
+        setState(() {
+          _resetNeeded = true;
+          insertCount = 0;
+        });
+      } else {
+        // Általános várakozás, ha szünetel
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
     }
+  }
+
+  void _toggleAnimation() {
+    setState(() {
+      _isRunning = !_isRunning;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        // Animated BT Visualization
-        Container(
-          height: 300,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black26),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: CustomPaint(
-            painter: BTPainter(root),
-            child: Container(),
+        Column(
+          children: [
+            // Animated BT Visualization
+            Container(
+              height: 300,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black26),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: CustomPaint(
+                painter: BTPainter(root),
+                child: Container(),
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+          top: 10,
+          right: 10,
+          child: ElevatedButton(
+            onPressed: _toggleAnimation,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: Text(
+              _isRunning ? "Stop" : "Start",
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ),
       ],
@@ -179,6 +238,8 @@ class _BSTAnimationState extends State<BSTAnimation> {
   BSTNode? root;
   List<int> values = [20 ,5, 19, 3, 87, 56, 89, 88];
   int insertCount = 0;
+  bool _isRunning = true;
+  bool _resetNeeded = false;
 
   @override
   void initState() {
@@ -189,42 +250,97 @@ class _BSTAnimationState extends State<BSTAnimation> {
   // Automatically insert nodes from values list with a delay
   void _startAutoInsertion() async {
     while (true) {
-      root = null;
-      insertCount = 0;
-
-      for (int i = 0; i < values.length; i++) {
-        await Future.delayed(const Duration(seconds: 1));
-
-        setState(() {
-          root = insert1(root, values[i]);
-          insertCount++;
-        });
+      if (_resetNeeded) {
+        root = null;
+        insertCount = 0;
+        _resetNeeded = false;
       }
 
-      // Pause before restarting
-      await Future.delayed(const Duration(seconds: 2));
+      if (_isRunning && insertCount < values.length) {
+        int waited = 0;
+        // 1 másodperces várás, de közben figyeljük, hogy _isRunning közben nem változik-e
+        while (waited < 1000) {
+          if (!_isRunning) {
+            await Future.delayed(const Duration(milliseconds: 100));
+            continue;
+          }
+          await Future.delayed(const Duration(milliseconds: 50));
+          waited += 50;
+        }
+
+        // Ha valaki közben leállította, akkor ne szúrjunk be új elemet!
+        if (!_isRunning) continue;
+
+        setState(() {
+          root = insert1(root, values[insertCount]);
+          insertCount++;
+        });
+      } else if (insertCount >= values.length) {
+        // Befejeztük a beszúrást
+        // Most is: várjuk meg, amíg újra elindítják
+        while (!_isRunning) {
+          await Future.delayed(const Duration(milliseconds: 100));
+        }
+
+        // Most már újra mehet a reset és újraindul
+        await Future.delayed(const Duration(seconds: 2));
+        if (!_isRunning) continue; // Ha közben megint megállították, ne reseteljük!
+
+        setState(() {
+          _resetNeeded = true;
+          insertCount = 0;
+        });
+      } else {
+        // Általános várakozás, ha szünetel
+        await Future.delayed(const Duration(milliseconds: 100));
+      }
     }
+  }
+
+  void _toggleAnimation() {
+    setState(() {
+      _isRunning = !_isRunning;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        // Animated BST Visualization
-        Container(
-          height: 300,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black26),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: CustomPaint(
-            painter: BSTPainter(root),
-            child: Container(),
+        Column(
+          children: [
+            // Animated BT Visualization
+            Container(
+              height: 300,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black26),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: CustomPaint(
+                painter: BSTPainter(root),
+                child: Container(),
+              ),
+            ),
+          ],
+        ),
+        Positioned(
+          top: 10,
+          right: 10,
+          child: ElevatedButton(
+            onPressed: _toggleAnimation,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            child: Text(
+              _isRunning ? "Stop" : "Start",
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ),
-
-        const SizedBox(height: 20),
       ],
     );
   }
