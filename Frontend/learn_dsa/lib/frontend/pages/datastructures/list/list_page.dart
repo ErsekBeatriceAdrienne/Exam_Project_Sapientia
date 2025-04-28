@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/list_strings.dart';
+import 'animations/dlist_backwardTraversal.dart';
+import 'animations/dlist_forwardTraversal.dart';
 import 'animations/list_deleteFromBeginning.dart';
 import 'animations/list_deleteFromEnd.dart';
 import 'animations/list_deleteNode.dart';
@@ -691,7 +693,7 @@ class ListPage extends StatelessWidget
                                   const SizedBox(height: 10),
 
                                   // Animation of the list
-                                  LinkedListAnimation(),
+                                  DoublyLinkedListAnimation(),
 
                                   const SizedBox(height: 10),
 
@@ -774,7 +776,7 @@ class ListPage extends StatelessWidget
 
                                 // New node pseudo code title
                                 Text(
-                                  ListStrings.func_new_node_title,
+                                  ListStrings.func_new_node_title1,
                                   style: TextStyle(
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold,
@@ -783,7 +785,54 @@ class ListPage extends StatelessWidget
                                 ),
                                 // New node pseudo code
                                 Text(
-                                  ListStrings.func_new_node_comment,
+                                  ListStrings.func_new_node_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    child: DoublyLinkedListNewNodeAnimation(),
+                                  ),
+                                ),
+
+                                // Empty pseudo code title
+                                Text(
+                                  ListStrings.func_empty_list_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Empty pseudo code
+                                Text(
+                                  ListStrings.func_empty_list_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Forward traversal pseudo code title
+                                Text(
+                                  ListStrings.func_forward_traversal_list_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Forward traversal pseudo code
+                                Text(
+                                  ListStrings.func_forward_traversal_list_comment1,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
@@ -794,24 +843,24 @@ class ListPage extends StatelessWidget
                                 Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListNewNodeAnimation(),
+                                    child: DoublyLinkedListForwardTraversalAnimation(),
                                   ),
                                 ),
 
                                 const SizedBox(height: 10),
 
-                                // Empty pseudo code title
+                                // Backward traversal pseudo code title
                                 Text(
-                                  ListStrings.func_empty_list_title,
+                                  ListStrings.func_backward_traversal_list_title1,
                                   style: TextStyle(
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
-                                // Empty pseudo code
+                                // Backward traversal pseudo code
                                 Text(
-                                  ListStrings.func_empty_list_comment,
+                                  ListStrings.func_backward_traversal_list_comment1,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
@@ -819,11 +868,17 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListBackwardTraversalAnimation(),
+                                  ),
+                                ),
 
                                 const SizedBox(height: 10),
 
                                 // Search node pseudo code title
-                                Text(
+                                /*Text(
                                   ListStrings.func_search_list_title,
                                   style: TextStyle(
                                     fontSize: 19,
@@ -1086,7 +1141,7 @@ class ListPage extends StatelessWidget
                                     height: 200,
                                     child: LinkedListInsertSortedNode(),
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           ),
