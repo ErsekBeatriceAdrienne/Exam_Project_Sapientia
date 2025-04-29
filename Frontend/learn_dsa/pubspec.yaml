@@ -12,7 +12,7 @@ dependencies:
 
   # firebase
   firebase_core: ^3.6.0
-  firebase_auth: ^5.3.1
+  firebase_auth: ^5.5.2
   firebase_storage: ^12.3.4
   cloud_firestore: ^5.4.4
 
@@ -27,6 +27,9 @@ dependencies:
   regexed_validator: ^2.0.0+1
   shared_preferences: ^2.3.2
   percent_indicator: ^4.2.2
+  fl_chart: ^0.68.0
+  auto_size_text: ^3.0.0
+  flip_card: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -43,6 +46,7 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
+    - assets/fonts/
     - assets/images/google_logo.png
     - assets/images/array_photos/array_pink.png
     - assets/images/app_icon.png
@@ -60,3 +64,9 @@ flutter:
     - assets/navbar_icons/writing.png
     - assets/navbar_icons/home.png
     - assets/navbar_icons/document.png
+
+  # fonts
+  fonts:
+    - family: Courier
+      fonts:
+        - asset: assets/fonts/Courier-Regular.ttf

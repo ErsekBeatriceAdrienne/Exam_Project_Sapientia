@@ -1,19 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'firebase_options.dart';
 import 'frontend/pages/customClasses/custom_bottomnavigationbar.dart';
+import 'frontend/pages/customClasses/custom_sidemenu.dart';
 import 'frontend/pages/profile/login/login_page.dart';
 
-void main() async
-{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
 
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatefulWidget
 {
@@ -43,16 +52,25 @@ class _MyAppState extends State <MyApp>
     });
   }
 
-  Future <void> _checkLoginStatus() async
-  {
+  Future<void> _checkLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userId');
 
-    setState(()
-    {
-      _initialScreen = userId != null
-          ? CustomBottomNavigationBar(toggleTheme: _toggleTheme, userId: userId,)
-          : LoginPage(toggleTheme: _toggleTheme);
+    print('Running on: ${Platform.operatingSystem}');
+
+    userId = '100';
+    setState(() {
+      if (Platform.isWindows) {
+        // For Windows platform
+        _initialScreen = userId != null
+            ? WindowsMenu(toggleTheme: _toggleTheme, userId: userId)
+            : LoginPage(toggleTheme: _toggleTheme);
+      } else {
+        // For mobile platforms, show the Bottom Navigation Bar
+        _initialScreen = userId != null
+            ? CustomBottomNavigationBar(toggleTheme: _toggleTheme, userId: userId)
+            : LoginPage(toggleTheme: _toggleTheme);
+      }
       _isLoading = false;
     });
   }
