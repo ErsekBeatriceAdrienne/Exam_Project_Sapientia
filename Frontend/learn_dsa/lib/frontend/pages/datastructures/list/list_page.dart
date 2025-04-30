@@ -821,6 +821,174 @@ class ListPage extends StatelessWidget
 
                                 const SizedBox(height: 10),
 
+                                // Insert node at beginning pseudo code title
+                                Text(
+                                  ListStrings.func_insert_node_at_beginning_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Insert node at beginning pseudo code
+                                Text(
+                                  ListStrings.func_insert_node_at_beginning_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListInsertAtBeginning(),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Insert node after pseudo code title
+                                Text(
+                                  ListStrings.func_insert_node_after_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Insert node after pseudo code
+                                Text(
+                                  ListStrings.func_insert_node_after_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListInsertAfterNode(),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Insert node at end pseudo code title
+                                Text(
+                                  ListStrings.func_insert_node_at_end_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Insert node at end pseudo code
+                                Text(
+                                  ListStrings.func_insert_node_at_end_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListInsertAtEnd(),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Deleting element from beginning pseudo code title
+                                Text(
+                                  ListStrings.func_delete_from_beginning_list_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Deleting element from beginning pseudo code
+                                Text(
+                                  ListStrings.func_delete_from_beginning_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListDeleteFromBeginning(),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Deleting element pseudo code title
+                                Text(
+                                  ListStrings.func_delete_node_list_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Deleting element pseudo code
+                                Text(
+                                  ListStrings.func_delete_node_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListDeleteNode(),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
+                                // Deleting element from end pseudo code title
+                                Text(
+                                  ListStrings.func_delete_from_end_list_title1,
+                                  style: TextStyle(
+                                    fontSize: 19,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                // Deleting element from end pseudo code
+                                Text(
+                                  ListStrings.func_delete_from_end_comment1,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                    fontFamily: 'Courier',
+                                  ),
+                                ),
+                                Center(
+                                  child: SizedBox(
+                                    height: 200,
+                                    child: DoublyLinkedListDeleteFromEndNode(),
+                                  ),
+                                ),
+
+                                const SizedBox(height: 10),
+
                                 // Forward traversal pseudo code title
                                 Text(
                                   ListStrings.func_forward_traversal_list_title1,
@@ -878,8 +1046,8 @@ class ListPage extends StatelessWidget
                                 const SizedBox(height: 10),
 
                                 // Search node pseudo code title
-                                /*Text(
-                                  ListStrings.func_search_list_title,
+                                Text(
+                                  ListStrings.func_search_list_title1,
                                   style: TextStyle(
                                     fontSize: 19,
                                     fontWeight: FontWeight.bold,
@@ -888,7 +1056,7 @@ class ListPage extends StatelessWidget
                                 ),
                                 // Search node pseudo code
                                 Text(
-                                  ListStrings.func_search_list_comment,
+                                  ListStrings.func_search_list_comment1,
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
@@ -897,251 +1065,6 @@ class ListPage extends StatelessWidget
                                   ),
                                 ),
 
-                                const SizedBox(height: 10),
-
-                                // Insert node at beginning pseudo code title
-                                Text(
-                                  ListStrings.func_insert_node_at_beginning_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Insert node at beginning pseudo code
-                                Text(
-                                  ListStrings.func_insert_node_at_beginning_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListInsertAtBeginning(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Insert node after pseudo code title
-                                Text(
-                                  ListStrings.func_insert_node_after_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Insert node after pseudo code
-                                Text(
-                                  ListStrings.func_insert_node_after_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListInsertAfterNode(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Insert node at end pseudo code title
-                                Text(
-                                  ListStrings.func_insert_node_at_end_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Insert node at end pseudo code
-                                Text(
-                                  ListStrings.func_insert_node_at_end_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListInsertAtEndNode(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Deleting element from beginning pseudo code title
-                                Text(
-                                  ListStrings.func_delete_from_beginning_list_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Deleting element from beginning pseudo code
-                                Text(
-                                  ListStrings.func_delete_from_beginning_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListDeleteFromBeginningNode(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Deleting element pseudo code title
-                                Text(
-                                  ListStrings.func_delete_node_list_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Deleting element pseudo code
-                                Text(
-                                  ListStrings.func_delete_node_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListDeleteNode(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Deleting element from end pseudo code title
-                                Text(
-                                  ListStrings.func_delete_from_end_list_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Deleting element from end pseudo code
-                                Text(
-                                  ListStrings.func_delete_from_end_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListDeleteFromEndNode(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Print list pseudo code title
-                                Text(
-                                  ListStrings.func_print_list_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Print list pseudo code
-                                Text(
-                                  ListStrings.func_print_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Sort list pseudo code title
-                                Text(
-                                  ListStrings.func_sort_list_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Sort list pseudo code
-                                Text(
-                                  ListStrings.func_sort_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListSortAnimation(),
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // Insert into sorted list pseudo code title
-                                Text(
-                                  ListStrings.func_insert_into_sorted_list_title,
-                                  style: TextStyle(
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                // Insert into sorted list pseudo code
-                                Text(
-                                  ListStrings.func_insert_into_sorted_comment,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                    fontFamily: 'Courier',
-                                  ),
-                                ),
-                                Center(
-                                  child: SizedBox(
-                                    height: 200,
-                                    child: LinkedListInsertSortedNode(),
-                                  ),
-                                ),*/
                               ],
                             ),
                           ),

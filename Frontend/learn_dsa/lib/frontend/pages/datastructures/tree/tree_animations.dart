@@ -116,10 +116,10 @@ class _BTAnimationState extends State<BTAnimation> {
             Container(
               height: 300,
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
+              /*decoration: BoxDecoration(
                 border: Border.all(color: Colors.black26),
                 borderRadius: BorderRadius.circular(12),
-              ),
+              ),*/
               child: CustomPaint(
                 painter: BTPainter(root),
                 child: Container(),
@@ -313,10 +313,10 @@ class _BSTAnimationState extends State<BSTAnimation> {
             Container(
               height: 300,
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
+              /*decoration: BoxDecoration(
                 border: Border.all(color: Colors.black26),
                 borderRadius: BorderRadius.circular(12),
-              ),
+              ),*/
               child: CustomPaint(
                 painter: BSTPainter(root),
                 child: Container(),

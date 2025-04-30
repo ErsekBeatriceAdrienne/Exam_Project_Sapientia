@@ -90,10 +90,10 @@ class _BinaryTreePreorderTraversalAnimationState extends State<BinaryTreePreorde
         Container(
           height: 300,
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(12),
-          ),
+          ),*/
           child: CustomPaint(
             painter: BinaryTreePainter(root, currentNodeValue),
             child: Container(),

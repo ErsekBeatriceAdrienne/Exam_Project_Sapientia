@@ -134,3 +134,168 @@ class _LinkedListDeleteNodeState extends State<LinkedListDeleteNode> {
     );
   }
 }
+
+//-------------------------------------------------------------------------------
+
+class DoublyLinkedListDeleteNode extends StatefulWidget {
+  @override
+  State<DoublyLinkedListDeleteNode> createState() =>
+      _DoublyLinkedListDeleteNodeState();
+}
+
+class _DoublyLinkedListDeleteNodeState
+    extends State<DoublyLinkedListDeleteNode> {
+  List<int> nodes = [20, 40, 30, 50];
+  bool isDeleting = false;
+
+  void _deleteNodeByValue(int value) async {
+    if (isDeleting || nodes.isEmpty) return;
+
+    setState(() => isDeleting = true);
+    await Future.delayed(Duration(milliseconds: 800));
+
+    setState(() {
+      nodes.remove(value);
+      isDeleting = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double nodeSize = constraints.maxWidth / 10;
+        nodeSize = nodeSize.clamp(30.0, 60.0);
+        double fontSize = nodeSize * 0.4;
+
+        return Column(
+          children: [
+            SizedBox(height: 60),
+            Expanded(
+              child: Center(
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 800),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      key: ValueKey(nodes.toString()),
+                      children: nodes.asMap().entries.expand((entry) {
+                        int index = entry.key;
+                        int value = entry.value;
+                        List<Widget> rowWidgets = [];
+
+                        if (index == 0) {
+                          rowWidgets.add(_buildLeftNullPointer(nodeSize));
+                        }
+
+                        rowWidgets.add(_buildNode(value, nodeSize, fontSize));
+
+                        if (index < nodes.length - 1) {
+                          rowWidgets.add(_buildDoubleArrow(nodeSize));
+                        } else {
+                          rowWidgets.add(_buildNullPointer(nodeSize));
+                        }
+
+                        return rowWidgets;
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: isDeleting ? null : () => _deleteNodeByValue(30),
+              child: Text('deleteNode(30)'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildNode(int value, double size, double fontSize) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      width: size,
+      height: size,
+      margin: EdgeInsets.symmetric(horizontal: 4),
+      decoration: BoxDecoration(
+        color: Color(0xFFDFAEE8),
+        borderRadius: BorderRadius.circular(size * 0.2),
+        border: Border.all(color: Colors.white, width: 2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 6,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        value.toString(),
+        style: TextStyle(
+          fontSize: fontSize,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDoubleArrow(double size) {
+    double arrowSize = size * 0.6;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Transform(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationY(3.1416),
+          child: Icon(Icons.arrow_right_alt, size: arrowSize, color: Colors.black),
+        ),
+        Icon(Icons.arrow_right_alt, size: arrowSize, color: Colors.black),
+      ],
+    );
+  }
+
+  Widget _buildNullPointer(double size) {
+    return Row(
+      children: [
+        SizedBox(width: size * 0.2),
+        Container(width: size * 0.4, height: 3, color: Colors.black),
+        Container(width: 3, height: size * 0.4, color: Colors.black, margin: EdgeInsets.only(left: 2)),
+        SizedBox(width: size * 0.1),
+        Text(
+          'NULL',
+          style: TextStyle(
+            fontSize: size * 0.25,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        SizedBox(width: size * 0.3),
+      ],
+    );
+  }
+
+  Widget _buildLeftNullPointer(double size) {
+    return Row(
+      children: [
+        Text(
+          'NULL',
+          style: TextStyle(
+            fontSize: size * 0.25,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        SizedBox(width: size * 0.1),
+        Container(width: 3, height: size * 0.4, color: Colors.black, margin: EdgeInsets.only(right: 2)),
+        Container(width: size * 0.4, height: 3, color: Colors.black),
+        SizedBox(width: size * 0.3),
+      ],
+    );
+  }
+}
+

@@ -92,10 +92,10 @@ class _BinaryTreeInorderTraversalAnimationState extends State<BinaryTreeInorderT
         Container(
           height: 300,
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(12),
-          ),
+          ),*/
           child: CustomPaint(
             painter: BinaryTreePainter(root, currentNodeValue),
             child: Container(),
@@ -262,10 +262,10 @@ class _BSTInorderAnimationState extends State<BSTInorderAnimation> {
         Container(
           height: 300,
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(12),
-          ),
+          ),*/
           child: CustomPaint(
             painter: BSTPainter(root, currentNodeValue),
             child: Container(),
