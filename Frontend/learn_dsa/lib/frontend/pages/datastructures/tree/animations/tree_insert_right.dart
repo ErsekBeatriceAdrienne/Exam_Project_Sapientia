@@ -34,10 +34,10 @@ class _BinaryTreeInsertAnimationState extends State<BinaryTreeInsertAnimation> w
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(12),
-          ),
+          ),*/
           child: CustomPaint(
             painter: BinaryTreePainter(root, leftChild, rightChild, _fadeAnimation),
             child: Container(height: 300, width: 300),

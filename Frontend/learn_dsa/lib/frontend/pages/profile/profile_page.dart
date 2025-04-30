@@ -116,16 +116,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Profile Page',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }
-/*
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<Map<String, dynamic>?>(
         future: _fetchUserData(),
@@ -272,5 +262,5 @@ class _ProfilePageState extends State<ProfilePage> {
         },
       ),
     );
-  }*/
+  }
 }

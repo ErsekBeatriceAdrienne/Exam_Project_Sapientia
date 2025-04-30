@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+/// 1. Animation
+/*
 class ChainedHashTableAnimation extends StatefulWidget {
   @override
   _ChainedHashTableAnimationState createState() => _ChainedHashTableAnimationState();
 }
 
 class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> {
-  List<List<int>> hashTable = List.generate(5, (_) => []);
+  List<List<int>> hashTable = List.generate(6, (_) => []);
   int insertCount = 0;
-  final int maxValues = 10;
-  final int tableSize = 5;
+  final int maxValues = 7;
+  final int tableSize = 6;
 
   @override
   void initState() {
@@ -59,6 +61,7 @@ class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> {
 
 class ChainedHashTablePainter extends CustomPainter {
   final List<List<int>> hashTable;
+  final int tableSize = 6;
 
   ChainedHashTablePainter(this.hashTable);
 
@@ -67,6 +70,8 @@ class ChainedHashTablePainter extends CustomPainter {
     double cellHeight = size.height / hashTable.length;
     double cellWidth = cellHeight;
     double borderRadius = 10;
+    double formulaSpacing = 60;
+    double valueSpacing = 60;
 
     Paint indexCellPaint = Paint()
       ..color = const Color(0xFFDFAEE0)
@@ -83,9 +88,9 @@ class ChainedHashTablePainter extends CustomPainter {
 
     Paint linePaint = Paint()
       ..color = Colors.black
-      ..strokeWidth = 2;
+      ..strokeWidth = 1;
 
-    // Indexes
+    // Indexes and values
     for (int i = 0; i < hashTable.length; i++) {
       double y = i * cellHeight;
 
@@ -96,15 +101,7 @@ class ChainedHashTablePainter extends CustomPainter {
       canvas.drawRRect(indexRect, indexCellPaint);
       canvas.drawRRect(indexRect, borderPaint);
 
-      /*if (hashTable[i].isNotEmpty) {
-        _drawArrowWithHead(
-          canvas,
-          Offset(10 + cellWidth, y + (cellHeight - 5) / 2),
-          Offset(10 + cellWidth + 20, y + (cellHeight - 5) / 2),
-          linePaint,
-        );
-      }*/
-
+      // Draw index text
       TextPainter indexText = TextPainter(
         text: TextSpan(
           text: '$i',
@@ -118,12 +115,75 @@ class ChainedHashTablePainter extends CustomPainter {
         y + (cellHeight - indexText.height) / 2,
       ));
 
-      double xOffset = 10 + cellWidth + 10;
+      double xOffset = 10 + cellWidth + formulaSpacing;
+
+      if (i == hashTable.length ~/ 2) {
+        RRect formulaRect = RRect.fromRectAndRadius(
+          Rect.fromLTWH(xOffset, y, cellWidth, cellHeight - 5),
+          Radius.circular(borderRadius),
+        );
+        Paint formulaCellPaint = Paint()
+          ..color = Colors.grey
+          ..style = PaintingStyle.fill;
+
+        canvas.drawRRect(formulaRect, formulaCellPaint);
+        canvas.drawRRect(formulaRect, borderPaint);
+
+        // Draw the text "key % CAPACITY"
+        TextPainter formulaText = TextPainter(
+          text: TextSpan(
+            text: 'hashCode',
+            style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+          textDirection: TextDirection.ltr,
+        );
+        formulaText.layout();
+        formulaText.paint(canvas, Offset(
+          xOffset + (cellWidth - formulaText.width) / 2,
+          y + (cellHeight - formulaText.height) / 2, // Use 'y' for the formula's vertical position
+        ));
+
+        // Now, draw arrows from each index to the formula cell
+        for (int i = 0; i < hashTable.length; i++) {
+          _drawArrowIcon(
+            canvas,
+            Offset(10 + cellWidth, i * cellHeight + cellHeight / 2), // From index rectangle (right side)
+            Offset(xOffset, y + cellHeight / 2), // To formula box
+          );
+
+          // Draw reverse arrows from the formula back to the index values
+          for (int value in hashTable[i]) {
+            double valueXOffset = xOffset + cellWidth + 10;
+            _drawArrowIcon(
+              canvas,
+              Offset(xOffset + cellWidth, y + cellHeight / 2), // From formula
+              Offset(valueXOffset, y + cellHeight / 2), // To values
+            );
+          }
+        }
+        // Csak az első értékhez rajzolunk nyilat minden sorban
+        for (int row = 0; row < hashTable.length; row++) {
+          if (hashTable[row].isNotEmpty) {
+            double valueXOffset = xOffset + cellWidth + valueSpacing;
+            double valueY = row * cellHeight;
+
+            int firstValue = hashTable[row].first;
+
+            _drawArrowIcon(
+              canvas,
+              Offset(xOffset + cellWidth, y + cellHeight / 2),  // From formula cell (middle row)
+              Offset(valueXOffset, valueY + cellHeight / 2),    // To first value cell in each row
+            );
+          }
+        }
+      }
+
+      double valueXOffset = xOffset + cellWidth + valueSpacing;
 
       // The values for the indexes
       for (int value in hashTable[i]) {
         RRect valueRect = RRect.fromRectAndRadius(
-          Rect.fromLTWH(xOffset, y, cellWidth, cellHeight - 5),
+          Rect.fromLTWH(valueXOffset, y, cellWidth, cellHeight - 5),
           Radius.circular(borderRadius),
         );
         canvas.drawRRect(valueRect, valueCellPaint);
@@ -138,22 +198,40 @@ class ChainedHashTablePainter extends CustomPainter {
         );
         valueText.layout();
         valueText.paint(canvas, Offset(
-          xOffset + (cellWidth - valueText.width) / 2,
+          valueXOffset + (cellWidth - valueText.width) / 2,
           y + (cellHeight - valueText.height) / 2,
         ));
 
-        if (xOffset > 10 + cellWidth + 10) {
+        /*if (valueXOffset > xOffset + cellWidth + 10) {
           _drawArrow(
             canvas,
-            Offset(xOffset - cellWidth - 10 + cellWidth, y + cellHeight / 2),
-            Offset(xOffset, y + cellHeight / 2),
+            Offset(valueXOffset - cellWidth - 10 + cellWidth, y + cellHeight / 2),
+            Offset(valueXOffset, y + cellHeight / 2),
             linePaint,
           );
-        }
+        }*/
 
-        xOffset += cellWidth + 10;
+        valueXOffset += cellWidth + 10;
       }
     }
+  }
+
+  void _drawArrowIcon(Canvas canvas, Offset start, Offset end) {
+    const double arrowSize = 8.0;
+
+    // Calculate the angle between the start and end points
+    final double angle = atan2(end.dy - start.dy, end.dx - start.dx);
+
+    // Draw the line (arrow body) between the start and end
+    canvas.drawLine(start, end, Paint()..color = Colors.black..strokeWidth = 1);
+
+    // Draw the arrowhead at the end of the line
+    Path path = Path();
+    path.moveTo(end.dx, end.dy);
+    path.lineTo(end.dx - arrowSize * cos(angle - pi / 6), end.dy - arrowSize * sin(angle - pi / 6));
+    path.moveTo(end.dx, end.dy);
+    path.lineTo(end.dx - arrowSize * cos(angle + pi / 6), end.dy - arrowSize * sin(angle + pi / 6));
+    canvas.drawPath(path, Paint()..color = Colors.grey..style = PaintingStyle.fill);
   }
 
   void _drawArrow(Canvas canvas, Offset start, Offset end, Paint paint) {
@@ -169,29 +247,101 @@ class ChainedHashTablePainter extends CustomPainter {
     canvas.drawPath(path, paint);
   }
 
-  void _drawArrowWithHead(Canvas canvas, Offset start, Offset end, Paint paint) {
-
-    canvas.drawLine(start, end, paint);
-    final double arrowHeadSize = 8;
-    final angle = atan2(end.dy - start.dy, end.dx - start.dx);
-
-    final path = Path();
-    path.moveTo(end.dx, end.dy);
-    path.lineTo(
-      end.dx - arrowHeadSize * cos(angle - pi / 6),
-      end.dy - arrowHeadSize * sin(angle - pi / 6),
-    );
-    path.moveTo(end.dx, end.dy);
-    path.lineTo(
-      end.dx - arrowHeadSize * cos(angle + pi / 6),
-      end.dy - arrowHeadSize * sin(angle + pi / 6),
-    );
-
-    canvas.drawPath(path, paint);
-  }
-
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+*/
+
+/// 2. Animation
+
+class ChainedHashTableAnimation extends StatefulWidget {
+  @override
+  _ChainedHashTableAnimationState createState() => _ChainedHashTableAnimationState();
+}
+
+class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> {
+  final List<String> names = ['John Smith', 'Lisa Smith', 'Sam Doe', 'Sandra Dee'];
+  final List<List<String>> hashTable = List.generate(6, (_) => []);
+  final Map<String, int> hashMapping = {};
+
+  int hash(String name) {
+    return name.codeUnits.reduce((a, b) => a + b) % hashTable.length;
+  }
+
+  void insertName(String name) {
+    final index = hash(name);
+    setState(() {
+      hashTable[index].add(name);
+      hashMapping[name] = index;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < names.length; i++) {
+      Future.delayed(Duration(milliseconds: i * 800), () {
+        insertName(names[i]);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Input names
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: names.map((name) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: AnimatedOpacity(
+                    opacity: hashMapping.containsKey(name) ? 0.3 : 1.0,
+                    duration: Duration(milliseconds: 400),
+                    child: Container(
+                      width: 120,
+                      padding: EdgeInsets.all(8),
+                      color: Colors.cyan,
+                      child: Text(name, style: TextStyle(color: Colors.black)),
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            SizedBox(width: 40),
+            // Arrows & Hash Table
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(hashTable.length, (index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 4),
+                  padding: EdgeInsets.all(8),
+                  width: 100,
+                  color: Colors.grey[300],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('[$index]'),
+                      ...hashTable[index].map((e) => Padding(
+                        padding: const EdgeInsets.only(left: 8.0, top: 4),
+                        child: Text('→ $e'),
+                      )),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

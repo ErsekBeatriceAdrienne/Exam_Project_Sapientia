@@ -93,6 +93,71 @@ class HashTablePage extends StatelessWidget {
 
                                     const SizedBox(height: 10),
 
+                                    // Hash capacity code snippet with copy button
+                                    Center(
+                                      child: Stack(
+                                        children: [
+                                          // Hash Table code snippet
+                                          Container(
+                                            padding: const EdgeInsets.all(8),
+                                            margin: const EdgeInsets.only(bottom: 10),
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFDFAEE8),
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black.withOpacity(0.15),
+                                                  offset: const Offset(2, 2),
+                                                  blurRadius: 6,
+                                                  spreadRadius: 2,
+                                                ),
+                                              ],
+                                            ),
+
+                                            child: SelectableText(
+                                              HashTableStrings.hash_empty_initialization12,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'monospace',
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Copy button on right up corner
+                                          Positioned(
+                                            top: 8,
+                                            right: 8,
+                                            child: IconButton(
+                                              icon: Icon(
+                                                Icons.copy,
+                                                color: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                Clipboard.setData(ClipboardData(text: HashTableStrings.hash_empty_initialization12));
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 10),
+
+                                    // Hash capacity description
+                                    Text(
+                                      HashTableStrings.hash_cap_definition,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 10),
+
                                     // Hash Item code snippet with copy button
                                     Center(
                                       child: Stack(
@@ -224,7 +289,7 @@ class HashTablePage extends StatelessWidget {
                                     const SizedBox(height: 10),
 
                                     // Animation of the Hash Table
-                                    ChainedHashTableAnimation(),
+                                    //ChainedHashTableAnimation(),
 
                                     const SizedBox(height: 10),
 

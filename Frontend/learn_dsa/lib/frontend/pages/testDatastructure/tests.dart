@@ -15,16 +15,6 @@ class TestsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Test Page',
-        style: TextStyle(fontSize: 24),
-      ),
-    );
-  }
-  /*
-  @override
-  Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -448,7 +438,7 @@ class TestsPage extends StatelessWidget {
         ],
       ),
     );
-  }*/
+  }
 
   Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
     final gradient = LinearGradient(

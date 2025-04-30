@@ -30,10 +30,10 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(12),
-          ),
+          ),*/
           child: CustomPaint(
             painter: BSTNodePainter(node, _fadeAnimation),
             child: Container(height: 200, width: 300),

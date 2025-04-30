@@ -34,10 +34,10 @@ class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTick
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          decoration: BoxDecoration(
+          /*decoration: BoxDecoration(
             border: Border.all(color: Colors.black26),
             borderRadius: BorderRadius.circular(12),
-          ),
+          ),*/
           child: CustomPaint(
             painter: BSTNodePainter(rootNode, leftChild, rightChild, _fadeAnimation),
             child: Container(height: 300, width: 300),

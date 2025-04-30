@@ -840,12 +840,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListInsertAtBeginning(),
+                                    child: DoublyLinkedListInsertAtBeginning(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -868,12 +868,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListInsertAfterNode(),
+                                    child: DoublyLinkedListInsertAfterNode(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -896,12 +896,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListInsertAtEndNode(),
+                                    child: DoublyLinkedListInsertAtEnd(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -924,12 +924,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListDeleteFromBeginningNode(),
+                                    child: DoublyLinkedListDeleteFromBeginning(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -952,12 +952,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListDeleteNode(),
+                                    child: DoublyLinkedListDeleteNode(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -980,12 +980,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
-                                    child: LinkedListDeleteFromEndNode(),
+                                    child: DoublyLinkedListDeleteFromEndNode(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -1008,12 +1008,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
                                     child: DoublyLinkedListForwardTraversalAnimation(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 
@@ -1036,12 +1036,12 @@ class ListPage extends StatelessWidget
                                     fontFamily: 'Courier',
                                   ),
                                 ),
-                                /*Center(
+                                Center(
                                   child: SizedBox(
                                     height: 200,
                                     child: DoublyLinkedListBackwardTraversalAnimation(),
                                   ),
-                                ),*/
+                                ),
 
                                 const SizedBox(height: 10),
 

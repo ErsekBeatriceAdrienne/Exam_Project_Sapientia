@@ -53,7 +53,7 @@ class ArrayPage extends StatelessWidget
               ),
             ),
 
-        // Main Content as a SliverList
+            // Main Content as a SliverList
             SliverPadding(
               padding: const EdgeInsets.all(16.0),
               sliver: SliverList(
@@ -62,7 +62,7 @@ class ArrayPage extends StatelessWidget
 
                     const SizedBox(height: 15),
 
-        // What is an array?
+                    // What is an array?
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
@@ -226,7 +226,7 @@ class ArrayPage extends StatelessWidget
 
                     const SizedBox(height: 20),
 
-        // Functions Drop down
+                    // Pseudocode Drop down
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -261,6 +261,26 @@ class ArrayPage extends StatelessWidget
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+
+                                  // Pseudocode parameters used
+                                  Text(
+                                    ArrayStrings.pseudo_code_explanation_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  Text(
+                                    ArrayStrings.pseudo_code_explanation,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 30),
 
                                   // Allocating memory pseudo code title
                                   Text(
@@ -451,6 +471,28 @@ class ArrayPage extends StatelessWidget
 
                                   const SizedBox(height: 10),
 
+                                  // Search pseudo code title
+                                  Text(
+                                    ArrayStrings.func_search_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Search pseudo code
+                                  Text(
+                                    ArrayStrings.func_search,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
                                   // Deleting element pseudo code title
                                   Text(
                                     ArrayStrings.func_deleting_element_title,
@@ -505,9 +547,343 @@ class ArrayPage extends StatelessWidget
                       ),
                     ),
 
-                    const SizedBox(height: 10),
-/*
-        // Code Drop down
+                    /*Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+
+                              // Pseudocode parameters used
+                              Text(
+                                ArrayStrings.pseudo_code_explanation_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                ArrayStrings.pseudo_code_explanation,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                              ),
+
+                              const SizedBox(height: 30),
+
+                              // Allocating memory pseudo code title
+                              Text(
+                                ArrayStrings.func_allocating_memory_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Allocating memory pseudo code
+                              Text(
+                                ArrayStrings.func_allocating_memory,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Center(
+                                child: ArrayAllocationWidget(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Printing pseudo code title
+                              Text(
+                                ArrayStrings.func_printing_array_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Printing pseudo code
+                              Text(
+                                ArrayStrings.func_printing_array,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Inserting first pseudo code title
+                              Text(
+                                ArrayStrings.func_inserting_element_first_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Inserting first pseudo code
+                              Text(
+                                ArrayStrings.func_inserting_element_first,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+                              Center(
+                                child: ArrayInsertFirstWidget(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Inserting at pseudo code title
+                              Text(
+                                ArrayStrings.func_inserting_element_at_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Inserting at pseudo code
+                              Text(
+                                ArrayStrings.func_inserting_element_at,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+                              Center(
+                                child: ArrayInsertAtWidget(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Inserting last pseudo code title
+                              Text(
+                                ArrayStrings.func_inserting_element_last_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Inserting last pseudo code
+                              Text(
+                                ArrayStrings.func_inserting_element_last,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+                              Center(
+                                child: ArrayInsertLastWidget(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Get item at pseudo code title
+                              Text(
+                                ArrayStrings.func_getitem_at_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Get item at pseudo code
+                              Text(
+                                ArrayStrings.func_getitem_at,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Empty pseudo code title
+                              Text(
+                                ArrayStrings.func_empty_array_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Empty pseudo code
+                              Text(
+                                ArrayStrings.func_empty_array,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Full pseudo code title
+                              Text(
+                                ArrayStrings.func_full_array_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Full pseudo code
+                              Text(
+                                ArrayStrings.func_full_array,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Search pseudo code title
+                              Text(
+                                ArrayStrings.func_search_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Search pseudo code
+                              Text(
+                                ArrayStrings.func_search,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Deleting element pseudo code title
+                              Text(
+                                ArrayStrings.func_deleting_element_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Deleting element pseudo code
+                              Text(
+                                ArrayStrings.func_deleting_element,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+                              Center(
+                                child: ArrayDeleteAtWidget(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Deallocating memory pseudo code title
+                              Text(
+                                ArrayStrings.func_deallocating_array_title,
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              // Deallocating memory pseudo code
+                              Text(
+                                ArrayStrings.func_deallocating_array,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                  fontFamily: 'Courier',
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+                            ],
+                          ),
+                        ),
+
+                        // Pseudocode box
+                        Positioned(
+                          top: -23,
+                          left: 16,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                // Gradient colors
+                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 8.0,
+                            ),
+                            child: Text(
+                              ArrayStrings.functions_title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),*/
+
+                    const SizedBox(height: 20),
+
+                    // Code Drop down
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -1117,7 +1493,7 @@ class ArrayPage extends StatelessWidget
                           ],
                         ),
                       ),
-                    ),*/
+                    ),
 
                     const SizedBox(height: 40),
 /*
@@ -1268,408 +1644,3 @@ class ArrayPage extends StatelessWidget
 }
 
 
-/*                    // In real life example drop down
-                    Container(
-                      decoration: BoxDecoration(
-                        color: isDarkTheme
-                            ? AppColors.questionColorDarkCP
-                            : AppColors
-                            .questionColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          dividerColor: Colors.transparent,
-                        ),
-                        child: ExpansionTile(
-                          title: Text(
-                            "In Real Life Example",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: isDarkTheme
-                                  ? AppColors.textQuestionDarkCP
-                                  : AppColors.textQuestionLightCP,
-                            ),
-                          ),
-                          initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0),
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: isDarkTheme
-                                    ? AppColors.answerColorDarkCP
-                                    : AppColors.answerColorLightCP,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Add your real-life example content here
-                                    Text(
-                                      "In real life, arrays can be used to store a list of student names in a classroom.",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        color: isDarkTheme ? AppColors
-                                            .textAnswerDarkCP : AppColors
-                                            .textAnswerLightCP,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    // Additional content can be added here
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // Introduction drop down
-                    Container(
-                      decoration: BoxDecoration(
-                        color: isDarkTheme
-                            ? AppColors.questionColorDarkCP
-                            : AppColors
-                            .questionColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          dividerColor: Colors.transparent,
-                        ),
-
-                        child: ExpansionTile(
-                          title: Text(
-                            ArrayStrings.introduction,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: isDarkTheme
-                                  ? AppColors.textQuestionDarkCP
-                                  : AppColors.textQuestionLightCP,
-                            ),
-                          ),
-                          initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0),
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: isDarkTheme
-                                    ? AppColors.menuBackgroundDarkCP
-                                    : AppColors.menuBackgroundLightCP,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-
-                                    // Explanation of int array
-                                    Container(
-                                      padding: const EdgeInsets.all(16),
-                                      decoration: BoxDecoration(
-                                        color: isDarkTheme
-                                            ? AppColors
-                                            .menuAnswerBackgroundDarkBAW
-                                            : AppColors
-                                            .menuAnswerBackgroundLightBAW,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
-                                        ArrayStrings.example_image_explanation,
-                                        style: TextStyle(
-                                          color: isDarkTheme ? AppColors
-                                              .textAnswerDarkCP : AppColors
-                                              .textAnswerLightCP,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Array image
-                                    Center(
-                                      child: SizedBox(
-                                        width: 320,
-                                        child: Image.asset(
-                                          ArrayImage.array_example_pink,
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 20),
-
-                                    // Question
-                                    Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        // Main rounded rectangle container
-                                        Container(
-                                          padding: const EdgeInsets.all(16),
-                                          decoration: BoxDecoration(
-                                            color: isDarkTheme
-                                                ? AppColors
-                                                .menuAnswerBackgroundDarkBAW
-                                                : AppColors
-                                                .menuAnswerBackgroundLightBAW,
-                                            borderRadius: BorderRadius.circular(
-                                                12),
-                                          ),
-                                          child: Text(
-                                            ArrayStrings.reg_array_explanations,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                              color: isDarkTheme ? AppColors
-                                                  .textAnswerDarkCP : AppColors
-                                                  .textAnswerLightCP,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Floating label container
-                                        Positioned(
-                                          top: -10,
-                                          left: 16,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: isDarkTheme
-                                                  ? AppColors
-                                                  .questionColorDarkCP
-                                                  : AppColors
-                                                  .questionColorLightCP,
-                                              borderRadius: BorderRadius
-                                                  .circular(8),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 4.0),
-                                            child: Text(
-                                              ArrayStrings
-                                                  .regular_array_initialization_question,
-                                              style: TextStyle(
-                                                color: isDarkTheme
-                                                    ? AppColors
-                                                    .textQuestionDarkCP
-                                                    : AppColors
-                                                    .textQuestionLightCP,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                    const SizedBox(height: 20),
-
-                                    Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        // Main rounded rectangle container
-                                        Container(
-                                          padding: const EdgeInsets.all(16),
-                                          decoration: BoxDecoration(
-                                            color: isDarkTheme
-                                                ? AppColors
-                                                .menuAnswerBackgroundDarkBAW
-                                                : AppColors
-                                                .menuAnswerBackgroundLightBAW,
-                                            borderRadius: BorderRadius.circular(
-                                                12),
-                                          ),
-                                          child: Text(
-                                            ArrayStrings.initialization_done,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                              color: isDarkTheme ? AppColors
-                                                  .textAnswerDarkCP : AppColors
-                                                  .textAnswerLightCP,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // Floating label container
-                                        Positioned(
-                                          top: -10,
-                                          left: 16,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: isDarkTheme
-                                                  ? AppColors
-                                                  .questionColorDarkCP
-                                                  : AppColors
-                                                  .questionColorLightCP,
-                                              borderRadius: BorderRadius
-                                                  .circular(8),
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 4.0),
-                                            child: Text(
-                                              ArrayStrings.reg_array_final,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.normal,
-                                                color: isDarkTheme
-                                                    ? AppColors
-                                                    .textQuestionDarkCP
-                                                    : AppColors
-                                                    .textQuestionLightCP,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // Functions
-                    Container(
-                      decoration: BoxDecoration(
-                        color: isDarkTheme
-                            ? AppColors.questionColorDarkCP
-                            : AppColors
-                            .questionColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          dividerColor: Colors.transparent,
-                        ),
-                        child: ExpansionTile(
-                          title: Text(
-                            "Functions",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: isDarkTheme
-                                  ? AppColors.textQuestionDarkCP
-                                  : AppColors.textQuestionLightCP,
-                            ),
-                          ),
-                          initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0),
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: isDarkTheme
-                                    ? AppColors.answerColorDarkCP
-                                    : AppColors.answerColorLightCP,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Add your real-life example content here
-                                    Text(
-                                      "In real life, arrays can be used to store a list of student names in a classroom.",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        color: isDarkTheme ? AppColors
-                                            .textAnswerDarkCP : AppColors
-                                            .textAnswerLightCP,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    // Additional content can be added here
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 10),
-
-                    // Strict Rules
-                    Container(
-                      decoration: BoxDecoration(
-                        color: isDarkTheme
-                            ? AppColors.questionColorDarkCP
-                            : AppColors
-                            .questionColorLightCP,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          dividerColor: Colors.transparent,
-                        ),
-                        child: ExpansionTile(
-                          title: Text(
-                            "Rules",
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: isDarkTheme
-                                  ? AppColors.textQuestionDarkCP
-                                  : AppColors.textQuestionLightCP,
-                            ),
-                          ),
-                          initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0),
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: isDarkTheme
-                                    ? AppColors.answerColorDarkCP
-                                    : AppColors.answerColorLightCP,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Add your real-life example content here
-                                    Text(
-                                      "In real life, arrays can be used to store a list of student names in a classroom.",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.normal,
-                                        color: isDarkTheme ? AppColors
-                                            .textAnswerDarkCP : AppColors
-                                            .textAnswerLightCP,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                    // Additional content can be added here
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),*/
