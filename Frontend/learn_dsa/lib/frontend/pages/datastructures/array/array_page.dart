@@ -44,7 +44,7 @@ class ArrayPage extends StatelessWidget
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFDFAEE8),
+                          color: Color(0xFF354a21),
                         ),
                       ),
                     ),
@@ -112,7 +112,7 @@ class ArrayPage extends StatelessWidget
                                             padding: const EdgeInsets.all(8),
                                             margin: const EdgeInsets.only(bottom: 10),
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFDFAEE8),
+                                              color: Color(0xFF354a21), //Color(0xFFDFAEE8),
                                               borderRadius: BorderRadius.circular(8),
                                               boxShadow: [
                                                 BoxShadow(
@@ -201,7 +201,7 @@ class ArrayPage extends StatelessWidget
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 // Gradient colors
-                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                                colors: [Color(0xFF607d3b), Color(0xFF354a21)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -231,7 +231,7 @@ class ArrayPage extends StatelessWidget
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           // Gradient colors
-                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          colors: [Color(0xFF607d3b), Color(0xFF354a21)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -251,6 +251,8 @@ class ArrayPage extends StatelessWidget
                           ),
                           initiallyExpanded: false,
                           tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          iconColor: Colors.white,
+                          collapsedIconColor: Colors.white,
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
@@ -320,6 +322,72 @@ class ArrayPage extends StatelessWidget
                                   // Printing pseudo code
                                   Text(
                                     ArrayStrings.func_printing_array,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Empty pseudo code title
+                                  Text(
+                                    ArrayStrings.func_empty_array_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Empty pseudo code
+                                  Text(
+                                    ArrayStrings.func_empty_array,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Full pseudo code title
+                                  Text(
+                                    ArrayStrings.func_full_array_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Full pseudo code
+                                  Text(
+                                    ArrayStrings.func_full_array,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Get item at pseudo code title
+                                  Text(
+                                    ArrayStrings.func_getitem_at_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Get item at pseudo code
+                                  Text(
+                                    ArrayStrings.func_getitem_at,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
@@ -405,18 +473,18 @@ class ArrayPage extends StatelessWidget
 
                                   const SizedBox(height: 10),
 
-                                  // Get item at pseudo code title
+                                  // Deleting element pseudo code title
                                   Text(
-                                    ArrayStrings.func_getitem_at_title,
+                                    ArrayStrings.func_deleting_element_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Get item at pseudo code
+                                  // Deleting element pseudo code
                                   Text(
-                                    ArrayStrings.func_getitem_at,
+                                    ArrayStrings.func_deleting_element,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
@@ -424,49 +492,8 @@ class ArrayPage extends StatelessWidget
                                       fontFamily: 'Courier',
                                     ),
                                   ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Empty pseudo code title
-                                  Text(
-                                    ArrayStrings.func_empty_array_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Empty pseudo code
-                                  Text(
-                                    ArrayStrings.func_empty_array,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      fontFamily: 'Courier',
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Full pseudo code title
-                                  Text(
-                                    ArrayStrings.func_full_array_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Full pseudo code
-                                  Text(
-                                    ArrayStrings.func_full_array,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      fontFamily: 'Courier',
-                                    ),
+                                  Center(
+                                    child: ArrayDeleteAtWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -493,27 +520,24 @@ class ArrayPage extends StatelessWidget
 
                                   const SizedBox(height: 10),
 
-                                  // Deleting element pseudo code title
+                                  // Update pseudo code title
                                   Text(
-                                    ArrayStrings.func_deleting_element_title,
+                                    ArrayStrings.func_update_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
-                                  // Deleting element pseudo code
+                                  // Update pseudo code
                                   Text(
-                                    ArrayStrings.func_deleting_element,
+                                    ArrayStrings.func_update,
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                       fontFamily: 'Courier',
                                     ),
-                                  ),
-                                  Center(
-                                    child: ArrayDeleteAtWidget(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -547,13 +571,16 @@ class ArrayPage extends StatelessWidget
                       ),
                     ),
 
-                    /*Stack(
+                    const SizedBox(height: 30),
+
+                    // Complete .h file
+                    Stack(
                       clipBehavior: Clip.none,
                       children: [
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                            color: Color(0xFF76975e),
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
@@ -564,289 +591,31 @@ class ArrayPage extends StatelessWidget
                               ),
                             ],
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                          child: SelectableText(
+                            ArrayStrings.header_file_content,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Courier',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
 
-
-                              // Pseudocode parameters used
-                              Text(
-                                ArrayStrings.pseudo_code_explanation_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                ArrayStrings.pseudo_code_explanation,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                ),
-                              ),
-
-                              const SizedBox(height: 30),
-
-                              // Allocating memory pseudo code title
-                              Text(
-                                ArrayStrings.func_allocating_memory_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Allocating memory pseudo code
-                              Text(
-                                ArrayStrings.func_allocating_memory,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Center(
-                                child: ArrayAllocationWidget(),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Printing pseudo code title
-                              Text(
-                                ArrayStrings.func_printing_array_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Printing pseudo code
-                              Text(
-                                ArrayStrings.func_printing_array,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Inserting first pseudo code title
-                              Text(
-                                ArrayStrings.func_inserting_element_first_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Inserting first pseudo code
-                              Text(
-                                ArrayStrings.func_inserting_element_first,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-                              Center(
-                                child: ArrayInsertFirstWidget(),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Inserting at pseudo code title
-                              Text(
-                                ArrayStrings.func_inserting_element_at_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Inserting at pseudo code
-                              Text(
-                                ArrayStrings.func_inserting_element_at,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-                              Center(
-                                child: ArrayInsertAtWidget(),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Inserting last pseudo code title
-                              Text(
-                                ArrayStrings.func_inserting_element_last_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Inserting last pseudo code
-                              Text(
-                                ArrayStrings.func_inserting_element_last,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-                              Center(
-                                child: ArrayInsertLastWidget(),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Get item at pseudo code title
-                              Text(
-                                ArrayStrings.func_getitem_at_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Get item at pseudo code
-                              Text(
-                                ArrayStrings.func_getitem_at,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Empty pseudo code title
-                              Text(
-                                ArrayStrings.func_empty_array_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Empty pseudo code
-                              Text(
-                                ArrayStrings.func_empty_array,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Full pseudo code title
-                              Text(
-                                ArrayStrings.func_full_array_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Full pseudo code
-                              Text(
-                                ArrayStrings.func_full_array,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Search pseudo code title
-                              Text(
-                                ArrayStrings.func_search_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Search pseudo code
-                              Text(
-                                ArrayStrings.func_search,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Deleting element pseudo code title
-                              Text(
-                                ArrayStrings.func_deleting_element_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Deleting element pseudo code
-                              Text(
-                                ArrayStrings.func_deleting_element,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-                              Center(
-                                child: ArrayDeleteAtWidget(),
-                              ),
-
-                              const SizedBox(height: 10),
-
-                              // Deallocating memory pseudo code title
-                              Text(
-                                ArrayStrings.func_deallocating_array_title,
-                                style: TextStyle(
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              // Deallocating memory pseudo code
-                              Text(
-                                ArrayStrings.func_deallocating_array,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
-                                  fontFamily: 'Courier',
-                                ),
-                              ),
-
-                              const SizedBox(height: 10),
-                            ],
+                        // Copy button on right up corner
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: ArrayStrings.header_file_content));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                              );
+                            },
                           ),
                         ),
 
@@ -858,7 +627,7 @@ class ArrayPage extends StatelessWidget
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 // Gradient colors
-                                colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                                colors: [Color(0xFF607d3b), Color(0xFF354a21)],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
@@ -869,7 +638,7 @@ class ArrayPage extends StatelessWidget
                               vertical: 8.0,
                             ),
                             child: Text(
-                              ArrayStrings.functions_title,
+                              ArrayStrings.header_file,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
@@ -879,7 +648,7 @@ class ArrayPage extends StatelessWidget
                           ),
                         ),
                       ],
-                    ),*/
+                    ),
 
                     const SizedBox(height: 20),
 
@@ -888,7 +657,7 @@ class ArrayPage extends StatelessWidget
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           // Gradient colors
-                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          colors: [Color(0xFF607d3b), Color(0xFF354a21)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -909,8 +678,10 @@ class ArrayPage extends StatelessWidget
                             ),
                           ),
                           initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(
-                              horizontal: 16.0),
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          // Set the little arrow on right to white
+                          iconColor: Colors.white,
+                          collapsedIconColor: Colors.white,
                           children: [
                             Container(
                               padding: const EdgeInsets.all(16),
@@ -965,7 +736,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.allocating_memory_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1036,7 +807,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.printing_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1107,7 +878,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.insert_first_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1178,7 +949,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.insert_at_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1249,7 +1020,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.insert_last_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1320,7 +1091,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.isempty_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1391,7 +1162,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.isfull_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),
@@ -1462,7 +1233,7 @@ class ArrayPage extends StatelessWidget
                                             ArrayStrings.deallocating_memory_function,
                                             style: TextStyle(
                                               fontSize: 13,
-                                              fontFamily: 'monospace',
+                                              fontFamily: 'Monospace',
                                               color: Colors.white,
                                             ),
                                           ),

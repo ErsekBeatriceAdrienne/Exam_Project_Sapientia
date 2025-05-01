@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/hashtable_strings.dart';
+import 'animations/hash_createItem.dart';
+import 'animations/hash_createTable.dart';
 import 'hashtable_animations.dart';
 
 class HashTablePage extends StatelessWidget {
@@ -286,10 +288,12 @@ class HashTablePage extends StatelessWidget {
                                       ),
                                     ),
 
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 20),
 
                                     // Animation of the Hash Table
-                                    //ChainedHashTableAnimation(),
+                                    Center(
+                                      child: ChainedHashTableAnimation(),
+                                    ),
 
                                     const SizedBox(height: 10),
 
@@ -402,6 +406,10 @@ class HashTablePage extends StatelessWidget {
                                     ),
                                   ),
 
+                                  /*Center(
+                                    child: SingleHashItemAnimation(),
+                                  ),*/
+
                                   const SizedBox(height: 10),
 
                                   // Create Hash Table pseudo code title
@@ -423,8 +431,10 @@ class HashTablePage extends StatelessWidget {
                                         fontFamily: 'Courier'
                                     ),
                                   ),
-
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: CreateEmptyChainedHashTable(),
+                                  ),
 
                                   // Hash code pseudo code title
                                   Text(

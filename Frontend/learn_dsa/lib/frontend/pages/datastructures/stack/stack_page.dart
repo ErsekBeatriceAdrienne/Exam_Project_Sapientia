@@ -448,8 +448,84 @@ class StackPage extends StatelessWidget
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 30),
 
+                    // Complete .h file
+                    Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF76975e),
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.15),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: SelectableText(
+                            StackStrings.header_file_content,
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Courier',
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+
+                        // Copy button on right up corner
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: StackStrings.header_file_content));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                              );
+                            },
+                          ),
+                        ),
+
+                        // Pseudocode box
+                        Positioned(
+                          top: -23,
+                          left: 16,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                // Gradient colors
+                                colors: [Color(0xFF607d3b), Color(0xFF354a21)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 8.0,
+                            ),
+                            child: Text(
+                              StackStrings.header_file,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
     // Code Drop down
                     /*
                     Container(

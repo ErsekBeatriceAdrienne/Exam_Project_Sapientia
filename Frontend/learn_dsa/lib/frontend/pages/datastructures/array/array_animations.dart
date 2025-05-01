@@ -58,7 +58,7 @@ class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
                     height: 50,
                     margin: EdgeInsets.symmetric(horizontal: 1),
                     decoration: BoxDecoration(
-                      color: array[i] != null ? Color(0xFFDFAEE8) : Colors.grey
+                      color: array[i] != null ? Color(0xFF9dc183) : Colors.grey
                           .shade300,
                       border: Border.all(color: Colors.white, width: 2),
                       borderRadius: BorderRadius.circular(8),
