@@ -73,7 +73,7 @@ class ArrayPage extends StatelessWidget
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 6,
                                 offset: Offset(0, 4),
@@ -236,9 +236,17 @@ class ArrayPage extends StatelessWidget
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Theme(
-                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
+                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
                         child:
                         ExpansionTile(
                           title: Text(
@@ -257,7 +265,7 @@ class ArrayPage extends StatelessWidget
                             Container(
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.6),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Column(
@@ -584,7 +592,7 @@ class ArrayPage extends StatelessWidget
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 6,
                                 offset: Offset(0, 4),
@@ -662,6 +670,14 @@ class ArrayPage extends StatelessWidget
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Theme(
                         data: Theme.of(context).copyWith(

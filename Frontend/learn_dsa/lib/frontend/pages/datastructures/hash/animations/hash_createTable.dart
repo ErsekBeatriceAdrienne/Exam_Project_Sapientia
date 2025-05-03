@@ -9,7 +9,7 @@ class CreateEmptyChainedHashTable extends StatelessWidget {
 
     return Center(
       child: Container(
-        height: 300,
+        height: 250,
         padding: const EdgeInsets.all(10),
         child: CustomPaint(
           painter: ChainedHashTablePainter(hashTable, visibleLengths),
@@ -30,40 +30,61 @@ class ChainedHashTablePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint borderPaint = Paint()
-      ..color = Colors.white
+    final Paint borderPaint1 = Paint()
+      ..color = Colors.black
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
+
+    final Paint fillPaint = Paint()
+      ..color = Colors.purple.shade500
+      ..style = PaintingStyle.fill;
 
     final textStyle1 = TextStyle(color: Colors.black, fontSize: 16);
     final textPainter = TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
 
-    // Indexes
+    // Index label
     textPainter.text = TextSpan(text: 'Indexes', style: textStyle1);
     textPainter.layout();
     final labelOffset = Offset(0, -30);
-    canvas.drawRect(
-      Rect.fromLTWH(labelOffset.dx, labelOffset.dy, 80, 25),
-      Paint()..color = Colors.transparent,
-    );
+    canvas.drawRect(Rect.fromLTWH(labelOffset.dx, labelOffset.dy, 80, 25), Paint()..color = Colors.transparent);
     textPainter.paint(canvas, labelOffset + Offset(5, 5));
 
     final textStyle = TextStyle(color: Colors.white, fontSize: 16);
+
     for (int i = 0; i < table.length; i++) {
-      final baseOffset = Offset(0, i * (cellHeight + 10));
+      final baseOffset = Offset(0, i * cellHeight);
       final bucketRect = Rect.fromLTWH(baseOffset.dx, baseOffset.dy, cellWidth, cellHeight);
 
-      // Fill dark purple background
-      final Paint fillPaint = Paint()
-        ..color = Colors.purple.shade500
-        ..style = PaintingStyle.fill;
-      canvas.drawRect(bucketRect, fillPaint);
+      RRect bucketRRect;
+
+      if (i == 0) {
+        bucketRRect = RRect.fromRectAndCorners(
+          bucketRect,
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        );
+      } else if (i == table.length - 1) {
+        bucketRRect = RRect.fromRectAndCorners(
+          bucketRect,
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        );
+      } else {
+        bucketRRect = RRect.fromRectAndRadius(bucketRect, Radius.circular(0));
+      }
+
+      canvas.drawRRect(bucketRRect, fillPaint);
+      canvas.drawRRect(bucketRRect, borderPaint1);
 
       // Index text
       textPainter.text = TextSpan(text: '${i}', style: textStyle);
       textPainter.layout();
       textPainter.paint(canvas, baseOffset + Offset(5, 10));
 
+      // Index text
+      textPainter.text = TextSpan(text: '${i}', style: textStyle);
+      textPainter.layout();
+      textPainter.paint(canvas, baseOffset + Offset(5, 10));
     }
   }
 
