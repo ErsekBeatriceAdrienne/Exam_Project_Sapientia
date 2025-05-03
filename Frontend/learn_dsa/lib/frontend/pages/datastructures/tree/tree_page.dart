@@ -85,7 +85,7 @@ class _BSTPageState extends State<BSTPage> {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 6,
                                 offset: Offset(0, 4),
@@ -257,6 +257,14 @@ class _BSTPageState extends State<BSTPage> {
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Theme(
                         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -456,13 +464,11 @@ class _BSTPageState extends State<BSTPage> {
                         Container(
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
-                            color: Theme
-                                .of(context)
-                                .scaffoldBackgroundColor,
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 6,
                                 offset: Offset(0, 4),
@@ -634,6 +640,14 @@ class _BSTPageState extends State<BSTPage> {
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Theme(
                         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),

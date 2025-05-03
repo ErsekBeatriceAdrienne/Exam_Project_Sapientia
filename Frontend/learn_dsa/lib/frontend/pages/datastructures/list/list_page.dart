@@ -33,10 +33,7 @@ class ListPage extends StatelessWidget
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: Container(
-                  color: Theme
-                      .of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.2),
+                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
                   child: FlexibleSpaceBar(
                     titlePadding: EdgeInsets.only(left: 40, bottom: 20),
                     title: Text(
@@ -72,7 +69,7 @@ class ListPage extends StatelessWidget
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
+                              color: Colors.black.withOpacity(0.4),
                               spreadRadius: 1,
                               blurRadius: 6,
                               offset: Offset(0, 4),
@@ -223,6 +220,14 @@ class ListPage extends StatelessWidget
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: Theme(
                       data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
@@ -597,7 +602,7 @@ class ListPage extends StatelessWidget
                           borderRadius: BorderRadius.circular(12),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
+                              color: Colors.black.withOpacity(0.4),
                               spreadRadius: 1,
                               blurRadius: 6,
                               offset: Offset(0, 4),
@@ -748,6 +753,14 @@ class ListPage extends StatelessWidget
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: Theme(
                       data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),

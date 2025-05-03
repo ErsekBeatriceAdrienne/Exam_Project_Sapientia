@@ -3,6 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/hashtable_strings.dart';
+import 'animations/hash_createItem.dart';
+import 'animations/hash_createTable.dart';
+import 'animations/hash_delete.dart';
+import 'animations/hash_hashcode.dart';
+import 'animations/hash_insert.dart';
+import 'animations/hash_search.dart';
 import 'hashtable_animations.dart';
 
 class HashTablePage extends StatelessWidget {
@@ -50,6 +56,8 @@ class HashTablePage extends StatelessWidget {
                   [
                     const SizedBox(height: 15),
 
+              /// Static hash table
+
                     // What is a Hash table?
                     Stack(
                       clipBehavior: Clip.none,
@@ -61,7 +69,7 @@ class HashTablePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 6,
                                 offset: Offset(0, 4),
@@ -286,12 +294,12 @@ class HashTablePage extends StatelessWidget {
                                       ),
                                     ),
 
-                                    const SizedBox(height: 10),
+                                    const SizedBox(height: 20),
 
                                     // Animation of the Hash Table
-                                    //ChainedHashTableAnimation(),
-
-                                    const SizedBox(height: 10),
+                                    Center(
+                                      child: ChainedHashTableAnimation(),
+                                    ),
 
                                     // Hash Table explanation
                                     Text(
@@ -347,6 +355,7 @@ class HashTablePage extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     // Pseudocode Drop down
+
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -356,6 +365,14 @@ class HashTablePage extends StatelessWidget {
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Theme(
                         data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
@@ -382,24 +399,9 @@ class HashTablePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  // Create item pseudo code title
-                                  Text(
-                                    HashTableStrings.func_create_item_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Create item pseudo code
-                                  Text(
-                                    HashTableStrings.func_create_item,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                      fontFamily: 'Courier'
-                                    ),
+                                  // Create item animation
+                                  Center(
+                                    child: SingleHashItemAnimation(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -423,8 +425,10 @@ class HashTablePage extends StatelessWidget {
                                         fontFamily: 'Courier'
                                     ),
                                   ),
-
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: CreateEmptyChainedHashTable(),
+                                  ),
 
                                   // Hash code pseudo code title
                                   Text(
@@ -444,6 +448,9 @@ class HashTablePage extends StatelessWidget {
                                       color: Colors.black,
                                       fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  Center(
+                                    child: HashCodeAnimation(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -467,6 +474,10 @@ class HashTablePage extends StatelessWidget {
                                       fontFamily: 'Courier',
                                     ),
                                   ),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: HashTableInsertAnimation(),
+                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -489,6 +500,10 @@ class HashTablePage extends StatelessWidget {
                                       fontFamily: 'Courier',
                                     ),
                                   ),
+                                  const SizedBox(height: 10),
+                                  Center(
+                                    child: HashTableDeleteAnimation(),
+                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -510,6 +525,10 @@ class HashTablePage extends StatelessWidget {
                                       color: Colors.black,
                                       fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: ChainedHashTableSearchAnimation(),
                                   ),
 
                                   const SizedBox(height: 10),
@@ -585,7 +604,9 @@ class HashTablePage extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 40),
+
+              /// Dynamic hash table
 
                     // What is a dynamic hash table?
                     Stack(
@@ -598,7 +619,7 @@ class HashTablePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
+                                color: Colors.black.withOpacity(0.4),
                                 spreadRadius: 1,
                                 blurRadius: 6,
                                 offset: Offset(0, 4),
@@ -628,7 +649,7 @@ class HashTablePage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
 
-                                    // Hash Item code snippet with copy button
+                                    // hash item
                                     Center(
                                       child: Stack(
                                         children: [
@@ -678,7 +699,139 @@ class HashTablePage extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      HashTableStrings.hash_definition2,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
 
+                                    const SizedBox(height: 10),
+
+                                    // Hash item node
+                                    Center(
+                                      child: Stack(
+                                        children: [
+                                          // Hash Table code snippet
+                                          Container(
+                                            padding: const EdgeInsets.all(8),
+                                            margin: const EdgeInsets.only(bottom: 10),
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFDFAEE8),
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black.withOpacity(0.15),
+                                                  offset: const Offset(2, 2),
+                                                  blurRadius: 6,
+                                                  spreadRadius: 2,
+                                                ),
+                                              ],
+                                            ),
+
+                                            child: SelectableText(
+                                              HashTableStrings.hash_empty_initialization4,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'monospace',
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Copy button on right up corner
+                                          Positioned(
+                                            top: 8,
+                                            right: 8,
+                                            child: IconButton(
+                                              icon: Icon(
+                                                Icons.copy,
+                                                color: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                Clipboard.setData(ClipboardData(text: HashTableStrings.hash_empty_initialization4));
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      HashTableStrings.hash_definition3,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+
+                                    const SizedBox(height: 10),
+
+                                    // Capacity
+                                    Center(
+                                      child: Stack(
+                                        children: [
+                                          // Hash Table code snippet
+                                          Container(
+                                            padding: const EdgeInsets.all(8),
+                                            margin: const EdgeInsets.only(bottom: 10),
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFDFAEE8),
+                                              borderRadius: BorderRadius.circular(8),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black.withOpacity(0.15),
+                                                  offset: const Offset(2, 2),
+                                                  blurRadius: 6,
+                                                  spreadRadius: 2,
+                                                ),
+                                              ],
+                                            ),
+
+                                            child: SelectableText(
+                                              HashTableStrings.hash_empty_initialization12,
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontFamily: 'monospace',
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+
+                                          // Copy button on right up corner
+                                          Positioned(
+                                            top: 8,
+                                            right: 8,
+                                            child: IconButton(
+                                              icon: Icon(
+                                                Icons.copy,
+                                                color: Colors.white,
+                                              ),
+                                              onPressed: () {
+                                                Clipboard.setData(ClipboardData(text: HashTableStrings.hash_empty_initialization12));
+                                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      HashTableStrings.hash_cap_definition1,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
                                     const SizedBox(height: 10),
 
                                     // Hash Table code snippet with copy button
@@ -703,7 +856,7 @@ class HashTablePage extends StatelessWidget {
                                             ),
 
                                             child: SelectableText(
-                                              HashTableStrings.hash_empty_initialization3,
+                                              HashTableStrings.hash_empty_initialization5,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontFamily: 'monospace',
@@ -722,7 +875,7 @@ class HashTablePage extends StatelessWidget {
                                                 color: Colors.white,
                                               ),
                                               onPressed: () {
-                                                Clipboard.setData(ClipboardData(text: HashTableStrings.hash_empty_initialization3));
+                                                Clipboard.setData(ClipboardData(text: HashTableStrings.hash_empty_initialization5));
                                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                                                 );
                                               },
@@ -743,11 +896,12 @@ class HashTablePage extends StatelessWidget {
                                         color: Colors.black,
                                       ),
                                     ),
-
-                                    const SizedBox(height: 10),
-
+                                    const SizedBox(height: 20),
+                                    
                                     // Animation of the Hash Table
-                                    //ChainedHashTableAnimation(),
+                                    Center(
+                                    child: ChainedDynamicHashTableAnimation(),
+                                    ),
 
                                     const SizedBox(height: 10),
 
@@ -802,13 +956,85 @@ class HashTablePage extends StatelessWidget {
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
                       ),
                       child: Theme(
                         data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
                         child:
                         ExpansionTile(
                           title: Text(
-                            HashTableStrings.functions_title,
+                            HashTableStrings.func_title_nodes,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                          ),
+                          initiallyExpanded: false,
+                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).scaffoldBackgroundColor,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  // Create item pseudo code title
+                                  Text(
+                                    HashTableStrings.func_create_item_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Pseudocode Drop down
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          // Gradient colors
+                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.4),
+                            spreadRadius: 1,
+                            blurRadius: 6,
+                            offset: Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
+                        child:
+                        ExpansionTile(
+                          title: Text(
+                            HashTableStrings.func_title_hashtable,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -849,171 +1075,6 @@ class HashTablePage extends StatelessWidget {
 
                                   const SizedBox(height: 10),
 
-                                  // Create Hash Table pseudo code title
-                                  Text(
-                                    HashTableStrings.func_create_hash_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Create Hash Table pseudo code
-                                  Text(
-                                    HashTableStrings.func_create_hash,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Hash code pseudo code title
-                                  Text(
-                                    HashTableStrings.func_hash_code_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Hash code pseudo code
-                                  Text(
-                                    HashTableStrings.func_hash_code,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Insert pseudo code title
-                                  Text(
-                                    HashTableStrings.func_insert_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Insert pseudo code
-                                  Text(
-                                    HashTableStrings.func_insert,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Delete pseudo code title
-                                  Text(
-                                    HashTableStrings.func_delete_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Delete pseudo code
-                                  Text(
-                                    HashTableStrings.func_delete,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Search pseudo code title
-                                  Text(
-                                    HashTableStrings.func_search_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Search pseudo code
-                                  Text(
-                                    HashTableStrings.func_search,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Display pseudo code title
-                                  Text(
-                                    HashTableStrings.func_display_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Display pseudo code
-                                  Text(
-                                    HashTableStrings.func_display,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Size pseudo code title
-                                  Text(
-                                    HashTableStrings.func_size_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Size pseudo code
-                                  Text(
-                                    HashTableStrings.func_size,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 10),
-
-                                  // Delete Hash pseudo code title
-                                  Text(
-                                    HashTableStrings.func_delete_hash_title,
-                                    style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Delete Hash pseudo code
-                                  Text(
-                                    HashTableStrings.func_delete_hash,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    ),
-                                  ),
                                 ],
                               ),
                             ),
