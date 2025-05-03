@@ -1,7 +1,232 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:flutter/material.dart';
 
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+class ChainedHashTableAnimation extends StatefulWidget {
+  @override
+  _ChainedHashTableAnimationState createState() =>
+      _ChainedHashTableAnimationState();
+}
+
+class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> with TickerProviderStateMixin {
+  final List<MapEntry<int, int>> entriesToInsert = [
+    MapEntry(0, 11),
+    MapEntry(1, 2),
+    MapEntry(4, 4),
+    MapEntry(6, 5),
+    MapEntry(8, 1),
+    MapEntry(11, 22),
+    MapEntry(16, 9),
+    MapEntry(9, 23),
+  ];
+
+  final int tableSize = 5;
+  late List<List<MapEntry<int, int>>> hashTable;
+  late List<int> visibleLengths;
+
+  @override
+  void initState() {
+    super.initState();
+    hashTable = List.generate(tableSize, (_) => []);
+    visibleLengths = List.filled(tableSize, 0);
+    _startAnimation();
+  }
+
+  Future<void> _startAnimation() async {
+    for (final entry in entriesToInsert) {
+      int index = _hash(entry.key);
+      hashTable[index].add(entry);
+      await Future.delayed(Duration(milliseconds: 600));
+      setState(() {
+        visibleLengths[index]++;
+      });
+    }
+  }
+
+  int _hash(int key) => key % tableSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [ Container(
+        height: 250,
+        padding: const EdgeInsets.all(10),
+        child: CustomPaint(
+          painter: ChainedHashTablePainter(hashTable, visibleLengths),
+          child: Container(),
+        ),
+      ),
+      ],
+    );
+  }
+}
+
+class ChainedHashTablePainter extends CustomPainter {
+  final List<List<MapEntry<int, int>>> table;
+  final List<int> visibleLengths;
+  final double cellWidth = 60;
+  final double cellHeight = 40;
+
+  ChainedHashTablePainter(this.table, this.visibleLengths);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint borderPaint = Paint()
+      ..color = Colors.transparent
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
+
+    final Paint fillPaint = Paint()
+      ..color = Colors.purple.shade500
+      ..style = PaintingStyle.fill;
+
+    final Paint borderPaint1 = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
+
+    final textPainter = TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
+    final textStyle = TextStyle(color: Colors.white, fontSize: 14);
+    final textStyle1 = TextStyle(color: Colors.black, fontSize: 16);
+
+    textPainter.text = TextSpan(text: 'Indexes', style: textStyle1);
+    textPainter.layout();
+    canvas.drawRect(Rect.fromLTWH(0, -30, 80, 25), Paint()..color = Colors.transparent);
+    textPainter.paint(canvas, Offset(5, -25));
+
+    textPainter.text = TextSpan(text: 'Key-value pairs', style: textStyle1);
+    textPainter.layout();
+    final valuesX = (1) * (cellWidth + 10);
+    canvas.drawRect(Rect.fromLTWH(valuesX, -30, 120, 25), Paint()..color = Colors.transparent);
+    textPainter.paint(canvas, Offset(valuesX + 5, -25));
+
+    for (int i = 0; i < table.length; i++) {
+      final baseOffset = Offset(0, i * cellHeight);
+      final bucketRect = Rect.fromLTWH(baseOffset.dx, baseOffset.dy, cellWidth, cellHeight);
+
+      RRect bucketRRect;
+
+      if (i == 0) {
+        bucketRRect = RRect.fromRectAndCorners(
+          bucketRect,
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+        );
+      } else if (i == table.length - 1) {
+        bucketRRect = RRect.fromRectAndCorners(
+          bucketRect,
+          bottomLeft: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+        );
+      } else {
+        bucketRRect = RRect.fromRectAndRadius(bucketRect, Radius.circular(0));
+      }
+
+      canvas.drawRRect(bucketRRect, fillPaint);
+      canvas.drawRRect(bucketRRect, borderPaint1);
+
+      // Index szöveg
+      textPainter.text = TextSpan(text: '$i', style: textStyle);
+      textPainter.layout();
+      textPainter.paint(canvas, baseOffset + Offset(5, 10));
+
+      List<MapEntry<int, int>> chain = table[i];
+      int visible = visibleLengths[i];
+      double chainStartX = (1) * (cellWidth + 10);
+
+      for (int j = 0; j < visible && j < chain.length; j++) {
+        final entry = chain[j];
+        final key = entry.key;
+        final value = entry.value;
+
+        final chainY = baseOffset.dy;
+        final chainX = chainStartX + j * (cellWidth);
+
+        final keyWidth = cellWidth * 0.4;
+        final valueWidth = cellWidth * 0.6;
+
+        final isFirst = j == 0;
+        final isLast = j == visible - 1 || j == chain.length - 1;
+
+        // Key
+        final keyRect = RRect.fromRectAndCorners(
+          Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
+          topLeft: isFirst ? Radius.circular(10) : Radius.zero,
+          bottomLeft: isFirst ? Radius.circular(10) : Radius.zero,
+        );
+        canvas.drawRRect(keyRect, Paint()..color = Colors.purple.shade500);
+        canvas.drawRRect(keyRect, borderPaint);
+
+        textPainter.text = TextSpan(text: '$key', style: textStyle);
+        textPainter.layout();
+        textPainter.paint(
+          canvas,
+          Offset(
+            chainX + (keyWidth - textPainter.width) / 2,
+            chainY + (cellHeight - textPainter.height) / 2,
+          ),
+        );
+
+        // Value
+        final valueRect = RRect.fromRectAndCorners(
+          Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
+          topRight: isLast ? Radius.circular(10) : Radius.zero,
+          bottomRight: isLast ? Radius.circular(10) : Radius.zero,
+        );
+        canvas.drawRRect(valueRect, Paint()..color = Colors.purple.shade200);
+        canvas.drawRRect(valueRect, borderPaint);
+
+        textPainter.text = TextSpan(text: '$value', style: textStyle);
+        textPainter.layout();
+        textPainter.paint(
+          canvas,
+          Offset(
+            chainX + keyWidth + (valueWidth - textPainter.width) / 2,
+            chainY + (cellHeight - textPainter.height) / 2,
+          ),
+        );
+
+        if (j == 0) {
+          final arrowStart = Offset(baseOffset.dx + cellWidth, baseOffset.dy + cellHeight / 2);
+          final arrowEnd = Offset(chainX, chainY + cellHeight / 2);
+          _drawArrow(canvas, arrowStart, arrowEnd);
+        }
+      }
+    }
+  }
+
+  void _drawArrow(Canvas canvas, Offset start, Offset end) {
+    final Paint paint = Paint()
+      ..color = Colors.black
+      ..strokeWidth = 1.5;
+
+    canvas.drawLine(start, end, paint);
+
+    const size = 6.0;
+    final angle = pi / 6;
+    final dx = start.dx - end.dx;
+    final dy = start.dy - end.dy;
+    final theta = atan2(dy, dx);
+    final arrowX1 = end.dx + size * cos(theta + angle);
+    final arrowY1 = end.dy + size * sin(theta + angle);
+    final arrowX2 = end.dx + size * cos(theta - angle);
+    final arrowY2 = end.dy + size * sin(theta - angle);
+
+    canvas.drawLine(end, Offset(arrowX1, arrowY1), paint);
+    canvas.drawLine(end, Offset(arrowX2, arrowY2), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+}
+
+/*
 class ChainedHashTableAnimation extends StatefulWidget {
   @override
   _ChainedHashTableAnimationState createState() => _ChainedHashTableAnimationState();
@@ -222,9 +447,10 @@ class ChainedHashTablePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
+*/
+
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 class ChainedDynamicHashTableAnimation extends StatefulWidget {
   @override
@@ -282,7 +508,7 @@ class _ChainedDynamicHashTableAnimationState extends State<ChainedDynamicHashTab
 class ChainedDynamicHashTablePainter extends CustomPainter {
   final List<List<int>> table;
   final List<int> visibleLengths;
-  final double cellWidth = 50;
+  final double cellWidth = 60;
   final double cellHeight = 40;
 
   ChainedDynamicHashTablePainter(this.table, this.visibleLengths);
@@ -413,3 +639,5 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
+
+

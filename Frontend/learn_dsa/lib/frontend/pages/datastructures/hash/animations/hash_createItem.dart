@@ -26,64 +26,31 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Theme
-                .of(context)
-                .scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // aligns text to the left
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    // Title text
-                    children: [
-                      Text(
-                      HashTableStrings.func_create_item_title,
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                      Text(
-                        'createItem(0, 23)',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                    ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              // Title text
+              children: [
+                Text(
+                  HashTableStrings.func_create_item_title,
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
-                  // Play button (right-aligned)
-                  IconButton(
-                    icon: Icon(Icons.play_arrow_outlined),
-                    color: Colors.green,
-                    onPressed: _showValue ? null : _showItem,
-                    tooltip: 'Run animation',
-                  ),
+                ),
+              ],
+            ),
+            // Play button (right-aligned)
+            IconButton(
+              icon: Icon(Icons.play_arrow_outlined),
+              color: Colors.green,
+              onPressed: _showValue ? null : _showItem,
+              tooltip: 'Run animation',
+            ),
 
-                ],
-              ),
-            ],
-          ),
+          ],
         ),
         const SizedBox(height: 10),
         Align(
@@ -406,4 +373,149 @@ Widget build(BuildContext context) {
 
   */
 
+// final
+/*
+@override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Theme
+                .of(context)
+                .scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                spreadRadius: 1,
+                blurRadius: 6,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            // aligns text to the left
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    // Title text
+                    children: [
+                      Text(
+                      HashTableStrings.func_create_item_title,
+                      style: TextStyle(
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                      Text(
+                        'createItem(0, 23)',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Play button (right-aligned)
+                  IconButton(
+                    icon: Icon(Icons.play_arrow_outlined),
+                    color: Colors.green,
+                    onPressed: _showValue ? null : _showItem,
+                    tooltip: 'Run animation',
+                  ),
+
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            HashTableStrings.func_create_item,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
+              fontFamily: 'Courier',
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        if (_showValue)
+          Center(
+            child: Container(
+              width: cellWidth,
+              height: cellHeight,
+              decoration: BoxDecoration(
+                color: Colors.purple.shade200,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  // Key
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade500,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          key.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  // Value
+                  Expanded(
+                    flex: 2,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.purple.shade200,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          value.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+ */
 }

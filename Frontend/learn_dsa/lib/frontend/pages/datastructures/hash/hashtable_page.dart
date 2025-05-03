@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/hashtable_strings.dart';
 import 'animations/hash_createItem.dart';
 import 'animations/hash_createTable.dart';
+import 'animations/hash_delete.dart';
 import 'animations/hash_hashcode.dart';
 import 'animations/hash_insert.dart';
+import 'animations/hash_search.dart';
 import 'hashtable_animations.dart';
 
 class HashTablePage extends StatelessWidget {
@@ -353,6 +355,7 @@ class HashTablePage extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     // Pseudocode Drop down
+
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -497,6 +500,10 @@ class HashTablePage extends StatelessWidget {
                                       fontFamily: 'Courier',
                                     ),
                                   ),
+                                  const SizedBox(height: 10),
+                                  Center(
+                                    child: HashTableDeleteAnimation(),
+                                  ),
 
                                   const SizedBox(height: 10),
 
@@ -518,6 +525,10 @@ class HashTablePage extends StatelessWidget {
                                       color: Colors.black,
                                       fontFamily: 'Courier',
                                     ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: ChainedHashTableSearchAnimation(),
                                   ),
 
                                   const SizedBox(height: 10),

@@ -1,20 +1,14 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-class HashTableInsertAnimation extends StatefulWidget {
+class HashTableDeleteAnimation extends StatefulWidget {
   @override
-  _HashTableInsertAnimationState createState() => _HashTableInsertAnimationState();
+  _HashTableDeleteAnimationState createState() => _HashTableDeleteAnimationState();
 }
 
-class _HashTableInsertAnimationState extends State<HashTableInsertAnimation> with SingleTickerProviderStateMixin {
-  final List<List<MapEntry<int, int>>> hashTable = [
-    [],
-    [],
-    [],
-    [],
-    [],
-  ];
-
+class _HashTableDeleteAnimationState extends State<HashTableDeleteAnimation> {
+  final List<List<MapEntry<int, int>>> hashTable = [[], [], [], [], []];
   late List<int> visibleLengths;
   bool hasInserted = false;
 
@@ -22,18 +16,19 @@ class _HashTableInsertAnimationState extends State<HashTableInsertAnimation> wit
   void initState() {
     super.initState();
     visibleLengths = List.filled(hashTable.length, 0);
+
+    hashTable[0].add(MapEntry(0, 23));
+    visibleLengths[0] = 1;
+    hasInserted = true;
   }
 
-  Future<void> _startAnimation() async {
+  void _removeValue() {
     setState(() {
-      hashTable[0].add(MapEntry(0, 23));
-    });
-
-    await Future.delayed(Duration(milliseconds: 500));
-
-    setState(() {
-      visibleLengths[0]++;
-      hasInserted = true;
+      if (hashTable[0].isNotEmpty && visibleLengths[0] > 0) {
+        hashTable[0].removeLast();
+        visibleLengths[0]--;
+        hasInserted = false;
+      }
     });
   }
 
@@ -50,14 +45,18 @@ class _HashTableInsertAnimationState extends State<HashTableInsertAnimation> wit
             child: Container(),
           ),
         ),
-        ElevatedButton(
-          onPressed: hasInserted ? null : _startAnimation,
-          child: Text("insert(table, 0, 23)"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: hasInserted ? _removeValue : null,
+              child: Text("delete(table, 0)"),
+            ),
+          ],
         ),
       ],
     );
   }
-
 }
 
 class ChainedHashTablePainter extends CustomPainter {
@@ -71,7 +70,7 @@ class ChainedHashTablePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final borderPaint = Paint()
-      ..color = Colors.transparent //Colors.grey.shade500
+      ..color = Colors.grey.shade500
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
@@ -87,7 +86,8 @@ class ChainedHashTablePainter extends CustomPainter {
     final textStyleHeader = TextStyle(color: Colors.black, fontSize: 16);
     final textStyleCell = TextStyle(color: Colors.white, fontSize: 16);
 
-    final textPainter = TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
+    final textPainter =
+    TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
 
     // Headers
     textPainter.text = TextSpan(text: 'Indexes', style: textStyleHeader);
@@ -171,9 +171,12 @@ class ChainedHashTablePainter extends CustomPainter {
         );
 
         if (j == 0) {
-          _drawArrow(canvas, Offset(cellWidth, baseOffset.dy + cellHeight / 2), Offset(chainX, chainY + cellHeight / 2));
+          _drawArrow(canvas,
+              Offset(cellWidth, baseOffset.dy + cellHeight / 2),
+              Offset(chainX, chainY + cellHeight / 2));
         }
       }
+
     }
   }
 
