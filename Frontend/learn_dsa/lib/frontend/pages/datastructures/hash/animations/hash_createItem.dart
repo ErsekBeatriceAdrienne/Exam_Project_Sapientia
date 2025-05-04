@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-
 import '../../../../strings/datastructure_strings/hashtable_strings.dart';
 
 class SingleHashItemAnimation extends StatefulWidget {
   @override
-  _SingleHashItemAnimationState createState() => _SingleHashItemAnimationState();
+  _SingleHashItemAnimationState createState() =>
+      _SingleHashItemAnimationState();
 }
 
 class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
   final int key = 0;
   final int value = 23;
-  final double cellWidth = 120;
+  final double cellWidth = 80;
   final double cellHeight = 50;
 
   bool _showValue = false;
@@ -42,14 +42,13 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
                 ),
               ],
             ),
-            // Play button (right-aligned)
+            // Play button
             IconButton(
               icon: Icon(Icons.play_arrow_outlined),
               color: Colors.green,
               onPressed: _showValue ? null : _showItem,
               tooltip: 'Run animation',
             ),
-
           ],
         ),
         const SizedBox(height: 10),
@@ -74,6 +73,17 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
               decoration: BoxDecoration(
                 color: Colors.purple.shade200,
                 borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white, // White border around the whole cell
+                  width: 2,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 4.0,
+                    offset: Offset(4, 4), // Shadow position
+                  ),
+                ],
               ),
               child: Row(
                 children: [
@@ -82,7 +92,7 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.purple.shade500,
+                        color: Colors.purple.shade200,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
@@ -99,6 +109,12 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
                         ),
                       ),
                     ),
+                  ),
+                  // White line between Key and Value
+                  Container(
+                    width: 2,
+                    height: cellHeight * 0.7, // Shortened height of the line
+                    color: Colors.white,
                   ),
                   // Value
                   Expanded(
@@ -130,6 +146,7 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
       ],
     );
   }
+}
 
   /// version 2
 /*
@@ -518,4 +535,3 @@ Widget build(BuildContext context) {
     );
   }
  */
-}

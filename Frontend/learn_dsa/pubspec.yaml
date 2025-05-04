@@ -25,7 +25,7 @@ dependencies:
   image_cropper: ^8.0.2
   cupertino_icons: ^1.0.8
   regexed_validator: ^2.0.0+1
-  shared_preferences: ^2.3.2
+  shared_preferences: ^2.3.4
   percent_indicator: ^4.2.2
   fl_chart: ^0.68.0
   auto_size_text: ^3.0.0
@@ -70,3 +70,11 @@ flutter:
     - family: Courier
       fonts:
         - asset: assets/fonts/Courier-Regular.ttf
+
+    - family: Monospace
+      fonts:
+        - asset: assets/fonts/Monospace.ttf
+        - asset: assets/fonts/MonospaceBold.ttf
+          weight: 700
+        - asset: assets/fonts/MonospaceOblique.ttf
+          style: italic
