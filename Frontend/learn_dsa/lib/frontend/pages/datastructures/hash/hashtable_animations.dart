@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../strings/datastructure_strings/hashtable_strings.dart';
 
 class ChainedHashTableAnimation extends StatefulWidget {
   @override
@@ -107,7 +106,7 @@ class ChainedHashTablePainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final Paint borderPaint1 = Paint()
-      ..color = Colors.black
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
@@ -641,7 +640,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     final Paint borderPaint1 = Paint()
-      ..color = Colors.black
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 

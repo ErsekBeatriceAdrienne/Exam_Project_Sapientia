@@ -1156,6 +1156,28 @@ class HashTablePage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
 
+                                  // Print hash table pseudo code title
+                                  Text(
+                                    HashTableStrings.print_table_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Print hash table pseudo code
+                                  Text(
+                                    HashTableStrings.print_table,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
                                   // Hash code pseudo code title
                                   Text(
                                     HashTableStrings.hashcode_title,
@@ -1305,6 +1327,48 @@ class HashTablePage extends StatelessWidget {
                                   const SizedBox(height: 10),
                                   Center(
                                     child: ChainedDynamicHashTableDeleteAnimation(),
+                                  ),
+
+                                  const SizedBox(height: 10),
+                                  // Delete list pseudo code title
+                                  Text(
+                                    HashTableStrings.delete_list_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Delete list pseudo code
+                                  Text(
+                                    HashTableStrings.delete_list,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  const SizedBox(height: 10),
+                                  // Delete hash table pseudo code title
+                                  Text(
+                                    HashTableStrings.delete_table_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Delete hash table pseudo code
+                                  Text(
+                                    HashTableStrings.delete_table,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
                                   ),
                                 ],
                               ),
