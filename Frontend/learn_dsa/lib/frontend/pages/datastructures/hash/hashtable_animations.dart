@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'dart:math';
-import 'package:flutter/material.dart';
-
-import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import '../../../strings/datastructure_strings/hashtable_strings.dart';
 
 class ChainedHashTableAnimation extends StatefulWidget {
   @override
@@ -21,31 +18,43 @@ class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> w
     MapEntry(6, 5),
     MapEntry(8, 1),
     MapEntry(11, 22),
-    MapEntry(16, 9),
     MapEntry(9, 23),
   ];
 
   final int tableSize = 5;
   late List<List<MapEntry<int, int>>> hashTable;
   late List<int> visibleLengths;
+  bool _isAnimating = false;
 
   @override
   void initState() {
     super.initState();
+    _resetTable();
+  }
+
+  void _resetTable() {
     hashTable = List.generate(tableSize, (_) => []);
     visibleLengths = List.filled(tableSize, 0);
-    _startAnimation();
+    setState(() {}); // Trigger redraw
   }
 
   Future<void> _startAnimation() async {
+    if (_isAnimating) return;
+
+    _resetTable();
+    _isAnimating = true;
+
     for (final entry in entriesToInsert) {
       int index = _hash(entry.key);
       hashTable[index].add(entry);
       await Future.delayed(Duration(milliseconds: 600));
+      HapticFeedback.heavyImpact();
       setState(() {
         visibleLengths[index]++;
       });
     }
+
+    _isAnimating = false;
   }
 
   int _hash(int key) => key % tableSize;
@@ -54,17 +63,32 @@ class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> w
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [ Container(
-        height: 250,
-        padding: const EdgeInsets.all(10),
-        child: CustomPaint(
-          painter: ChainedHashTablePainter(hashTable, visibleLengths),
-          child: Container(),
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: 250,
+              padding: const EdgeInsets.all(10),
+              child: CustomPaint(
+                painter: ChainedHashTablePainter(hashTable, visibleLengths),
+                child: Container(),
+              ),
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: IconButton(
+                onPressed: _isAnimating ? null : _startAnimation,
+                icon: Icon(Icons.play_arrow_rounded, color: Colors.purple),
+                tooltip: "Play animation",
+              ),
+            ),
+          ],
         ),
-      ),
       ],
     );
   }
+
 }
 
 class ChainedHashTablePainter extends CustomPainter {
@@ -76,12 +100,8 @@ class ChainedHashTablePainter extends CustomPainter {
   ChainedHashTablePainter(this.table, this.visibleLengths);
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final Paint borderPaint = Paint()
-      ..color = Colors.transparent
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
+  void paint(Canvas canvas, Size size)
+  {
     final Paint fillPaint = Paint()
       ..color = Colors.purple.shade500
       ..style = PaintingStyle.fill;
@@ -91,20 +111,12 @@ class ChainedHashTablePainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
+    final Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4.0);
+
     final textPainter = TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
     final textStyle = TextStyle(color: Colors.white, fontSize: 14);
-    final textStyle1 = TextStyle(color: Colors.black, fontSize: 16);
-
-    textPainter.text = TextSpan(text: 'Indexes', style: textStyle1);
-    textPainter.layout();
-    canvas.drawRect(Rect.fromLTWH(0, -30, 80, 25), Paint()..color = Colors.transparent);
-    textPainter.paint(canvas, Offset(5, -25));
-
-    textPainter.text = TextSpan(text: 'Key-value pairs', style: textStyle1);
-    textPainter.layout();
-    final valuesX = (1) * (cellWidth + 10);
-    canvas.drawRect(Rect.fromLTWH(valuesX, -30, 120, 25), Paint()..color = Colors.transparent);
-    textPainter.paint(canvas, Offset(valuesX + 5, -25));
 
     for (int i = 0; i < table.length; i++) {
       final baseOffset = Offset(0, i * cellHeight);
@@ -128,14 +140,21 @@ class ChainedHashTablePainter extends CustomPainter {
         bucketRRect = RRect.fromRectAndRadius(bucketRect, Radius.circular(0));
       }
 
+      // Shadows for the bucket cells
+      canvas.drawRRect(
+        bucketRRect.shift(Offset(5, 4)),
+        shadowPaint, // Draw the shadow
+      );
+
       canvas.drawRRect(bucketRRect, fillPaint);
       canvas.drawRRect(bucketRRect, borderPaint1);
 
-      // Index szöveg
+      // Index text
       textPainter.text = TextSpan(text: '$i', style: textStyle);
       textPainter.layout();
       textPainter.paint(canvas, baseOffset + Offset(5, 10));
 
+      // Values
       List<MapEntry<int, int>> chain = table[i];
       int visible = visibleLengths[i];
       double chainStartX = (1) * (cellWidth + 10);
@@ -154,15 +173,93 @@ class ChainedHashTablePainter extends CustomPainter {
         final isFirst = j == 0;
         final isLast = j == visible - 1 || j == chain.length - 1;
 
-        // Key
-        final keyRect = RRect.fromRectAndCorners(
-          Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
+        final totalRect = RRect.fromRectAndCorners(
+          Rect.fromLTWH(chainX, chainY, keyWidth + valueWidth, cellHeight),
           topLeft: isFirst ? Radius.circular(10) : Radius.zero,
           bottomLeft: isFirst ? Radius.circular(10) : Radius.zero,
+          topRight: isLast ? Radius.circular(10) : Radius.zero,
+          bottomRight: isLast ? Radius.circular(10) : Radius.zero,
         );
-        canvas.drawRRect(keyRect, Paint()..color = Colors.purple.shade500);
-        canvas.drawRRect(keyRect, borderPaint);
+        // Shadow
+        canvas.drawRRect(totalRect.shift(Offset(4, 4)), shadowPaint);
 
+        // Drawing the key-value cells with the rounded corners
+        if (isFirst && isLast) {
+          // Apply rounded corners for both the first and last cell
+          canvas.drawRRect(
+            RRect.fromRectAndCorners(
+              Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            ),
+            Paint()..color = Colors.purple.shade200,
+          );
+          canvas.drawRRect(
+            RRect.fromRectAndCorners(
+              Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
+              topRight: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            Paint()..color = Colors.purple.shade200,
+          );
+        } else if (isFirst && !isLast) {
+          // Apply rounded corners only for the first cell (left side)
+          canvas.drawRRect(
+            RRect.fromRectAndCorners(
+              Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
+              topLeft: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            ),
+            Paint()..color = Colors.purple.shade200,
+          );
+          canvas.drawRRect(
+            RRect.fromRectAndCorners(
+              Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
+              topRight: Radius.circular(0),
+              bottomRight: Radius.circular(0),
+            ),
+            Paint()..color = Colors.purple.shade200,
+          );
+        } else if (isLast && !isFirst) {
+          // Apply rounded corners only for the last cell (right side)
+          canvas.drawRRect(
+            RRect.fromRectAndCorners(
+              Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
+              topLeft: Radius.circular(0),
+              bottomLeft: Radius.circular(0),
+            ),
+            Paint()..color = Colors.purple.shade200,
+          );
+          canvas.drawRRect(
+            RRect.fromRectAndCorners(
+              Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
+              topRight: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
+            Paint()..color = Colors.purple.shade200,
+          );
+        } else {
+          // Regular cell without rounded corners for middle cells
+          canvas.drawRect(
+            Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
+            Paint()..color = Colors.purple.shade200,
+          );
+          canvas.drawRect(
+            Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
+            Paint()..color = Colors.purple.shade200,
+          );
+        }
+
+        // Small white line
+        canvas.drawLine(
+          Offset(chainX + keyWidth, chainY + 5),
+          Offset(chainX + keyWidth, chainY + cellHeight - 5),
+          Paint()
+            ..color = Colors.white
+            ..strokeWidth = 1.5,
+        );
+
+        // Texts
         textPainter.text = TextSpan(text: '$key', style: textStyle);
         textPainter.layout();
         textPainter.paint(
@@ -173,15 +270,6 @@ class ChainedHashTablePainter extends CustomPainter {
           ),
         );
 
-        // Value
-        final valueRect = RRect.fromRectAndCorners(
-          Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
-          topRight: isLast ? Radius.circular(10) : Radius.zero,
-          bottomRight: isLast ? Radius.circular(10) : Radius.zero,
-        );
-        canvas.drawRRect(valueRect, Paint()..color = Colors.purple.shade200);
-        canvas.drawRRect(valueRect, borderPaint);
-
         textPainter.text = TextSpan(text: '$value', style: textStyle);
         textPainter.layout();
         textPainter.paint(
@@ -190,6 +278,15 @@ class ChainedHashTablePainter extends CustomPainter {
             chainX + keyWidth + (valueWidth - textPainter.width) / 2,
             chainY + (cellHeight - textPainter.height) / 2,
           ),
+        );
+
+        canvas.drawRRect(
+          totalRect,
+          Paint()
+            ..color = Colors.transparent
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.5
+            ..color = Colors.white,
         );
 
         if (j == 0) {
@@ -458,47 +555,70 @@ class ChainedDynamicHashTableAnimation extends StatefulWidget {
 }
 
 class _ChainedDynamicHashTableAnimationState extends State<ChainedDynamicHashTableAnimation> with TickerProviderStateMixin {
-  final List<List<int>> hashTable = [
-    [11],
-    [2, 5, 22,9],
+  final List<List<MapEntry<int, int>>> hashTable = [
+    [MapEntry(0, 11)],
+    [MapEntry(1, 2), MapEntry(6, 5), MapEntry(11, 22)],
     [],
-    [1],
-    [4, 23],
+    [MapEntry(8, 1)],
+    [MapEntry(4, 4), MapEntry(9, 23)],
   ];
 
   late List<int> visibleLengths;
+  bool _isAnimating = false;
 
   @override
   void initState() {
     super.initState();
     visibleLengths = List.filled(hashTable.length, 0);
-    _startAnimation();
   }
 
   Future<void> _startAnimation() async {
+    setState(() {
+      _isAnimating = true;
+      visibleLengths = List.filled(hashTable.length, 0);
+    });
+
     for (int i = 0; i < hashTable.length; i++) {
       for (int j = 0; j < hashTable[i].length; j++) {
         await Future.delayed(Duration(milliseconds: 600));
+        HapticFeedback.heavyImpact();
         setState(() {
           visibleLengths[i]++;
         });
       }
     }
+
+    setState(() {
+      _isAnimating = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Center(
-          child: Container(
-            height: 250,
-            padding: const EdgeInsets.all(10),
-            child: CustomPaint(
-              painter: ChainedDynamicHashTablePainter(hashTable, visibleLengths),
-              child: Container(),
+        Stack(
+          children: [
+            Center(
+              child: Container(
+                height: 250,
+                padding: const EdgeInsets.all(10),
+                child: CustomPaint(
+                  painter: ChainedDynamicHashTablePainter(hashTable, visibleLengths),
+                  child: Container(),
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: IconButton(
+                onPressed: _isAnimating ? null : _startAnimation,
+                icon: Icon(Icons.play_arrow_rounded, color: Colors.purple),
+                tooltip: 'Play',
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -506,7 +626,7 @@ class _ChainedDynamicHashTableAnimationState extends State<ChainedDynamicHashTab
 }
 
 class ChainedDynamicHashTablePainter extends CustomPainter {
-  final List<List<int>> table;
+  final List<List<MapEntry<int, int>>> table;
   final List<int> visibleLengths;
   final double cellWidth = 60;
   final double cellHeight = 40;
@@ -516,7 +636,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint borderPaint = Paint()
-      ..color = Colors.grey.shade500
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
@@ -529,23 +649,11 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
       ..color = Colors.purple.shade500
       ..style = PaintingStyle.fill;
 
-    final textStyle1 = TextStyle(color: Colors.black, fontSize: 16);
+    final Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4.0);
+
     final textPainter = TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
-
-    // Index label
-    textPainter.text = TextSpan(text: 'Indexes', style: textStyle1);
-    textPainter.layout();
-    final labelOffset = Offset(0, -30);
-    canvas.drawRect(Rect.fromLTWH(labelOffset.dx, labelOffset.dy, 80, 25), Paint()..color = Colors.transparent);
-    textPainter.paint(canvas, labelOffset + Offset(5, 5));
-
-    // Values label
-    textPainter.text = TextSpan(text: 'Values', style: textStyle1);
-    textPainter.layout();
-    final valuesX = (1) * (cellWidth + 10);
-    canvas.drawRect(Rect.fromLTWH(valuesX, -30, 80, 25), Paint()..color = Colors.transparent);
-    textPainter.paint(canvas, Offset(valuesX + 5, -25));
-
     final textStyle = TextStyle(color: Colors.white, fontSize: 16);
 
     for (int i = 0; i < table.length; i++) {
@@ -570,6 +678,12 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
         bucketRRect = RRect.fromRectAndRadius(bucketRect, Radius.circular(0));
       }
 
+      // Shadows for the bucket cells
+      canvas.drawRRect(
+        bucketRRect.shift(Offset(5, 4)),
+        shadowPaint, // Draw the shadow
+      );
+
       canvas.drawRRect(bucketRRect, fillPaint);
       canvas.drawRRect(bucketRRect, borderPaint1);
 
@@ -578,40 +692,69 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
       textPainter.layout();
       textPainter.paint(canvas, baseOffset + Offset(5, 10));
 
-      List<int> chain = table[i];
+      List<MapEntry<int, int>> chain = table[i];
       int visible = visibleLengths[i];
 
       for (int j = 0; j < visible && j < chain.length; j++) {
         final chainX = (j + 1) * (cellWidth + 10);
         final chainY = baseOffset.dy;
 
-        final chainRect = RRect.fromRectAndRadius(
-          Rect.fromLTWH(chainX, chainY, cellWidth, cellHeight),
-          Radius.circular(10),
+        final chainRect = Rect.fromLTWH(chainX, chainY, cellWidth, cellHeight);
+        final chainRRect = RRect.fromRectAndRadius(chainRect, Radius.circular(8));
+
+        final shadowPaint = Paint()
+          ..color = Colors.black26
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
+
+        // Shadow
+        canvas.drawRRect(
+          chainRRect.shift(Offset(4, 4)),
+          shadowPaint,
         );
 
         final fillChainPaint = Paint()
           ..color = Colors.purple.shade200
           ..style = PaintingStyle.fill;
 
-        canvas.drawRRect(chainRect, fillChainPaint);
-        canvas.drawRRect(chainRect, borderPaint);
+        canvas.drawRRect(chainRRect, fillChainPaint);
+        canvas.drawRRect(chainRRect, borderPaint);
 
-        textPainter.text = TextSpan(text: '${chain[j]}', style: textStyle);
-        textPainter.layout();
-        textPainter.paint(canvas, Offset(chainX + 20, chainY + 10));
+        final pair = chain[j];
+        final separatorX = chainX + cellWidth * 0.4;
 
-        // Draw arrows
-        Offset arrowStart, arrowEnd;
-        if (j == 0) {
-          arrowStart = Offset(baseOffset.dx + cellWidth, baseOffset.dy + cellHeight / 2);
-        } else {
-          final prevX = j * (cellWidth + 10);
-          arrowStart = Offset(prevX + cellWidth, chainY + cellHeight / 2);
-        }
-        arrowEnd = Offset(chainX, chainY + cellHeight / 2);
+        canvas.drawLine(
+          Offset(separatorX, chainY + 5),
+          Offset(separatorX, chainY + cellHeight - 5),
+          Paint()..color = Colors.white..strokeWidth = 1.5,
+        );
+
+        final TextStyle keyStyle = textStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12);
+        final TextStyle valueStyle = textStyle.copyWith(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12);
+
+// Draw key
+        textPainter.text = TextSpan(
+          text: '${pair.key}',
+          style: keyStyle,
+        );
+        textPainter.layout(minWidth: 0, maxWidth: cellWidth * 0.4 - 10);
+        textPainter.paint(canvas, Offset(chainX + 8, chainY + (cellHeight - textPainter.height) / 2));
+
+// Draw value
+        textPainter.text = TextSpan(
+          text: '${pair.value}',
+          style: valueStyle,
+        );
+        textPainter.layout(minWidth: 0, maxWidth: cellWidth * 0.6 - 10);
+        textPainter.paint(canvas, Offset(separatorX + 8, chainY + (cellHeight - textPainter.height) / 2));
+
+        Offset arrowStart = j == 0
+            ? Offset(baseOffset.dx + cellWidth, baseOffset.dy + cellHeight / 2)
+            : Offset((j) * (cellWidth + 10) + cellWidth, chainY + cellHeight / 2);
+
+        Offset arrowEnd = Offset(chainX, chainY + cellHeight / 2);
         _drawArrow(canvas, arrowStart, arrowEnd);
       }
+
     }
   }
 

@@ -8,6 +8,7 @@ import 'animations/hash_createTable.dart';
 import 'animations/hash_delete.dart';
 import 'animations/hash_hashcode.dart';
 import 'animations/hash_insert.dart';
+import 'animations/hash_Node.dart';
 import 'animations/hash_search.dart';
 import 'hashtable_animations.dart';
 
@@ -355,7 +356,6 @@ class HashTablePage extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     // Pseudocode Drop down
-
                     Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -500,7 +500,7 @@ class HashTablePage extends StatelessWidget {
                                       fontFamily: 'Courier',
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 20),
                                   Center(
                                     child: HashTableDeleteAnimation(),
                                   ),
@@ -886,6 +886,15 @@ class HashTablePage extends StatelessWidget {
                                     ),
 
                                     const SizedBox(height: 10),
+                                    Text(
+                                      HashTableStrings.hash_definition4,
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
 
                                     // Hash Table explanation
                                     Text(
@@ -970,7 +979,7 @@ class HashTablePage extends StatelessWidget {
                         child:
                         ExpansionTile(
                           title: Text(
-                            HashTableStrings.func_title_nodes,
+                            HashTableStrings.func_title_item,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -990,91 +999,313 @@ class HashTablePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
-                                  // Create item pseudo code title
+                                  // Create hash item animation
+                                  Center(
+                                    child: SingleHashItemAnimation(),
+                                  ),
+
+                                  const SizedBox(height: 10),
+
+                                  // Create Node pseudo code title
                                   Text(
-                                    HashTableStrings.func_create_item_title,
+                                    HashTableStrings.create_Node_title,
                                     style: TextStyle(
                                       fontSize: 19,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
-
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // Pseudocode Drop down
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          // Gradient colors
-                          colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.4),
-                            spreadRadius: 1,
-                            blurRadius: 6,
-                            offset: Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(dividerColor: Colors.transparent,),
-                        child:
-                        ExpansionTile(
-                          title: Text(
-                            HashTableStrings.func_title_hashtable,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                            ),
-                          ),
-                          initiallyExpanded: false,
-                          tilePadding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-
-                                  // Create item pseudo code title
+                                  const SizedBox(height: 10),
+                                  // Create Node pseudo code
                                   Text(
-                                    HashTableStrings.func_create_item_title,
+                                    HashTableStrings.create_Node,
                                     style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                  // Create item pseudo code
-                                  Text(
-                                    HashTableStrings.func_create_item,
-                                    style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  Center(
+                                    child: LinkedListNewNodeAnimation(),
+                                  ),
+
+                                  const SizedBox(height: 10),
+                                  // Create Node pseudo code title
+                                  Text(
+                                    HashTableStrings.create_table_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Create Node pseudo code
+                                  Text(
+                                    HashTableStrings.create_table,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Center(
+                                    child: CreateEmptyChainedHashTable(),
+                                  ),
+
+                                  // isEmpty pseudo code title
+                                  Text(
+                                    HashTableStrings.isEmpty_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // isEmpty pseudo code
+                                  Text(
+                                    HashTableStrings.isEmpty,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
                                     ),
                                   ),
 
                                   const SizedBox(height: 10),
 
+                                  // Search node pseudo code title
+                                  Text(
+                                    HashTableStrings.search_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Search node pseudo code title
+                                  Text(
+                                    HashTableStrings.search_node_title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Search node pseudo code
+                                  Text(
+                                    HashTableStrings.search_node,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+
+                                  // Search item pseudo code title
+                                  Text(
+                                    HashTableStrings.search_item_title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Search item pseudo code
+                                  Text(
+                                    HashTableStrings.search_item,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Center(
+                                    child: ChainedDynamicHashTableSearchAnimation(),
+                                  ),
+
+                                  // Print list pseudo code title
+                                  Text(
+                                    HashTableStrings.print_list_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Print list pseudo code
+                                  Text(
+                                    HashTableStrings.print_list,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+
+                                  // Hash code pseudo code title
+                                  Text(
+                                    HashTableStrings.hashcode_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Hash code pseudo code
+                                  Text(
+                                    HashTableStrings.hashcode,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  Center(
+                                    child: HashCode2Animation(),
+                                  ),
+
+                                  // Insert into table title
+                                  Text(
+                                    HashTableStrings.insert_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  // Insert into table
+                                  Text(
+                                    HashTableStrings.insert_node_title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Insert into table
+                                  Text(
+                                    HashTableStrings.insert_node,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  // Insert into table
+                                  Text(
+                                    HashTableStrings.insert_item_title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Insert into table
+                                  Text(
+                                    HashTableStrings.insert_item,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  Center(
+                                    child: ChainedDynamicHashTableInsertAnimation(),
+                                  ),
+
+                                  // Delete node pseudo code title
+                                  Text(
+                                    HashTableStrings.delete_title,
+                                    style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    HashTableStrings.delete_node_title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Delete node pseudo code
+                                  Text(
+                                    HashTableStrings.delete_node,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    HashTableStrings.delete_node_title1,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Delete item pseudo code
+                                  Text(
+                                    HashTableStrings.delete_node1,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    HashTableStrings.delete_item_title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  // Delete item pseudo code
+                                  Text(
+                                    HashTableStrings.delete_item,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                      color: Colors.black,
+                                      fontFamily: 'Courier',
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Center(
+                                    child: ChainedDynamicHashTableDeleteAnimation(),
+                                  ),
                                 ],
                               ),
                             ),

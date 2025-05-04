@@ -39,6 +39,10 @@ class ChainedHashTablePainter extends CustomPainter {
       ..color = Colors.purple.shade500
       ..style = PaintingStyle.fill;
 
+    final Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4.0);
+
     final textStyle1 = TextStyle(color: Colors.black, fontSize: 16);
     final textPainter = TextPainter(textAlign: TextAlign.center, textDirection: TextDirection.ltr);
 
@@ -72,6 +76,12 @@ class ChainedHashTablePainter extends CustomPainter {
       } else {
         bucketRRect = RRect.fromRectAndRadius(bucketRect, Radius.circular(0));
       }
+
+      // Shadows for the bucket cells
+      canvas.drawRRect(
+        bucketRRect.shift(Offset(5, 4)),
+        shadowPaint, // Draw the shadow
+      );
 
       canvas.drawRRect(bucketRRect, fillPaint);
       canvas.drawRRect(bucketRRect, borderPaint1);
