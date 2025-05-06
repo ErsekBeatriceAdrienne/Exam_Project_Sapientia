@@ -6,7 +6,7 @@ import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../home/home_page.dart';
 import '../profile/profile_page.dart';
-import '../testDatastructure/tests.dart';
+import '../test/tests_page.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget
 {
@@ -38,7 +38,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       HomePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      TestsPage(),
+      TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       ProfilePage(toggleTheme: widget.toggleTheme),
     ]);
     _preloadUserName();
@@ -180,8 +180,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                 ? ShaderMask(
               shaderCallback: (rect) => LinearGradient(
                 colors: [
-                  Color(0xFFa1f7ff),
-                  Color(0xFFDFAEE8),
+                  Color(0xFF255f38),
+                  Color(0xFF1f7d53),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,

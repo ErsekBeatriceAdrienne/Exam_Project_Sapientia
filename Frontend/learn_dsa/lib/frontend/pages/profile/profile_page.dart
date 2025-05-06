@@ -244,6 +244,31 @@ class _ProfilePageState extends State<ProfilePage> {
                               onNotes: () {},
                             ),
                             const SizedBox(height: 10),
+                            // Donut chart
+                            /*DonutChart(),
+
+                  const SizedBox(height: 20),
+
+                  Text(
+                    TestStrings.compiler_description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+
+                  // Linear Data Structure Buttons
+                  GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2.2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _buildCategoryButton(context, TestStrings.compiler_button, isDarkTheme),
+                    ],
+                  ),*/
 
                           ],
                         ),
