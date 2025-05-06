@@ -3,7 +3,7 @@ import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../home/home_page.dart';
 import '../profile/profile_page.dart';
-import '../testDatastructure/tests.dart';
+import '../test/tests_page.dart';
 
 class WindowsMenu extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -24,7 +24,7 @@ class _WindowsMenuState extends State<WindowsMenu> {
       HomePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      TestsPage(),
+      TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       ProfilePage(toggleTheme: widget.toggleTheme),
     ];
   }

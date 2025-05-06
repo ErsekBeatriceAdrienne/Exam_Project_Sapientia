@@ -23,7 +23,6 @@ void main() async {
   runApp(const MyApp());
 }
 
-
 class MyApp extends StatefulWidget
 {
   const MyApp({super.key});
@@ -58,7 +57,6 @@ class _MyAppState extends State <MyApp>
 
     print('Running on: ${Platform.operatingSystem}');
 
-    userId = '100';
     setState(() {
       if (Platform.isWindows) {
         // For Windows platform
@@ -97,6 +95,12 @@ class _MyAppState extends State <MyApp>
           brightness: Brightness.light,
         ),
         useMaterial3: true,
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+          },
+        ),
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

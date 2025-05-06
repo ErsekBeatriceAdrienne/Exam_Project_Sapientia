@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../strings/datastructure_strings/hashtable_strings.dart';
@@ -34,7 +33,7 @@ class HashTablePage extends StatelessWidget {
                         .scaffoldBackgroundColor
                         .withOpacity(0.2),
                     child: FlexibleSpaceBar(
-                      titlePadding: EdgeInsets.only(left: 40, bottom: 20),
+                      titlePadding: EdgeInsets.only(left: 50, bottom: 20),
                       title: Text(
                         HashTableStrings.title,
                         style: TextStyle(
