@@ -9,12 +9,12 @@ import 'package:learn_dsa/frontend/pages/test/testpages/list_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/queue_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/stack_testpage.dart';
 import '../../../backend/compiler/c_compiler.dart';
-import '../../strings/exercises/array_exercises.dart';
-import '../../strings/exercises/binarytree_exercises.dart';
-import '../../strings/exercises/hashtable_exercises.dart';
-import '../../strings/exercises/list_exercises.dart';
-import '../../strings/exercises/queue_exercises.dart';
-import '../../strings/exercises/stack_exercises.dart';
+import '../../pages/exercises/array_exercises.dart';
+import '../../pages/exercises/binarytree_exercises.dart';
+import '../../pages/exercises/hashtable_exercises.dart';
+import '../../pages/exercises/list_exercises.dart';
+import '../../pages/exercises/queue_exercises.dart';
+import '../../pages/exercises/stack_exercises.dart';
 import '../../strings/test/test_strings.dart';
 import '../profile/test_results.dart';
 
@@ -123,6 +123,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         context,
                                         Essentials().createSlideRoute(ArrayTestPage()),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -136,6 +137,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         context,
                                         Essentials().createSlideRoute(StackTestPage()),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -154,6 +156,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         context,
                                         Essentials().createSlideRoute(QueueTestPage()),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -165,8 +168,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         () {
                                       Navigator.push(
                                         context,
-                                        Essentials().createSlideRoute(ListTestPage()),
+                                        Essentials().createSlideRoute(ListTestPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -183,8 +187,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         () {
                                       Navigator.push(
                                         context,
-                                        Essentials().createSlideRoute(BstTestPage()),
+                                        Essentials().createSlideRoute(BstTestPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -196,8 +201,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         () {
                                       Navigator.push(
                                         context,
-                                        Essentials().createSlideRoute(HashTableTestPage()),
+                                        Essentials().createSlideRoute(HashTableTestPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -287,6 +293,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         context,
                                         Essentials().createSlideRoute(ArrayExercisesPage()),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -300,6 +307,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         context,
                                         Essentials().createSlideRoute(StackExercisesPage()),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -318,6 +326,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         context,
                                         Essentials().createSlideRoute(QueueExercisesPage()),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -329,8 +338,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         () {
                                       Navigator.push(
                                         context,
-                                        Essentials().createSlideRoute(ListExercisesPage()),
+                                        Essentials().createSlideRoute(ListExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -347,8 +357,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         () {
                                       Navigator.push(
                                         context,
-                                        Essentials().createSlideRoute(BSTExercisesPage()),
+                                        Essentials().createSlideRoute(BSTExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),
@@ -360,8 +371,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                         () {
                                       Navigator.push(
                                         context,
-                                        Essentials().createSlideRoute(HashTableExercisesPage()),
+                                        Essentials().createSlideRoute(HashTableExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
                                       );
+                                      HapticFeedback.mediumImpact();
                                     },
                                   ),
                                 ),

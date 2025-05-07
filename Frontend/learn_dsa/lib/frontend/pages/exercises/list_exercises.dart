@@ -2,20 +2,19 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
+import '../../strings/exercises/list_ex.dart';
 
-import '../../../strings/test/testpages/list_teststrings.dart';
-
-class ListTestPage extends StatefulWidget {
+class ListExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ListTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ListExercisesPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<ListTestPage> createState() => _ListTestPageState();
+  State<ListExercisesPage> createState() => _ListExercisesPageState();
 }
 
-class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderStateMixin {
+class _ListExercisesPageState extends State<ListExercisesPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool _isDropdownVisible = false;
@@ -73,7 +72,7 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                 ),
                 centerTitle: true,
                 title: Text(
-                  ListTest.title,
+                  ListExercises.title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

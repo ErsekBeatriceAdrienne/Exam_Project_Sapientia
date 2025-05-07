@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_page.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_page.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/tree/tree_page.dart';
@@ -283,25 +285,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
     );
   }
 
-  Route createSlideRoute(Widget page) {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 10000),
-      reverseTransitionDuration: const Duration(milliseconds: 10000),
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
-
-        final tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
   Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
     // Define the gradient colors
     final gradient = LinearGradient(
@@ -333,7 +316,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
         if (pageBuilder != null) {
           Navigator.push(
             context,
-            createSlideRoute(pageBuilder()),
+            Essentials().createSlideRoute(pageBuilder()),
           );
           HapticFeedback.mediumImpact();
         } else {

@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Essentials {
 
   Route createSlideRoute(Widget page) {
+    final isWindows = Platform.isWindows;
+
     return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 10000),
-      reverseTransitionDuration: const Duration(milliseconds: 10000),
+      transitionDuration: Duration(milliseconds: isWindows ? 10 : 10000),
+      reverseTransitionDuration: Duration(milliseconds: isWindows ? 10 : 10000),
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(1.0, 0.0);
@@ -44,46 +48,77 @@ class Essentials {
   Widget buildHighlightedCodeLines(String code) {
     final lines = code.split('\n');
 
-    return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: lines.length,
-      itemBuilder: (context, index) {
-        final line = lines[index];
-        return Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    final spans = <TextSpan>[];
+
+    for (var i = 0; i < lines.length; i++) {
+      final lineNumber = '${i + 1}'.padLeft(3);
+      final lineText = lines[i];
+
+      spans.add(
+        TextSpan(
           children: [
-            // Row number
-            Container(
-              width: 30,
-              alignment: Alignment.topRight,
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text(
-                '${index + 1}',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black,
-                  fontFamily: 'Courier',
-                ),
+            TextSpan(
+              text: '$lineNumber  ',
+              style: const TextStyle(
+                fontFamily: 'Courier',
+                fontSize: 13,
+                color: Colors.grey,
               ),
             ),
-            // Colored row
-            Expanded(
-              child: RichText(
-                text: TextSpan(
-                  style: TextStyle(
-                    fontFamily: 'Courier',
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  children: _getHighlightedSpans(line),
-                ),
-              ),
-            ),
+            ..._getHighlightedSpans(lineText),
+            const TextSpan(text: '\n'),
           ],
-        );
-      },
+        ),
+      );
+    }
+
+    return SelectableText.rich(
+      TextSpan(children: spans),
+      style: const TextStyle(
+        fontFamily: 'Courier',
+        fontSize: 13,
+        color: Colors.black,
+        fontWeight: FontWeight.bold
+      ),
+    );
+  }
+
+  Widget buildHighlightedCodeLinesNormal(String code) {
+    final lines = code.split('\n');
+
+    final spans = <TextSpan>[];
+
+    for (var i = 0; i < lines.length; i++) {
+      final lineNumber = '${i + 1}'.padLeft(3);
+      final lineText = lines[i];
+
+      spans.add(
+        TextSpan(
+          children: [
+            TextSpan(
+              text: '$lineNumber  ',
+              style: const TextStyle(
+                fontFamily: 'Courier',
+                fontSize: 13,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            ..._getHighlightedSpans(lineText),
+            const TextSpan(text: '\n'),
+          ],
+        ),
+      );
+    }
+
+    return SelectableText.rich(
+      TextSpan(children: spans),
+      style: const TextStyle(
+        fontFamily: 'Courier',
+        fontSize: 13,
+        color: Colors.black,
+
+      ),
     );
   }
 
