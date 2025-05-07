@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/array/pseudocode_page.dart';
+import 'package:learn_dsa/frontend/pages/test/testpages/array_testpage.dart';
+import 'package:learn_dsa/frontend/pages/exercises/array_exercises.dart';
 import '../../../helpers/code_highliters.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
 import '../datastructures_page.dart';
@@ -104,7 +106,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                         child: Icon(
                           _isDropdownVisible ? Icons.pending_rounded : Icons.pending_outlined,
                           color: const Color(0xFF255f38),
-                          size: 25,
+                          size: 30,
                         ),
                       ),
                     ),
@@ -366,85 +368,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               ),
                               child: Text(
                                 ArrayStrings.question,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 40),
-
-                      // Complete .h file
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    ArrayStrings.header_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: ArrayStrings.header_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Code copied!')),
-                                );
-                              },
-                            ),
-                          ),
-                          // Pseudocode box
-                          Positioned(
-                            top: -23,
-                            left: 16,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xFF255f38),
-                                    Color(0xFF27391c)
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0, vertical: 8.0),
-                              child: Text(
-                                ArrayStrings.header_file,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -728,6 +651,164 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                       ),
 
                       const SizedBox(height: 40),
+
+                      // Complete .h file
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Code colored
+                                Essentials().buildHighlightedCodeLines(
+                                    ArrayStrings.header_file_content),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.copy,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(
+                                    text: ArrayStrings.header_file_content));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Code copied!')),
+                                );
+                              },
+                            ),
+                          ),
+                          // Pseudocode box
+                          Positioned(
+                            top: -23,
+                            left: 16,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF255f38),
+                                    Color(0xFF27391c)
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 8.0),
+                              child: Text(
+                                ArrayStrings.header_file,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 40),
+
+                      // Complete .c file
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.4),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Code colored
+                                Essentials().buildHighlightedCodeLines(
+                                    ArrayStrings.source_file_content),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.copy,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(
+                                    text: ArrayStrings.source_file_content));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Code copied!')),
+                                );
+                              },
+                            ),
+                          ),
+                          // Pseudocode box
+                          Positioned(
+                            top: -23,
+                            left: 16,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF255f38),
+                                    Color(0xFF27391c)
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8.0, vertical: 8.0),
+                              child: Text(
+                                ArrayStrings.source_file,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 40),
                     ],
                   ),
                 ),
@@ -899,6 +980,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
               ),
             ),
 
+
           if (_isDropdownVisible)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,
@@ -946,16 +1028,33 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                       HapticFeedback.mediumImpact();
                     }),
                     _buildMenuItem(Icons.pending_actions_rounded, "Exercises", () {
+                      Navigator.push(
+                        context,
+                        Essentials().createSlideRoute(
+                          ArrayExercisesPage(
+                            //toggleTheme: widget.toggleTheme,
+                            //userId: widget.userId,
+                          ),
+                        ),
+                      );
                       HapticFeedback.mediumImpact();
                     }),
                     _buildMenuItem(Icons.quiz, "Tests", () {
+                      Navigator.push(
+                        context,
+                        Essentials().createSlideRoute(
+                          ArrayTestPage(
+                            //toggleTheme: widget.toggleTheme,
+                            //userId: widget.userId,
+                          ),
+                        ),
+                      );
                       HapticFeedback.mediumImpact();
                     }),
                   ],
                 ),
               ),
             ),
-
         ],
       ),
     );

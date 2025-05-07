@@ -1,21 +1,20 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
+import '../../strings/exercises/hash_ex.dart';
+import '../test/tests_page.dart';
 
-import '../../../strings/test/testpages/list_teststrings.dart';
-
-class ListTestPage extends StatefulWidget {
+class HashTableExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ListTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const HashTableExercisesPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<ListTestPage> createState() => _ListTestPageState();
+  State<HashTableExercisesPage> createState() => _HashTableExercisesPageState();
 }
 
-class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderStateMixin {
+class _HashTableExercisesPageState extends State<HashTableExercisesPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool _isDropdownVisible = false;
@@ -73,7 +72,7 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                 ),
                 centerTitle: true,
                 title: Text(
-                  ListTest.title,
+                  HashTableExercises.title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

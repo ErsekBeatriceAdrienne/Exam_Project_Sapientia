@@ -44,40 +44,70 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
               onPressed: () {
                 Navigator.pop(
                   context,
-                  Essentials().createSlideRoute(ArrayPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+                  Essentials().createSlideRoute(
+                    ArrayPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
                   ),
                 );
               },
-
-              icon: const Icon(
-                Icons.arrow_back_ios_new_rounded,
-                size: 20,
-              ),
+              icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
               label: const Text(
                 'Back',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 17,
-                ),
+                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
               ),
             ),
             centerTitle: true,
             title: Text(
               ArrayStrings.code_functions_title,
               style: const TextStyle(
-                fontSize: 25,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF255f38),
+              ),
+            ),
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(60),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 6),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color.alphaBlend(
+                      Colors.black.withOpacity(0.09),
+                      Theme.of(context).scaffoldBackgroundColor,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    /*boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        spreadRadius: 1,
+                        blurRadius: 6,
+                        offset: Offset(0, 4),
+                      ),
+                    ],*/
+                  ),
+                  child: TextField(
+                    onChanged: (value) {
+                      print('Search: $value');
+                    },
+                    style: TextStyle(fontSize: 16),
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                      hintText: 'Search',
+                      hintStyle: TextStyle(color: Colors.grey.shade500),
+                      prefixIcon: Icon(Icons.search, color: Colors.grey.shade500),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
             flexibleSpace: ClipRRect(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                 child: Container(
-                  color: Theme
-                      .of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.2),
+                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
                 ),
               ),
             ),
@@ -88,12 +118,13 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
+
                   // Allocating memory pseudo code title
                   Text(
                     ArrayStrings.func_allocating_memory_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -115,25 +146,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.allocating_memory_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.allocating_memory_function),
+                            ],
                           ),
                         ),
 
@@ -144,10 +177,10 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
-                              Clipboard.setData(ClipboardData(text: ArrayStrings.allocating_memory_function,));
+                              Clipboard.setData(ClipboardData(text: ArrayStrings.allocating_memory_function));
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
                               );
                             },
@@ -164,7 +197,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                     ArrayStrings.func_printing_array_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -186,25 +219,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.printing_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.printing_function),
+                            ],
                           ),
                         ),
 
@@ -215,7 +250,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: ArrayStrings.printing_function,));
@@ -235,7 +270,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                     ArrayStrings.func_inserting_element_first_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -257,25 +292,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.insert_first_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.insert_first_function),
+                            ],
                           ),
                         ),
 
@@ -286,7 +323,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: ArrayStrings.insert_first_function,));
@@ -306,7 +343,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                     ArrayStrings.func_inserting_element_at_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -328,25 +365,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.insert_at_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.insert_at_function),
+                            ],
                           ),
                         ),
 
@@ -357,7 +396,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: ArrayStrings.insert_at_function,));
@@ -377,7 +416,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                     ArrayStrings.func_inserting_element_last_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -399,25 +438,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.insert_last_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.insert_last_function),
+                            ],
                           ),
                         ),
 
@@ -428,7 +469,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: ArrayStrings.insert_last_function,));
@@ -448,7 +489,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                     ArrayStrings.func_empty_array_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -470,25 +511,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.isempty_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.isempty_function),
+                            ],
                           ),
                         ),
 
@@ -499,7 +542,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: ArrayStrings.isempty_function,));
@@ -519,7 +562,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                     ArrayStrings.func_full_array_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -541,25 +584,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.isfull_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.isfull_function),
+                            ],
                           ),
                         ),
 
@@ -585,12 +630,304 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
 
                   const SizedBox(height: 10),
 
+                  // Search code title
+                  Text(
+                    ArrayStrings.search_function_title,
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Search code comment
+                  Text(
+                    ArrayStrings.search_function_comment,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Search code and copy button
+                  Center(
+                    child: Stack(
+                      children: [
+                        // Code
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.search_function),
+                            ],
+                          ),
+                        ),
+
+                        // Copy button on right up corner
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: ArrayStrings.search_function));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // Update code title
+                  Text(
+                    ArrayStrings.update_function_title,
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Update code comment
+                  Text(
+                    ArrayStrings.update_function_comment,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Update code and copy button
+                  Center(
+                    child: Stack(
+                      children: [
+                        // Code
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.update_function),
+                            ],
+                          ),
+                        ),
+
+                        // Copy button on right up corner
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: ArrayStrings.update_function));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // Get at code title
+                  Text(
+                    ArrayStrings.get_at_function_title,
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Get at code comment
+                  Text(
+                    ArrayStrings.get_at_function_comment,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Get at code and copy button
+                  Center(
+                    child: Stack(
+                      children: [
+                        // Code
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.get_at_function),
+                            ],
+                          ),
+                        ),
+
+                        // Copy button on right up corner
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: ArrayStrings.get_at_function));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  // Delete at code title
+                  Text(
+                    ArrayStrings.delete_at_function_title,
+                    style: TextStyle(
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Delete at code comment
+                  Text(
+                    ArrayStrings.delete_at_function_comment,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black,
+                    ),
+                  ),
+                  //  Delete at code and copy button
+                  Center(
+                    child: Stack(
+                      children: [
+                        // Code
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          margin: const EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.delete_at_function),
+                            ],
+                          ),
+                        ),
+
+                        // Copy button on right up corner
+                        Positioned(
+                          top: 8,
+                          right: 8,
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.copy,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Clipboard.setData(ClipboardData(text: ArrayStrings.delete_at_function));
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Code copied!')),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
                   // Deallocating memory code title
                   Text(
                     ArrayStrings.func_deallocating_array_title,
                     style: TextStyle(
                       fontSize: 19,
-                      fontWeight: FontWeight.normal,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
@@ -612,25 +949,27 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Color(0xFF255f38),
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.15),
-                                offset: const Offset(2, 2),
+                                color: Colors.black.withOpacity(0.4),
+                                spreadRadius: 1,
                                 blurRadius: 6,
-                                spreadRadius: 2,
+                                offset: Offset(0, 4),
                               ),
                             ],
                           ),
 
-                          child: SelectableText(
-                            ArrayStrings.deallocating_memory_function,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontFamily: 'Monospace',
-                              color: Colors.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Code colored
+                              Essentials().buildHighlightedCodeLinesNormal(
+                                  ArrayStrings.deallocating_memory_function),
+                            ],
                           ),
                         ),
 
@@ -641,7 +980,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                           child: IconButton(
                             icon: Icon(
                               Icons.copy,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                             onPressed: () {
                               Clipboard.setData(ClipboardData(text: ArrayStrings.deallocating_memory_function));
