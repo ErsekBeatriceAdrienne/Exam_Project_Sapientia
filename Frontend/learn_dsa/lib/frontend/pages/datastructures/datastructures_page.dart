@@ -1,17 +1,18 @@
-import 'dart:io';
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_page.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_page.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/tree/tree_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/firestore_service.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import 'array/array_page.dart';
 import 'hash/hashtable_page.dart';
 import 'list/list_page.dart';
+
 
 class DataStructuresPage extends StatefulWidget  {
   final VoidCallback toggleTheme;
@@ -90,8 +91,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                               .withOpacity(0.2),
                           child: FlexibleSpaceBar(
                             titlePadding: EdgeInsets.only(left: 16, bottom: 16),
-                            title: Text(
-                              data[FirestoreDocs.dataStructurePageTitle],
+                            title: Text(AppLocalizations.of(context)!.data_structure_page_title,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -130,9 +130,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  data[FirestoreDocs
-                                      .dataStructurePageDefinitionQuestion],
+                                Text(AppLocalizations.of(context)!.data_structure_question,
                                   style: TextStyle(
                                     fontSize: 26,
                                     fontWeight: FontWeight.w600,
@@ -141,8 +139,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  data[FirestoreDocs
-                                      .dataStructurePageDefinitionText],
+                                  AppLocalizations.of(context)!.data_structure_description,
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.grey,
@@ -154,8 +151,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                           const SizedBox(height: 16),
 
                           // Linear Data Structure Section
-                          Text(
-                            data[FirestoreDocs.dataStructurePageLinearDsaTitle],
+                          Text(AppLocalizations.of(context)!.linear_dsa_title,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -163,9 +159,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            data[FirestoreDocs
-                                .dataStructurePageLinearDsaDefinition],
+                          Text(AppLocalizations.of(context)!.linear_dsa_description,
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey,
@@ -181,26 +175,16 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             children: [
-                              _buildCategoryButton(context, data[FirestoreDocs
-                                  .dataStructurePageArrayButtonText],
-                                  isDarkTheme),
-                              _buildCategoryButton(context, data[FirestoreDocs
-                                  .dataStructurePageStackButtonText],
-                                  isDarkTheme),
-                              _buildCategoryButton(context, data[FirestoreDocs
-                                  .dataStructurePageQueueButtonText],
-                                  isDarkTheme),
-                              _buildCategoryButton(context, data[FirestoreDocs
-                                  .dataStructurePageListButtonText],
-                                  isDarkTheme),
+                              _buildCategoryButton(context, AppLocalizations.of(context)!.array_button_text, isDarkTheme),
+                              _buildCategoryButton(context, AppLocalizations.of(context)!.stack_button_text, isDarkTheme),
+                              _buildCategoryButton(context, AppLocalizations.of(context)!.queue_button_text, isDarkTheme),
+                              _buildCategoryButton(context, AppLocalizations.of(context)!.list_button_text, isDarkTheme),
                             ],
                           ),
                           const SizedBox(height: 24),
 
                           // Non-Linear Data Structure Section
-                          Text(
-                            data[FirestoreDocs
-                                .dataStructurePageNonlinearDsaTitle],
+                          Text(AppLocalizations.of(context)!.nonlinear_dsa_title,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -208,9 +192,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            data[FirestoreDocs
-                                .dataStructurePageNonlinearDsaDefinition],
+                          Text(AppLocalizations.of(context)!.nonlinear_dsa_description,
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey,
@@ -226,11 +208,9 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             children: [
-                              _buildCategoryButton(context, data[FirestoreDocs
-                                  .dataStructurePageBstButtonText],
+                              _buildCategoryButton(context, AppLocalizations.of(context)!.bst_button_text,
                                   isDarkTheme),
-                              _buildCategoryButton(context, data[FirestoreDocs
-                                  .dataStructurePageHashButtonText],
+                              _buildCategoryButton(context, AppLocalizations.of(context)!.hash_button_text,
                                   isDarkTheme),
                             ],
                           ),
@@ -256,9 +236,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  data[FirestoreDocs
-                                      .dataStructurePageComplexityTableDsaText],
+                                Text(AppLocalizations.of(context)!.data_structure_complexity_table_title,
                                   style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.w600,
@@ -296,15 +274,15 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
 
     // Define a map for title-to-page navigation
     final pageMap = {
-      "Array": () => ArrayPage(
+      AppLocalizations.of(context)!.array_button_text: () => ArrayPage(
         toggleTheme: widget.toggleTheme,
         userId: widget.userId,
       ),
-      "Stack": () => StackPage(),
-      "Queue": () => QueuePage(),
-      "List": () => ListPage(),
-      "HashTable": () => HashTablePage(),
-      "Binary Search Tree": () => BSTPage()
+      AppLocalizations.of(context)!.stack_button_text: () => StackPage(),
+      AppLocalizations.of(context)!.queue_button_text: () => QueuePage(),
+      AppLocalizations.of(context)!.list_button_text: () => ListPage(),
+      AppLocalizations.of(context)!.hash_button_text: () => HashTablePage(),
+      AppLocalizations.of(context)!.bst_button_text: () => BSTPage()
     };
 
     return ElevatedButton(
@@ -319,9 +297,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
             Essentials().createSlideRoute(pageBuilder()),
           );
           HapticFeedback.mediumImpact();
-        } else {
-          // Handle cases where the title doesn't match any page
-          print("Page not found for title: $title");
         }
 
       },

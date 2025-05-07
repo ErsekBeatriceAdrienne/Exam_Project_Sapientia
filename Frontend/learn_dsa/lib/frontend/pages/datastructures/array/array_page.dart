@@ -6,8 +6,8 @@ import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/array/pseudocode_page.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/array_testpage.dart';
 import 'package:learn_dsa/frontend/pages/exercises/array_exercises.dart';
-import '../../../helpers/code_highliters.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../datastructures_page.dart';
 import 'animations/array_animations.dart';
 import 'implementation_page.dart';
@@ -70,8 +70,9 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
+                  // Button back
+                  label: Text(
+                    AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -80,7 +81,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                 ),
                 centerTitle: true,
                 title: Text(
-                  ArrayStrings.title,
+                  AppLocalizations.of(context)!.array_page_title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -155,8 +156,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               children: [
 
                                 // Array description, what is an array
-                                Text(
-                                  ArrayStrings.array_definition,
+                                Text(AppLocalizations.of(context)!.array_definition,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
@@ -181,8 +181,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                             // Static array code snippet
                                             Container(
                                               padding: const EdgeInsets.all(8),
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 10),
                                               decoration: BoxDecoration(
                                                 color: Theme
                                                     .of(context)
@@ -237,9 +235,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                       const SizedBox(height: 10),
 
                                       // Struct array explanation
-                                      Text(
-                                        ArrayStrings
-                                            .struct_array_animation_title,
+                                      Text(AppLocalizations.of(context)!.array_animation_title,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -254,9 +250,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
 
                                       SizedBox(height: 20),
                                       // Struct array explanation
-                                      Text(
-                                        ArrayStrings
-                                            .struct_array_allocating_explanation,
+                                      Text(AppLocalizations.of(context)!.array_struct_explanation_title,
                                         style: TextStyle(
                                           fontSize: 17,
                                           fontWeight: FontWeight.bold,
@@ -275,9 +269,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                           ),
                                           SizedBox(width: 8),
                                           Expanded(
-                                            child: Text(
-                                              ArrayStrings
-                                                  .struct_array_allocating_explanation1,
+                                            child: Text(AppLocalizations.of(context)!.array_struct_explanation_1,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.normal,
@@ -299,9 +291,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                           ),
                                           SizedBox(width: 8),
                                           Expanded(
-                                            child: Text(
-                                              ArrayStrings
-                                                  .struct_array_allocating_explanation2,
+                                            child: Text(AppLocalizations.of(context)!.array_struct_explanation_2,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.normal,
@@ -323,9 +313,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                           ),
                                           SizedBox(width: 8),
                                           Expanded(
-                                            child: Text(
-                                              ArrayStrings
-                                                  .struct_array_allocating_explanation3,
+                                            child: Text(AppLocalizations.of(context)!.array_struct_explanation_3,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.normal,
@@ -366,8 +354,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                 horizontal: 8.0,
                                 vertical: 8.0,
                               ),
-                              child: Text(
-                                ArrayStrings.question,
+                              child: Text(AppLocalizations.of(context)!.array_question,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -979,7 +966,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                 ),
               ),
             ),
-
 
           if (_isDropdownVisible)
             Positioned(

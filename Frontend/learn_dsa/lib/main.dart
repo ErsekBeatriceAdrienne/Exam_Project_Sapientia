@@ -1,10 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
+import 'frontend/language_supports/provider_local.dart';
 import 'frontend/pages/customClasses/custom_bottomnavigationbar.dart';
 import 'frontend/pages/customClasses/custom_sidemenu.dart';
 import 'frontend/pages/profile/login/login_page.dart';
@@ -20,7 +22,13 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      // Provider for languages across app
+      create: (_) => LocaleProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget
@@ -76,6 +84,9 @@ class _MyAppState extends State <MyApp>
   @override
   Widget build(BuildContext context)
   {
+    // language supports
+    final provider = Provider.of<LocaleProvider>(context);
+
     if (_isLoading)
     {
       return const MaterialApp(
@@ -89,6 +100,17 @@ class _MyAppState extends State <MyApp>
 
     return MaterialApp(
       title: 'Learn DSA',
+      locale: provider.locale,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale?.languageCode) {
+            return supportedLocale;
+          }
+        }
+        return supportedLocales.first; // fallback
+      },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
@@ -99,6 +121,7 @@ class _MyAppState extends State <MyApp>
           builders: {
             TargetPlatform.android: CupertinoPageTransitionsBuilder(),
             TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+            TargetPlatform.windows: FadeUpwardsPageTransitionsBuilder(),
           },
         ),
       ),
