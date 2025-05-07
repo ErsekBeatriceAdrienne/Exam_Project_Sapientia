@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../../strings/firestore/firestore_docs.dart';
 import '../profile/login/login_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -48,22 +48,33 @@ class _HomePageState extends State<HomePage>
     }
 
     return Scaffold(
+      appBar: AppBar(
+        //title: Text(AppLocalizations.of(context)!.app_title),
+      ),
+
       body: Center(
-        child: FutureBuilder <DocumentSnapshot> (
+        child: FutureBuilder<DocumentSnapshot>(
           future: FirebaseFirestore.instance.collection(FirestoreDocs.user_doc).doc(userId).get(),
-          builder: (context, snapshot)
-          {
-            if (snapshot.connectionState == ConnectionState.waiting) return const CircularProgressIndicator();
-            if (snapshot.hasError) return const Text('Error fetching user data.');
-            if (!snapshot.hasData || !snapshot.data!.exists)  return const Text('App Demo'); // return const Text('User does not exist.');
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+            if (snapshot.hasError) {
+              return Text(AppLocalizations.of(context)!.error_fetching_data);
+            }
+            if (!snapshot.hasData || !snapshot.data!.exists) {
+              return Text(AppLocalizations.of(context)!.user_not_found);
+            }
 
             var userData = snapshot.data!.data() as Map<String, dynamic>;
             String firstName = userData[FirestoreDocs.userFirstName];
             String lastName = userData[FirestoreDocs.userLastName];
-
             String fullName = '$firstName $lastName';
 
-            return Text('Welcome, $fullName!', style: const TextStyle(fontSize: 24));
+            return Text(
+              '${AppLocalizations.of(context)!.welcome}, $fullName!',
+              style: const TextStyle(fontSize: 24),
+            );
           },
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import '../../strings/exercises/list_ex.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -95,7 +96,86 @@ class _ListExercisesPageState extends State<ListExercisesPage> with SingleTicker
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Singly Linked List',
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2e7d32),
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              '\t\tA feladatok nehézségi sorrendben vannak rendezve. Válaszd ki, milyen szintű feladatokat szeretnél megoldani.',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey[800],
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Wrap(
+                              spacing: 12,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // TODO: Könnyű feladatok kezelése
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xFF81c784), // Világoszöld
+                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                  child: Text(AppLocalizations.of(context)!.difficulty_easy),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // TODO: Közepes feladatok kezelése
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xFFFFB300), // Meleg sárga
+                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                  child: const Text('Közepes'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // TODO: Nehéz feladatok kezelése
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Color(0xFFEF5350), // Pirosas árnyalat
+                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                  child: const Text('Nehéz'),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
 
                       const SizedBox(height: 40),
                     ],

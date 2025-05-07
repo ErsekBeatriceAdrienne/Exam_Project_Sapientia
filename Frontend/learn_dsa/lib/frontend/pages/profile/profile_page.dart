@@ -7,7 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import 'package:learn_dsa/frontend/pages/profile/settings/settings_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/cloudinary_service.dart';
+import '../../language_supports/language_picker.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import 'login/login_page.dart';
 
@@ -124,12 +126,12 @@ class _ProfilePageState extends State<ProfilePage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return const Center(child: Text('Error loading profile data.'));
+            return Center(child: Text(AppLocalizations.of(context)!.user_not_found));
           }
 
           final userData = snapshot.data;
           if (userData == null) {
-            return const Center(child: Text('User data not found.'));
+            return Center(child: Text(AppLocalizations.of(context)!.user_not_found));
           }
 
           _profileImageUrl = userData[FirestoreDocs.userProfilePic];
@@ -158,9 +160,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         title: Text(
                           userData[FirestoreDocs.userUsername],
                           style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFDFAEE8)
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFDFAEE8)
                           ),
                         ),
                       ),
@@ -211,6 +213,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
+
               // Profile Content
               SliverToBoxAdapter(
                 child: Padding(
@@ -244,8 +247,34 @@ class _ProfilePageState extends State<ProfilePage> {
                               onNotes: () {},
                             ),
                             const SizedBox(height: 10),
-                            // Donut chart
-                            /*DonutChart(),
+
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: IntrinsicWidth(
+                                child: LanguagePicker(),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 65),
+                    ],
+                  ),
+                ),
+              ),
+
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+// Donut chart
+/*DonutChart(),
 
                   const SizedBox(height: 20),
 
@@ -269,23 +298,3 @@ class _ProfilePageState extends State<ProfilePage> {
                       _buildCategoryButton(context, TestStrings.compiler_button, isDarkTheme),
                     ],
                   ),*/
-
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(height: 65),
-
-
-                    ],
-                  ),
-                ),
-              ),
-
-            ],
-          );
-        },
-      ),
-    );
-  }
-}
