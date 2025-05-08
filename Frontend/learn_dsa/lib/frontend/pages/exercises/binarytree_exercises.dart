@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../strings/exercises/bst_ex.dart';
 import '../test/tests_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BSTExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -62,8 +63,7 @@ class _BSTExercisesPageState extends State<BSTExercisesPage> with SingleTickerPr
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
+                  label: Text(AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -71,8 +71,7 @@ class _BSTExercisesPageState extends State<BSTExercisesPage> with SingleTickerPr
                   ),
                 ),
                 centerTitle: true,
-                title: Text(
-                  BSTExercises.title,
+                title: Text(AppLocalizations.of(context)!.bst_page_title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

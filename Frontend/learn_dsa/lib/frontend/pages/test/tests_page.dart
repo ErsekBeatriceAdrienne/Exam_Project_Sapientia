@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:learn_dsa/frontend/pages/test/testpages/hash_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/list_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/queue_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/stack_testpage.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pie_chart/pie_chart.dart' as pie;
 import '../../../backend/compiler/c_compiler.dart';
 import '../../pages/exercises/array_exercises.dart';
@@ -18,6 +20,7 @@ import '../../pages/exercises/list_exercises.dart';
 import '../../pages/exercises/queue_exercises.dart';
 import '../../pages/exercises/stack_exercises.dart';
 import '../../strings/test/test_strings.dart';
+import '../customClasses/custom_ring_chart.dart';
 import '../profile/test_results.dart';
 
 class TestsPage extends StatefulWidget {
@@ -39,7 +42,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    final isDarkTheme = Theme
+        .of(context)
+        .brightness == Brightness.dark;
 
     return Scaffold(
       body: CustomScrollView(
@@ -60,8 +65,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                       .withOpacity(0.2),
                   child: FlexibleSpaceBar(
                     titlePadding: EdgeInsets.only(left: 16, bottom: 16),
-                    title: Text(
-                      TestStrings.title,
+                    title: Text(AppLocalizations.of(context)!.test_page_title,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -79,10 +83,178 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  const SizedBox(height: 20),
+                  //const SizedBox(height: 10),
 
                   // Exercises
-                  Stack(
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Text(AppLocalizations.of(context)!
+                            .test_page_exercises_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+
+                        Text(AppLocalizations.of(context)!
+                            .test_page_exercises_text,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        // Array and Stack buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.array_button_text,
+                                Icons.data_array,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        ArrayExercisesPage()),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.stack_button_text,
+                                Icons.storage_rounded,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        StackExercisesPage()),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Queue and List buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.queue_button_text,
+                                Icons.queue,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        QueueExercisesPage()),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.list_button_text,
+                                Icons.list_alt,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        ListExercisesPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Binary Tree and Hash Table buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.bst_button_text,
+                                Icons.account_tree_outlined,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        BSTExercisesPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.hash_button_text,
+                                Icons.table_rows_outlined,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        HashTableExercisesPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        Text(AppLocalizations.of(context)!
+                            .test_page_achievements_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        Center(
+                          child: const RingChartWidget(),
+                        ),
+                      ],
+                    ),
+                  ),
+                  /*Stack(
                     clipBehavior: Clip.none,
                     children: [
                       Container(
@@ -104,8 +276,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                           children: [
                             const SizedBox(height: 10),
 
-                            Text(
-                              TestStrings.exercises_description,
+                            Text(AppLocalizations.of(context)!.test_page_exercises_text,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -118,7 +289,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                               children: [
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Array",
+                                    AppLocalizations.of(context)!.array_button_text,
                                     Icons.data_array,
                                         () {
                                       Navigator.push(
@@ -132,7 +303,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Stack",
+                                    AppLocalizations.of(context)!.stack_button_text,
                                     Icons.storage_rounded,
                                         () {
                                       Navigator.push(
@@ -151,7 +322,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                               children: [
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Queue",
+                                    AppLocalizations.of(context)!.queue_button_text,
                                     Icons.queue,
                                         () {
                                       Navigator.push(
@@ -165,7 +336,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _buildCardItem(
-                                    "List",
+                                    AppLocalizations.of(context)!.list_button_text,
                                     Icons.list_alt,
                                         () {
                                       Navigator.push(
@@ -184,7 +355,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                               children: [
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Tree",
+                                    AppLocalizations.of(context)!.bst_button_text,
                                     Icons.account_tree_outlined,
                                         () {
                                       Navigator.push(
@@ -198,7 +369,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Table",
+                                    AppLocalizations.of(context)!.hash_button_text,
                                     Icons.table_rows_outlined,
                                         () {
                                       Navigator.push(
@@ -214,8 +385,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
 
                             const SizedBox(height: 20),
 
-                            Text(
-                              TestStrings.chart_exercises_title,
+                            Text(AppLocalizations.of(context)!.test_page_achievements_title,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -251,8 +421,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             horizontal: 8.0,
                             vertical: 8.0,
                           ),
-                          child: Text(
-                            TestStrings.exercise_title,
+                          child: Text(AppLocalizations.of(context)!.test_page_exercises_title,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -262,12 +431,197 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
 
                   // Tests
-                  Stack(
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(AppLocalizations.of(context)!.test_page_test_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Text(
+                          AppLocalizations.of(context)!.test_page_test_text,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+                        // Array and Stack buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.array_button_text,
+                                Icons.data_array,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        ArrayTestPage()),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.stack_button_text,
+                                Icons.storage_rounded,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        StackTestPage()),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Queue and List buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.queue_button_text,
+                                Icons.queue,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        QueueTestPage()),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.list_button_text,
+                                Icons.list_alt,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(ListTestPage(
+                                        toggleTheme: widget.toggleTheme,
+                                        userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Binary Tree and Hash Table buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.bst_button_text,
+                                Icons.account_tree_outlined,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(BstTestPage(
+                                        toggleTheme: widget.toggleTheme,
+                                        userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.hash_button_text,
+                                Icons.table_rows_outlined,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        HashTableTestPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        Text(AppLocalizations.of(context)!
+                            .test_page_achievements_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+
+                        Center(
+                          child: const RingChartWidget(),
+                        ),
+                        /*pie.PieChart(
+                              dataMap: dataMap,
+                              animationDuration: Duration(milliseconds: 800),
+                              chartType: pie.ChartType.disc,
+                              colorList: colorList,
+                              chartRadius: MediaQuery.of(context).size.width / 2.2,
+                              chartValuesOptions: pie.ChartValuesOptions(
+                                showChartValuesInPercentage: false,
+                                showChartValues: false,
+                              ),
+                              legendOptions: pie.LegendOptions(
+                                showLegends: true,
+                                legendPosition: pie.LegendPosition.right,
+                                legendTextStyle: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),*/
+
+                      ],
+                    ),
+                  ),
+                  /*Stack(
                     clipBehavior: Clip.none,
                     children: [
                       Container(
@@ -290,7 +644,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             const SizedBox(height: 10),
 
                             Text(
-                              TestStrings.test_description,
+                              AppLocalizations.of(context)!.test_page_test_text,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -304,7 +658,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                               children: [
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Array",
+                                    AppLocalizations.of(context)!.array_button_text,
                                     Icons.data_array,
                                         () {
                                       Navigator.push(
@@ -318,7 +672,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Stack",
+                                    AppLocalizations.of(context)!.stack_button_text,
                                     Icons.storage_rounded,
                                         () {
                                       Navigator.push(
@@ -337,7 +691,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                               children: [
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Queue",
+                                    AppLocalizations.of(context)!.queue_button_text,
                                     Icons.queue,
                                         () {
                                       Navigator.push(
@@ -351,7 +705,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _buildCardItem(
-                                    "List",
+                                    AppLocalizations.of(context)!.list_button_text,
                                     Icons.list_alt,
                                         () {
                                       Navigator.push(
@@ -370,7 +724,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                               children: [
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Tree",
+                                    AppLocalizations.of(context)!.bst_button_text,
                                     Icons.account_tree_outlined,
                                         () {
                                       Navigator.push(
@@ -384,7 +738,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                 const SizedBox(width: 8),
                                 Expanded(
                                   child: _buildCardItem(
-                                    "Table",
+                                    AppLocalizations.of(context)!.hash_button_text,
                                     Icons.table_rows_outlined,
                                         () {
                                       Navigator.push(
@@ -400,8 +754,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
 
                             const SizedBox(height: 20),
 
-                            Text(
-                              TestStrings.chart_test_title,
+                            Text(AppLocalizations.of(context)!.test_page_achievements_title,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -457,8 +810,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             horizontal: 8.0,
                             vertical: 8.0,
                           ),
-                          child: Text(
-                            TestStrings.test_title,
+                          child: Text(AppLocalizations.of(context)!.test_page_test_title,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
@@ -468,7 +820,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                         ),
                       ),
                     ],
-                  ),
+                  ),*/
 
                   const SizedBox(height: 65),
                 ],
@@ -479,40 +831,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
       ),
     );
   }
-
- /*// Version 1
- Widget _buildCardItem(String title, IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.4),
-              blurRadius: 4,
-              offset: Offset(0, 0),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: Color(0xFF27391c)),
-            const SizedBox(width: 12),
-            Text(
-              title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF27391c)),
-            ),
-            Spacer(),
-            Icon(Icons.chevron_right, color: Color(0xFF27391c)),
-          ],
-        ),
-      ),
-    );
-  }*/
 
   Widget _buildCardItem(String title, IconData icon, VoidCallback onTap) {
     return GestureDetector(
@@ -540,18 +858,20 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
         ),
         child: Row(
           children: [
-            Icon(icon, color: Theme.of(context).scaffoldBackgroundColor),
-            const SizedBox(width: 12),
             Text(
               title,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: FontWeight.w600,
-                color: Theme.of(context).scaffoldBackgroundColor,
+                color: Theme
+                    .of(context)
+                    .scaffoldBackgroundColor,
               ),
             ),
             const Spacer(),
-            Icon(Icons.chevron_right, color: Theme.of(context).scaffoldBackgroundColor),
+            Icon(Icons.chevron_right, color: Theme
+                .of(context)
+                .scaffoldBackgroundColor),
           ],
         ),
       ),
@@ -635,114 +955,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget buildRingChart() {
-    final legendData = [
-      {"label": "Array", "color": Color(0xFF2e7d32), "percent": 0.6},
-      {"label": "Stack", "color": Color(0xFF00aead), "percent": 0.75},
-      {"label": "Queue", "color": Color(0xFF81c784), "percent": 0.9},
-      {"label": "List", "color": Color(0xFFdeb71d), "percent": 0.95},
-      {"label": "Tree", "color": Color(0xFFfc8811), "percent": 0.80},
-      {"label": "Table", "color": Color(0xFFf03869), "percent": 0.70},
-    ];
-
-    return Center(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Chart
-          CustomPaint(
-            size: const Size(160, 160),
-            painter: _RingChartPainter(),
-          ),
-
-          const SizedBox(width: 32),
-
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: legendData.map((item) {
-              return _LegendItem(
-                item["label"] as String,
-                item["color"] as Color,
-                (item["percent"] as double),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _RingChartPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    const spacing = 4.0;
-
-    final ringData = [
-      {"value": 0.6, "color": Color(0xFF2e7d32), "thickness": 12.0},
-      {"value": 0.75, "color": Color(0xFF00aead), "thickness": 12.0},
-      {"value": 0.9, "color": Color(0xFF81c784), "thickness": 12.0},
-      {"value": 0.95, "color": Color(0xFFdeb71d), "thickness": 12.0},
-      {"value": 0.80, "color": Color(0xFFfc8811), "thickness": 12.0},
-      {"value": 0.70, "color": Color(0xFFf03869), "thickness": 12.0},
-    ];
-
-    double currentRadius = 0;
-
-    for (final ring in ringData) {
-      final thickness = ring["thickness"] as double;
-
-      final bgPaint = Paint()
-        ..color = Colors.grey.withOpacity(0.1)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = thickness;
-
-      final fgPaint = Paint()
-        ..color = ring["color"] as Color
-        ..style = PaintingStyle.stroke
-        ..strokeCap = StrokeCap.round
-        ..strokeWidth = thickness;
-
-      final radius = currentRadius + thickness / 2;
-      final rect = Rect.fromCircle(center: center, radius: radius);
-
-      canvas.drawCircle(center, radius, bgPaint);
-      canvas.drawArc(rect, -1.57, 6.28 * (ring["value"] as double), false, fgPaint);
-
-      currentRadius += thickness + spacing;
-    }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-}
-
-class _LegendItem extends StatelessWidget {
-  final String label;
-  final Color color;
-  final double percent;
-
-  const _LegendItem(this.label, this.color, this.percent);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: Row(
-        children: [
-          Container(width: 12, height: 12, color: color),
-          const SizedBox(width: 8),
-          Text(
-            "$label ${(percent * 100).toStringAsFixed(0)}%",
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ],
       ),
     );
   }

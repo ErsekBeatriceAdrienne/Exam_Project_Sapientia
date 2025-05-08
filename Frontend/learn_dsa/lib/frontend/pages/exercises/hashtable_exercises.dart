@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../strings/exercises/hash_ex.dart';
 import '../test/tests_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HashTableExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -62,8 +63,8 @@ class _HashTableExercisesPageState extends State<HashTableExercisesPage> with Si
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
+                  label: Text(
+                    AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -71,8 +72,7 @@ class _HashTableExercisesPageState extends State<HashTableExercisesPage> with Si
                   ),
                 ),
                 centerTitle: true,
-                title: Text(
-                  HashTableExercises.title,
+                title: Text(AppLocalizations.of(context)!.hash_page_title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

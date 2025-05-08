@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../strings/test/testpages/list_teststrings.dart';
 
 class ListTestPage extends StatefulWidget {
@@ -63,8 +63,7 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
+                  label: Text(AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -72,8 +71,7 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                   ),
                 ),
                 centerTitle: true,
-                title: Text(
-                  ListTest.title,
+                title: Text(AppLocalizations.of(context)!.list_page_title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

@@ -8,6 +8,7 @@ import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_func
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import 'package:learn_dsa/frontend/pages/profile/settings/settings_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/cloudinary_service.dart';
 import '../../language_supports/language_picker.dart';
 import '../../strings/firestore/firestore_docs.dart';
@@ -154,15 +155,18 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
                     child: Container(
-                      color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2),
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.2),
                       child: FlexibleSpaceBar(
-                        titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
+                        titlePadding: EdgeInsets.only(left: 16, bottom: 16),
                         title: Text(
                           userData[FirestoreDocs.userUsername],
-                          style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFDFAEE8)
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF255f38), //Color(0xFFDFAEE8),
                           ),
                         ),
                       ),
@@ -171,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 actions: [
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.pending_outlined, color: Colors.black),
+                    icon: const Icon(Icons.pending_outlined, color: Color(0xFF255f38), size: 30),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
@@ -193,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         value: 'settings',
                         child: Row(
                           children: const [
-                            Icon(Icons.settings, color: Colors.pink),
+                            Icon(Icons.settings, color: Color(0xFF255f38)),
                             SizedBox(width: 8),
                             Text('Settings', style: TextStyle(fontSize: 16)),
                           ],
@@ -203,7 +207,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         value: 'logout',
                         child: Row(
                           children: const [
-                            Icon(Icons.logout, color: Colors.red),
+                            Icon(Icons.logout, color: Color(0xFF255f38)),
                             SizedBox(width: 8),
                             Text('Logout', style: TextStyle(fontSize: 16)),
                           ],

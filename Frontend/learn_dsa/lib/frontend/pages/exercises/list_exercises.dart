@@ -2,7 +2,8 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
-import '../../strings/exercises/list_ex.dart';
+import 'package:learn_dsa/frontend/strings/firestore/firestore_docs.dart';
+import '../../../backend/database/firestore_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListExercisesPage extends StatefulWidget {
@@ -18,18 +19,21 @@ class ListExercisesPage extends StatefulWidget {
 class _ListExercisesPageState extends State<ListExercisesPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
+  final FirestoreService _firestoreService = FirestoreService();
+  late Future<List<Map<String, dynamic>>> _dataFutureSinglyListExercises;
+  final Map<int, String> selectedAnswers = {};
 
   @override
-  void initState() {
+  void initState()
+  {
     super.initState();
+    // singly linked list exercise question, and responses
+    _dataFutureSinglyListExercises = _firestoreService.getAllSinglyLinkedListExercises(FirestoreDocs.singlyLinkedListExercisesEasy_doc);
   }
 
   @override
   Widget build(BuildContext context) {
-    //final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -63,17 +67,27 @@ class _ListExercisesPageState extends State<ListExercisesPage> with SingleTicker
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
-                    style: TextStyle(
+                  label: Text(
+                    AppLocalizations.of(context)!.back_button_text,
+                    style: const TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
                     ),
                   ),
                 ),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.refresh_rounded, color: Color(0xFF255f38)),
+                    onPressed: () {
+                      setState(() {
+                        _dataFutureSinglyListExercises = _firestoreService.getAllSinglyLinkedListExercises(FirestoreDocs.singlyLinkedListExercisesEasy_doc);
+                      });
+                    },
+                  ),
+                ],
                 centerTitle: true,
                 title: Text(
-                  ListExercises.title,
+                  AppLocalizations.of(context)!.list_page_title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -90,101 +104,183 @@ class _ListExercisesPageState extends State<ListExercisesPage> with SingleTicker
                 ),
               ),
 
+
               // Main Content
               SliverPadding(
                 padding: const EdgeInsets.all(16.0),
                 sliver: SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              blurRadius: 10,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
+                  delegate: SliverChildListDelegate([
+                    FutureBuilder<List<Map<String, dynamic>>>(
+                      future: _dataFutureSinglyListExercises,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+
+                        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
+                          return Center(child: Text(AppLocalizations.of(context)!.error_fetching_data));
+                        }
+
+                        final exercises = snapshot.data!;
+                        final locale = Localizations.localeOf(context).languageCode;
+
+                        return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Singly Linked List',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF2e7d32),
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              '\t\tA feladatok nehézségi sorrendben vannak rendezve. Válaszd ki, milyen szintű feladatokat szeretnél megoldani.',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                            const SizedBox(height: 16),
-                            Wrap(
-                              spacing: 12,
+                          children: exercises.asMap().entries.map((entry) {
+                            final index = entry.key;
+                            final exerciseData = entry.value;
+
+                            final questionList = exerciseData['question'] as List<dynamic>;
+                            final questionMap = questionList[0] as Map<String, dynamic>;
+                            final questionText = questionMap[locale] as String;
+
+                            final answers = questionList.sublist(1).map((answer) {
+                              final answerMap = answer as Map<String, dynamic>;
+                              final textMap = answerMap['text'] as Map<String, dynamic>;
+                              return {
+                                'id': answerMap['id'],
+                                'text': textMap[locale],
+                                'isCorrect': answerMap['isCorrect'] == 'true',
+                              };
+                            }).toList();
+
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Könnyű feladatok kezelése
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFF81c784), // Világoszöld
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
+                                // Question, and responses
+                                Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 8),
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(16),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.4),
+                                        spreadRadius: 1,
+                                        blurRadius: 6,
+                                        offset: const Offset(0, 4),
+                                      ),
+                                    ],
                                   ),
-                                  child: Text(AppLocalizations.of(context)!.difficulty_easy),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Közepes feladatok kezelése
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFFFFB300), // Meleg sárga
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        questionText,
+                                        style: const TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      ...answers.map((answer) {
+                                        final answerId = answer['id'] as String;
+                                        final answerText = answer['text'] as String;
+                                        final isSelected = selectedAnswers[index] == answerId;
+
+                                        return GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedAnswers[index] = answerId;
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.symmetric(vertical: 6),
+                                            padding: const EdgeInsets.all(12),
+                                            // Responses background
+                                            decoration: BoxDecoration(
+                                              color: isSelected
+                                                  ? const Color(0xFFc8e6c9)
+                                                  : Theme
+                                                  .of(context)
+                                                  .scaffoldBackgroundColor,
+                                              borderRadius: BorderRadius.circular(12),
+                                              // Responses borders
+                                              border: Border.all(
+                                                color: isSelected ? Color(0xFFc8e6c9) : Theme
+                                                    .of(context)
+                                                    .scaffoldBackgroundColor,
+                                                width: 2,
+                                              ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black.withOpacity(0.4),
+                                                  blurRadius: 4,
+                                                  offset: const Offset(0, 2),
+                                                ),
+                                              ],
+                                            ),
+                                            // Response text
+                                            child: Text(
+                                              '$answerId) $answerText',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500,
+                                                color: isSelected ? Colors.green[900] : Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).toList(),
+                                    ],
                                   ),
-                                  child: const Text('Közepes'),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Nehéz feladatok kezelése
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFFEF5350), // Pirosas árnyalat
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  child: const Text('Nehéz'),
                                 ),
                               ],
-                            ),
-                          ],
-                        ),
-                      ),
+                            );
+                          }).toList(),
+                        );
 
-                      const SizedBox(height: 40),
-                    ],
-                  ),
+                      },
+                    ),
+                  ]),
                 ),
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+
+
+
+  Widget _buildCardItem(String title, IconData icon, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFF255f38),
+              Color(0xFF27391c),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              blurRadius: 6,
+              offset: Offset(4, 4),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Icon(icon, color: Theme.of(context).scaffoldBackgroundColor),
+            const SizedBox(width: 12),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).scaffoldBackgroundColor,
+              ),
+            ),
+            const Spacer(),
+            Icon(Icons.chevron_right, color: Theme.of(context).scaffoldBackgroundColor),
+          ],
+        ),
       ),
     );
   }
