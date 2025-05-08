@@ -393,8 +393,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               children: [
                                 const SizedBox(height: 10),
                                 // YES
-                                Text(
-                                  '\tYes',
+                                Text(AppLocalizations.of(context)!.yes_text,
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -414,8 +413,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     ),
                                     SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.where_to_use1,
+                                      child: Text(AppLocalizations.of(context)!.array_when_to_use_1,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -437,8 +435,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     ),
                                     SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.where_to_use2,
+                                      child: Text(AppLocalizations.of(context)!.array_when_to_use_2,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -460,8 +457,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     ),
                                     SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.where_to_use3,
+                                      child: Text(AppLocalizations.of(context)!.array_when_to_use_3,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -483,8 +479,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     ),
                                     SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.where_to_use4,
+                                      child: Text(AppLocalizations.of(context)!.array_when_to_use_4,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -497,8 +492,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                 ),
                                 const SizedBox(height: 10),
                                 // NO
-                                Text(
-                                  '\tDon\'t',
+                                Text(AppLocalizations.of(context)!.dont_text,
                                   style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -519,8 +513,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     SizedBox(width: 8),
                                     // When to use it
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.when_not_to1,
+                                      child: Text(AppLocalizations.of(context)!.array_when_not_to_use_1,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -542,8 +535,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     SizedBox(width: 8),
                                     // When to use it
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.when_not_to2,
+                                      child: Text(AppLocalizations.of(context)!.array_when_not_to_use_2,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -565,8 +557,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     SizedBox(width: 8),
                                     // When to use it
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.when_not_to3,
+                                      child: Text(AppLocalizations.of(context)!.array_when_not_to_use_3,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -588,8 +579,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                     SizedBox(width: 8),
                                     // When to use it
                                     Expanded(
-                                      child: Text(
-                                        ArrayStrings.when_not_to4,
+                                      child: Text(AppLocalizations.of(context)!.array_when_not_to_use_4,
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.normal,
@@ -624,8 +614,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                 horizontal: 8.0,
                                 vertical: 8.0,
                               ),
-                              child: Text(
-                                ArrayStrings.in_life_example,
+                              child: Text(AppLocalizations.of(context)!.array_when_to_use_title,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -685,7 +674,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               },
                             ),
                           ),
-                          // Pseudocode box
                           Positioned(
                             top: -23,
                             left: 16,
@@ -703,8 +691,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               ),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 8.0),
-                              child: Text(
-                                ArrayStrings.header_file,
+                              child: Text(AppLocalizations.of(context)!.array_header_file_title,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,
@@ -764,7 +751,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               },
                             ),
                           ),
-                          // Pseudocode box
                           Positioned(
                             top: -23,
                             left: 16,
@@ -782,8 +768,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               ),
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8.0, vertical: 8.0),
-                              child: Text(
-                                ArrayStrings.source_file,
+                              child: Text(AppLocalizations.of(context)!.array_source_file_title,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 16,

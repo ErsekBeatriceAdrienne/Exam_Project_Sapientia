@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
@@ -63,7 +62,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
           );
         } else if (!snapshot.hasData) {
           return Scaffold(
-            body: Center(child: Text('No data available')),
+            body: Center(child: Text(AppLocalizations.of(context)!.error_fetching_data)),
           );
         }
 

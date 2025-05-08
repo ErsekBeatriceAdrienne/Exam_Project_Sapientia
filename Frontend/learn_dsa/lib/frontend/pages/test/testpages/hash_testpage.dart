@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import '../../../strings/test/testpages/hash_teststrings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HashTableTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -62,8 +63,7 @@ class _HashTableTestPageState extends State<HashTableTestPage> with SingleTicker
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
+                  label: Text(AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -71,8 +71,7 @@ class _HashTableTestPageState extends State<HashTableTestPage> with SingleTicker
                   ),
                 ),
                 centerTitle: true,
-                title: Text(
-                  HashTest.title,
+                title: Text(AppLocalizations.of(context)!.hash_page_title,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
