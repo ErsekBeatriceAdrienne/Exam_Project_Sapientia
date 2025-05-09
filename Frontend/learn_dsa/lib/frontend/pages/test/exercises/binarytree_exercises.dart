@@ -2,22 +2,23 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
+import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../../helpers/essentials.dart';
-import '../exercises/exercises_page/binarytree_exercises_questions.dart';
+import '../testpages/bst/bst_tests_questions.dart';
+import '../tests_page.dart';
+import 'exercises_page/binarytree_exercises_questions.dart';
 
-class BSTTestPage extends StatefulWidget {
+class BSTExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const BSTTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const BSTExercisesPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<BSTTestPage> createState() => _BSTTestPageState();
+  State<BSTExercisesPage> createState() => _BSTExercisesPageState();
 }
 
-class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStateMixin {
+class _BSTExercisesPageState extends State<BSTExercisesPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool _isDropdownVisible = false;
@@ -65,7 +66,8 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: Text(AppLocalizations.of(context)!.back_button_text,
+                  label: const Text(
+                    'Back',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,
@@ -73,9 +75,10 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                   ),
                 ),
                 centerTitle: true,
-                title: Text(AppLocalizations.of(context)!.bt_page_title,
+                title: Text(
+                  AppLocalizations.of(context)!.bt_page_title,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF255f38),
                   ),
@@ -98,41 +101,41 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                     [
                       // bt exercises title and description
                       Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              blurRadius: 10,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.4),
+                        blurRadius: 10,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
 
-                        // buttons for starting
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(AppLocalizations.of(context)!.bt_bst_page_exercises_title,
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              AppLocalizations.of(context)!.bt_exercises_description,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
+                  // buttons for starting
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppLocalizations.of(context)!.bt_bst_page_exercises_title,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        AppLocalizations.of(context)!.bt_exercises_description,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      ],
+                  ),
+                  ),
                       const SizedBox(height: 20),
 
                       Column(
@@ -141,7 +144,7 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(AppLocalizations.of(context)!.difficulty_easy,
+                              Text(AppLocalizations.of(context)!.exercises_title,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -150,53 +153,7 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                AppLocalizations.of(context)!.difficulty_easy_description,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(AppLocalizations.of(context)!.difficulty_medium,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF255f38),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context)!.bt_exercises_description,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(AppLocalizations.of(context)!.difficulty_hard,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF255f38),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context)!.bt_exercises_description,
+                                AppLocalizations.of(context)!.bst_page_exercises_description,
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: Colors.grey,
@@ -213,7 +170,6 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                           ),
                         ],
                       ),
-
 
                       const SizedBox(height: 40),
                     ],
@@ -251,7 +207,7 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
           Navigator.push(
             context,
             Essentials().createSlideRoute(
-              BSTTestPage(
+              BSTExercisesQuestionsPage(
                 toggleTheme: widget.toggleTheme,
                 userId: widget.userId,
               ),
