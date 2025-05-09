@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../../../main.dart';
+import '../../language_supports/language_picker.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import '../profile/login/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -15,20 +17,17 @@ class HomePage extends StatefulWidget
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-{
+class _HomePageState extends State<HomePage> {
   late String userId;
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
     userId = widget.userId ?? '';
     if (userId.isEmpty) _navigateToLogin();
   }
 
-  void _navigateToLogin()
-  {
+  void _navigateToLogin() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -38,10 +37,8 @@ class _HomePageState extends State<HomePage>
   }
 
   @override
-  Widget build(BuildContext context)
-  {
-    if (userId.isEmpty)
-    {
+  Widget build(BuildContext context) {
+    if (userId.isEmpty) {
       return Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
@@ -49,12 +46,20 @@ class _HomePageState extends State<HomePage>
 
     return Scaffold(
       appBar: AppBar(
-        //title: Text(AppLocalizations.of(context)!.app_title),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            // Language picker right hand corner
+            child: LanguagePicker(),
+          ),
+        ],
       ),
-
       body: Center(
         child: FutureBuilder<DocumentSnapshot>(
-          future: FirebaseFirestore.instance.collection(FirestoreDocs.user_doc).doc(userId).get(),
+          future: FirebaseFirestore.instance
+              .collection(FirestoreDocs.user_doc)
+              .doc(userId)
+              .get(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();

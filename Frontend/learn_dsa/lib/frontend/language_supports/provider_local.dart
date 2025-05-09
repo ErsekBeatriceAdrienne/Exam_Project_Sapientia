@@ -41,8 +41,8 @@ class LocaleProvider extends ChangeNotifier {
 class L10n {
   static const all = [
     Locale('en'),
-    Locale('hu'),
-    Locale('ro'),
+    Locale('hu')
+    //Locale('ro'),
   ];
 
   static String getLanguageName(String code) {
@@ -51,7 +51,7 @@ class L10n {
         return 'English';
       case 'hu':
         return 'Magyar';
-      case 'ro':
+      //case 'ro':
         return 'Română';
       default:
         return code;

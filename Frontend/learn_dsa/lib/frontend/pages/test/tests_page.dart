@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,21 +8,22 @@ import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/array_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/bst_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/hash_testpage.dart';
-import 'package:learn_dsa/frontend/pages/test/testpages/list_testpage.dart';
+import 'package:learn_dsa/frontend/pages/test/testpages/list_tests_preview.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/queue_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/stack_testpage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:pie_chart/pie_chart.dart' as pie;
 import '../../../backend/compiler/c_compiler.dart';
-import '../../pages/exercises/array_exercises.dart';
-import '../../pages/exercises/binarytree_exercises.dart';
-import '../../pages/exercises/hashtable_exercises.dart';
-import '../../pages/exercises/list_exercises.dart';
-import '../../pages/exercises/queue_exercises.dart';
-import '../../pages/exercises/stack_exercises.dart';
+import '../../../backend/database/firestore_service.dart';
 import '../../strings/test/test_strings.dart';
 import '../customClasses/custom_ring_chart.dart';
 import '../profile/test_results.dart';
+import 'exercises/array_exercises.dart';
+import 'exercises/binarytree_exercises.dart';
+import 'exercises/hashtable_exercises.dart';
+import 'exercises/list_exercises.dart';
+import 'exercises/queue_exercises.dart';
+import 'exercises/stack_exercises.dart';
 
 class TestsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -131,7 +133,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.array_button_text,
-                                Icons.data_array,
                                     () {
                                   Navigator.push(
                                     context,
@@ -146,7 +147,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.stack_button_text,
-                                Icons.storage_rounded,
                                     () {
                                   Navigator.push(
                                     context,
@@ -166,7 +166,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.queue_button_text,
-                                Icons.queue,
                                     () {
                                   Navigator.push(
                                     context,
@@ -181,7 +180,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.list_button_text,
-                                Icons.list_alt,
                                     () {
                                   Navigator.push(
                                     context,
@@ -203,7 +201,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.bst_button_text,
-                                Icons.account_tree_outlined,
                                     () {
                                   Navigator.push(
                                     context,
@@ -220,7 +217,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.hash_button_text,
-                                Icons.table_rows_outlined,
                                     () {
                                   Navigator.push(
                                     context,
@@ -249,7 +245,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                         const SizedBox(height: 20),
 
                         Center(
-                          child: const RingChartWidget(),
+                          child: RingChartBTExercisesWidget(userId: widget.userId),
                         ),
                       ],
                     ),
@@ -481,7 +477,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.array_button_text,
-                                Icons.data_array,
                                     () {
                                   Navigator.push(
                                     context,
@@ -496,7 +491,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.stack_button_text,
-                                Icons.storage_rounded,
                                     () {
                                   Navigator.push(
                                     context,
@@ -516,7 +510,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.queue_button_text,
-                                Icons.queue,
                                     () {
                                   Navigator.push(
                                     context,
@@ -531,7 +524,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.list_button_text,
-                                Icons.list_alt,
                                     () {
                                   Navigator.push(
                                     context,
@@ -552,11 +544,10 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.bst_button_text,
-                                Icons.account_tree_outlined,
                                     () {
                                   Navigator.push(
                                     context,
-                                    Essentials().createSlideRoute(BstTestPage(
+                                    Essentials().createSlideRoute(BSTTestPage(
                                         toggleTheme: widget.toggleTheme,
                                         userId: widget.userId)),
                                   );
@@ -568,7 +559,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             Expanded(
                               child: _buildCardItem(
                                 AppLocalizations.of(context)!.hash_button_text,
-                                Icons.table_rows_outlined,
                                     () {
                                   Navigator.push(
                                     context,
@@ -597,7 +587,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                         const SizedBox(height: 20),
 
                         Center(
-                          child: const RingChartWidget(),
+                          child: RingChartBSTExercisesWidget( userId: widget.userId),
                         ),
                         /*pie.PieChart(
                               dataMap: dataMap,
@@ -832,7 +822,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
     );
   }
 
-  Widget _buildCardItem(String title, IconData icon, VoidCallback onTap) {
+  Widget _buildCardItem(String title, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -873,87 +863,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                 .of(context)
                 .scaffoldBackgroundColor),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
-    final gradient = LinearGradient(
-      colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    );
-
-    // Define a map for title-to-page navigation
-    final pageMap = {
-      "Code Compiler": () => CodeCompilerPage(),
-    };
-
-    return ElevatedButton(
-      onPressed: () {
-        HapticFeedback.heavyImpact();
-        final pageBuilder = pageMap[title];
-
-        if (pageBuilder != null) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => pageBuilder()),
-          );
-        } else {
-          print("Page not found for title: $title");
-        }
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.transparent,
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        elevation: 0,
-      ),
-      child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: gradient,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 4,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                top: 8,
-                right: 8,
-                child: Icon(
-                  Icons.arrow_circle_right_outlined,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
