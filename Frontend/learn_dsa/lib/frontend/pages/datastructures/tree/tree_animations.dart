@@ -133,7 +133,7 @@ class _BTAnimationState extends State<BTAnimation> {
           child: ElevatedButton(
             onPressed: _toggleAnimation,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple,
+              backgroundColor: Color(0xFF006a42),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -168,7 +168,7 @@ class BTPainter extends CustomPainter {
   void _drawNode(Canvas canvas, BTNode? node, double x, double y, double offset, double radius) {
     if (node == null) return;
 
-    Paint nodePaint = Paint()..color = Color(0xFFDFAEE8);
+    Paint nodePaint = Paint()..color = Color(0xFF006a42);
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
@@ -330,7 +330,7 @@ class _BSTAnimationState extends State<BSTAnimation> {
           child: ElevatedButton(
             onPressed: _toggleAnimation,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.purple,
+              backgroundColor: Color(0xFF006a42),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -365,7 +365,7 @@ class BSTPainter extends CustomPainter {
   void _drawNode(Canvas canvas, BSTNode? node, double x, double y, double offset, double radius) {
     if (node == null) return;
 
-    Paint nodePaint = Paint()..color = Color(0xFFDFAEE8);
+    Paint nodePaint = Paint()..color = Color(0xFF006a42);
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;

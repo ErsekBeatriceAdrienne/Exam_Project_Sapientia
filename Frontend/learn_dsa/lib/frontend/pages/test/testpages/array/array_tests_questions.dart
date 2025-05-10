@@ -1,24 +1,25 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import '../../../../../backend/database/firestore_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../helpers/essentials.dart';
 import '../../../../strings/firestore/firestore_docs.dart';
-import '../list_tests_preview.dart';
-import 'list_tests_results.dart';
+import '../bst_testpage.dart';
+import 'array_tests_results.dart';
 
-class ListTestQuestionsPage extends StatefulWidget {
+class ArrayTestsQuestionsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ListTestQuestionsPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ArrayTestsQuestionsPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<ListTestQuestionsPage> createState() => _ListTestQuestionsPageState();
+  State<ArrayTestsQuestionsPage> createState() => _ArrayTestsQuestionsPageState();
 }
 
-class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with SingleTickerProviderStateMixin {
+class _ArrayTestsQuestionsPageState extends State<ArrayTestsQuestionsPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool showArrayInfo = false;
@@ -27,17 +28,16 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
   Map<int, String> selectedAnswers = {};
   Set<int> shownHints = {};
 
-
   @override
   void initState()
   {
     super.initState();
     // question, and responses
-    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.list_tests_doc);
+    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.array_tests_doc);
   }
 
   // Return the id of the correct id
-  String isAnswerCorrect(int index, String selectedAnswer, List<Map<String, dynamic>> exerciseData) {
+  String? isAnswerCorrect(int index, String selectedAnswer, List<Map<String, dynamic>> exerciseData) {
     final questionList = exerciseData[index]['question'] as List<dynamic>;
     final answerItems = questionList.sublist(1);
 
@@ -46,7 +46,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
       orElse: () => null,
     );
 
-    return correctAnswer['id'];
+    return correctAnswer?['id'];
   }
 
   @override
@@ -72,7 +72,8 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                   onPressed: () {
                     Navigator.pop(
                       context,
-                      Essentials().createSlideRoute(ListTestPage(
+                      CupertinoPageRoute(
+                        builder: (_) => BSTTestPage(
                           toggleTheme: widget.toggleTheme,
                           userId: widget.userId,
                         ),
@@ -96,7 +97,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                       setState(() {
                         selectedAnswers = {};
                         _dataFuture = _firestoreService.getAllExercisesFromDocument(
-                          FirestoreDocs.list_tests_doc,
+                          FirestoreDocs.array_tests_doc,
                         );
                       });
                     },
@@ -107,7 +108,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.list_page_title,
+                      AppLocalizations.of(context)!.array_page_title,
                       style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -197,7 +198,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                                 Navigator.pushReplacement(
                                   context,
                                   Essentials().createSlideRoute(
-                                    ListTestsResultsPage(
+                                    ArrayTestEasyResultsPage(
                                       toggleTheme: widget.toggleTheme,
                                       userId: widget.userId,
                                       selectedAnswers: selectedAnswers,
@@ -214,7 +215,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                           ),
                         ),
                         const SizedBox(height: 24),
-                      ],
+                    ],
                     );
                   },
                 ),
@@ -232,7 +233,8 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
       Set<int> shownHints,
       List<Map<String, dynamic>> exercises,
       String locale,
-      ) {
+      )
+  {
     final parsedExercises = FirestoreService().getQuestionsAndAnswers(exercises, locale);
 
     return parsedExercises.map((exercise) {
@@ -351,4 +353,5 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
       );
     }).toList();
   }
+
 }

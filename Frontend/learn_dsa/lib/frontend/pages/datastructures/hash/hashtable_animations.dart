@@ -78,7 +78,7 @@ class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> w
               right: 10,
               child: IconButton(
                 onPressed: _isAnimating ? null : _startAnimation,
-                icon: Icon(Icons.play_arrow_rounded, color: Colors.purple),
+                icon: Icon(Icons.play_arrow_rounded, color: Color(0xFF006a42)),
                 tooltip: "Play animation",
               ),
             ),
@@ -102,7 +102,7 @@ class ChainedHashTablePainter extends CustomPainter {
   void paint(Canvas canvas, Size size)
   {
     final Paint fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint borderPaint1 = Paint()
@@ -191,7 +191,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(10),
               bottomLeft: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -199,7 +199,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topRight: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
         } else if (isFirst && !isLast) {
           // Apply rounded corners only for the first cell (left side)
@@ -209,7 +209,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(10),
               bottomLeft: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -217,7 +217,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topRight: Radius.circular(0),
               bottomRight: Radius.circular(0),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
         } else if (isLast && !isFirst) {
           // Apply rounded corners only for the last cell (right side)
@@ -227,7 +227,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(0),
               bottomLeft: Radius.circular(0),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -235,17 +235,17 @@ class ChainedHashTablePainter extends CustomPainter {
               topRight: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
         } else {
           // Regular cell without rounded corners for middle cells
           canvas.drawRect(
             Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
           canvas.drawRect(
             Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF006a42),
           );
         }
 
@@ -613,7 +613,7 @@ class _ChainedDynamicHashTableAnimationState extends State<ChainedDynamicHashTab
               right: 10,
               child: IconButton(
                 onPressed: _isAnimating ? null : _startAnimation,
-                icon: Icon(Icons.play_arrow_rounded, color: Colors.purple),
+                icon: Icon(Icons.play_arrow_rounded, color: Color(0xFF255f38)),
                 tooltip: 'Play',
               ),
             ),
@@ -645,7 +645,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     final Paint fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()
@@ -712,7 +712,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
         );
 
         final fillChainPaint = Paint()
-          ..color = Colors.purple.shade200
+          ..color = Color(0xFF006a42)
           ..style = PaintingStyle.fill;
 
         canvas.drawRRect(chainRRect, fillChainPaint);

@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../helpers/essentials.dart';
+import '../../../strings/firestore/firestore_docs.dart';
+import '../../customClasses/custom_ring_chart.dart';
+import '../../datastructures/list/list_animations.dart';
 import 'list/list_tests.dart';
 
 class ListTestPage extends StatefulWidget {
@@ -130,45 +133,68 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                                 color: Colors.grey,
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 24),
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.start_exercise_button_text,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 20),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(AppLocalizations.of(context)!.tests_title,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF255f38),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(AppLocalizations.of(context)!
+                                    .quick_recap_text,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF255f38),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context)!.list_tests_page_header_description_text,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
+                                const SizedBox(height: 8),
+
+                                // All the functions
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .quick_recap_description,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
+
+                                Center(
+                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.list_tests_doc),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-
-
                       const SizedBox(height: 40),
                     ],
                   ),

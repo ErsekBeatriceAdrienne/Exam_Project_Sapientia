@@ -34,7 +34,7 @@ class _BSTExercisesQuestionsPageState extends State<BSTExercisesQuestionsPage> w
   {
     super.initState();
     // bst exercise question, and responses
-    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.bt_exercises_easy_doc);
+    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.bt_tests_doc);
   }
 
   // Return the id of the correct id
@@ -99,7 +99,7 @@ class _BSTExercisesQuestionsPageState extends State<BSTExercisesQuestionsPage> w
                       setState(() {
                         selectedAnswers = {};
                         _dataFuture = _firestoreService.getAllExercisesFromDocument(
-                          FirestoreDocs.bt_exercises_easy_doc,
+                          FirestoreDocs.bt_tests_doc,
                         );
                       });
                     },
@@ -300,7 +300,7 @@ class _BSTExercisesQuestionsPageState extends State<BSTExercisesQuestionsPage> w
 
                             // Checking if all questions were answered
                             Center(
-                              child: ElevatedButton.icon(
+                              child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color(0xFF255f38),
                                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -330,7 +330,7 @@ class _BSTExercisesQuestionsPageState extends State<BSTExercisesQuestionsPage> w
                                       userId: widget.userId!,
                                       selectedAnswers: selectedAnswers,
                                       collectionName: FirestoreDocs.user_answers,
-                                      questionCollectionName: FirestoreDocs.bt_exercises_easy_doc,
+                                      questionCollectionName: FirestoreDocs.bt_tests_doc,
                                       getCorrectAnswerId: (int questionIndex) {
                                         return isAnswerCorrect(
                                           questionIndex,
@@ -348,8 +348,7 @@ class _BSTExercisesQuestionsPageState extends State<BSTExercisesQuestionsPage> w
                                     );
                                   }
                                 },
-                                icon: const Icon(Icons.check_circle_outline_rounded, color: Colors.white),
-                                label: Text(
+                                child: Text(
                                   AppLocalizations.of(context)!.check_answers_button_text,
                                   style: const TextStyle(color: Colors.white, fontSize: 16),
                                 ),

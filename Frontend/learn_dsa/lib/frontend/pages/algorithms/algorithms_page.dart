@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/searching/searching_algorithms_page.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/sorting/sorting_algorithms_page.dart';
 import '../../../backend/database/firestore_service.dart';
+import '../../language_supports/language_picker.dart';
 import '../../strings/firestore/firestore_docs.dart';
 
 class AlgorithmsPage extends StatefulWidget  {
@@ -37,10 +38,15 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Algorithms Page',
-        style: TextStyle(fontSize: 24),
+    return Scaffold(
+      appBar: AppBar(
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8.0),
+            // Language picker right hand corner
+            child: LanguagePicker(),
+          ),
+        ],
       ),
     );
   }

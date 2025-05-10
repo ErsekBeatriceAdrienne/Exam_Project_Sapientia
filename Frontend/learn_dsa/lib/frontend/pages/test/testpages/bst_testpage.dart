@@ -5,7 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../helpers/essentials.dart';
+import '../../../strings/firestore/firestore_docs.dart';
+import '../../customClasses/custom_ring_chart.dart';
+import '../../datastructures/tree/tree_animations.dart';
 import '../exercises/exercises_page/binarytree_exercises_questions.dart';
+import 'bst/bst_tests_questions.dart';
 
 class BSTTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -115,7 +119,7 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(AppLocalizations.of(context)!.bt_bst_page_exercises_title,
+                            Text(AppLocalizations.of(context)!.bt_bst_page_tests_title,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
@@ -130,91 +134,68 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                                 color: Colors.grey,
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 24),
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.start_exercise_button_text,
+                              ),
+                            ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 20),
 
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(AppLocalizations.of(context)!.difficulty_easy,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF255f38),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(AppLocalizations.of(context)!
+                                    .quick_recap_text,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF255f38),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context)!.difficulty_easy_description,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
+                                const SizedBox(height: 8),
+
+                                // All the functions
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .quick_recap_description,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
+
+                                Center(
+                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.bt_tests_doc),
                                 ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(AppLocalizations.of(context)!.difficulty_medium,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF255f38),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context)!.bt_exercises_description,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Text(AppLocalizations.of(context)!.difficulty_hard,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF255f38),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                AppLocalizations.of(context)!.bt_exercises_description,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-
-
                       const SizedBox(height: 40),
                     ],
                   ),
@@ -251,7 +232,7 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
           Navigator.push(
             context,
             Essentials().createSlideRoute(
-              BSTTestPage(
+              BstTestsQuestionsPage(
                 toggleTheme: widget.toggleTheme,
                 userId: widget.userId,
               ),

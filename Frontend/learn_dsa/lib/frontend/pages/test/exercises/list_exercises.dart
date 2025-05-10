@@ -1,8 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../helpers/essentials.dart';
+import '../../datastructures/list/list_animations.dart';
 
 class ListExercisesPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -94,6 +98,7 @@ class _ListExercisesPageState extends State<ListExercisesPage> with SingleTicker
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
+                      // bt exercises title and description
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -107,72 +112,96 @@ class _ListExercisesPageState extends State<ListExercisesPage> with SingleTicker
                             ),
                           ],
                         ),
+
+                        // buttons for starting
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(AppLocalizations.of(context)!.singly_linked_list_title,
+                            Text(AppLocalizations.of(context)!.list_exercises_page_header_text,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF2e7d32),
+                                color: Colors.black,
                               ),
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              '\t\tA feladatok nehézségi sorrendben vannak rendezve. Válaszd ki, milyen szintű feladatokat szeretnél megoldani.',
+                              AppLocalizations.of(context)!.list_tests_page_header_description_text,
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.grey[800],
+                                color: Colors.grey,
                               ),
                             ),
-                            const SizedBox(height: 16),
-                            Wrap(
-                              spacing: 12,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Könnyű feladatok kezelése
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFF81c784), // Világoszöld
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  child: Text(AppLocalizations.of(context)!.difficulty_easy),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Közepes feladatok kezelése
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFFFFB300), // Meleg sárga
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  child: const Text('Közepes'),
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    // TODO: Nehéz feladatok kezelése
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xFFEF5350), // Pirosas árnyalat
-                                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                  child: const Text('Nehéz'),
-                                ),
-                              ],
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 24),
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.start_exercise_button_text,
+                              ),
                             ),
                           ],
                         ),
                       ),
+                      const SizedBox(height: 20),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              // Singly linked list animation
+                              Text(AppLocalizations.of(context)!.singly_linked_list_title,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF255f38),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.singly_linked_list_animation_description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              // Animation
+                              Center(
+                                child: LinkedListAnimation(),
+                              ),
+
+                              const SizedBox(height: 20),
+
+                              // Doubly linked list animation
+                              Text(AppLocalizations.of(context)!.doubly_linked_list_title,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF255f38),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.doubly_linked_list_animation_description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              // Animation
+                              Center(
+                                child: DoublyLinkedListAnimation(),
+                              ),
+
+                            ],
+                          ),
+                        ],
+                      ),
+
 
                       const SizedBox(height: 40),
                     ],
@@ -182,6 +211,65 @@ class _ListExercisesPageState extends State<ListExercisesPage> with SingleTicker
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCardItem(String title) {
+    return Container(
+      width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+      height: 40,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF255f38), Color(0xFF27391c)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 4,
+            offset: Offset(4, 4),
+          ),
+        ],
+      ),
+      child: RawMaterialButton(
+        onPressed: () {
+          /*Navigator.push(
+            context,
+            Essentials().createSlideRoute(
+              ListExercisesQuestionsPage(
+                toggleTheme: widget.toggleTheme,
+                userId: widget.userId,
+              ),
+            ),
+          );*/
+          HapticFeedback.mediumImpact();
+        },
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.play_arrow_rounded,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              size: 22,
+            ),
+            Text(
+              AppLocalizations.of(context)!.start_exercise_button_text,
+              style: TextStyle(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -2,22 +2,22 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../../backend/database/firestore_service.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../strings/firestore/firestore_docs.dart';
-import '../binarytree_exercises.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../bst_testpage.dart';
 
-class BSTExercisesEasyResultsPage extends StatefulWidget {
+class ArrayTestEasyResultsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
   final Map<int, String>? selectedAnswers;
 
-  const BSTExercisesEasyResultsPage({Key? key, required this.toggleTheme, required this.userId, required this.selectedAnswers}) : super(key: key);
+  const ArrayTestEasyResultsPage({Key? key, required this.toggleTheme, required this.userId, required this.selectedAnswers}) : super(key: key);
 
   @override
-  State<BSTExercisesEasyResultsPage> createState() => _BSTExercisesEasyResultsPageState();
+  State<ArrayTestEasyResultsPage> createState() => _ArrayTestEasyResultsPageState();
 }
 
-class _BSTExercisesEasyResultsPageState extends State<BSTExercisesEasyResultsPage> with SingleTickerProviderStateMixin {
+class _ArrayTestEasyResultsPageState extends State<ArrayTestEasyResultsPage> with SingleTickerProviderStateMixin {
   final FirestoreService _firestoreService = FirestoreService();
   late Future<List<Map<String, dynamic>>> _dataFuture;
   late Map<int, String> selectedAnswers;
@@ -25,7 +25,7 @@ class _BSTExercisesEasyResultsPageState extends State<BSTExercisesEasyResultsPag
   @override
   void initState() {
     super.initState();
-    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.bt_tests_doc);
+    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.array_tests_doc);
   }
 
   bool isAnswerCorrect(int index, String selectedAnswer, List<Map<String, dynamic>> exerciseData) {
@@ -64,7 +64,7 @@ class _BSTExercisesEasyResultsPageState extends State<BSTExercisesEasyResultsPag
                       context,
                       CupertinoPageRoute(
                         builder: (_) =>
-                            BSTExercisesPage(
+                            BSTTestPage(
                               toggleTheme: widget.toggleTheme,
                               userId: widget.userId,
                             ),

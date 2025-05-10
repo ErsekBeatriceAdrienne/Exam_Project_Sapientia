@@ -69,7 +69,7 @@ class _LinkedListAnimationState extends State<LinkedListAnimation> {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF006a42),
         borderRadius: BorderRadius.circular(size * 0.2),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
@@ -202,7 +202,7 @@ class _DoublyLinkedListAnimationState extends State<DoublyLinkedListAnimation> {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF006a42),
         borderRadius: BorderRadius.circular(size * 0.2),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
