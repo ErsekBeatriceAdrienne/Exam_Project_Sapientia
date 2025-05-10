@@ -2,9 +2,9 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learn_dsa/frontend/strings/firestore/firestore_docs.dart';
 import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
-import '../home/home_page.dart';
 import '../profile/profile_page.dart';
 import '../test/tests_page.dart';
 
@@ -35,11 +35,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   {
     super.initState();
     _pages.addAll([
-      HomePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      ProfilePage(toggleTheme: widget.toggleTheme),
+      ProfilePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
     ]);
     _preloadUserName();
   }
@@ -49,20 +48,20 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     try
     {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
-          .collection('users')
+          .collection(FirestoreDocs.user_doc)
           .doc(widget.userId)
           .get(const GetOptions(source: Source.cache));
 
       if (!snapshot.exists)
       {
         snapshot = await FirebaseFirestore.instance
-            .collection('users')
+            .collection(FirestoreDocs.user_doc)
             .doc(widget.userId)
             .get();
       }
 
       var userData = snapshot.data() as Map<String, dynamic>? ?? {};
-      String username = userData['username'] ?? 'Unknown user';
+      String username = userData[FirestoreDocs.userUsername] ?? 'Unknown user';
 
       setState(() {
         _username = username;
@@ -148,10 +147,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         _buildNavItem(Icons.home_outlined, 0),
-                        _buildNavItem(Icons.storage_rounded, 1),
-                        _buildNavItem(Icons.code_rounded, 2),
-                        _buildNavItem(Icons.terminal_rounded, 3),
-                        _buildNavItem(Icons.perm_identity_rounded, 4),
+                        _buildNavItem(Icons.code_rounded, 1),
+                        _buildNavItem(Icons.terminal_rounded, 2),
+                        _buildNavItem(Icons.perm_identity_rounded, 3),
                       ],
                     ),
                   ),

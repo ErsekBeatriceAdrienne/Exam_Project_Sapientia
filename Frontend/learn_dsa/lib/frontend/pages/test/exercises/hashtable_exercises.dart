@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../datastructures/hash/hashtable_animations.dart';
 import '../tests_page.dart';
 
 class HashTableExercisesPage extends StatefulWidget {
@@ -95,7 +97,103 @@ class _HashTableExercisesPageState extends State<HashTableExercisesPage> with Si
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
+                      // bt exercises title and description
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              blurRadius: 10,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+
+                        // buttons for starting
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(AppLocalizations.of(context)!.hashtable_page_exercises_title,
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              AppLocalizations.of(context)!.bt_exercises_description,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 24),
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.start_exercise_button_text,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(height: 20),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(AppLocalizations.of(context)!.static_hashtable_title,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF255f38),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.bst_page_exercises_description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Center(
+                                child: ChainedHashTableAnimation(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              Text(AppLocalizations.of(context)!.dynamic_hashtable_title,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF255f38),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.bst_page_exercises_description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Center(
+                                child: ChainedDynamicHashTableAnimation(),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
 
                       const SizedBox(height: 40),
                     ],
@@ -105,6 +203,65 @@ class _HashTableExercisesPageState extends State<HashTableExercisesPage> with Si
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildCardItem(String title) {
+    return Container(
+      width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+      height: 40,
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFF255f38), Color(0xFF27391c)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.4),
+            blurRadius: 4,
+            offset: Offset(4, 4),
+          ),
+        ],
+      ),
+      child: RawMaterialButton(
+        onPressed: () {
+          /*Navigator.push(
+            context,
+            Essentials().createSlideRoute(
+              BSTExercisesQuestionsPage(
+                toggleTheme: widget.toggleTheme,
+                userId: widget.userId,
+              ),
+            ),
+          );*/
+          HapticFeedback.mediumImpact();
+        },
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.play_arrow_rounded,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              size: 22,
+            ),
+            Text(
+              AppLocalizations.of(context)!.start_exercise_button_text,
+              style: TextStyle(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

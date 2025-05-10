@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../datastructures/array/array_page.dart';
-import '../home/home_page.dart';
 import '../profile/login/login_page.dart';
 import '../profile/profile_page.dart';
 import '../profile/settings/theme_settings_page.dart';
@@ -51,19 +50,6 @@ class CustomScaffold extends StatelessWidget
             children: [
               const SizedBox(height: 50),
 
-              // Home
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  HapticFeedback.mediumImpact();
-                  Navigator.pop(context);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage(toggleTheme: toggleTheme, userId: userId)),
-                  );
-                },
-              ),
               // Profile
               ListTile(
                 leading: const Icon(Icons.person),
@@ -79,7 +65,7 @@ class CustomScaffold extends StatelessWidget
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfilePage( toggleTheme: toggleTheme),
+                        builder: (context) => ProfilePage( toggleTheme: toggleTheme, userId: userId),
                       ),
                     );
                   }

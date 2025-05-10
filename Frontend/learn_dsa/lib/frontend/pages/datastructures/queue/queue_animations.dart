@@ -87,7 +87,7 @@ class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget>
                 height: 50,
                 margin: EdgeInsets.symmetric(horizontal: 3),
                 decoration: BoxDecoration(
-                  color: i < queue.length ? Color(0xFFDFAEE8) : Colors.grey.shade300,
+                  color: i < queue.length ? Color(0xFF255f38) : Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -233,14 +233,14 @@ class _AnimatedCircularQueueWidgetState extends State<AnimatedCircularQueueWidge
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(capacity, (i) {
               Color cellColor = queue[i] != null
-                  ? Color(0xFFDFAEE8)
+                  ? Color(0xFF006a42)
                   : Colors.grey.shade300;
 
               // Highlight front & rear
-              if (i == front && front != -1) cellColor = Colors.purple.shade200;
-              if (i == rear && rear != -1) cellColor = Colors.purple.shade400;
+              if (i == front && front != -1) cellColor = Color(0xFF006a42);
+              if (i == rear && rear != -1) cellColor = Color(0xFF255f38);
               if (i == front && i == rear && front != -1) {
-                cellColor = Colors.purple.shade500;
+                cellColor = Color(0xFF27391c);
               }
 
               return Container(

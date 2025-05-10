@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:learn_dsa/backend/database/firestore_service.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import 'package:learn_dsa/frontend/pages/profile/settings/settings_page.dart';
@@ -12,32 +13,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/cloudinary_service.dart';
 import '../../language_supports/language_picker.dart';
 import '../../strings/firestore/firestore_docs.dart';
+import '../customClasses/custom_ring_chart.dart';
 import 'login/login_page.dart';
 
 class ProfilePage extends StatefulWidget
 {
   final VoidCallback toggleTheme;
+  final String? userId;
 
-  const ProfilePage({Key? key, required this.toggleTheme}) : super(key: key);
-
-  Future<void> signOut(BuildContext context) async
-  {
-    try {
-      await FirebaseAuth.instance.signOut();
-      // Navigate back to LoginPage with toggleTheme
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => LoginPage(toggleTheme: toggleTheme),
-        ),
-            (route) => false,
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error signing out: $e")),
-      );
-    }
-  }
+  const ProfilePage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -127,12 +111,14 @@ class _ProfilePageState extends State<ProfilePage> {
             return const Center(child: CircularProgressIndicator());
           }
           if (snapshot.hasError) {
-            return Center(child: Text(AppLocalizations.of(context)!.user_not_found));
+            return Center(
+                child: Text(AppLocalizations.of(context)!.user_not_found));
           }
 
           final userData = snapshot.data;
           if (userData == null) {
-            return Center(child: Text(AppLocalizations.of(context)!.user_not_found));
+            return Center(
+                child: Text(AppLocalizations.of(context)!.user_not_found));
           }
 
           _profileImageUrl = userData[FirestoreDocs.userProfilePic];
@@ -175,11 +161,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 actions: [
                   PopupMenuButton<String>(
-                    icon: const Icon(Icons.pending_outlined, color: Color(0xFF255f38), size: 30),
+                    icon: const Icon(
+                        Icons.pending_outlined, color: Color(0xFF255f38),
+                        size: 30),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    color: Theme.of(context).scaffoldBackgroundColor,
+                    color: Theme
+                        .of(context)
+                        .scaffoldBackgroundColor,
                     onSelected: (String value) async {
                       if (value == 'settings') {
                         Navigator.push(
@@ -189,10 +179,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         );
                       } else if (value == 'logout') {
-                        await widget.signOut(context);
+                        await FirestoreService().signOut(
+                            context, widget.toggleTheme);
                       }
                     },
-                    itemBuilder: (BuildContext context) => [
+                    itemBuilder: (BuildContext context) =>
+                    [
                       PopupMenuItem<String>(
                         value: 'settings',
                         child: Row(
@@ -227,13 +219,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         padding: const EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(16.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
                             ),
                           ],
                         ),
@@ -245,11 +240,11 @@ class _ProfilePageState extends State<ProfilePage> {
                               lastName: lastName,
                               email: email,
                             ),
-                            const SizedBox(height: 10),
+                            /*const SizedBox(height: 10),
                             ProfileActions(
                               onPickImage: _pickImage,
                               onNotes: () {},
-                            ),
+                            ),*/
                             const SizedBox(height: 10),
 
                             Align(
@@ -258,7 +253,84 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: LanguagePicker(),
                               ),
                             ),
+                            //const SizedBox(height: 10),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Exercises
+                      /*Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(AppLocalizations.of(context)!
+                                .test_page_achievements_title,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                             const SizedBox(height: 10),
+                            Center(
+                              child: RingChartBTExercisesWidget( userId: widget.userId),
+                            ),
+                          ],
+                        ),
+                      ),*/
+
+                      const SizedBox(height: 20),
+
+                      // Tests
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(AppLocalizations.of(context)!
+                                .test_page_achievements_title,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Center(
+                              child: RingChartTestsWidget(
+                                  userId: widget.userId),
+                            ),
                           ],
                         ),
                       ),

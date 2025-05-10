@@ -85,351 +85,6 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  //const SizedBox(height: 10),
-
-                  // Exercises
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Theme
-                          .of(context)
-                          .scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 6,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                        Text(AppLocalizations.of(context)!
-                            .test_page_exercises_title,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-
-                        Text(AppLocalizations.of(context)!
-                            .test_page_exercises_text,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        // Array and Stack buttons
-                        Row(
-                          children: [
-                            Expanded(
-                              child: _buildCardItem(
-                                AppLocalizations.of(context)!.array_button_text,
-                                    () {
-                                  Navigator.push(
-                                    context,
-                                    Essentials().createSlideRoute(
-                                        ArrayExercisesPage()),
-                                  );
-                                  HapticFeedback.mediumImpact();
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: _buildCardItem(
-                                AppLocalizations.of(context)!.stack_button_text,
-                                    () {
-                                  Navigator.push(
-                                    context,
-                                    Essentials().createSlideRoute(
-                                        StackExercisesPage()),
-                                  );
-                                  HapticFeedback.mediumImpact();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        // Queue and List buttons
-                        Row(
-                          children: [
-                            Expanded(
-                              child: _buildCardItem(
-                                AppLocalizations.of(context)!.queue_button_text,
-                                    () {
-                                  Navigator.push(
-                                    context,
-                                    Essentials().createSlideRoute(
-                                        QueueExercisesPage()),
-                                  );
-                                  HapticFeedback.mediumImpact();
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: _buildCardItem(
-                                AppLocalizations.of(context)!.list_button_text,
-                                    () {
-                                  Navigator.push(
-                                    context,
-                                    Essentials().createSlideRoute(
-                                        ListExercisesPage(
-                                            toggleTheme: widget.toggleTheme,
-                                            userId: widget.userId)),
-                                  );
-                                  HapticFeedback.mediumImpact();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        // Binary Tree and Hash Table buttons
-                        Row(
-                          children: [
-                            Expanded(
-                              child: _buildCardItem(
-                                AppLocalizations.of(context)!.bst_button_text,
-                                    () {
-                                  Navigator.push(
-                                    context,
-                                    Essentials().createSlideRoute(
-                                        BSTExercisesPage(
-                                            toggleTheme: widget.toggleTheme,
-                                            userId: widget.userId)),
-                                  );
-                                  HapticFeedback.mediumImpact();
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: _buildCardItem(
-                                AppLocalizations.of(context)!.hash_button_text,
-                                    () {
-                                  Navigator.push(
-                                    context,
-                                    Essentials().createSlideRoute(
-                                        HashTableExercisesPage(
-                                            toggleTheme: widget.toggleTheme,
-                                            userId: widget.userId)),
-                                  );
-                                  HapticFeedback.mediumImpact();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 20),
-
-                        Text(AppLocalizations.of(context)!
-                            .test_page_achievements_title,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        Center(
-                          child: RingChartBTExercisesWidget(userId: widget.userId),
-                        ),
-                      ],
-                    ),
-                  ),
-                  /*Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-
-                            Text(AppLocalizations.of(context)!.test_page_exercises_text,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            // Array and Stack buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.array_button_text,
-                                    Icons.data_array,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(ArrayExercisesPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.stack_button_text,
-                                    Icons.storage_rounded,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(StackExercisesPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            // Queue and List buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.queue_button_text,
-                                    Icons.queue,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(QueueExercisesPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.list_button_text,
-                                    Icons.list_alt,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(ListExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            // Binary Tree and Hash Table buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.bst_button_text,
-                                    Icons.account_tree_outlined,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(BSTExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.hash_button_text,
-                                    Icons.table_rows_outlined,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(HashTableExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            const SizedBox(height: 20),
-
-                            Text(AppLocalizations.of(context)!.test_page_achievements_title,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-
-                            Center(
-                              child: buildRingChart(),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Positioned(
-                        top: -23,
-                        left: 16,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              // Gradient colors
-                              colors: [
-                                Color(0xFF255f38),
-                                Color(0xFF27391c)
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 8.0,
-                          ),
-                          child: Text(AppLocalizations.of(context)!.test_page_exercises_title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),*/
-
-                  const SizedBox(height: 20),
 
                   // Tests
                   Container(
@@ -481,7 +136,8 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                   Navigator.push(
                                     context,
                                     Essentials().createSlideRoute(
-                                        ArrayTestPage()),
+                                        ArrayTestPage(toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
                                   );
                                   HapticFeedback.mediumImpact();
                                 },
@@ -495,7 +151,8 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                   Navigator.push(
                                     context,
                                     Essentials().createSlideRoute(
-                                        StackTestPage()),
+                                        StackTestPage(toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
                                   );
                                   HapticFeedback.mediumImpact();
                                 },
@@ -514,7 +171,8 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                                   Navigator.push(
                                     context,
                                     Essentials().createSlideRoute(
-                                        QueueTestPage()),
+                                        QueueTestPage(toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
                                   );
                                   HapticFeedback.mediumImpact();
                                 },
@@ -574,21 +232,8 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                           ],
                         ),
 
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
 
-                        Text(AppLocalizations.of(context)!
-                            .test_page_achievements_title,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-
-                        Center(
-                          child: RingChartBSTExercisesWidget( userId: widget.userId),
-                        ),
                         /*pie.PieChart(
                               dataMap: dataMap,
                               animationDuration: Duration(milliseconds: 800),
@@ -868,3 +513,343 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
     );
   }
 }
+
+
+
+//const SizedBox(height: 10),
+
+// Exercises
+/*Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Text(AppLocalizations.of(context)!
+                            .test_page_exercises_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+
+                        Text(AppLocalizations.of(context)!
+                            .test_page_exercises_text,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        // Array and Stack buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.array_button_text,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        ArrayExercisesPage(toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.stack_button_text,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        StackExercisesPage(toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Queue and List buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.queue_button_text,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        QueueExercisesPage(toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.list_button_text,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        ListExercisesPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Binary Tree and Hash Table buttons
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.bst_button_text,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        BSTExercisesPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: _buildCardItem(
+                                AppLocalizations.of(context)!.hash_button_text,
+                                    () {
+                                  Navigator.push(
+                                    context,
+                                    Essentials().createSlideRoute(
+                                        HashTableExercisesPage(
+                                            toggleTheme: widget.toggleTheme,
+                                            userId: widget.userId)),
+                                  );
+                                  HapticFeedback.mediumImpact();
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 10),
+
+                      ],
+                    ),
+                  ),*/
+
+//const SizedBox(height: 20),
+
+
+/*Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 10),
+
+                            Text(AppLocalizations.of(context)!.test_page_exercises_text,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            // Array and Stack buttons
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildCardItem(
+                                    AppLocalizations.of(context)!.array_button_text,
+                                    Icons.data_array,
+                                        () {
+                                      Navigator.push(
+                                        context,
+                                        Essentials().createSlideRoute(ArrayExercisesPage()),
+                                      );
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: _buildCardItem(
+                                    AppLocalizations.of(context)!.stack_button_text,
+                                    Icons.storage_rounded,
+                                        () {
+                                      Navigator.push(
+                                        context,
+                                        Essentials().createSlideRoute(StackExercisesPage()),
+                                      );
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            // Queue and List buttons
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildCardItem(
+                                    AppLocalizations.of(context)!.queue_button_text,
+                                    Icons.queue,
+                                        () {
+                                      Navigator.push(
+                                        context,
+                                        Essentials().createSlideRoute(QueueExercisesPage()),
+                                      );
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: _buildCardItem(
+                                    AppLocalizations.of(context)!.list_button_text,
+                                    Icons.list_alt,
+                                        () {
+                                      Navigator.push(
+                                        context,
+                                        Essentials().createSlideRoute(ListExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
+                                      );
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            // Binary Tree and Hash Table buttons
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: _buildCardItem(
+                                    AppLocalizations.of(context)!.bst_button_text,
+                                    Icons.account_tree_outlined,
+                                        () {
+                                      Navigator.push(
+                                        context,
+                                        Essentials().createSlideRoute(BSTExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
+                                      );
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: _buildCardItem(
+                                    AppLocalizations.of(context)!.hash_button_text,
+                                    Icons.table_rows_outlined,
+                                        () {
+                                      Navigator.push(
+                                        context,
+                                        Essentials().createSlideRoute(HashTableExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
+                                      );
+                                      HapticFeedback.mediumImpact();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            Text(AppLocalizations.of(context)!.test_page_achievements_title,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+
+                            Center(
+                              child: buildRingChart(),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Positioned(
+                        top: -23,
+                        left: 16,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              // Gradient colors
+                              colors: [
+                                Color(0xFF255f38),
+                                Color(0xFF27391c)
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0,
+                            vertical: 8.0,
+                          ),
+                          child: Text(AppLocalizations.of(context)!.test_page_exercises_title,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),*/

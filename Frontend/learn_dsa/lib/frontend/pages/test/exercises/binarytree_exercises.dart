@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../datastructures/tree/tree_animations.dart';
 import '../testpages/bst/bst_tests_questions.dart';
 import '../tests_page.dart';
 import 'exercises_page/binarytree_exercises_questions.dart';
@@ -133,6 +134,13 @@ class _BSTExercisesPageState extends State<BSTExercisesPage> with SingleTickerPr
                           color: Colors.grey,
                         ),
                       ),
+                      const SizedBox(height: 8),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24),
+                        child: _buildCardItem(
+                          AppLocalizations.of(context)!.start_exercise_button_text,
+                        ),
+                      ),
                       ],
                   ),
                   ),
@@ -144,7 +152,7 @@ class _BSTExercisesPageState extends State<BSTExercisesPage> with SingleTickerPr
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(AppLocalizations.of(context)!.exercises_title,
+                              Text(AppLocalizations.of(context)!.bt_page_title,
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -160,11 +168,30 @@ class _BSTExercisesPageState extends State<BSTExercisesPage> with SingleTickerPr
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24),
-                                child: _buildCardItem(
-                                  AppLocalizations.of(context)!.start_exercise_button_text,
+                              Center(
+                                child: BTAnimation(),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              Text(AppLocalizations.of(context)!.bst_page_title,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF255f38),
                                 ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                AppLocalizations.of(context)!.bst_page_exercises_description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Center(
+                                child: BSTAnimation(),
                               ),
                             ],
                           ),

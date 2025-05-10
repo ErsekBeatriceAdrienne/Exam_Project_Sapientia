@@ -1003,8 +1003,8 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                         context,
                         Essentials().createSlideRoute(
                           ArrayExercisesPage(
-                            //toggleTheme: widget.toggleTheme,
-                            //userId: widget.userId,
+                            toggleTheme: widget.toggleTheme,
+                            userId: widget.userId,
                           ),
                         ),
                       );
@@ -1015,8 +1015,8 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                         context,
                         Essentials().createSlideRoute(
                           ArrayTestPage(
-                            //toggleTheme: widget.toggleTheme,
-                            //userId: widget.userId,
+                            toggleTheme: widget.toggleTheme,
+                            userId: widget.userId,
                           ),
                         ),
                       );

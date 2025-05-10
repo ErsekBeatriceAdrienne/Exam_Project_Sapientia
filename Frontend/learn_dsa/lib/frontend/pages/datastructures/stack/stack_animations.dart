@@ -70,7 +70,7 @@ class _AnimatedStackWidgetState extends State<AnimatedStackWidget>
                 height: 30,
                 margin: EdgeInsets.symmetric(vertical: 1),
                 decoration: BoxDecoration(
-                  color: i < stack.length ? Color(0xFFDFAEE8) : Colors.grey.shade300,
+                  color: i < stack.length ? Color(0xFF255f38) : Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(5),
                 ),
