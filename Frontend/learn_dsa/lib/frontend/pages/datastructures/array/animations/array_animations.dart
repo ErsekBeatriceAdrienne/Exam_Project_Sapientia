@@ -132,23 +132,6 @@ class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
 
-          /*Positioned(
-            top: 10,
-            right: 10,
-            child: IconButton(
-              color: Color(0xFF006a42),
-              onPressed: () {
-                HapticFeedback.mediumImpact();
-                _startOrToggleAnimation();
-              },
-              icon: Icon(
-                isAnimating ? (isPaused ? Icons.play_arrow_rounded : Icons.pause) : Icons.play_arrow_rounded,
-                size: 35,
-              ),
-              tooltip: "Play animation",
-            ),
-          ),*/
-
           SizedBox(height: 10),
 
           // Play button

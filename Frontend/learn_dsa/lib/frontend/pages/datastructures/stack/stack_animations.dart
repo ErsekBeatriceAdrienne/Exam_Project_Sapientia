@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackWidget extends StatefulWidget
 {
@@ -14,35 +16,74 @@ class _AnimatedStackWidgetState extends State<AnimatedStackWidget>
   final List<int> values = [3, 5, 8]; // Elements to be added
   int index = 0;
   int top = -1;
+  bool isAnimating = false;
+  bool isPaused = false;
+  Timer? _timer;
 
   @override
-  void initState()
-  {
+  void initState() {
     super.initState();
-    _startAnimation();
   }
 
-  void _startAnimation()
-  {
-    Timer.periodic(Duration(milliseconds: 800), (timer) {
+  void _startOrToggleAnimation() {
+    if (!isAnimating) {
+      setState(() {
+        index = 0;
+        top = -1;
+        stack.clear();
+        isAnimating = true;
+        isPaused = false;
+      });
+      _startAnimation();
+    } else {
+      setState(() {
+        isPaused = !isPaused;
+      });
+
+      if (isPaused) {
+        _timer?.cancel();
+      } else {
+        _startAnimation();
+      }
+    }
+  }
+
+  void _startAnimation() {
+    _timer?.cancel();
+
+    _timer = Timer.periodic(Duration(milliseconds: 800), (timer) {
+      if (!isAnimating || isPaused) {
+        timer.cancel();
+        return;
+      }
+
       if (index < values.length && stack.length < capacity) {
         setState(() {
-          stack.add(values[index]); // Push item to stack
-          top++; // Increase the top index
+          stack.add(values[index]);
+          top++;
           index++;
         });
       } else {
         timer.cancel();
+        // Restart after a short pause
         Future.delayed(Duration(seconds: 1), () {
-          setState(() {
-            stack.clear();
-            index = 0;
-            top = -1;
-          });
-          _startAnimation();
+          if (isAnimating && !isPaused) {
+            setState(() {
+              stack.clear();
+              index = 0;
+              top = -1;
+            });
+            _startAnimation();
+          }
         });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -90,6 +131,60 @@ class _AnimatedStackWidgetState extends State<AnimatedStackWidget>
         Text(
           'Top: $top  |  Capacity: $capacity',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+        ),
+
+        SizedBox(height: 10),
+
+        // Play button
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _startOrToggleAnimation();
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isAnimating
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

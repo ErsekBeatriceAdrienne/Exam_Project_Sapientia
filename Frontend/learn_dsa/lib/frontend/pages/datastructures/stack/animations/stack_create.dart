@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackCreateWidget extends StatefulWidget {
   @override
@@ -12,44 +13,6 @@ class _AnimatedStackCreateWidgetState extends State<AnimatedStackCreateWidget> {
   final List<int> values = [3, 5, 8]; // Elements to be added
   int index = 0;
   int top = -1;
-
-  Timer? _timer;
-
-  void _startAnimation() {
-    _timer = Timer.periodic(Duration(milliseconds: 800), (timer) {
-      if (index < values.length && stack.length < capacity) {
-        setState(() {
-          stack.add(values[index]); // Push item to stack
-          top++; // Increase the top index
-          index++;
-        });
-      } else {
-        timer.cancel();
-        Future.delayed(Duration(seconds: 1), () {
-          setState(() {
-            stack.clear();
-            index = 0;
-            top = -1;
-          });
-        });
-      }
-    });
-  }
-
-  void _showEmptyStack() {
-    setState(() {
-      stack.clear();
-      index = 0;
-      top = -1;
-    });
-    _startAnimation();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +56,7 @@ class _AnimatedStackCreateWidgetState extends State<AnimatedStackCreateWidget> {
 
         // Stack Info
         Text(
-          'Top: $top  |  Capacity: $capacity',
+          '${AppLocalizations.of(context)!.top_text} $top | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
 

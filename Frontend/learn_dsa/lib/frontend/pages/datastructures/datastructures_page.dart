@@ -12,7 +12,6 @@ import 'array/array_page.dart';
 import 'hash/hashtable_page.dart';
 import 'list/list_page.dart';
 
-
 class DataStructuresPage extends StatefulWidget  {
   final VoidCallback toggleTheme;
   final String? userId;
@@ -115,10 +114,10 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                               color: Theme
                                   .of(context)
                                   .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.black.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 6,
                                   offset: Offset(0, 4),
@@ -221,10 +220,10 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                               color: Theme
                                   .of(context)
                                   .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.black.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 6,
                                   offset: Offset(0, 4),
@@ -277,7 +276,10 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
         toggleTheme: widget.toggleTheme,
         userId: widget.userId,
       ),
-      AppLocalizations.of(context)!.stack_button_text: () => StackPage(),
+      AppLocalizations.of(context)!.stack_button_text: () => StackPage(
+        toggleTheme: widget.toggleTheme,
+        userId: widget.userId,
+      ),
       AppLocalizations.of(context)!.queue_button_text: () => QueuePage(),
       AppLocalizations.of(context)!.list_button_text: () => ListPage(),
       AppLocalizations.of(context)!.hash_button_text: () => HashTablePage(),
