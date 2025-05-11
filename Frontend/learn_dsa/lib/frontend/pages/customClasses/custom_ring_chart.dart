@@ -220,14 +220,15 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
     double arrayValue = answered_array / total_array;
     double value = 0;
 
+    int index1 = 0, index2 = 1, index3 = 2, index4 = 3, index5 = 4, index6 = 5 ;
     setState(() {
       ringData = [
-        {"label": AppLocalizations.of(context)!.array_page_title, "color": const Color(0xFF2e7d32), "value": arrayValue},
-        {"label": AppLocalizations.of(context)!.stack_page_title, "color": const Color(0xFF00aead), "value": value},
-        {"label": AppLocalizations.of(context)!.queue_page_title, "color": const Color(0xFF81c784), "value": value},
-        {"label": AppLocalizations.of(context)!.list_page_title, "color": const Color(0xFFdeb71d), "value": listValue},
-        {"label": AppLocalizations.of(context)!.bt_page_title, "color": const Color(0xFFfc8811), "value": bstValue},
-        {"label": AppLocalizations.of(context)!.hash_page_title, "color": const Color(0xFFf03869), "value": value},
+        {"label": AppLocalizations.of(context)!.array_page_title, "color": Colors.primaries[index1 % Colors.primaries.length], "value": arrayValue},
+        {"label": AppLocalizations.of(context)!.stack_page_title, "color": Colors.primaries[index2 % Colors.primaries.length], "value": value},
+        {"label": AppLocalizations.of(context)!.queue_page_title, "color": Colors.primaries[index3 % Colors.primaries.length], "value": value},
+        {"label": AppLocalizations.of(context)!.list_page_title, "color": Colors.primaries[index4 % Colors.primaries.length], "value": listValue},
+        {"label": AppLocalizations.of(context)!.bt_page_title, "color": Colors.primaries[index5 % Colors.primaries.length], "value": bstValue},
+        {"label": AppLocalizations.of(context)!.hash_page_title, "color": Colors.primaries[index6 % Colors.primaries.length], "value": value},
       ];
     });
 
@@ -391,31 +392,31 @@ class _RingChartTestsForSingleDataStructureWidgetState extends State<RingChartTe
 
     String label;
     Color color;
-
+    int index1 = 0, index2 = 1, index3 = 2, index4 = 3, index5 = 4, index6 = 5 ;
     switch (widget.firestoreDoc) {
       case FirestoreDocs.array_tests_doc:
         label = AppLocalizations.of(context)!.array_page_title;
-        color = const Color(0xFF2e7d32);
+        color = Colors.primaries[index1 % Colors.primaries.length];
         break;
       case FirestoreDocs.list_tests_doc:
         label = AppLocalizations.of(context)!.list_page_title;
-        color = const Color(0xFFdeb71d);
+        color = Colors.primaries[index2 % Colors.primaries.length];
         break;
       case FirestoreDocs.bt_tests_doc:
         label = AppLocalizations.of(context)!.bt_page_title;
-        color = const Color(0xFFfc8811);
+        color = Colors.primaries[index3 % Colors.primaries.length];
         break;
       case FirestoreDocs.stack_tests_doc:
         label = AppLocalizations.of(context)!.stack_page_title;
-        color = const Color(0xFF00aead);
+        color = Colors.primaries[index4 % Colors.primaries.length];
         break;
       case FirestoreDocs.queue_tests_doc:
         label = AppLocalizations.of(context)!.queue_page_title;
-        color = const Color(0xFF81c784);
+        color = Colors.primaries[index5 % Colors.primaries.length];
         break;
       case FirestoreDocs.hash_tests_doc:
         label = AppLocalizations.of(context)!.hash_page_title;
-        color = const Color(0xFFf03869);
+        color = Colors.primaries[index6 % Colors.primaries.length];
         break;
       default:
         label = 'Unknown';

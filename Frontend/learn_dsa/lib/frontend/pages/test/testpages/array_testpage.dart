@@ -172,7 +172,7 @@ class _ArrayTestPageState extends State<ArrayTestPage> with SingleTickerProvider
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text( 'Megoldott kérdések',//AppLocalizations.of(context)!.quick_recap_text,
+                                Text( AppLocalizations.of(context)!.answered_questions_text_title,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,

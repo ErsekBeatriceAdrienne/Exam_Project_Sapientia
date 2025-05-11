@@ -168,8 +168,7 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppLocalizations.of(context)!
-                                    .quick_recap_text,
+                                Text(AppLocalizations.of(context)!.answered_questions_text_title,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -179,14 +178,14 @@ class _BSTTestPageState extends State<BSTTestPage> with SingleTickerProviderStat
                                 const SizedBox(height: 8),
 
                                 // All the functions
-                                Text(
+                                /*Text(
                                   AppLocalizations.of(context)!
                                       .quick_recap_description,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.grey,
                                   ),
-                                ),
+                                ),*/
 
                                 Center(
                                   child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.bt_tests_doc),
