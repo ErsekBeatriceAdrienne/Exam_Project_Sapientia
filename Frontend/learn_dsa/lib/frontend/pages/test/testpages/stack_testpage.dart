@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:learn_dsa/frontend/pages/test/testpages/stack/stack_tests_questions.dart';
 import '../../../helpers/essentials.dart';
+import '../../../strings/firestore/firestore_docs.dart';
+import '../../customClasses/custom_ring_chart.dart';
 import '../../datastructures/stack/stack_animations.dart';
 import '../tests_page.dart';
 
@@ -170,24 +173,27 @@ class _StackTestPageState extends State<StackTestPage> with SingleTickerProvider
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppLocalizations.of(context)!
-                                    .quick_recap_text,
+                                Text( AppLocalizations.of(context)!.answered_questions_text_title,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xFF255f38),
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                //const SizedBox(height: 8),
 
-                                // All the functions
-                                Text(
+                                /*Text(
                                   AppLocalizations.of(context)!
                                       .quick_recap_description,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.grey,
                                   ),
+                                ),*/
+
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.stack_tests_doc),
                                 ),
                               ],
                             ),
@@ -228,15 +234,15 @@ class _StackTestPageState extends State<StackTestPage> with SingleTickerProvider
       ),
       child: RawMaterialButton(
         onPressed: () {
-          /*Navigator.push(
+          Navigator.push(
             context,
             Essentials().createSlideRoute(
-              BSTExercisesQuestionsPage(
+              StackTestsQuestionsPage(
                 toggleTheme: widget.toggleTheme,
                 userId: widget.userId,
               ),
             ),
-          );*/
+          );
           HapticFeedback.mediumImpact();
         },
         elevation: 0,

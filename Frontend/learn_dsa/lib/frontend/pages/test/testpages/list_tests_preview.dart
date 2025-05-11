@@ -167,8 +167,7 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppLocalizations.of(context)!
-                                    .quick_recap_text,
+                                Text(AppLocalizations.of(context)!.answered_questions_text_title,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -178,14 +177,14 @@ class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderSt
                                 const SizedBox(height: 8),
 
                                 // All the functions
-                                Text(
+                                /*Text(
                                   AppLocalizations.of(context)!
                                       .quick_recap_description,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.grey,
                                   ),
-                                ),
+                                ),*/
 
                                 Center(
                                   child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.list_tests_doc),

@@ -5,8 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/hash/hashtable_animations.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import '../../../helpers/essentials.dart';
+import '../../../strings/firestore/firestore_docs.dart';
 import '../../../strings/test/testpages/hash_teststrings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../customClasses/custom_ring_chart.dart';
+import 'hash/hash_tests_questions.dart';
 
 class HashTableTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -165,30 +169,34 @@ class _HashTableTestPageState extends State<HashTableTestPage> with SingleTicker
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(AppLocalizations.of(context)!
-                                    .quick_recap_text,
+                                Text( AppLocalizations.of(context)!.answered_questions_text_title,
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Color(0xFF255f38),
                                   ),
                                 ),
-                                const SizedBox(height: 8),
+                                //const SizedBox(height: 8),
 
-                                // All the functions
-                                Text(
+                                /*Text(
                                   AppLocalizations.of(context)!
                                       .quick_recap_description,
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.grey,
                                   ),
+                                ),*/
+
+                                const SizedBox(height: 20),
+                                Center(
+                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.hash_tests_doc),
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
+
                       const SizedBox(height: 40),
                     ],
                   ),
@@ -222,15 +230,15 @@ class _HashTableTestPageState extends State<HashTableTestPage> with SingleTicker
       ),
       child: RawMaterialButton(
         onPressed: () {
-          /*Navigator.push(
+          Navigator.push(
             context,
             Essentials().createSlideRoute(
-              BSTExercisesQuestionsPage(
+              HashTestsQuestionsPage(
                 toggleTheme: widget.toggleTheme,
                 userId: widget.userId,
               ),
             ),
-          );*/
+          );
           HapticFeedback.mediumImpact();
         },
         elevation: 0,

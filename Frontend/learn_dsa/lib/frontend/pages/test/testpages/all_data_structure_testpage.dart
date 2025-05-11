@@ -2,25 +2,23 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:learn_dsa/frontend/pages/test/testpages/queue/queue_tests_questions.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/firestore/firestore_docs.dart';
 import '../../customClasses/custom_ring_chart.dart';
-import '../../datastructures/queue/queue_animations.dart';
 import '../tests_page.dart';
+import 'all/all_tests_questions.dart';
 
-
-class QueueTestPage extends StatefulWidget {
+class AllDataStructureTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const QueueTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const AllDataStructureTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<QueueTestPage> createState() => _QueueTestPageState();
+  State<AllDataStructureTestPage> createState() => _AllDataStructureTestPageState();
 }
 
-class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProviderStateMixin {
+class _AllDataStructureTestPageState extends State<AllDataStructureTestPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool _isDropdownVisible = false;
@@ -74,7 +72,7 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
                 ),
                 centerTitle: true,
                 title: Text(
-                  AppLocalizations.of(context)!.queue_page_title,
+                  AppLocalizations.of(context)!.all_kind_of_questions,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -100,7 +98,7 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      // bt exercises title and description
+
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -122,7 +120,7 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(AppLocalizations.of(context)!
-                                .queue_page_tests_title,
+                                .all_kind_of_questions_title,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,
@@ -132,7 +130,7 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
                             const SizedBox(height: 8),
                             Text(
                               AppLocalizations.of(context)!
-                                  .bt_exercises_description,
+                                  .array_page_tests_description_title,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
@@ -193,14 +191,13 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
 
                                 const SizedBox(height: 20),
                                 Center(
-                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.queue_tests_doc),
+                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.all_data_structures),
                                 ),
                               ],
                             ),
                           ],
                         ),
                       ),
-
                       const SizedBox(height: 40),
                     ],
                   ),
@@ -237,7 +234,7 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
           Navigator.push(
             context,
             Essentials().createSlideRoute(
-              QueueTestsQuestionsPage(
+              AllTestsQuestionsPage(
                 toggleTheme: widget.toggleTheme,
                 userId: widget.userId,
               ),
@@ -272,3 +269,109 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
     );
   }
 }
+
+/*const SizedBox(height: 10),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .create_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Center(
+                                  child: ArrayAllocationWidget(),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .insert_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .print_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .empty_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .full_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .get_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .delete_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .search_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .update_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  AppLocalizations.of(context)!
+                                      .delete_data_structure_function_title,
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),*/

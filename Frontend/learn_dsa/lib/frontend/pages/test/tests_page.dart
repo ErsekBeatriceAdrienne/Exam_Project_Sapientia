@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
+import 'package:learn_dsa/frontend/pages/test/testpages/all_data_structure_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/array_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/bst_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/hash_testpage.dart';
@@ -16,6 +17,7 @@ import 'package:pie_chart/pie_chart.dart' as pie;
 import '../../../backend/compiler/c_compiler.dart';
 import '../../../backend/database/firestore_service.dart';
 import '../../strings/test/test_strings.dart';
+import '../customClasses/custom_bar_chart.dart';
 import '../customClasses/custom_ring_chart.dart';
 import '../profile/test_results.dart';
 import 'exercises/array_exercises.dart';
@@ -232,230 +234,85 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                           ],
                         ),
 
+                        const SizedBox(height: 20),
+                        Text(
+                          "Megoldott kérdések és az összes kérdések száma",
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          height: 200,
+                          child: TestResultsChart(results: [10, 15, 8, 12, 20, 18]),
+                        ),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // All kind of test questions
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(AppLocalizations.of(context)!.all_kind_of_questions_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
                         const SizedBox(height: 10),
 
-                        /*pie.PieChart(
-                              dataMap: dataMap,
-                              animationDuration: Duration(milliseconds: 800),
-                              chartType: pie.ChartType.disc,
-                              colorList: colorList,
-                              chartRadius: MediaQuery.of(context).size.width / 2.2,
-                              chartValuesOptions: pie.ChartValuesOptions(
-                                showChartValuesInPercentage: false,
-                                showChartValues: false,
-                              ),
-                              legendOptions: pie.LegendOptions(
-                                showLegends: true,
-                                legendPosition: pie.LegendPosition.right,
-                                legendTextStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                        Text(
+                          AppLocalizations.of(context)!.test_page_test_text,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: _buildCardItem(
+                            AppLocalizations.of(context)!.all_kind_of_questions,
+                                () {
+                              Navigator.push(
+                                context,
+                                Essentials().createSlideRoute(
+                                  AllDataStructureTestPage(
+                                    toggleTheme: widget.toggleTheme,
+                                    userId: widget.userId,
+                                  ),
                                 ),
-                              ),
-                            ),*/
+                              );
+                              HapticFeedback.mediumImpact();
+                            },
+                          ),
+                        ),
 
                       ],
                     ),
                   ),
-                  /*Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-
-                            Text(
-                              AppLocalizations.of(context)!.test_page_test_text,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-
-                            const SizedBox(height: 10),
-                            // Array and Stack buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.array_button_text,
-                                    Icons.data_array,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(ArrayTestPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.stack_button_text,
-                                    Icons.storage_rounded,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(StackTestPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            // Queue and List buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.queue_button_text,
-                                    Icons.queue,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(QueueTestPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.list_button_text,
-                                    Icons.list_alt,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(ListTestPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            // Binary Tree and Hash Table buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.bst_button_text,
-                                    Icons.account_tree_outlined,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(BstTestPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.hash_button_text,
-                                    Icons.table_rows_outlined,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(HashTableTestPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            const SizedBox(height: 20),
-
-                            Text(AppLocalizations.of(context)!.test_page_achievements_title,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-
-                            Center(
-                              child: buildRingChart(),
-                            ),
-                            /*pie.PieChart(
-                              dataMap: dataMap,
-                              animationDuration: Duration(milliseconds: 800),
-                              chartType: pie.ChartType.disc,
-                              colorList: colorList,
-                              chartRadius: MediaQuery.of(context).size.width / 2.2,
-                              chartValuesOptions: pie.ChartValuesOptions(
-                                showChartValuesInPercentage: false,
-                                showChartValues: false,
-                              ),
-                              legendOptions: pie.LegendOptions(
-                                showLegends: true,
-                                legendPosition: pie.LegendPosition.right,
-                                legendTextStyle: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),*/
-
-                          ],
-                        ),
-                      ),
-
-                      // What is an array question box
-                      Positioned(
-                        top: -23,
-                        left: 16,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              // Gradient colors
-                              colors: [
-                                Color(0xFF255f38),
-                                Color(0xFF27391c)
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 8.0,
-                          ),
-                          child: Text(AppLocalizations.of(context)!.test_page_test_title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),*/
 
                   const SizedBox(height: 65),
                 ],
@@ -673,183 +530,3 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                   ),*/
 
 //const SizedBox(height: 20),
-
-
-/*Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 10),
-
-                            Text(AppLocalizations.of(context)!.test_page_exercises_text,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            // Array and Stack buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.array_button_text,
-                                    Icons.data_array,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(ArrayExercisesPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.stack_button_text,
-                                    Icons.storage_rounded,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(StackExercisesPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            // Queue and List buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.queue_button_text,
-                                    Icons.queue,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(QueueExercisesPage()),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.list_button_text,
-                                    Icons.list_alt,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(ListExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 10),
-                            // Binary Tree and Hash Table buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.bst_button_text,
-                                    Icons.account_tree_outlined,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(BSTExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Expanded(
-                                  child: _buildCardItem(
-                                    AppLocalizations.of(context)!.hash_button_text,
-                                    Icons.table_rows_outlined,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        Essentials().createSlideRoute(HashTableExercisesPage(toggleTheme: widget.toggleTheme, userId: widget.userId)),
-                                      );
-                                      HapticFeedback.mediumImpact();
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-
-                            const SizedBox(height: 20),
-
-                            Text(AppLocalizations.of(context)!.test_page_achievements_title,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-
-                            Center(
-                              child: buildRingChart(),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Positioned(
-                        top: -23,
-                        left: 16,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              // Gradient colors
-                              colors: [
-                                Color(0xFF255f38),
-                                Color(0xFF27391c)
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0,
-                            vertical: 8.0,
-                          ),
-                          child: Text(AppLocalizations.of(context)!.test_page_exercises_title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),*/
