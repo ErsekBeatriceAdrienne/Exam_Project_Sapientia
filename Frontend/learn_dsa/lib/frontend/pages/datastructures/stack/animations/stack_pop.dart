@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackPopWidget extends StatefulWidget {
   @override
@@ -8,29 +10,18 @@ class AnimatedStackPopWidget extends StatefulWidget {
 class _AnimatedStackPopWidgetState extends State<AnimatedStackPopWidget> {
   List<int> stack = [];
   final int capacity = 5;
-  final List<int> values = [3, 5, 8, 6, 9]; // Összes pusholható elem
+  final List<int> values = [3, 5, 8, 6, 9];
   int index = 0;
   int top = -1;
 
   @override
   void initState() {
     super.initState();
-    // Alapból betöltünk 4 elemet a stack-be
     setState(() {
-      stack = values.sublist(0, 4); // [3, 5, 8, 6]
-      index = 4; // következő push: values[4]
-      top = stack.length - 1; // top = 3
+      stack = values.sublist(0, 4);
+      index = 4;
+      top = stack.length - 1;
     });
-  }
-
-  void _pushNextElement() {
-    if (index < values.length && stack.length < capacity) {
-      setState(() {
-        stack.add(values[index]);
-        top++;
-        index++;
-      });
-    }
   }
 
   void _popElement() {
@@ -43,10 +34,10 @@ class _AnimatedStackPopWidgetState extends State<AnimatedStackPopWidget> {
   }
 
   String _getNextButtonText() {
-    if (index < values.length && stack.length < capacity) {
-      return 'Push ${values[index]}';
+    if (stack.isNotEmpty) {
+      return 'Pop ${stack.last}';
     } else {
-      return 'Stack Full or Done';
+      return 'Restart';
     }
   }
 
@@ -75,7 +66,7 @@ class _AnimatedStackPopWidgetState extends State<AnimatedStackPopWidget> {
                 margin: EdgeInsets.symmetric(vertical: 1),
                 decoration: BoxDecoration(
                   color: i < stack.length
-                      ? Color(0xFFDFAEE8)
+                      ? Color(0xFF255f38)
                       : Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(5),
@@ -98,21 +89,68 @@ class _AnimatedStackPopWidgetState extends State<AnimatedStackPopWidget> {
 
         // Stack Info
         Text(
-          'Top: $top  |  Capacity: $capacity',
+          '${AppLocalizations.of(context)!.top_text}: $top | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
 
         SizedBox(height: 20),
 
-        // Buttons Row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: stack.isNotEmpty ? _popElement : null,
-              child: Text('Pop'),
+        // Play button
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-          ],
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              if (stack.isNotEmpty) {
+                _popElement();
+              } else {
+                // Reset stack to initial state
+                setState(() {
+                  stack = values.sublist(0, 4);
+                  index = 4;
+                  top = stack.length - 1;
+                });
+                HapticFeedback.mediumImpact();
+              }
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(_getNextButtonText(),
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

@@ -61,7 +61,7 @@ class Essentials {
               text: '$lineNumber  ',
               style: const TextStyle(
                 fontFamily: 'Courier',
-                fontSize: 13,
+                fontSize: 14,
                 color: Colors.grey,
               ),
             ),
@@ -76,7 +76,7 @@ class Essentials {
       TextSpan(children: spans),
       style: const TextStyle(
         fontFamily: 'Courier',
-        fontSize: 13,
+        fontSize: 14,
         color: Colors.black,
         fontWeight: FontWeight.bold
       ),

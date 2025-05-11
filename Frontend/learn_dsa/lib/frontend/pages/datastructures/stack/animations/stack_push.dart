@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackPushWidget extends StatefulWidget {
   @override
@@ -26,7 +28,7 @@ class _AnimatedStackPushWidgetState extends State<AnimatedStackPushWidget> {
     if (index < values.length && stack.length < capacity) {
       return 'Push ${values[index]}';
     } else {
-      return 'Stack Full or Done';
+      return 'Restart';
     }
   }
 
@@ -55,7 +57,7 @@ class _AnimatedStackPushWidgetState extends State<AnimatedStackPushWidget> {
                 margin: EdgeInsets.symmetric(vertical: 1),
                 decoration: BoxDecoration(
                   color: i < stack.length
-                      ? Color(0xFFDFAEE8)
+                      ? Color(0xFF255f38)
                       : Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
                   borderRadius: BorderRadius.circular(5),
@@ -78,16 +80,68 @@ class _AnimatedStackPushWidgetState extends State<AnimatedStackPushWidget> {
 
         // Stack Info
         Text(
-          'Top: $top  |  Capacity: $capacity',
+          '${AppLocalizations.of(context)!.top_text}: $top | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
 
         SizedBox(height: 20),
 
-        ElevatedButton(
-          onPressed:
-          (index < values.length && stack.length < capacity) ? _pushNextElement : null,
-          child: Text(_getNextButtonText()),
+        // Play button
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              if (index < values.length && stack.length < capacity) {
+                _pushNextElement();
+              } else {
+                // Reset the stack when full and button is pressed again
+                setState(() {
+                  stack.clear();
+                  index = 0;
+                  top = -1;
+                });
+              }
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(_getNextButtonText(),
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
