@@ -131,7 +131,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                                 Text(AppLocalizations.of(context)!.data_structure_question,
                                   style: TextStyle(
                                     fontSize: 26,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black87,
                                   ),
                                 ),
@@ -139,80 +139,133 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                                 Text(
                                   AppLocalizations.of(context)!.data_structure_description,
                                   style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 16,
                                     color: Colors.grey,
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 16),
+
+                          const SizedBox(height: 20),
 
                           // Linear Data Structure Section
                           Text(AppLocalizations.of(context)!.linear_dsa_title,
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
                               color: Color(0xFF1f7d53),
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(AppLocalizations.of(context)!.linear_dsa_description,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey,
+
+                          const SizedBox(height: 10),
+
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+
+                                Text(AppLocalizations.of(context)!.linear_dsa_description,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+
+                                // Linear Data Structure Buttons
+                                GridView.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 10,
+                                            mainAxisSpacing: 10,
+                                            childAspectRatio: 2.2,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            children: [
+                                              _buildCategoryButton(context, AppLocalizations.of(context)!.array_button_text, isDarkTheme),
+                                              _buildCategoryButton(context, AppLocalizations.of(context)!.stack_button_text, isDarkTheme),
+                                              _buildCategoryButton(context, AppLocalizations.of(context)!.queue_button_text, isDarkTheme),
+                                              _buildCategoryButton(context, AppLocalizations.of(context)!.list_button_text, isDarkTheme),
+                                            ],
+                                          ),
+                              ],
                             ),
                           ),
 
-                          // Linear Data Structure Buttons
-                          GridView.count(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 2.2,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              _buildCategoryButton(context, AppLocalizations.of(context)!.array_button_text, isDarkTheme),
-                              _buildCategoryButton(context, AppLocalizations.of(context)!.stack_button_text, isDarkTheme),
-                              _buildCategoryButton(context, AppLocalizations.of(context)!.queue_button_text, isDarkTheme),
-                              _buildCategoryButton(context, AppLocalizations.of(context)!.list_button_text, isDarkTheme),
-                            ],
-                          ),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 20),
 
                           // Non-Linear Data Structure Section
                           Text(AppLocalizations.of(context)!.nonlinear_dsa_title,
                             style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
                               color: Color(0xFF1f7d53),
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Text(AppLocalizations.of(context)!.nonlinear_dsa_description,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey,
+
+                          const SizedBox(height: 10),
+
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
                             ),
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(AppLocalizations.of(context)!.nonlinear_dsa_description,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+
+                                // Non-Linear Data Structure Buttons
+                                GridView.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 10,
+                                            mainAxisSpacing: 10,
+                                            childAspectRatio: 2.2,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            children: [
+                                              _buildCategoryButton(context, AppLocalizations.of(context)!.bst_button_text,
+                                                  isDarkTheme),
+                                              _buildCategoryButton(context, AppLocalizations.of(context)!.hash_button_text,
+                                                  isDarkTheme),
+                                            ],
+                                          ),
+                                ],
+                              ),
                           ),
 
-                          // Non-Linear Data Structure Buttons
-                          GridView.count(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 2.2,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            children: [
-                              _buildCategoryButton(context, AppLocalizations.of(context)!.bst_button_text,
-                                  isDarkTheme),
-                              _buildCategoryButton(context, AppLocalizations.of(context)!.hash_button_text,
-                                  isDarkTheme),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 20),
 
                           // Complexity Table Section
                           Container(
@@ -247,7 +300,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                           ),
 
                           const SizedBox(height: 65),
-
                         ],
                       ),
                     ),
@@ -280,7 +332,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
         toggleTheme: widget.toggleTheme,
         userId: widget.userId,
       ),
-      AppLocalizations.of(context)!.queue_button_text: () => QueuePage(),
+      AppLocalizations.of(context)!.queue_button_text: () => QueuePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.list_button_text: () => ListPage(),
       AppLocalizations.of(context)!.hash_button_text: () => HashTablePage(),
       AppLocalizations.of(context)!.bst_button_text: () => BSTPage()
@@ -305,17 +357,17 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
         backgroundColor: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
         ),
         elevation: 0,
       ),
       child: Ink(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           gradient: gradient,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withOpacity(0.5),
               spreadRadius: 1,
               blurRadius: 4,
               offset: Offset(2, 2),

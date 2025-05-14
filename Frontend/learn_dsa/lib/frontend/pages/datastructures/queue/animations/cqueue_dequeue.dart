@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedCircularQueueDequeueWidget extends StatefulWidget {
   @override
@@ -140,7 +141,7 @@ class _AnimatedCircularQueueDequeueWidgetState extends State<AnimatedCircularQue
         ),
         SizedBox(height: 10),
         Text(
-          'Front: ${front == -1 ? "-1" : front}  |  Rear: ${rear == -1 ? "-1" : rear}  |  Capacity: $capacity',
+          '${AppLocalizations.of(context)!.front_text}: ${front == -1 ? "-1" : front} | ${AppLocalizations.of(context)!.rear_text}: ${rear == -1 ? "-1" : rear} | ${AppLocalizations.of(context)!.capacity_text}: 5',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedArrayPrintWidget extends StatefulWidget {
   @override
@@ -131,7 +132,7 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
 
           // Size / Capacity Display
           Text(
-            'Size: 5 | Capacity: $capacity',
+            '${AppLocalizations.of(context)!.size_text}: $size | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
 
@@ -139,7 +140,7 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
             Column(
               children: [
                 Text(
-                  'Array elements:',
+                  AppLocalizations.of(context)!.array_print_function_call,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 14,
@@ -160,7 +161,7 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
           SizedBox(height: 10),
           // Play / Pause Button
           Container(
-            width: 70,
+            width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
             height: 40,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
@@ -199,7 +200,7 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
                       size: 24,
                     ),
                     Text(
-                      isAnimating && !isPaused ? 'Pause' : 'Play',
+                      isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
                       style: TextStyle(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         fontWeight: FontWeight.bold,

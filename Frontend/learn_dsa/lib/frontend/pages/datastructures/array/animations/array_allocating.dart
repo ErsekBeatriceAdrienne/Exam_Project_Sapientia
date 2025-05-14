@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayAllocationWidget extends StatefulWidget {
   @override
@@ -94,14 +95,14 @@ class _ArrayAllocationWidgetState extends State<ArrayAllocationWidget> {
 
             SizedBox(height: 10),
             Text(
-              'Size: $size | Capacity: $capacity',
+              '${AppLocalizations.of(context)!.size_text}: $size | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
 
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Text(
-                "createArray(5, a)",
+                AppLocalizations.of(context)!.array_allocate_function_call,
                 style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
               ),
             ),

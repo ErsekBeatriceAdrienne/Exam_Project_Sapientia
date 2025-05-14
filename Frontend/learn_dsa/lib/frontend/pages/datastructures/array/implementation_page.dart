@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
 import 'array_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ImplementationArrayPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -29,6 +30,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
+          // Appbar
           SliverAppBar(
             backgroundColor: Colors.transparent,
             pinned: true,
@@ -50,14 +52,14 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                 );
               },
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20),
-              label: const Text(
-                'Back',
+              label: Text(
+                AppLocalizations.of(context)!.back_button_text,
                 style: TextStyle(fontWeight: FontWeight.normal, fontSize: 17),
               ),
             ),
             centerTitle: true,
             title: Text(
-              ArrayStrings.code_functions_title,
+              AppLocalizations.of(context)!.code_snippets_text,
               style: const TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
@@ -65,7 +67,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
               ),
             ),
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(60),
+              preferredSize: Size.fromHeight(0),//Size.fromHeight(60),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 4, 20, 6),
                 child: Container(
@@ -84,7 +86,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                       ),
                     ],*/
                   ),
-                  child: TextField(
+                  /*child: TextField(
                     onChanged: (value) {
                       print('Search: $value');
                     },
@@ -99,7 +101,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                         borderSide: BorderSide.none,
                       ),
                     ),
-                  ),
+                  ),*/
                 ),
               ),
             ),
@@ -113,24 +115,24 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
             ),
           ),
 
+          // Body
           SliverPadding(
             padding: const EdgeInsets.all(16.0),
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
-
                   // Allocating memory pseudo code title
                   Text(
-                    ArrayStrings.func_allocating_memory_title,
+                    AppLocalizations.of(context)!.allocate_memory_function_title,
                     style: TextStyle(
-                      fontSize: 19,
+                      fontSize: 21,
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
                     ),
                   ),
                   // Allocating memory pseudo code comment
                   Text(
-                    ArrayStrings.allocating_memory_function_comment,
+                    AppLocalizations.of(context)!.array_allocate_memory_function_description,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.normal,
@@ -194,7 +196,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
 
                   // Printing code title
                   Text(
-                    ArrayStrings.func_printing_array_title,
+                    AppLocalizations.of(context)!.print_function_title,
                     style: TextStyle(
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
@@ -203,7 +205,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                   ),
                   // Printing code comment
                   Text(
-                    ArrayStrings.printing_function_comment,
+                    AppLocalizations.of(context)!.array_print_function_description,
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.normal,

@@ -60,6 +60,13 @@ class _AnimatedStackCreateWidgetState extends State<AnimatedStackCreateWidget> {
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
 
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            AppLocalizations.of(context)!.stack_allocate_function_call,
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
+          ),
+        ),
       ],
     );
   }

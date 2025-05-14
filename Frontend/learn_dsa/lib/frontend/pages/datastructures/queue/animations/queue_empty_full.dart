@@ -117,7 +117,7 @@ class _AnimatedQueueCreateWidgetState extends State<AnimatedQueueCreateWidget> {
 
         // Front/Rear info
         Text(
-        '${AppLocalizations.of(context)!.front_text}: ${front == -1 ? "-1" : front}  | ${AppLocalizations.of(context)!.rear_text}: ${rear == -1 ? "-1" : rear}  | ${AppLocalizations.of(context)!.capacity_text}: 5',
+          '${AppLocalizations.of(context)!.front_text}: ${front == -1 ? "-1" : front}  | ${AppLocalizations.of(context)!.rear_text}: ${rear == -1 ? "-1" : rear}  | ${AppLocalizations.of(context)!.capacity_text}: 5',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],

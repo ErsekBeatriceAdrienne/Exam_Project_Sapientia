@@ -5,6 +5,9 @@ import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/pseudocode_page.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_animations.dart';
 import '../../../strings/datastructure_strings/stack_strings.dart';
+import '../../customClasses/custom_closing_button_copyCode.dart';
+import '../../test/exercises/stack_exercises.dart';
+import '../../test/testpages/stack_testpage.dart';
 import '../datastructures_page.dart';
 import 'animations/stack_create.dart';
 import 'animations/stack_pop.dart';
@@ -175,12 +178,12 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                         ),
                       ),
 
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
 
                       Text(AppLocalizations.of(context)!.struct_title,
                         style: TextStyle(
                           color: Color(0xFF1f7d53),
-                          fontSize: 20,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -205,7 +208,7 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                           ],
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
                             // Struct stack explanation
@@ -234,11 +237,14 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
                               ),
+                              softWrap: true,
                             ),
 
                             const SizedBox(height: 10),
 
-                            Row(
+                            Center(
+                              child:
+                                Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // Struct stack code snippet with copy button
@@ -285,13 +291,12 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                                 ),
                               ],
                             ),
-
-                            const SizedBox(height: 10),
+                            ),
                           ],
                         ),
                       ),
 
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
 
                       /*Text(AppLocalizations.of(context)!
                           .animation_title,
@@ -348,7 +353,7 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                           .when_to_use_title,
                         style: TextStyle(
                           color: Color(0xFF1f7d53),
-                          fontSize: 20,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -365,10 +370,10 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                               color: Theme
                                   .of(context)
                                   .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(20),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
+                                  color: Colors.black.withOpacity(0.5),
                                   spreadRadius: 1,
                                   blurRadius: 6,
                                   offset: Offset(0, 4),
@@ -591,147 +596,15 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                         ],
                       ),
 
-                      const SizedBox(height: 30),
-
-                      Text(AppLocalizations.of(context)!
-                          .header_file_title,
-                        style: TextStyle(
-                          color: Color(0xFF1f7d53),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
 
                       // Complete .h file
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    StackStrings.header_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: StackStrings.header_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .code_copied_text),
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    margin: EdgeInsets.all(16),
-                                    elevation: 6,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: StackStrings.header_file_content),
 
-                      const SizedBox(height: 30),
-
-                      Text(AppLocalizations.of(context)!
-                          .source_file_title,
-                        style: TextStyle(
-                          color: Color(0xFF1f7d53),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
 
                       // Complete .c file
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    StackStrings.source_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: StackStrings.source_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .code_copied_text),
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    margin: EdgeInsets.all(16),
-                                    elevation: 6,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: StackStrings.source_file_content),
 
                       const SizedBox(height: 40),
                     ],
@@ -769,19 +642,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildMenuItem(Icons.code,
-                        AppLocalizations.of(context)!.code_snippets_text, () {
-                          /*Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              ImplementationArrayPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
-                            ),
-                          );*/
-                          HapticFeedback.mediumImpact();
-                        }),
                     _buildMenuItem(Icons.text_snippet,
                         AppLocalizations.of(context)!.pseudocode_text, () {
                           Navigator.push(
@@ -798,28 +658,28 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                     _buildMenuItem(Icons.pending_actions_rounded,
                         AppLocalizations.of(context)!
                             .test_page_exercises_title, () {
-                          /*Navigator.push(
+                          Navigator.push(
                             context,
                             Essentials().createSlideRoute(
-                              ArrayExercisesPage(
+                              StackExercisesPage(
                                 toggleTheme: widget.toggleTheme,
                                 userId: widget.userId,
                               ),
                             ),
-                          );*/
+                          );
                           HapticFeedback.mediumImpact();
                         }),
                     _buildMenuItem(Icons.quiz,
                         AppLocalizations.of(context)!.test_page_title, () {
-                          /*Navigator.push(
+                          Navigator.push(
                             context,
                             Essentials().createSlideRoute(
-                              ArrayTestPage(
+                              StackTestPage(
                                 toggleTheme: widget.toggleTheme,
                                 userId: widget.userId,
                               ),
                             ),
-                          );*/
+                          );
                           HapticFeedback.mediumImpact();
                         }),
                   ],
