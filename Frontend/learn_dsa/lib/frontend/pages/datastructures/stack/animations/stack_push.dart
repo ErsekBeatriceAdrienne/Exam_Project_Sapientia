@@ -26,9 +26,9 @@ class _AnimatedStackPushWidgetState extends State<AnimatedStackPushWidget> {
 
   String _getNextButtonText() {
     if (index < values.length && stack.length < capacity) {
-      return 'Push ${values[index]}';
+      return 'push(s, ${values[index]})';
     } else {
-      return 'Restart';
+      return AppLocalizations.of(context)!.start_exercise_button_text;
     }
   }
 

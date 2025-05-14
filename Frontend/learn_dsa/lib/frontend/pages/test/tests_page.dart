@@ -87,15 +87,14 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
             sliver: SliverList(
               delegate: SliverChildListDelegate(
                 [
-
                   // Tests
                   Container(
-                    padding: const EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Theme
                           .of(context)
                           .scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.5),
@@ -128,6 +127,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                         ),
 
                         const SizedBox(height: 10),
+
                         // Array and Stack buttons
                         Row(
                           children: [
@@ -197,7 +197,9 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 10),
+
                         // Binary Tree and Hash Table buttons
                         Row(
                           children: [
@@ -234,18 +236,48 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                           ],
                         ),
 
-                        const SizedBox(height: 20),
-                        Text(
-                          "Megoldott kérdések és az összes kérdések száma",
-                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  Text(
+                    AppLocalizations.of(context)!.answered_questions_text_title,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF1f7d53)),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
                         ),
-                        const SizedBox(height: 20),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                         SizedBox(
                           height: 200,
                           child: TestResultsChart(results: [10, 15, 8, 12, 20, 18]),
                         ),
                         const SizedBox(height: 10),
-                      ],
+                        ],
                     ),
                   ),
 
@@ -258,7 +290,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                       color: Theme
                           .of(context)
                           .scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.5),

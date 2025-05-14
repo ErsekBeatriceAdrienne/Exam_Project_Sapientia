@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedQueueWidget extends StatefulWidget {
   @override
@@ -105,7 +106,7 @@ class _AnimatedQueueWidgetState extends State<AnimatedQueueWidget>
 
         // Front and Rear positions
         Text(
-          'Front: ${front == -1 ? "-1" : front}  |  Rear: ${rear == -1 ? "-1" : rear}  |  Capacity: 5',
+          '${AppLocalizations.of(context)!.front_text}: ${front == -1 ? "-1" : front}  | ${AppLocalizations.of(context)!.rear_text}: ${rear == -1 ? "-1" : rear}  | ${AppLocalizations.of(context)!.capacity_text}: 5',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
       ],

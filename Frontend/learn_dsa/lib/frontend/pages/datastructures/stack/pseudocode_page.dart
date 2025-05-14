@@ -5,8 +5,11 @@ import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../strings/datastructure_strings/stack_strings.dart';
 import 'animations/stack_create.dart';
+import 'animations/stack_empty_full.dart';
+import 'animations/stack_peek.dart';
 import 'animations/stack_pop.dart';
 import 'animations/stack_push.dart';
+import 'animations/stack_size.dart';
 
 class PseudocodeStackPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -64,7 +67,7 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                 ),
                 centerTitle: true,
                 title: Text(
-                  AppLocalizations.of(context)!.stack_page_title,
+                  AppLocalizations.of(context)!.pseudocode_text,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -104,9 +107,9 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
 
                       // Allocating memory pseudo code title
                       Text(
-                        StackStrings.func_allocating_memory_title,
+                        AppLocalizations.of(context)!.allocate_memory_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -129,9 +132,9 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
 
                       // isFull pseudo code title
                       Text(
-                        StackStrings.func_isfull_title,
+                        AppLocalizations.of(context)!.stack_isfull_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -147,13 +150,17 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                         ),
                       ),
 
+                      Center(
+                        child: AnimatedStackIsFullWidget(),
+                      ),
+
                       const SizedBox(height: 10),
 
                       // isEmpty pseudo code title
                       Text(
-                        StackStrings.func_isempty_title,
+                        AppLocalizations.of(context)!.stack_isempty_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -169,13 +176,17 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                         ),
                       ),
 
+                      Center(
+                        child: AnimatedStackIsEmptyWidget(),
+                      ),
+
                       const SizedBox(height: 10),
 
                       // Push pseudo code title
                       Text(
-                        StackStrings.func_push_title,
+                        AppLocalizations.of(context)!.stack_push_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -190,6 +201,7 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                             fontFamily: 'Courier'
                         ),
                       ),
+
                       Center(
                         child: AnimatedStackPushWidget(),
                       ),
@@ -198,9 +210,9 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
 
                       // Pop pseudo code title
                       Text(
-                        StackStrings.func_pop_title,
+                        AppLocalizations.of(context)!.stack_pop_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -215,22 +227,23 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                             fontFamily: 'Courier'
                         ),
                       ),
+
                       Center(
                         child: AnimatedStackPopWidget(),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Top pseudo code title
+                      // Peek pseudo code title
                       Text(
-                        StackStrings.func_top_title,
+                        AppLocalizations.of(context)!.stack_peek_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Top pseudo code
+                      // Peek pseudo code
                       Text(
                         StackStrings.func_top_explanation,
                         style: TextStyle(
@@ -241,13 +254,17 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                         ),
                       ),
 
+                      Center(
+                        child: AnimatedStackPeekWidget(),
+                      ),
+
                       const SizedBox(height: 10),
 
                       // Size pseudo code title
                       Text(
-                        StackStrings.func_size_title,
+                        AppLocalizations.of(context)!.stack_size_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -263,13 +280,17 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                         ),
                       ),
 
+                      Center(
+                        child: AnimatedStackSizeWidget(),
+                      ),
+
                       const SizedBox(height: 10),
 
                       // Destroy pseudo code title
                       Text(
-                        StackStrings.func_destroy_title,
+                        AppLocalizations.of(context)!.stack_clear_function_title,
                         style: TextStyle(
-                          fontSize: 19,
+                          fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),

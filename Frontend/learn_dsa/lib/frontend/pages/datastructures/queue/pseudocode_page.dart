@@ -1,31 +1,25 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_dsa/frontend/pages/datastructures/array/array_page.dart';
-import '../../../strings/datastructure_strings/array_strings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'animations/array_allocating.dart';
-import 'animations/array_deleteAt.dart';
-import 'animations/array_empty_full.dart';
-import 'animations/array_getItem.dart';
-import 'animations/array_insertAt.dart';
-import 'animations/array_insertFirst.dart';
-import 'animations/array_insertLast.dart';
-import 'animations/array_print.dart';
-import 'animations/array_search.dart';
-import 'animations/array_update.dart';
+import 'package:learn_dsa/frontend/helpers/essentials.dart';
+import 'package:learn_dsa/frontend/pages/datastructures/queue/animations/queue_dequeue.dart';
+import 'package:learn_dsa/frontend/pages/datastructures/queue/animations/queue_enqueue.dart';
+import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_page.dart';
+import '../../../strings/datastructure_strings/queue_strings.dart';
+import 'animations/queue_create.dart';
 
-class PseudocodeArrayPage extends StatefulWidget {
+class PseudocodeQueuePage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const PseudocodeArrayPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const PseudocodeQueuePage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<PseudocodeArrayPage> createState() => _PseudocodeArrayPageState();
+  State<PseudocodeQueuePage> createState() => _PseudocodeQueuePageState();
 }
 
-class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTickerProviderStateMixin {
+class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTickerProviderStateMixin {
   bool _showExplanation = false;
 
   @override
@@ -56,8 +50,8 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                   onPressed: () {
                     Navigator.pop(
                       context,
-                      CupertinoPageRoute(
-                        builder: (_) => ArrayPage(
+                      Essentials().createSlideRoute(
+                        QueuePage(
                           toggleTheme: widget.toggleTheme,
                           userId: widget.userId,
                         ),
@@ -117,11 +111,12 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                           color: Colors.black,
                         ),
                       ),
+
                       const SizedBox(height: 10),
 
                       // Allocating memory pseudo code
                       Text(
-                        ArrayStrings.func_allocating_memory,
+                        QueueStrings.func_allocating_memory,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -131,43 +126,14 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                       ),
                       const SizedBox(height: 10),
                       Center(
-                        child: ArrayAllocationWidget(),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Printing pseudo code title
-                      Text(
-                        AppLocalizations.of(context)!.print_function_title,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Printing pseudo code
-                      Text(
-                        ArrayStrings.func_printing_array,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedArrayPrintWidget(),
+                        child: AnimatedQueueCreateWidget(),
                       ),
 
                       const SizedBox(height: 20),
 
                       // Empty pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_isempty_function_title,
+                        AppLocalizations.of(context)!.queue_isempty_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
@@ -176,7 +142,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                       ),
                       // Empty pseudo code
                       Text(
-                        ArrayStrings.func_empty_array,
+                        QueueStrings.func_isempty_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -185,9 +151,9 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Center(
+                      /*Center(
                         child: ArrayAllocationEmptyWidget(),
-                      ),
+                      ),*/
 
                       const SizedBox(height: 10),
 
@@ -202,7 +168,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                       ),
                       // Full pseudo code
                       Text(
-                        ArrayStrings.func_full_array,
+                        QueueStrings.func_isfull_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -211,85 +177,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedArrayFullWidget(),
-                      ),
 
-                      const SizedBox(height: 10),
-
-                      // Get item at pseudo code title
-                      Text(
-                        AppLocalizations.of(context)!.array_getitem_function_title,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      // Get item at pseudo code
-                      Text(
-                        ArrayStrings.func_getitem_at,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedArrayGetItemWidget(),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Inserting first pseudo code title
-                      Text(
-                        AppLocalizations.of(context)!.array_insertfirst_function_title,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      // Inserting first pseudo code
-                      Text(
-                        ArrayStrings.func_inserting_element_first,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                      Center(
-                        child: ArrayInsertFirstWidget(),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Inserting at pseudo code title
-                      Text(
-                        AppLocalizations.of(context)!.array_insertat_function_title,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      // Inserting at pseudo code
-                      Text(
-                        ArrayStrings.func_inserting_element_at,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                      Center(
-                        child: ArrayInsertAtWidget(),
-                      ),
 
                       const SizedBox(height: 10),
 
@@ -304,7 +192,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                       ),
                       // Inserting last pseudo code
                       Text(
-                        ArrayStrings.func_inserting_element_last,
+                        QueueStrings.func_enqueue_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -313,7 +201,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: ArrayInsertLastWidget(),
+                        child: AnimatedEnqueueWidget(),
                       ),
 
                       const SizedBox(height: 10),
@@ -329,7 +217,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                       ),
                       // Deleting element pseudo code
                       Text(
-                        ArrayStrings.func_deleting_element,
+                        QueueStrings.func_dequeue_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -338,23 +226,23 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: ArrayDeleteAtWidget(),
+                        child: AnimatedQueueDequeueWidget(),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Search pseudo code title
+                      // Display pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_search_function_title,
+                        AppLocalizations.of(context)!.array_deleteitem_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Search pseudo code
+                      // Display pseudo code
                       Text(
-                        ArrayStrings.func_search,
+                        QueueStrings.func_display_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -362,33 +250,25 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
-                      Center(
-                        child: AnimatedArraySearchWidget(),
-                      ),
 
-                      const SizedBox(height: 10),
-
-                      // Update pseudo code title
+                      // Peek pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_update_function_title,
+                        AppLocalizations.of(context)!.array_deleteitem_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Update pseudo code
+                      // Peek pseudo code
                       Text(
-                        ArrayStrings.func_update,
+                        QueueStrings.func_peek_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                           color: Colors.black,
                           fontFamily: 'Courier',
                         ),
-                      ),
-                      Center(
-                        child: AnimatedArrayUpdateWidget(),
                       ),
 
                       const SizedBox(height: 10),
@@ -404,7 +284,7 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                       ),
                       // Deallocating memory pseudo code
                       Text(
-                        ArrayStrings.func_deallocating_array,
+                        QueueStrings.func_destroy_explanation,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -467,7 +347,6 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
                 ),
               ),
             ),
-
         ],
       ),
     );

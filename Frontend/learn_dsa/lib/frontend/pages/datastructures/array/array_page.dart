@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
@@ -9,8 +8,7 @@ import '../../../strings/datastructure_strings/array_strings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../test/exercises/array_exercises.dart';
 import '../datastructures_page.dart';
-import 'animations/array_animations.dart';
-import 'implementation_page.dart';
+import '../../customClasses/custom_closing_button_copyCode.dart';
 
 class ArrayPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -176,7 +174,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                         ),
                       ),
 
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
 
                       Text(AppLocalizations.of(context)!.struct_title,
                         style: TextStyle(
@@ -204,7 +202,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                           ],
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
                             // Struct array explanation
@@ -233,11 +231,13 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black,
                               ),
+                              softWrap: true,
                             ),
 
                             const SizedBox(height: 10),
 
-                            Row(
+                            Center(
+                              child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                               // Struct array code snippet with copy button
@@ -284,13 +284,12 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               ),
                               ],
                             ),
-
-                            const SizedBox(height: 10),
+                            ),
                           ],
                         ),
                       ),
 
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 20),
 
                       /*Text(AppLocalizations.of(context)!.animation_title,
                         style: TextStyle(
@@ -590,147 +589,15 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                         ],
                       ),
 
-                      const SizedBox(height: 30),
-
-                      Text(AppLocalizations.of(context)!
-                          .header_file_title,
-                        style: TextStyle(
-                          color: Color(0xFF1f7d53),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
 
                       // Complete .h file
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    ArrayStrings.header_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: ArrayStrings.header_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .code_copied_text),
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    margin: EdgeInsets.all(16),
-                                    elevation: 6,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: ArrayStrings.header_file_content),
 
-                      const SizedBox(height: 30),
-
-                      Text(AppLocalizations.of(context)!
-                          .source_file_title,
-                        style: TextStyle(
-                          color: Color(0xFF1f7d53),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
 
                       // Complete .c file
-                      Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    ArrayStrings.source_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: ArrayStrings.source_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .code_copied_text),
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    margin: EdgeInsets.all(16),
-                                    elevation: 6,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: ArrayStrings.source_file_content),
 
                       const SizedBox(height: 40),
                     ],
@@ -755,7 +622,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                       .of(context)
                       .scaffoldBackgroundColor
                       .withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.4),
@@ -768,7 +635,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    _buildMenuItem(Icons.code,
+                    /*_buildMenuItem(Icons.code,
                         AppLocalizations.of(context)!.code_snippets_text, () {
                           Navigator.push(
                             context,
@@ -780,7 +647,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                             ),
                           );
                           HapticFeedback.mediumImpact();
-                        }),
+                        }),*/
                     _buildMenuItem(Icons.text_snippet,
                         AppLocalizations.of(context)!.pseudocode_text, () {
                           Navigator.push(
@@ -851,4 +718,119 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
       ),
     );
   }
+
 }
+
+/*Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Code colored
+                                Essentials().buildHighlightedCodeLines(
+                                    ArrayStrings.header_file_content),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.copy,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(
+                                    text: ArrayStrings.header_file_content));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(AppLocalizations.of(context)!
+                                        .code_copied_text),
+                                    behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    margin: EdgeInsets.all(16),
+                                    elevation: 6,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),*/
+
+/*Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Code colored
+                                Essentials().buildHighlightedCodeLines(
+                                    ArrayStrings.source_file_content),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.copy,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(
+                                    text: ArrayStrings.source_file_content));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(AppLocalizations.of(context)!
+                                        .code_copied_text),
+                                    behavior: SnackBarBehavior.floating,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    margin: EdgeInsets.all(16),
+                                    elevation: 6,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),*/

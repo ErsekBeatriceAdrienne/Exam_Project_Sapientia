@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayDeleteAtWidget extends StatefulWidget {
   @override
@@ -109,7 +110,7 @@ class _ArrayDeleteAtWidgetState extends State<ArrayDeleteAtWidget> {
             SizedBox(height: 10),
 
             Text(
-              'Size: $size | Capacity: $capacity',
+              '${AppLocalizations.of(context)!.size_text}: $size | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
 
@@ -123,7 +124,7 @@ class _ArrayDeleteAtWidgetState extends State<ArrayDeleteAtWidget> {
             ),
 
             Container(
-              width: 70,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -185,7 +186,7 @@ class _ArrayDeleteAtWidgetState extends State<ArrayDeleteAtWidget> {
                         size: 24,
                       ),
                       Text(
-                        isAnimating && !isPaused ? 'Pause' : 'Play',
+                        isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
                         style: TextStyle(
                           color: Theme
                               .of(context)

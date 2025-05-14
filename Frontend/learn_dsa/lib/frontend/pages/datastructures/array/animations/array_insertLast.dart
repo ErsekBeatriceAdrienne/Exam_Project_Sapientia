@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayInsertLastWidget extends StatefulWidget {
   @override
@@ -136,7 +137,7 @@ class _ArrayInsertLastWidgetState extends State<ArrayInsertLastWidget> {
             ),*/
 
             Container(
-              width: 70,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -193,7 +194,7 @@ class _ArrayInsertLastWidgetState extends State<ArrayInsertLastWidget> {
                       size: 22,
                     ),
                     Text(
-                      isAnimating && !isPaused ? 'Pause' : 'Play',
+                      isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
                       style: TextStyle(
                         color: Theme.of(context).scaffoldBackgroundColor,
                         fontWeight: FontWeight.bold,
