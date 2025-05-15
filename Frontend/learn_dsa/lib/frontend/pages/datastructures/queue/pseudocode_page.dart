@@ -8,6 +8,9 @@ import 'package:learn_dsa/frontend/pages/datastructures/queue/animations/queue_e
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_page.dart';
 import '../../../strings/datastructure_strings/queue_strings.dart';
 import 'animations/queue_create.dart';
+import 'animations/queue_display.dart';
+import 'animations/queue_empty_full.dart';
+import 'animations/queue_peek.dart';
 
 class PseudocodeQueuePage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -151,15 +154,15 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       const SizedBox(height: 10),
-                      /*Center(
-                        child: ArrayAllocationEmptyWidget(),
-                      ),*/
+                      Center(
+                        child: AnimatedQueueEmptyWidget(),
+                      ),
 
                       const SizedBox(height: 10),
 
                       // Full pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_isfull_function_title,
+                        AppLocalizations.of(context)!.queue_isfull_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
@@ -177,20 +180,22 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       const SizedBox(height: 10),
-
+                      Center(
+                        child: AnimatedQueueFullWidget(),
+                      ),
 
                       const SizedBox(height: 10),
 
-                      // Inserting last pseudo code title
+                      // Enqueue pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_insertlast_function_title,
+                        AppLocalizations.of(context)!.queue_enqueue_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Inserting last pseudo code
+                      // Enqueue pseudo code
                       Text(
                         QueueStrings.func_enqueue_explanation,
                         style: TextStyle(
@@ -233,7 +238,7 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
 
                       // Display pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_deleteitem_function_title,
+                        AppLocalizations.of(context)!.queue_print_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
@@ -250,10 +255,15 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
+                      Center(
+                        child: AnimatedQueueDisplay(),
+                      ),
+
+                      const SizedBox(height: 10),
 
                       // Peek pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_deleteitem_function_title,
+                        AppLocalizations.of(context)!.queue_peek_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
@@ -270,12 +280,15 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
+                      Center(
+                        child: AnimatedQueuePeek(),
+                      ),
 
                       const SizedBox(height: 10),
 
                       // Deallocating memory pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_deallocate_function_title,
+                        AppLocalizations.of(context)!.queue_destroy_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,

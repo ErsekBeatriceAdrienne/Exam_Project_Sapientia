@@ -43,8 +43,8 @@ class _AnimatedStackSizeWidgetState extends State<AnimatedStackSizeWidget> {
           padding: EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(
             color: Colors.transparent,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-            border: Border.all(color: Colors.black, width: 1),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15), bottom: Radius.circular(15)),
+            border: Border.all(color: Colors.grey, width: 1),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -60,7 +60,14 @@ class _AnimatedStackSizeWidgetState extends State<AnimatedStackSizeWidget> {
                   decoration: BoxDecoration(
                     color: isFilled ? Color(0xFF255f38) : Colors.grey.shade300,
                     border: Border.all(color: Colors.white, width: 1),
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45,
+                        blurRadius: 4,
+                        offset: Offset(2, 2),
+                      )
+                    ],
                   ),
                   alignment: Alignment.center,
                   child: Text(

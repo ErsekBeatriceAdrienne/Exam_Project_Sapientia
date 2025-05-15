@@ -88,7 +88,7 @@ class _AnimatedQueueCreateWidgetState extends State<AnimatedQueueCreateWidget> {
           decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.black, width: 1),
+            border: Border.all(color: Colors.grey, width: 1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -99,9 +99,16 @@ class _AnimatedQueueCreateWidgetState extends State<AnimatedQueueCreateWidget> {
                 height: 50,
                 margin: EdgeInsets.symmetric(horizontal: 3),
                 decoration: BoxDecoration(
-                  color: i < queue.length ? Color(0xFFDFAEE8) : Colors.grey.shade300,
+                  color: i < queue.length ? Color(0xFF255f38) : Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 4,
+                      offset: Offset(2, 2),
+                    )
+                  ],
                 ),
                 alignment: Alignment.center,
                 child: Text(
