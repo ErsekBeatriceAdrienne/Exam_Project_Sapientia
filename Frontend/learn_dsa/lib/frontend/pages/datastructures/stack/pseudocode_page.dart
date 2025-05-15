@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../strings/datastructure_strings/array_strings.dart';
 import '../../../strings/datastructure_strings/stack_strings.dart';
 import 'animations/stack_create.dart';
 import 'animations/stack_empty_full.dart';
@@ -314,7 +315,7 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
             ],
           ),
 
-          /*if (_showExplanation)
+          if (_showExplanation)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,
               right: 12,
@@ -337,7 +338,7 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      ArrayStrings.pseudo_code_explanation_title,
+                      AppLocalizations.of(context)!.naming_conventions_title,
                       style: const TextStyle(
                         color: Color(0xFF255f38),
                         fontSize: 18,
@@ -360,7 +361,6 @@ class _PseudocodeStackPageState extends State<PseudocodeStackPage> with SingleTi
                 ),
               ),
             ),
-*/
         ],
       ),
     );

@@ -25,8 +25,8 @@ class _AnimatedStackIsEmptyWidgetState extends State<AnimatedStackIsEmptyWidget>
           padding: EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(
             color: Colors.transparent,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-            border: Border.all(color: Colors.black, width: 1),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15), bottom: Radius.circular(15)),
+            border: Border.all(color: Colors.grey, width: 1),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -37,9 +37,16 @@ class _AnimatedStackIsEmptyWidgetState extends State<AnimatedStackIsEmptyWidget>
                 height: 30,
                 margin: EdgeInsets.symmetric(vertical: 1),
                 decoration: BoxDecoration(
-                  color: i < stack.length ? Color(0xFF006a42) : Colors.grey.shade300,
+                  color: i < stack.length ? Color(0xFF255f38) : Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 4,
+                      offset: Offset(2, 2),
+                    )
+                  ],
                 ),
                 alignment: Alignment.center,
                 child: Text(
@@ -148,8 +155,6 @@ class _AnimatedStackIsEmptyWidgetState extends State<AnimatedStackIsEmptyWidget>
 
 /// Is full
 
-
-
 class AnimatedStackIsFullWidget extends StatefulWidget {
   @override
   _AnimatedStackIsFullWidgetState createState() => _AnimatedStackIsFullWidgetState();
@@ -173,8 +178,8 @@ class _AnimatedStackIsFullWidgetState extends State<AnimatedStackIsFullWidget> {
           padding: EdgeInsets.symmetric(vertical: 6),
           decoration: BoxDecoration(
             color: Colors.transparent,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
-            border: Border.all(color: Colors.black, width: 1),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15), bottom: Radius.circular(15)),
+            border: Border.all(color: Colors.grey, width: 1),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -187,7 +192,14 @@ class _AnimatedStackIsFullWidgetState extends State<AnimatedStackIsFullWidget> {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade300,
                   border: Border.all(color: Colors.white, width: 1),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 4,
+                      offset: Offset(2, 2),
+                    )
+                  ],
                 ),
                 alignment: Alignment.center,
                 child: Text(

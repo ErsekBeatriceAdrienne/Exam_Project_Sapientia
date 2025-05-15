@@ -1,91 +1,95 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AnimatedQueueDequeueWidget extends StatefulWidget {
+class AnimatedQueueDisplay extends StatefulWidget {
   @override
-  _AnimatedQueueDequeueWidgetState createState() => _AnimatedQueueDequeueWidgetState();
+  _AnimatedQueueDisplayState createState() => _AnimatedQueueDisplayState();
 }
 
-class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget> with TickerProviderStateMixin {
-  List<int> queue = [3, 5, 7, 4];
+class _AnimatedQueueDisplayState extends State<AnimatedQueueDisplay> with SingleTickerProviderStateMixin {
+  final List<int> queue = [8, 1, 7, 2, 9];
   final int capacity = 5;
-  final List<int> values = [8, 1, 7, 2, 9];
   int index = 0;
   int front = 0;
-  int rear = 3;
+  int rear = 4;
+  int currentIndex = 0;
+  bool isAnimating = false;
+  bool isPaused = false;
 
-  late AnimationController _dequeueController;
-  late Animation<double> _dequeueScale;
-
-  int? dequeueIndex;
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
-
-    _dequeueController = AnimationController(
+    _controller = AnimationController(
       duration: Duration(milliseconds: 400),
       vsync: this,
     );
 
-    _dequeueScale = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(parent: _dequeueController, curve: Curves.easeIn),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-  }
-
-  void _dequeue() {
-    if (queue.isEmpty) {
-      // Queue is empty, refill it
-      setState(() {
-        queue = [
-          values[index % values.length],
-          values[(index + 1) % values.length],
-          values[(index + 2) % values.length],
-          values[(index + 3) % values.length],
-          values[(index + 4) % values.length],
-        ];
-        index = (index + 5) % values.length;
-        front = 0;
-        rear = queue.length - 1;
-      });
-      return;
-    }
-
-    setState(() {
-      dequeueIndex = 0;
-    });
-
-    _dequeueController.forward(from: 0).then((_) {
-      setState(() {
-        queue.removeAt(0);
-        dequeueIndex = null;
-
-        if (queue.isEmpty) {
-          front = -1;
-          rear = -1;
-        } else {
-          front = 0;
-          rear = queue.length - 1;
-        }
-      });
-    });
   }
 
   @override
   void dispose() {
-    _dequeueController.dispose();
+    _controller.dispose();
     super.dispose();
+  }
+
+  void _startOrToggleAnimation() {
+    if (!isAnimating) {
+      setState(() {
+        currentIndex = 0;
+        isAnimating = true;
+        isPaused = false;
+      });
+      _runAnimationStep();
+    } else {
+      setState(() {
+        isPaused = !isPaused;
+      });
+      if (!isPaused) {
+        _runAnimationStep();
+      }
+    }
+  }
+
+  void _runAnimationStep() async {
+    if (!isAnimating || isPaused || currentIndex >= queue.length) return;
+
+    await Future.delayed(Duration(seconds: 1));
+    HapticFeedback.mediumImpact();
+
+    if (!isAnimating || isPaused) return;
+
+    await _controller.forward(from: 0); // Run animation
+
+    setState(() {
+      currentIndex++;
+    });
+
+    if (currentIndex < queue.length) {
+      _runAnimationStep();
+    } else {
+      setState(() {
+        isAnimating = false;
+        isPaused = false;
+      });
+    }
   }
 
   Widget _buildQueueBox(int i) {
     bool isActive = i < queue.length;
-    bool isRemoving = dequeueIndex == i;
+    bool isCurrent = i == currentIndex;
 
     return AnimatedBuilder(
-      animation: _dequeueController,
+      animation: _controller,
       builder: (context, child) {
-        double scale = (isRemoving && _dequeueController.isAnimating) ? _dequeueScale.value : 1.0;
+        double scale = (isCurrent && _controller.isAnimating) ? _scaleAnimation.value : 1.0;
 
         return Transform.scale(
           scale: scale,
@@ -94,7 +98,9 @@ class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget>
             height: 50,
             margin: EdgeInsets.symmetric(horizontal: 3),
             decoration: BoxDecoration(
-              color: isActive ? Color(0xFF255f38) : Colors.grey.shade300,
+              color: isCurrent
+                  ? Color(0xFF1f7d53)
+                  : (isActive ? Color(0xFF255f38) : Colors.grey.shade300),
               border: Border.all(color: Colors.white, width: 1),
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
@@ -121,7 +127,7 @@ class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Queue visualization
+        // Queue container with border
         Container(
           width: 300,
           height: 60,
@@ -129,7 +135,7 @@ class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget>
           decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey, width: 1),
+            border: Border.all(color: Colors.black, width: 1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -147,11 +153,32 @@ class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget>
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
 
+        SizedBox(height: 16),
+
+        if (currentIndex > 0)
+          Column(
+            children: [
+              Text(
+                'display(q):',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 4),
+              Text(
+                '${queue.take(currentIndex).join(', ')}',
+                style: TextStyle(
+                  color: Color(0xFF006a42),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+
         SizedBox(height: 20),
 
-        // Dequeue button
+        // Play / Pause Button
         Container(
-          width: (queue.isEmpty ? AppLocalizations.of(context)!.start_exercise_button_text : 'dequeue(q)').length * 12 + 40,
+          width: AppLocalizations.of(context)!.start_exercise_button_text.length * 12 + 40,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -170,21 +197,26 @@ class _AnimatedQueueDequeueWidgetState extends State<AnimatedQueueDequeueWidget>
           ),
           child: RawMaterialButton(
             onPressed: () {
-              _dequeue();
+              _startOrToggleAnimation();
               HapticFeedback.mediumImpact();
             },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (queue.isEmpty)
-                  Icon(
-                    Icons.play_arrow_rounded,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                  ),
-                if (queue.isEmpty)
-                  SizedBox(width: 6),
+                Icon(
+                  isAnimating
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 24,
+                ),
+                SizedBox(width: 6),
                 Text(
-                  queue.isEmpty ? AppLocalizations.of(context)!.start_exercise_button_text : 'dequeue(q)',
+                  isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
                   style: TextStyle(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     fontWeight: FontWeight.bold,

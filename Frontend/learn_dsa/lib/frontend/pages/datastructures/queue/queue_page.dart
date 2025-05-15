@@ -6,6 +6,8 @@ import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_animations.d
 import 'package:learn_dsa/frontend/strings/datastructure_strings/stack_strings.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/datastructure_strings/queue_strings.dart';
+import '../../test/exercises/queue_exercises.dart';
+import '../../test/testpages/queue_testpage.dart';
 import '../datastructures_page.dart';
 import 'animations/cqueue_dequeue.dart';
 import 'animations/queue_create.dart';
@@ -775,28 +777,28 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
                     _buildMenuItem(Icons.pending_actions_rounded,
                         AppLocalizations.of(context)!
                             .test_page_exercises_title, () {
-                          /*Navigator.push(
+                          Navigator.push(
                               context,
                               Essentials().createSlideRoute(
-                                ArrayExercisesPage(
+                                QueueExercisesPage(
                                   toggleTheme: widget.toggleTheme,
                                   userId: widget.userId,
                                 ),
                               ),
-                            );*/
+                            );
                           HapticFeedback.mediumImpact();
                         }),
                     _buildMenuItem(Icons.quiz,
                         AppLocalizations.of(context)!.test_page_title, () {
-                          /*Navigator.push(
+                          Navigator.push(
                               context,
                               Essentials().createSlideRoute(
-                                ArrayTestPage(
+                                QueueTestPage(
                                   toggleTheme: widget.toggleTheme,
                                   userId: widget.userId,
                                 ),
                               ),
-                            );*/
+                            );
                           HapticFeedback.mediumImpact();
                         }),
                   ],

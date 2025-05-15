@@ -1,64 +1,40 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AnimatedEnqueueWidget extends StatefulWidget {
+class AnimatedQueuePeek extends StatefulWidget {
   @override
-  _AnimatedEnqueueWidgetState createState() => _AnimatedEnqueueWidgetState();
+  _AnimatedQueuePeekState createState() => _AnimatedQueuePeekState();
 }
 
-class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with TickerProviderStateMixin {
-  List<int> queue = [3, 5];
+class _AnimatedQueuePeekState extends State<AnimatedQueuePeek> with SingleTickerProviderStateMixin {
+  final List<int> queue = [8, 1, 7, 2, 9];
   final int capacity = 5;
-  final List<int> values = [8, 1, 7, 2, 9];
   int index = 0;
   int front = 0;
-  int rear = 1;
+  int rear = 4;
+  int currentIndex = 0;
+  bool isAnimating = false;
+  bool isPaused = false;
+  bool isPeeking = false;
+  int? peekIndex;
+  String? peekMessage;
 
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
-  void _enqueue() {
-    if (queue.length >= capacity) {
-      setState(() {
-        queue.clear();
-        index = 0;
-        front = -1;
-        rear = -1;
-      });
-
-      _controller.forward(from: 0);
-      return;
-    }
-
-    setState(() {
-      queue.add(values[index % values.length]);
-
-      if (queue.length == 1) {
-        front = 0;
-      }
-
-      rear = (rear + 1) % capacity;
-      index++;
-    });
-
-    _controller.forward(from: 0);
-  }
-
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       duration: Duration(milliseconds: 400),
       vsync: this,
     );
 
-    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutBack),
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.9).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
-
-    _controller.forward();
   }
 
   @override
@@ -67,14 +43,34 @@ class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with Tick
     super.dispose();
   }
 
+  void _peek() async {
+    if (queue.isEmpty || isAnimating || isPeeking) return;
+
+    setState(() {
+      peekIndex = 0;
+      isPeeking = true;
+      peekMessage = "return ${queue[0]}";
+    });
+
+    await _controller.forward(from: 0);
+    await Future.delayed(Duration(milliseconds: 400));
+
+    setState(() {
+      isPeeking = false;
+      peekIndex = null;
+    });
+
+    HapticFeedback.mediumImpact();
+  }
+
   Widget _buildQueueBox(int i) {
     bool isActive = i < queue.length;
-    bool isLast = i == queue.length - 1;
+    bool isCurrent = (i == currentIndex && isAnimating) || (i == peekIndex && isPeeking);
 
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
-        double scale = (isLast && _controller.isAnimating) ? _scaleAnimation.value : 1.0;
+        double scale = (isCurrent && _controller.isAnimating) ? _scaleAnimation.value : 1.0;
 
         return Transform.scale(
           scale: scale,
@@ -83,7 +79,9 @@ class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with Tick
             height: 50,
             margin: EdgeInsets.symmetric(horizontal: 3),
             decoration: BoxDecoration(
-              color: isActive ? Color(0xFF255f38) : Colors.grey.shade300,
+              color: isCurrent
+                  ? Color(0xFF1f7d53)
+                  : (isActive ? Color(0xFF255f38) : Colors.grey.shade300),
               border: Border.all(color: Colors.white, width: 1),
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
@@ -107,13 +105,10 @@ class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with Tick
 
   @override
   Widget build(BuildContext context) {
-    int nextValue = values[index % values.length];
-    bool isFull = queue.length >= capacity;
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Queue visualization
+        // Queue container with border
         Container(
           width: 300,
           height: 60,
@@ -121,14 +116,11 @@ class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with Tick
           decoration: BoxDecoration(
             color: Colors.transparent,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: Colors.grey, width: 1),
+            border: Border.all(color: Colors.black, width: 1),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: List.generate(
-              capacity,
-                  (i) => _buildQueueBox(i),
-            ),
+            children: List.generate(capacity, (i) => _buildQueueBox(i)),
           ),
         ),
 
@@ -136,15 +128,31 @@ class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with Tick
 
         // Front/Rear info
         Text(
-          '${AppLocalizations.of(context)!.front_text}: ${front == -1 ? "-1" : front} | ${AppLocalizations.of(context)!.rear_text}: ${rear == -1 ? "-1" : rear} | ${AppLocalizations.of(context)!.capacity_text}: 5',
+          '${AppLocalizations.of(context)!.front_text}: ${front == -1 ? "-1" : front} | '
+              '${AppLocalizations.of(context)!.rear_text}: ${rear == -1 ? "-1" : rear} | '
+              '${AppLocalizations.of(context)!.capacity_text}: 5',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
 
-        SizedBox(height: 20),
+        SizedBox(height: 10),
 
-        // Enqueue button with next value
+        if (peekMessage != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Text(
+              peekMessage!,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+
+        SizedBox(height: 12),
+
         Container(
-          width: AppLocalizations.of(context)!.play_animation_button_text.length * 12 + 20,
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 40,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -163,33 +171,30 @@ class _AnimatedEnqueueWidgetState extends State<AnimatedEnqueueWidget> with Tick
           ),
           child: RawMaterialButton(
             onPressed: () {
-              _enqueue();
+              _peek();
               HapticFeedback.mediumImpact();
             },
-            child: queue.length >= capacity
-                ? Row(
-              mainAxisSize: MainAxisSize.min,
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.play_arrow_rounded, color: Theme.of(context).scaffoldBackgroundColor),
+                Icon(Icons.play_arrow_rounded, color: Theme.of(context).scaffoldBackgroundColor, size: 22),
                 SizedBox(width: 6),
                 Text(
-                  AppLocalizations.of(context)!.start_exercise_button_text,
+                  AppLocalizations.of(context)!.play_animation_button_text,
                   style: TextStyle(
                     color: Theme.of(context).scaffoldBackgroundColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
-            )
-                : Text(
-              'enqueue($nextValue)',
-              style: TextStyle(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                fontWeight: FontWeight.bold,
-              ),
             ),
           ),
         ),
+
       ],
     );
   }
