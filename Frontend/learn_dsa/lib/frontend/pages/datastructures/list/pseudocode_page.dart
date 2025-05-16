@@ -114,7 +114,7 @@ class _PseudocodeListPageState extends State<PseudocodeListPage> with SingleTick
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      /*Text(
+                      Text(
                         AppLocalizations.of(context)!.singly_linked_list_title,
                         style: TextStyle(
                           fontSize: 14,
@@ -427,7 +427,7 @@ class _PseudocodeListPageState extends State<PseudocodeListPage> with SingleTick
                         ),
                       ),
 
-                      const SizedBox(height: 10),*/
+                      const SizedBox(height: 10),
 
                       Divider(),
 
@@ -751,17 +751,15 @@ class _PseudocodeListPageState extends State<PseudocodeListPage> with SingleTick
                       ),
                     ),
 
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_1),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_2),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_3),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_4),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_5),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_6),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_7),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_8),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_9),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_10),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_11),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_1),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_2),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_3),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_4),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_5),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_6),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_7),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_8),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_9),
                   ],
                 ),
               ),

@@ -297,534 +297,170 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                       const SizedBox(height: 20),
 
                       // What is a doubly linked list?
-                      /*Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.4),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-
-                                // List description
-                                Text(
-                                  ListStrings.list_definition1,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                  ),
-                                ),
-
-                                const SizedBox(height: 10),
-
-                                // List code example
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
-                                    children: [
-
-                                      // List code snippet with copy button
-                                      Center(
-                                        child: Stack(
-                                          children: [
-                                            // List code snippet
-                                            Container(
-                                              padding: const EdgeInsets.all(8),
-                                              margin: const EdgeInsets.only(
-                                                  bottom: 10),
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFDFAEE8),
-                                                borderRadius: BorderRadius
-                                                    .circular(8),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.15),
-                                                    offset: const Offset(2, 2),
-                                                    blurRadius: 6,
-                                                    spreadRadius: 2,
-                                                  ),
-                                                ],
-                                              ),
-
-                                              child: SelectableText(
-                                                ListStrings
-                                                    .list_empty_initialization1,
-                                                style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontFamily: 'monospace',
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-
-                                            // Copy button on right up corner
-                                            Positioned(
-                                              top: 8,
-                                              right: 8,
-                                              child: IconButton(
-                                                icon: Icon(
-                                                  Icons.copy,
-                                                  color: Colors.white,
-                                                ),
-                                                onPressed: () {
-                                                  Clipboard.setData(
-                                                      ClipboardData(
-                                                          text: ListStrings
-                                                              .list_empty_initialization1));
-                                                  ScaffoldMessenger
-                                                      .of(context)
-                                                      .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          'Code copied!')),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // List explanation
-                                      Text(
-                                        ListStrings.list_explanation1,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-
-                                      const SizedBox(height: 10),
-
-                                      // Animation of the list
-                                      DoublyLinkedListAnimation(),
-
-                                      const SizedBox(height: 10),
-
-                                    ],
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                          ),
-
-                          // What is an array question box
-                          Positioned(
-                            top: -23,
-                            left: 16,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  // Gradient colors
-                                  colors: [
-                                    Color(0xFFa1f7ff),
-                                    Color(0xFFDFAEE8)
-                                  ],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 8.0,
-                              ),
-                              child: Text(
-                                ListStrings.question1,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Pseudocode doubly Drop down
                       Container(
+                        padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            // Gradient colors
-                            colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
+                              color: Colors.black.withOpacity(0.5),
                               spreadRadius: 1,
                               blurRadius: 6,
                               offset: Offset(0, 4),
                             ),
                           ],
                         ),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                            dividerColor: Colors.transparent,),
-                          child:
-                          ExpansionTile(
-                            title: Text(
-                              ListStrings.functions_title,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(AppLocalizations.of(context)!.dlist_question,
                               style: TextStyle(
-                                fontSize: 18,
+                                color: Colors.black,
+                                fontSize: 28,
                                 fontWeight: FontWeight.bold,
-                                color: Theme
-                                    .of(context)
-                                    .scaffoldBackgroundColor,
                               ),
                             ),
-                            initiallyExpanded: false,
-                            tilePadding: const EdgeInsets.symmetric(
-                                horizontal: 16.0),
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Theme
-                                      .of(context)
-                                      .scaffoldBackgroundColor,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
 
-                                    // New node pseudo code title
-                                    Text(
-                                      ListStrings.func_new_node_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // New node pseudo code
-                                    Text(
-                                      ListStrings.func_new_node_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        child: DoublyLinkedListNewNodeAnimation(),
-                                      ),
-                                    ),
+                            const SizedBox(height: 10),
 
-                                    // Empty pseudo code title
-                                    Text(
-                                      ListStrings.func_empty_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Empty pseudo code
-                                    Text(
-                                      ListStrings.func_empty_list_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Insert node at beginning pseudo code title
-                                    Text(
-                                      ListStrings
-                                          .func_insert_node_at_beginning_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Insert node at beginning pseudo code
-                                    Text(
-                                      ListStrings
-                                          .func_insert_node_at_beginning_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListInsertAtBeginning(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Insert node after pseudo code title
-                                    Text(
-                                      ListStrings.func_insert_node_after_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Insert node after pseudo code
-                                    Text(
-                                      ListStrings
-                                          .func_insert_node_after_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListInsertAfterNode(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Insert node at end pseudo code title
-                                    Text(
-                                      ListStrings
-                                          .func_insert_node_at_end_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Insert node at end pseudo code
-                                    Text(
-                                      ListStrings
-                                          .func_insert_node_at_end_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListInsertAtEnd(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Deleting element from beginning pseudo code title
-                                    Text(
-                                      ListStrings
-                                          .func_delete_from_beginning_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Deleting element from beginning pseudo code
-                                    Text(
-                                      ListStrings
-                                          .func_delete_from_beginning_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListDeleteFromBeginning(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Deleting element pseudo code title
-                                    Text(
-                                      ListStrings.func_delete_node_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Deleting element pseudo code
-                                    Text(
-                                      ListStrings.func_delete_node_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListDeleteNode(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Deleting element from end pseudo code title
-                                    Text(
-                                      ListStrings
-                                          .func_delete_from_end_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Deleting element from end pseudo code
-                                    Text(
-                                      ListStrings.func_delete_from_end_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListDeleteFromEndNode(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Forward traversal pseudo code title
-                                    Text(
-                                      ListStrings
-                                          .func_forward_traversal_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Forward traversal pseudo code
-                                    Text(
-                                      ListStrings
-                                          .func_forward_traversal_list_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListForwardTraversalAnimation(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Backward traversal pseudo code title
-                                    Text(
-                                      ListStrings
-                                          .func_backward_traversal_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Backward traversal pseudo code
-                                    Text(
-                                      ListStrings
-                                          .func_backward_traversal_list_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-                                    Center(
-                                      child: SizedBox(
-                                        height: 200,
-                                        child: DoublyLinkedListBackwardTraversalAnimation(),
-                                      ),
-                                    ),
-
-                                    const SizedBox(height: 10),
-
-                                    // Search node pseudo code title
-                                    Text(
-                                      ListStrings.func_search_list_title1,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    // Search node pseudo code
-                                    Text(
-                                      ListStrings.func_search_list_comment1,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                        fontFamily: 'Courier',
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
+                            Text(AppLocalizations.of(context)!.dlist_definition,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
                               ),
-                            ],
-                          ),
+                            ),
+
+                            const SizedBox(height: 10),
+                          ],
                         ),
-                      ),*/
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      Text(AppLocalizations.of(context)!.struct_title,
+                        style: TextStyle(
+                          color: Color(0xFF1f7d53),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                      // Struct typedef
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme
+                              .of(context)
+                              .scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            // Struct array explanation
+                            Text(AppLocalizations.of(context)!
+                                .dlist_struct_explanation_1,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                              softWrap: true,
+                            ),
+                            Text(AppLocalizations.of(context)!
+                                .dlist_struct_explanation_2,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                              softWrap: true,
+                            ),
+                            Text(AppLocalizations.of(context)!
+                                .dlist_struct_explanation_3,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                              softWrap: true,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            Center(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Struct array code snippet with copy button
+                                  Essentials()
+                                      .buildHighlightedCodeLines(
+                                      ListStrings.list_empty_initialization1),
+
+                                  // Copy button on right up corner
+                                  Positioned(
+                                    top: 8,
+                                    right: 8,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.copy,
+                                        color: Colors.black,
+                                      ),
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                            ClipboardData(
+                                                text: ListStrings.list_empty_initialization1));
+                                        HapticFeedback.mediumImpact();
+                                        ScaffoldMessenger
+                                            .of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                AppLocalizations.of(
+                                                    context)!
+                                                    .code_copied_text),
+                                            behavior: SnackBarBehavior
+                                                .floating,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius
+                                                  .circular(12),
+                                            ),
+                                            margin: EdgeInsets.all(16),
+                                            elevation: 6,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Complete .h file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: ListStrings.header_file_content1),
+
+                      const SizedBox(height: 20),
+
+                      // Complete .c file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: ListStrings.source_file_content1),
 
                       // Code Drop down
                       /*Container(

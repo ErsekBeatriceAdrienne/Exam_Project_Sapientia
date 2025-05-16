@@ -35,6 +35,7 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
     HapticFeedback.mediumImpact();
 
     Timer.periodic(Duration(seconds: 1), (timer) {
+      HapticFeedback.mediumImpact();
       if (traversalIndex < nodes.length - 1) {
         setState(() {
           traversalIndex++;

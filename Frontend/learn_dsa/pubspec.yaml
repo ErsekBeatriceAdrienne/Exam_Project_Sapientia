@@ -37,18 +37,20 @@ dependencies:
 
   # language supports
   provider: ^6.0.0
+  # for splash screen
+  flutter_native_splash: ^2.4.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^5.0.0
 
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/app_icon.png"
-
-  flutter_lints: ^5.0.0
+  windows: true
+  image_path: "assets/images/icon.png"
 
 flutter:
   uses-material-design: true
@@ -62,6 +64,7 @@ flutter:
     - assets/images/array_photos/connector_array.png
     - assets/images/array_photos/array_explanation.png
     - assets/images/dsa_shadow.png
+    - assets/images/icon.png
 
     - assets/default_profile_picture.jpg
 

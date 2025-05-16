@@ -39,6 +39,7 @@ class _DoublyLinkedListBackwardTraversalAnimationState
     HapticFeedback.mediumImpact();
 
     Timer.periodic(Duration(seconds: 1), (timer) {
+      HapticFeedback.mediumImpact();
       if (traversalIndex > 0) {
         setState(() {
           traversalIndex--;
