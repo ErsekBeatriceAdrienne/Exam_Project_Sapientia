@@ -1026,7 +1026,7 @@ class HashTablePage extends StatelessWidget {
                                     ),
                                   ),
                                   Center(
-                                    child: LinkedListNewNodeAnimation(),
+                                    child: HashNewNodeAnimation(),
                                   ),
 
                                   const SizedBox(height: 10),

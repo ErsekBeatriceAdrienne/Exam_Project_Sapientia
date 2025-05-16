@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LinkedListNewNodeAnimation extends StatefulWidget {
   @override
@@ -9,10 +11,14 @@ class _LinkedListNewNodeAnimationState extends State<LinkedListNewNodeAnimation>
   List<int> nodes = [];
   int currentIndex = 0;
   final List<int> values = [10];
+  bool isAnimating = false;
+  bool isPaused = false;
+  bool showText = false;
 
   void _addNextNode() {
     if (currentIndex < values.length) {
       setState(() {
+        showText = true;
         nodes.add(values[currentIndex]);
         currentIndex++;
       });
@@ -54,9 +60,66 @@ class _LinkedListNewNodeAnimationState extends State<LinkedListNewNodeAnimation>
               ),
             ),
             SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: _addNextNode,
-              child: Text('newNode(10)'),
+            if (showText)
+              Text(
+                'newNode(10)',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            SizedBox(height: 8),
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  _addNextNode();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isAnimating
+                            ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                            : Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -70,7 +133,7 @@ class _LinkedListNewNodeAnimationState extends State<LinkedListNewNodeAnimation>
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.35),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
@@ -166,19 +229,73 @@ class _DoublyLinkedListNewNodeAnimationState extends State<DoublyLinkedListNewNo
                     return Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        if (index == 0) _buildLeftNullPointer(nodeSize), // BALRA NULL az elsőnél
+                        if (index == 0) _buildLeftNullPointer(nodeSize),
                         _buildNode(value, nodeSize, fontSize),
-                        if (index == 0) _buildNullPointer(nodeSize), // közte dupla nyíl
+                        if (index == 0) _buildNullPointer(nodeSize),
                       ],
                     );
                   }).toList(),
                 ),
               ),
             ),
-            SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: _addNextNode,
-              child: Text('newNode(10)'),
+            SizedBox(height: 10),
+            Text(
+              'newNode(10)',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  _addNextNode();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -192,7 +309,7 @@ class _DoublyLinkedListNewNodeAnimationState extends State<DoublyLinkedListNewNo
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.35),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [

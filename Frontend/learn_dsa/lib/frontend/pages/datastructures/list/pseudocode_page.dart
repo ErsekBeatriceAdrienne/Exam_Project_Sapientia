@@ -1,29 +1,37 @@
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/animations/queue_dequeue.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/animations/queue_enqueue.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_page.dart';
+import '../../../strings/datastructure_strings/list_strings.dart';
 import '../../../strings/datastructure_strings/queue_strings.dart';
-import 'animations/cqueue_dequeue.dart';
-import 'animations/queue_create.dart';
-import 'animations/queue_display.dart';
-import 'animations/queue_empty_full.dart';
-import 'animations/queue_peek.dart';
+import '../hash/animations/hash_Node.dart';
+import 'animations/dlist_backwardTraversal.dart';
+import 'animations/dlist_forwardTraversal.dart';
+import 'animations/list_deleteFromBeginning.dart';
+import 'animations/list_deleteFromEnd.dart';
+import 'animations/list_deleteNode.dart';
+import 'animations/list_insertAfter.dart';
+import 'animations/list_insertAtBeginning.dart';
+import 'animations/list_insertEnd.dart';
+import 'animations/list_insertSorted.dart';
+import 'animations/list_newNode.dart';
+import 'animations/list_search.dart';
+import 'animations/list_sort.dart';
 
-class PseudocodeQueuePage extends StatefulWidget {
+class PseudocodeListPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const PseudocodeQueuePage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const PseudocodeListPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
 
   @override
-  State<PseudocodeQueuePage> createState() => _PseudocodeQueuePageState();
+  State<PseudocodeListPage> createState() => _PseudocodeListPageState();
 }
 
-class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTickerProviderStateMixin {
+class _PseudocodeListPageState extends State<PseudocodeListPage> with SingleTickerProviderStateMixin {
   bool _showExplanation = false;
 
   @override
@@ -107,7 +115,7 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                   delegate: SliverChildListDelegate(
                     [
                       Text(
-                        'Simple Queue',
+                        AppLocalizations.of(context)!.singly_linked_list_title,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -115,23 +123,18 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
 
-                      const SizedBox(height: 10),
-
-                      // Allocating memory pseudo code title
+                      // New node pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.allocate_memory_function_title,
+                        AppLocalizations.of(context)!.list_newnode_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-
-                      const SizedBox(height: 10),
-
-                      // Allocating memory pseudo code
+                      // New node pseudo code
                       Text(
-                        QueueStrings.func_allocating_memory,
+                        ListStrings.func_new_node_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -139,16 +142,15 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
-                      const SizedBox(height: 10),
                       Center(
-                        child: AnimatedQueueCreateWidget(),
+                        child: LinkedListNewNodeAnimation(),
                       ),
 
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
 
                       // Empty pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_isempty_function_title,
+                        AppLocalizations.of(context)!.list_isempty_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
@@ -157,7 +159,7 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                       ),
                       // Empty pseudo code
                       Text(
-                        QueueStrings.func_isempty_explanation,
+                        ListStrings.func_empty_list_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -165,51 +167,21 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedQueueEmptyWidget(),
-                      ),
 
                       const SizedBox(height: 10),
 
-                      // Full pseudo code title
+                      // Search node pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_isfull_function_title,
+                        AppLocalizations.of(context)!.list_search_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Full pseudo code
+                      // Search node pseudo code
                       Text(
-                        QueueStrings.func_isfull_explanation,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedQueueFullWidget(),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Enqueue pseudo code title
-                      Text(
-                        AppLocalizations.of(context)!.queue_enqueue_function_title,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      // Enqueue pseudo code
-                      Text(
-                        QueueStrings.func_enqueue_explanation,
+                        ListStrings.func_search_list_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -218,23 +190,27 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedEnqueueWidget(),
+                        child: SizedBox(
+                          height: 200,
+                          child: LinkedListSearchAnimation(),
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Dequeue pseudo code title
+                      // Insert node at beginning pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.array_deleteitem_function_title,
+                        AppLocalizations.of(context)!.list_insertbeginning_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Dequeue pseudo code
+                      // Insert node at beginning pseudo code
                       Text(
-                        QueueStrings.func_dequeue_explanation,
+                        ListStrings
+                            .func_insert_node_at_beginning_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -243,23 +219,34 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedQueueDequeueWidget(),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            double dynamicHeight = constraints
+                                .maxHeight * 0.2;
+                            return SizedBox(
+                              height: dynamicHeight.clamp(
+                                  150.0, 200.0),
+                              child: LinkedListInsertAtBeginning(),
+                            );
+                          },
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Display pseudo code title
+                      // Insert node after pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_print_function_title,
+                        AppLocalizations.of(context)!.list_insertat_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Display pseudo code
+                      // Insert node after pseudo code
                       Text(
-                        QueueStrings.func_display_explanation,
+                        ListStrings
+                            .func_insert_node_after_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -268,23 +255,34 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedQueueDisplay(),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            double dynamicHeight = constraints
+                                .maxHeight * 0.2;
+                            return SizedBox(
+                              height: dynamicHeight.clamp(
+                                  150.0, 200.0),
+                              child: LinkedListInsertAfterNode(),
+                            );
+                          },
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Peek pseudo code title
+                      // Insert node at end pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_peek_function_title,
+                        AppLocalizations.of(context)!.list_insertafter_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Peek pseudo code
+                      // Insert node at end pseudo code
                       Text(
-                        QueueStrings.func_peek_explanation,
+                        ListStrings
+                            .func_insert_node_at_end_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -293,23 +291,134 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedQueuePeek(),
+                        child: SizedBox(
+                          height: 200,
+                          child: LinkedListInsertAtEndNode(),
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Deallocating memory pseudo code title
+                      // Deleting element from beginning pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_destroy_function_title,
+                        AppLocalizations.of(context)!.list_deletebeginning_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Deallocating memory pseudo code
+                      // Deleting element from beginning pseudo code
                       Text(
-                        QueueStrings.func_destroy_explanation,
+                        ListStrings
+                            .func_delete_from_beginning_comment,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: LinkedListDeleteFromBeginningNode(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Deleting element pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.list_deletespecific_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Deleting element pseudo code
+                      Text(
+                        ListStrings.func_delete_node_comment,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: LinkedListDeleteNode(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Deleting element from end pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.list_deleteend_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Deleting element from end pseudo code
+                      Text(
+                        ListStrings.func_delete_from_end_comment,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: LinkedListDeleteFromEndNode(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Print list pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.list_print_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Print list pseudo code
+                      Text(
+                        ListStrings.func_print_comment,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Free list pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.list_deletelist_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Free list pseudo code
+                      Text(
+                        ListStrings
+                            .func_free_list_comment,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -324,8 +433,9 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
 
                       const SizedBox(height: 10),
 
+                      /// Doubly linked list
                       Text(
-                        'Circular Queue',
+                        AppLocalizations.of(context)!.doubly_linked_list_title,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -335,17 +445,18 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
 
                       const SizedBox(height: 10),
 
-                      // Allocating memory for circular queue
+                      // New node pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.allocate_memory_function_title,
+                        AppLocalizations.of(context)!.list_newnode_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
+                      // New node pseudo code
                       Text(
-                        QueueStrings.func_allocating_memory,
+                        ListStrings.func_new_node_comment1,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -353,16 +464,15 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
-                      const SizedBox(height: 10),
                       Center(
-                        child: AnimatedQueueCreateWidget(),
+                        child: SizedBox(
+                          child: DoublyLinkedListNewNodeAnimation(),
+                        ),
                       ),
-
-                      const SizedBox(height: 10),
 
                       // Empty pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_isempty_function_title,
+                        AppLocalizations.of(context)!.list_isempty_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
@@ -371,7 +481,7 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                       ),
                       // Empty pseudo code
                       Text(
-                        QueueStrings.func_isempty_explanation,
+                        ListStrings.func_empty_list_comment1,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -379,51 +489,21 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                           fontFamily: 'Courier',
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedQueueEmptyWidget(),
-                      ),
 
                       const SizedBox(height: 10),
 
-                      // Full pseudo code title
+                      // Insert node at beginning pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_isfull_function_title,
+                        AppLocalizations.of(context)!.list_insertbeginning_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Full pseudo code
+                      // Insert node at beginning pseudo code
                       Text(
-                        QueueStrings.func_isfull_explanation_cqueue,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Center(
-                        child: AnimatedQueueFullWidget(),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      // Dequeue pseudo code title
-                      Text(
-                        AppLocalizations.of(context)!.queue_dequeue_function_title,
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      // Dequeue pseudo code
-                      Text(
-                        QueueStrings.func_dequeue_explanation_cqueue,
+                        ListStrings.func_insert_node_at_beginning_comment1,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -432,23 +512,26 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedCircularQueueDequeueWidget(),
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListInsertAtBeginning(),
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Display pseudo code title
+                      // Insert node after pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_print_function_title,
+                        AppLocalizations.of(context)!.list_insertat_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Display pseudo code
+                      // Insert node after pseudo code
                       Text(
-                        QueueStrings.func_display_explanation_cqueue,
+                        ListStrings.func_insert_node_after_comment1,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -457,23 +540,26 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedQueueDisplay(),
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListInsertAfterNode(),
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Peek pseudo code title
+                      // Insert node at end pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_peek_function_title,
+                        AppLocalizations.of(context)!.list_insertafter_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Peek pseudo code
+                      // Insert node at end pseudo code
                       Text(
-                        QueueStrings.func_peek_explanation_cqueue,
+                        ListStrings.func_insert_node_at_end_comment1,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -482,28 +568,149 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                         ),
                       ),
                       Center(
-                        child: AnimatedQueuePeek(),
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListInsertAtEnd(),
+                        ),
                       ),
 
                       const SizedBox(height: 10),
 
-                      // Deallocating memory pseudo code title
+                      /*// Deleting element from beginning pseudo code title
                       Text(
-                        AppLocalizations.of(context)!.queue_destroy_function_title,
+                        AppLocalizations.of(context)!.list_deletebeginning_function_title,
                         style: TextStyle(
                           fontSize: 21,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
                       ),
-                      // Deallocating memory pseudo code
+                      // Deleting element from beginning pseudo code
                       Text(
-                        QueueStrings.func_destroy_explanation_cqueue,
+                        ListStrings.func_delete_from_beginning_comment1,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
                           color: Colors.black,
                           fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListDeleteFromBeginning(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Deleting element pseudo code title
+                      Text(
+                        ListStrings.func_delete_node_list_title1,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Deleting element pseudo code
+                      Text(
+                        ListStrings.func_delete_node_comment1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListDeleteNode(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Deleting element from end pseudo code title
+                      Text(
+                        ListStrings.func_delete_from_end_list_title1,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Deleting element from end pseudo code
+                      Text(
+                        ListStrings.func_delete_from_end_comment1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListDeleteFromEndNode(),
+                        ),
+                      ),*/
+
+                      const SizedBox(height: 10),
+
+                      // Print from beginning pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.dlist_print_from_beginning_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Print from beginning pseudo code
+                      Text(
+                        ListStrings.func_print_list_beginning_comment1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListForwardTraversalAnimation(),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Print from end pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.dlist_print_from_end_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Print from end pseudo code
+                      Text(
+                        ListStrings.func_print_list_end_comment1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: SizedBox(
+                          height: 200,
+                          child: DoublyLinkedListBackwardTraversalAnimation(),
                         ),
                       ),
                     ],
@@ -544,17 +751,15 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                       ),
                     ),
 
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_1),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_2),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_3),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_4),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_5),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_6),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_7),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_8),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_9),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_10),
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_11),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_1),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_2),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_3),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_4),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_5),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_6),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_7),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_8),
+                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_9),
                   ],
                 ),
               ),

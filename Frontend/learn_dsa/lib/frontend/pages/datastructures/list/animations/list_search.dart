@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DoublyLinkedListForwardTraversalAnimation extends StatefulWidget {
+class LinkedListSearchAnimation extends StatefulWidget {
   @override
-  _DoublyLinkedListForwardTraversalAnimationState createState() => _DoublyLinkedListForwardTraversalAnimationState();
+  _LinkedListSearchAnimationState createState() => _LinkedListSearchAnimationState();
 }
 
-class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinkedListForwardTraversalAnimation> {
-  final List<int> values = [30, 10, 50, 40, 20];
+class _LinkedListSearchAnimationState extends State<LinkedListSearchAnimation> {
   List<int> nodes = [];
-  int traversalIndex = -1;
-  bool isTraversing = false;
-  String traversalOutput = '';
-  List<int> traversedNodes = [];
+  int currentIndex = 0;
+  int? searchingIndex;
+  bool found = false;
+  final List<int> values = [30, 10, 50, 40, 20];
+  bool shouldStop = false;
+  bool isAnimating = false;
+  bool isPaused = false;
 
   @override
   void initState() {
@@ -22,34 +24,39 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
     nodes = List.from(values);
   }
 
-  void _startForwardTraversal() {
-    if (isTraversing || nodes.isEmpty) return;
-
+  void _searchNode(int target) async {
     setState(() {
-      isTraversing = true;
-      traversalIndex = 0;
-      traversedNodes = [nodes[0]];
-      traversalOutput = 'Traversal started: ${nodes[0]}';
+      found = false;
+      shouldStop = false;
     });
 
-    HapticFeedback.mediumImpact();
+    for (int i = searchingIndex ?? 0; i < nodes.length; i++) {
+      if (shouldStop) break;
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      HapticFeedback.mediumImpact();
-      if (traversalIndex < nodes.length - 1) {
-        setState(() {
-          traversalIndex++;
-          traversedNodes.add(nodes[traversalIndex]);
-          traversalOutput = 'Traversing: ${nodes[traversalIndex]}';
-        });
-      } else {
-        timer.cancel();
-        setState(() {
-          traversalIndex = -1;
-          isTraversing = false;
-          traversalOutput = 'Traversal completed.';
-        });
+      while (isPaused) {
+        await Future.delayed(Duration(milliseconds: 200));
       }
+
+      await Future.delayed(Duration(seconds: 1));
+      HapticFeedback.mediumImpact();
+      if (shouldStop) break;
+
+      setState(() {
+        searchingIndex = i;
+      });
+
+      if (nodes[i] == target) {
+        setState(() {
+          found = true;
+          isAnimating = false;
+        });
+        return;
+      }
+    }
+
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      isAnimating = false;
     });
   }
 
@@ -74,10 +81,11 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
                       return Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (index > 0) _buildDoubleArrow(nodeSize),
-                          if (index == 0) _buildLeftNullPointer(nodeSize),
-                          _buildNode(value, nodeSize, index == traversalIndex),
-                          if (index == nodes.length - 1) _buildNullPointer(nodeSize),
+                          _buildNode(value, nodeSize, index == searchingIndex),
+                          if (index < nodes.length - 1)
+                            _buildArrow(nodeSize)
+                          else
+                            _buildNullPointer(nodeSize),
                         ],
                       );
                     }).toList(),
@@ -89,17 +97,19 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Elements: ${traversedNodes.join(', ')}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
-              ),
-            ],
+          child: Text(
+            'search(head, 50)',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
           ),
         ),
-        SizedBox(height: 10),
+        if (found)
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'return true',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.green),
+            ),
+          ),
         Container(
           width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
           height: 40,
@@ -120,7 +130,25 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
           ),
           child: RawMaterialButton(
             onPressed: () {
-              _startForwardTraversal();
+              if (!isAnimating) {
+                // Start or resume animation
+                setState(() {
+                  isAnimating = true;
+                  isPaused = false;
+                  // only reset if it's a new search
+                  if (searchingIndex == null || found || searchingIndex! >= nodes.length) {
+                    searchingIndex = 0;
+                    found = false;
+                  }
+                });
+                _searchNode(50);
+              } else {
+                // Pause the animation
+                setState(() {
+                  isPaused = !isPaused;
+                });
+              }
+
               HapticFeedback.mediumImpact();
             },
             elevation: 0,
@@ -133,12 +161,14 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    Icons.play_arrow_rounded,
+                    isAnimating
+                        ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                        : Icons.play_arrow_rounded,
                     color: Theme.of(context).scaffoldBackgroundColor,
                     size: 24,
                   ),
                   Text(
-                    AppLocalizations.of(context)!.play_animation_button_text,
+                    isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
                     style: TextStyle(
                       color: Theme.of(context).scaffoldBackgroundColor,
                       fontWeight: FontWeight.bold,
@@ -153,17 +183,17 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
     );
   }
 
-  Widget _buildNode(int value, double size, bool isHighlighted) {
+  Widget _buildNode(int value, double size, bool isSearching) {
     return AnimatedContainer(
       duration: Duration(milliseconds: 500),
       width: size,
       height: size,
-      decoration: BoxDecoration (
-        color: isHighlighted ? Colors.green : Color(0xFF255f38),
+      decoration: BoxDecoration(
+        color: isSearching ? Colors.green : Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.2),
-        border: Border.all(color: isHighlighted ? Colors.white : Colors.white, width: 2),
+        border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
-          BoxShadow (
+          BoxShadow(
             color: Colors.black12,
             blurRadius: 6,
             offset: Offset(2, 2),
@@ -182,28 +212,14 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
     );
   }
 
-  Widget _buildDoubleArrow(double size) {
-    double arrowSize = size * 0.6;
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.rotationY(3.1416),
-          child: Icon(
-            Icons.arrow_right_alt,
-            color: Colors.black,
-            size: arrowSize,
-          ),
-        ),
-        Icon(
-          Icons.arrow_right_alt,
-          color: Colors.black,
-          size: arrowSize,
-        ),
-      ],
+  Widget _buildArrow(double size) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Icon(
+        Icons.arrow_right_alt,
+        color: Colors.black,
+        size: size * 0.6,
+      ),
     );
   }
 
@@ -227,30 +243,6 @@ class _DoublyLinkedListForwardTraversalAnimationState extends State<DoublyLinked
             color: Colors.black,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildLeftNullPointer(double size) {
-    return Row(
-      children: [
-        Text(
-          'NULL',
-          style: TextStyle(
-            fontSize: size * 0.25,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        SizedBox(width: size * 0.1),
-        Container(
-          width: 3,
-          height: size * 0.4,
-          color: Colors.black,
-          margin: EdgeInsets.only(right: 2),
-        ),
-        Container(width: size * 0.4, height: 3, color: Colors.black),
-        SizedBox(width: size * 0.2),
       ],
     );
   }

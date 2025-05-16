@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LinkedListNewNodeAnimation extends StatefulWidget {
+class HashNewNodeAnimation extends StatefulWidget {
   @override
-  _LinkedListNewNodeAnimationState createState() =>
-      _LinkedListNewNodeAnimationState();
+  _HashNewNodeAnimationState createState() =>
+      _HashNewNodeAnimationState();
 }
 
-class _LinkedListNewNodeAnimationState
-    extends State<LinkedListNewNodeAnimation> {
+class _HashNewNodeAnimationState
+    extends State<HashNewNodeAnimation> {
   List<MapEntry<int, int>> nodes = [];
   int currentIndex = 0;
   final List<MapEntry<int, int>> values = [MapEntry(0, 23)];
