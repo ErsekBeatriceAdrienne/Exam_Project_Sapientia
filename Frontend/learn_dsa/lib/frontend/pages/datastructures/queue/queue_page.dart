@@ -2,18 +2,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/pseudocode_page.dart';
-import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_animations.dart';
-import 'package:learn_dsa/frontend/strings/datastructure_strings/stack_strings.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/datastructure_strings/queue_strings.dart';
+import '../../customClasses/custom_closing_button_copyCode.dart';
 import '../../test/exercises/queue_exercises.dart';
 import '../../test/testpages/queue_testpage.dart';
 import '../datastructures_page.dart';
-import 'animations/cqueue_dequeue.dart';
-import 'animations/queue_create.dart';
-import 'animations/queue_dequeue.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'animations/queue_enqueue.dart';
 
 class QueuePage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -305,6 +300,15 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
 
                       const SizedBox(height: 20),
 
+                      // Complete .h file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: QueueStrings.header_file_content),
+
+                      const SizedBox(height: 20),
+
+                      // Complete .c file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: QueueStrings.source_file_content),
+
+                      const SizedBox(height: 20),
 
                       /// Circular queue
                       // What is a circular queue?
@@ -476,6 +480,16 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
                           ],
                         ),
                       ),
+
+                      const SizedBox(height: 20),
+
+                      // Complete .h file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: QueueStrings.header_file_content_cqueue),
+
+                      const SizedBox(height: 20),
+
+                      // Complete .c file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: QueueStrings.source_file_content_cqueue),
 
                       const SizedBox(height: 20),
 

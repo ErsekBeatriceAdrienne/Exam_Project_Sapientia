@@ -95,7 +95,7 @@ class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
                   width: 50,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: array[i] != null ? Color(0xFF006a42) : Colors.grey.shade300,
+                    color: array[i] != null ? Color(0xFF255f38) : Colors.grey.shade300,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black54,

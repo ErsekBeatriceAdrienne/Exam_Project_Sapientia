@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedCircularQueueDequeueWidget extends StatefulWidget {
@@ -27,28 +28,6 @@ class _AnimatedCircularQueueDequeueWidgetState extends State<AnimatedCircularQue
       _enqueue(values[i % values.length]);
       index++;
     }
-  }
-
-  void _startAnimation() {
-    Timer.periodic(Duration(milliseconds: 1000), (timer) {
-      if (!_isFull()) {
-        _enqueue(values[index % values.length]);
-        index++;
-      } else {
-        timer.cancel();
-        Future.delayed(Duration(seconds: 1), () {
-          // Remove 2 elements but leave nulls in place
-          Timer.periodic(Duration(milliseconds: 1000), (removeTimer) {
-            if (dequeueCount < 1 && !_isEmpty()) {
-              _dequeue();
-              dequeueCount++;
-            } else {
-              removeTimer.cancel();
-            }
-          });
-        });
-      }
-    });
   }
 
   bool _isFull() {
@@ -112,15 +91,13 @@ class _AnimatedCircularQueueDequeueWidgetState extends State<AnimatedCircularQue
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(capacity, (i) {
               Color cellColor = queue[i] != null
-                  ? Color(0xFFDFAEE8)
+                  ? Color(0xFF255f38)
                   : Colors.grey.shade300;
 
               // Highlight front & rear
-              if (i == front && front != -1) cellColor = Color(0xFFDFAEE8);
-              if (i == rear && rear != -1) cellColor = Color(0xFFDFAEE8);
-              if (i == front && i == rear && front != -1) {
-                cellColor = Color(0xFFDFAEE8);
-              }
+              if (i == front && front != -1) cellColor = Color(0xFF255f38);
+              if (i == rear && rear != -1) cellColor = Color(0xFF255f38);
+              if (i == front && i == rear && front != -1) cellColor = Color(0xFF255f38);
 
               return Container(
                 width: 50,
@@ -145,11 +122,54 @@ class _AnimatedCircularQueueDequeueWidgetState extends State<AnimatedCircularQue
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
-        ElevatedButton(
-          onPressed: _dequeue,
-          child: Text('dequeue(q)'),
+
+        Container(
+          width: 'dequeue(q)'.length * 10 + 40,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _dequeue();
+              HapticFeedback.mediumImpact();
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (queue.isEmpty)
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                  ),
+                if (queue.isEmpty)
+                  SizedBox(width: 6),
+                Text(
+                  queue.isEmpty ? AppLocalizations.of(context)!.start_exercise_button_text : 'dequeue(q)',
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
   }
 }
+
+

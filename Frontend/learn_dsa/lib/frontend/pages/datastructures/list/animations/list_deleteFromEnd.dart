@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LinkedListDeleteFromEndNode extends StatefulWidget {
   @override
@@ -35,7 +37,6 @@ class _LinkedListDeleteFromEndNodeState extends State<LinkedListDeleteFromEndNod
 
         return Column(
           children: [
-            SizedBox(height: 60),
             Expanded(
               child: Center(
                 child: AnimatedSwitcher(
@@ -58,10 +59,64 @@ class _LinkedListDeleteFromEndNodeState extends State<LinkedListDeleteFromEndNod
                 ),
               ),
             ),
-            SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: isInserting ? null : _deleteNodeFromEnd,
-              child: Text('deleteFromEnd(head)'),
+            SizedBox(height: 10),
+            Text(
+              'deleteFromEnd(head)',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  isInserting ? null : _deleteNodeFromEnd();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -75,7 +130,7 @@ class _LinkedListDeleteFromEndNodeState extends State<LinkedListDeleteFromEndNod
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.2),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [

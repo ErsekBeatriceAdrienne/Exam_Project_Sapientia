@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LinkedListInsertAtEndNode extends StatefulWidget {
   @override
@@ -16,10 +18,10 @@ class _LinkedListInsertAtEndNodeState extends State<LinkedListInsertAtEndNode> {
       isInserting = true;
     });
 
-    await Future.delayed(Duration(milliseconds: 800)); // delay for effect
+    await Future.delayed(Duration(milliseconds: 800));
 
     setState(() {
-      nodes.add(10); // Add node to the end of the list
+      nodes.add(10);
       isInserting = false;
     });
     isInserting = true;
@@ -35,7 +37,6 @@ class _LinkedListInsertAtEndNodeState extends State<LinkedListInsertAtEndNode> {
 
         return Column(
           children: [
-            SizedBox(height: 60),
             Expanded(
               child: Center(
                 child: AnimatedSwitcher(
@@ -58,10 +59,64 @@ class _LinkedListInsertAtEndNodeState extends State<LinkedListInsertAtEndNode> {
                 ),
               ),
             ),
-            SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: isInserting ? null : _insertNodeAtEnd,
-              child: Text('insertAtEnd(head, 10)'),
+            SizedBox(height: 10),
+            Text(
+              'insertAtEnd(head, 10)',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  isInserting ? null : _insertNodeAtEnd();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -75,7 +130,7 @@ class _LinkedListInsertAtEndNodeState extends State<LinkedListInsertAtEndNode> {
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.2),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
@@ -172,7 +227,6 @@ class _DoublyLinkedListInsertAtEndState extends State<DoublyLinkedListInsertAtEn
 
         return Column(
           children: [
-            SizedBox(height: 60),
             Expanded(
               child: Center(
                 child: AnimatedSwitcher(
@@ -205,10 +259,63 @@ class _DoublyLinkedListInsertAtEndState extends State<DoublyLinkedListInsertAtEn
                 ),
               ),
             ),
-            SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: isInserting ? null : _insertNodeAtEnd,
-              child: Text('insertAtEnd(head, 10)'),
+            Text(
+              'insertAtEnd(head, 10)',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  isInserting ? null : _insertNodeAtEnd();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -223,7 +330,7 @@ class _DoublyLinkedListInsertAtEndState extends State<DoublyLinkedListInsertAtEn
       height: size,
       margin: EdgeInsets.symmetric(horizontal: 4),
       decoration: BoxDecoration(
-        color: Color(0xFFDFAEE8),
+        color: Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.2),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [

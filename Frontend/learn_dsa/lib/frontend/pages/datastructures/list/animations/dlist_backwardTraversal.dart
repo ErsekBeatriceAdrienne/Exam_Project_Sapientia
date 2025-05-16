@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoublyLinkedListBackwardTraversalAnimation extends StatefulWidget {
   @override
@@ -13,8 +15,9 @@ class _DoublyLinkedListBackwardTraversalAnimationState
   List<int> nodes = [];
   int traversalIndex = -1;
   bool isTraversing = false;
-  String traversalOutput = ''; // Output for traversal status
-  bool isForwardTraversal = true; // Track the traversal direction
+  String traversalOutput = '';
+  bool isForwardTraversal = true;
+  List<int> traversedNodes = [];
 
   @override
   void initState() {
@@ -28,14 +31,18 @@ class _DoublyLinkedListBackwardTraversalAnimationState
     setState(() {
       isTraversing = true;
       traversalIndex = nodes.length - 1;
+      traversedNodes = [nodes[nodes.length - 1]];
       traversalOutput = 'Backward traversal started: ${nodes[traversalIndex]}';
       isForwardTraversal = false;
     });
+
+    HapticFeedback.mediumImpact();
 
     Timer.periodic(Duration(seconds: 1), (timer) {
       if (traversalIndex > 0) {
         setState(() {
           traversalIndex--;
+          traversedNodes.add(nodes[traversalIndex]);
           traversalOutput = 'Backward Traversing: ${nodes[traversalIndex]}';
         });
       } else {
@@ -85,14 +92,65 @@ class _DoublyLinkedListBackwardTraversalAnimationState
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            traversalOutput, // Display traversal output
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Elements: ${traversedNodes.join(', ')}',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+              ),
+            ],
           ),
         ),
-        ElevatedButton(
-          onPressed: _startBackwardTraversal,
-          child: Text('backwardTraversal(tail)'),
+        SizedBox(height: 10),
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _startBackwardTraversal();
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.play_animation_button_text,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -104,9 +162,9 @@ class _DoublyLinkedListBackwardTraversalAnimationState
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: isHighlighted ? Colors.purple : Color(0xFFDFAEE8),
+        color: isHighlighted ? Colors.green : Color(0xFF255f38),
         borderRadius: BorderRadius.circular(size * 0.2),
-        border: Border.all(color: isHighlighted ? Colors.purple.shade200 : Colors.white, width: 3),
+        border: Border.all(color: isHighlighted ? Colors.white : Colors.white, width: 2),
         boxShadow: [
           BoxShadow(
             color: Colors.black12,

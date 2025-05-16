@@ -333,7 +333,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
         userId: widget.userId,
       ),
       AppLocalizations.of(context)!.queue_button_text: () => QueuePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      AppLocalizations.of(context)!.list_button_text: () => ListPage(),
+      AppLocalizations.of(context)!.list_button_text: () => ListPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.hash_button_text: () => HashTablePage(),
       AppLocalizations.of(context)!.bst_button_text: () => BSTPage()
     };
