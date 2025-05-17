@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // BST Node Definition
 class BSTNode {
@@ -19,6 +21,8 @@ BSTNode? insert(BSTNode? root, int value) {
 }
 
 class BSTMaxNodeAnimation extends StatefulWidget {
+  const BSTMaxNodeAnimation({super.key});
+
   @override
   _BSTMaxNodeAnimationState createState() => _BSTMaxNodeAnimationState();
 }
@@ -27,6 +31,8 @@ class _BSTMaxNodeAnimationState extends State<BSTMaxNodeAnimation> {
   BSTNode? root;
   List<int> values = [20, 5, 19, 3, 87, 56, 89, 88];
   int? currentNodeValue;
+  bool isSearching = false;
+  bool isPaused = false;
 
   @override
   void initState() {
@@ -45,6 +51,7 @@ class _BSTMaxNodeAnimationState extends State<BSTMaxNodeAnimation> {
   Future<void> _findMaxNode(BSTNode? node) async {
     if (node == null) return;
     setState(() {
+      HapticFeedback.mediumImpact();
       currentNodeValue = node.value;
     });
     await Future.delayed(Duration(seconds: 1)); // Wait to visualize the visit
@@ -73,16 +80,58 @@ class _BSTMaxNodeAnimationState extends State<BSTMaxNodeAnimation> {
 
         const SizedBox(height: 20),
 
-        Text("Maximum csomópont: ${currentNodeValue}"),
+        Text("Maximum: $currentNodeValue"),
 
         const SizedBox(height: 20),
-
-        ElevatedButton(
-          onPressed: performMaxNodeSearch,
-          child: Text("maximum(csp)"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFDFAEE8),
-            foregroundColor: Colors.white,
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              performMaxNodeSearch();
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isSearching
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isSearching && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -101,13 +150,25 @@ class BSTPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (root == null) return;
     double width = size.width;
-    _drawNode(canvas, root, width / 2, 50, width / 4);
+    double nodeRadius = 20;
+    _drawNode(canvas, root, width / 2, 50, width / 4, nodeRadius);
   }
 
-  void _drawNode(Canvas canvas, BSTNode? node, double x, double y, double offset) {
+  void _drawNode(Canvas canvas, BSTNode? node, double x, double y, double offset, double radius) {
     if (node == null) return;
+
+    Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 6);
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
     Paint nodePaint = Paint()
-      ..color = (node.value == highlightValue ? Colors.purple : Color(0xFFDFAEE8));
+      ..color = (node.value == highlightValue ? Color(0xFF1f7d53) : Color(0xFF255f38));
+
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
@@ -115,21 +176,27 @@ class BSTPainter extends CustomPainter {
     // Draw edges
     if (node.left != null) {
       canvas.drawLine(Offset(x, y), Offset(x - offset, y + 60), linePaint);
-      _drawNode(canvas, node.left, x - offset, y + 60, offset / 1.5);
+      _drawNode(canvas, node.left, x - offset, y + 60, offset / 1.5, radius);
     }
     if (node.right != null) {
       canvas.drawLine(Offset(x, y), Offset(x + offset, y + 60), linePaint);
-      _drawNode(canvas, node.right, x + offset, y + 60, offset / 1.5);
+      _drawNode(canvas, node.right, x + offset, y + 60, offset / 1.5, radius);
     }
 
-    // Draw node circle
-    canvas.drawCircle(Offset(x, y), 20, nodePaint);
+    // Shadow
+    canvas.drawCircle(Offset(x + 2, y + 2), radius, shadowPaint);
 
-    // Draw node value
+    // Border (thin white stroke)
+    canvas.drawCircle(Offset(x, y), radius, borderPaint);
+
+    // Node circle (filled)
+    canvas.drawCircle(Offset(x, y), radius - 1, nodePaint);
+
+    // Node value
     TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: node.value.toString(),
-        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
       ),
       textDirection: TextDirection.ltr,
     );
