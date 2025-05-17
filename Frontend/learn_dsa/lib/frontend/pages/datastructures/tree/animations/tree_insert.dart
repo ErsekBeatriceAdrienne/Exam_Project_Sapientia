@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BSTInsertAnimation extends StatefulWidget {
+  const BSTInsertAnimation({super.key});
+
   @override
   _BSTInsertAnimationState createState() => _BSTInsertAnimationState();
 }
@@ -11,6 +15,8 @@ class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTick
   BSTNode? rightChild;
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  bool isSearching = false;
+  bool isPaused = false;
 
   @override
   void initState() {
@@ -40,17 +46,69 @@ class _BSTInsertAnimationState extends State<BSTInsertAnimation> with SingleTick
           ),*/
           child: CustomPaint(
             painter: BSTNodePainter(rootNode, leftChild, rightChild, _fadeAnimation),
-            child: Container(height: 300, width: 300),
+            child: Container(height: 100, width: 300),
           ),
         ),
+
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () => insertNewNode(64),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFDFAEE8),
-            foregroundColor: Colors.white,
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            "insert(root, 64)",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
           ),
-          child: Text("beszúrás(64)"),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              insertNewNode(64);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isSearching
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isSearching && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -82,22 +140,43 @@ class BSTNodePainter extends CustomPainter {
       ..color = Colors.black
       ..strokeWidth = 2;
 
+    final shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
+
+    final borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+
+    final rootFillPaint = Paint()
+      ..color = Color(0xFF255f38)
+      ..style = PaintingStyle.fill;
+
     double lineY = centerY + nodeRadius / 2 - 10;
     double startX = centerX - lineLength / 2;
     double endX = centerX + lineLength / 2;
 
-    // Vízszintes vonal és ágak
     canvas.drawLine(Offset(startX, lineY), Offset(endX, lineY), linePaint);
     canvas.drawLine(Offset(startX, lineY), Offset(startX, lineY + branchHeight), linePaint);
     canvas.drawLine(Offset(endX, lineY), Offset(endX, lineY + branchHeight), linePaint);
 
-    // Branches
     double leftX = centerX - lineLength / 2;
     double rightX = centerX + lineLength / 2;
 
-    if (rootNode?.right == null) {
-      drawText(canvas, "NULL", rightX - 20, lineY + branchHeight + 5);
+    // Right Child
+    if (rightChild != null) {
+      double rightY = lineY + branchHeight + 30;
+      Color fillColor = Color(0xFF1f7d53);
 
+      canvas.drawCircle(Offset(rightX + 4, rightY + 4), nodeRadius, shadowPaint);
+      canvas.drawCircle(Offset(rightX + 3, rightY + 3), nodeRadius, shadowPaint);
+      canvas.drawCircle(Offset(rightX, rightY), nodeRadius, Paint()..color = fillColor);
+      canvas.drawCircle(Offset(rightX, rightY), nodeRadius, borderPaint);
+
+      drawNodeText(canvas, rightChild!, rightX, rightY);
+    } else {
+      drawText(canvas, "NULL", rightX - 20, lineY + branchHeight + 5);
       double smallLineLength = 15;
       canvas.drawLine(
         Offset(rightX - smallLineLength / 2, lineY + branchHeight),
@@ -106,58 +185,36 @@ class BSTNodePainter extends CustomPainter {
       );
     }
 
-    drawText(canvas, "NULL", startX - 20, lineY + branchHeight + 5);
-    drawText(canvas, "" ?? "NULL", endX - 20, lineY + branchHeight + 5);
+    // Left Child
+    if (leftChild != null) {
+      double leftY = lineY + branchHeight + 30;
+      Color fillColor = Colors.purple.withOpacity(fadeAnimation.value);
 
+      canvas.drawCircle(Offset(leftX + 4, leftY + 4), nodeRadius, shadowPaint);
+      canvas.drawCircle(Offset(leftX + 3, leftY + 3), nodeRadius, shadowPaint);
+      canvas.drawCircle(Offset(leftX, leftY), nodeRadius, Paint()..color = fillColor);
+      canvas.drawCircle(Offset(leftX, leftY), nodeRadius, borderPaint);
 
-    if (rightChild != null) {
-      Paint rightPaint = Paint()
-        ..color = Colors.purple.withOpacity(fadeAnimation.value)
-        ..style = PaintingStyle.fill;
-
-      double rightX = endX;
-      double rightY = lineY + branchHeight + 30;
-
-      canvas.drawCircle(Offset(rightX, rightY), nodeRadius, rightPaint);
-      drawNodeText(canvas, rightChild!, rightX, rightY);
-    }
-
-    if (leftChild == null) {
+      drawNodeText(canvas, leftChild!, leftX, leftY);
+    } else {
       drawText(canvas, "NULL", leftX - 20, lineY + branchHeight + 5);
-
       double smallLineLength = 15;
       canvas.drawLine(
         Offset(leftX - smallLineLength / 2, lineY + branchHeight),
         Offset(leftX + smallLineLength / 2, lineY + branchHeight),
         linePaint,
       );
-    } else {
-      Paint leftPaint = Paint()
-        ..color = Colors.purple.withOpacity(fadeAnimation.value)
-        ..style = PaintingStyle.fill;
-
-      double leftChildX = leftX;
-      double leftChildY = lineY + branchHeight + 30;
-
-      canvas.drawCircle(Offset(leftChildX, leftChildY), nodeRadius, leftPaint);
-      drawNodeText(canvas, leftChild!, leftChildX, leftChildY);
     }
 
-    double smallLineLength = 15;
-    canvas.drawLine(
-      Offset(leftX - smallLineLength / 2, lineY + branchHeight),
-      Offset(leftX + smallLineLength / 2, lineY + branchHeight),
-      linePaint,
-    );
+    // Root Node
+    canvas.drawCircle(Offset(centerX + 4, centerY + 4), nodeRadius, shadowPaint);
+    canvas.drawCircle(Offset(centerX + 3, centerY + 3), nodeRadius, shadowPaint);
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, rootFillPaint);
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, borderPaint);
 
-    // Root
-    Paint paint = Paint()
-      ..color = Color(0xFFDFAEE8)
-      ..style = PaintingStyle.fill;
-
-    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
     drawNodeText(canvas, rootNode!, centerX, centerY);
   }
+
 
   void drawText(Canvas canvas, String text, double x, double y) {
     final textPainter = TextPainter(
@@ -167,7 +224,6 @@ class BSTNodePainter extends CustomPainter {
     textPainter.layout();
     textPainter.paint(canvas, Offset(x, y));
   }
-
 
   void drawNodeText(Canvas canvas, BSTNode node, double x, double y) {
     TextPainter textPainter = TextPainter(

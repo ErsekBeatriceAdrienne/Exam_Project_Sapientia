@@ -713,6 +713,161 @@ class _PseudocodeListPageState extends State<PseudocodeListPage> with SingleTick
                           child: DoublyLinkedListBackwardTraversalAnimation(),
                         ),
                       ),
+
+                      const SizedBox(height: 10),
+
+                      Divider(),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        AppLocalizations.of(context)!.circular_list_title,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                        ),
+                      ),
+
+                      // New node pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.list_newnode_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // New node pseudo code
+                      Text(
+                        ListStrings.func_new_node_comment,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      Center(
+                        child: LinkedListNewNodeAnimation(),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Size of the circ list
+                      Text(
+                        AppLocalizations.of(context)!.circ_size_func_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Size of the circ list
+                      Text(
+                        ListStrings.circ_func_size,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Empty pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.list_isempty_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Empty pseudo code
+                      Text(
+                        ListStrings.func_empty_list_comment,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Insert at end pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.circ_insert_end_func_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Insert at end pseudo code
+                      Text(
+                        ListStrings.circ_func_insertatend,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      SizedBox(
+                        height: 300,
+                        child: CircularLinkedListInsertAtEndNode(),
+                      ),
+
+
+                      const SizedBox(height: 10),
+
+                      // Delete node pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.bst_delete_node_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Delete node pseudo code
+                      Text(
+                        ListStrings.circ_func_deletenode,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Print list pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.print_function_title,
+                        style: TextStyle(
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Print list pseudo code
+                      Text(
+                        ListStrings.circ_func_print,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BSTNewNodeAnimation extends StatefulWidget {
+  const BSTNewNodeAnimation({super.key});
+
   @override
   _BSTNewNodeAnimationState createState() => _BSTNewNodeAnimationState();
 }
@@ -9,6 +13,8 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
   BSTNode? node;
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  bool isAnimating = false;
+  bool isPaused = false;
 
   @override
   void initState() {
@@ -29,24 +35,68 @@ class _BSTNewNodeAnimationState extends State<BSTNewNodeAnimation> with SingleTi
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          /*decoration: BoxDecoration(
-            border: Border.all(color: Colors.black26),
-            borderRadius: BorderRadius.circular(12),
-          ),*/
-          child: CustomPaint(
-            painter: BSTNodePainter(node, _fadeAnimation),
-            child: Container(height: 200, width: 300),
+        CustomPaint(
+          painter: BSTNodePainter(node, _fadeAnimation),
+          child: Container(height: 100, width: 300),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            "createNewNode(50)",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
           ),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () => createNewNode(50),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFDFAEE8),
-            foregroundColor: Colors.white,
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
           ),
-          child: Text("létrehozás(50)"),
+          child: RawMaterialButton(
+            onPressed: () {
+              createNewNode(50);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isAnimating
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -116,10 +166,23 @@ class BSTNodePainter extends CustomPainter {
     rightText.layout();
     rightText.paint(canvas, Offset(endX - 20, lineY + branchHeight + 5));
 
-    Paint paint = Paint()
-      ..color = Color(0xFFDFAEE8)
+    Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
+    canvas.drawCircle(Offset(centerX + 4, centerY + 4), nodeRadius, shadowPaint);
+
+    canvas.drawCircle(Offset(centerX + 3, centerY + 3), nodeRadius, shadowPaint);
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, borderPaint);
+
+    Paint fillPaint = Paint()
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, fillPaint);
 
     TextPainter textPainter = TextPainter(
       text: TextSpan(

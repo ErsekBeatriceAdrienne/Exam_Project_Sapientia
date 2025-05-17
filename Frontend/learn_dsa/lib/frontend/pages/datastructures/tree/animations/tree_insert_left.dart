@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BinaryTreeInsertLeftAnimation extends StatefulWidget {
+  const BinaryTreeInsertLeftAnimation({super.key});
+
   @override
   _BinaryTreeInsertLeftAnimationState createState() => _BinaryTreeInsertLeftAnimationState();
 }
@@ -11,6 +15,8 @@ class _BinaryTreeInsertLeftAnimationState extends State<BinaryTreeInsertLeftAnim
   BinaryTreeNode? leftChild;
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  bool isSearching = false;
+  bool isPaused = false;
 
   @override
   void initState() {
@@ -34,23 +40,70 @@ class _BinaryTreeInsertLeftAnimationState extends State<BinaryTreeInsertLeftAnim
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          /*decoration: BoxDecoration(
-            border: Border.all(color: Colors.black26),
-            borderRadius: BorderRadius.circular(12),
-          ),*/
           child: CustomPaint(
             painter: BinaryTreePainter(root, leftChild, _fadeAnimation),
-            child: Container(height: 300, width: 300),
+            child: Container(height: 100, width: 300),
           ),
         ),
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () => insertLeftNode(5),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFDFAEE8),
-            foregroundColor: Colors.white,
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            "insertLeft(root, 5)",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
           ),
-          child: Text("beszúrás_balra(csp, 5)"),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              insertLeftNode(5);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isSearching
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isSearching && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -100,15 +153,27 @@ class BinaryTreePainter extends CustomPainter {
         linePaint,
       );
     } else {
-      Paint leftPaint = Paint()
-        ..color = Colors.purple.withOpacity(fadeAnimation.value)
-        ..style = PaintingStyle.fill;
-
       double leftChildX = leftX;
       double leftChildY = lineY + branchHeight + 30;
 
+      Paint leftShadowPaint = Paint()
+        ..color = Colors.black.withOpacity(0.5)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
+      canvas.drawCircle(Offset(leftChildX + 4, leftChildY + 4), nodeRadius, leftShadowPaint);
+
+      Paint leftBorderPaint = Paint()
+        ..color = Colors.white
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2;
+      canvas.drawCircle(Offset(leftChildX, leftChildY), nodeRadius, leftBorderPaint);
+
+      Paint leftPaint = Paint()
+        ..color = Color(0xFF1f7d53)
+        ..style = PaintingStyle.fill;
       canvas.drawCircle(Offset(leftChildX, leftChildY), nodeRadius, leftPaint);
+
       drawNodeText(canvas, leftChild!, leftChildX, leftChildY);
+
     }
 
     if (root?.right == null) {
@@ -124,12 +189,24 @@ class BinaryTreePainter extends CustomPainter {
 
     drawText(canvas, "NULL", rightX - 20, lineY + branchHeight + 5);
 
-    Paint paint = Paint()
-      ..color = Color(0xFFDFAEE8)
-      ..style = PaintingStyle.fill;
-
     // Root
-    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, paint);
+    Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 4);
+    canvas.drawCircle(Offset(centerX + 4, centerY + 4), nodeRadius, shadowPaint);
+
+    canvas.drawCircle(Offset(centerX + 3, centerY + 3), nodeRadius, shadowPaint);
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2;
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, borderPaint);
+
+    Paint fillPaint = Paint()
+      ..color = Color(0xFF255f38)
+      ..style = PaintingStyle.fill;
+    canvas.drawCircle(Offset(centerX, centerY), nodeRadius, fillPaint);
     drawNodeText(canvas, root!, centerX, centerY);
   }
 

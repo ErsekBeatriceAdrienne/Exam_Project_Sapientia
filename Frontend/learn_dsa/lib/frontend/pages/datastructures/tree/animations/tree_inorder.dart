@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter/services.dart';
 
 // Binary Tree Node Definition
 class BinaryTreeNode {
@@ -13,14 +15,18 @@ BinaryTreeNode? insert(BinaryTreeNode? root, int value) {
 
   if (root.left == null) {
     root.left = BinaryTreeNode(value);
+    HapticFeedback.mediumImpact();
   }
   else if (root.right == null) {
     root.right = BinaryTreeNode(value);
+    HapticFeedback.mediumImpact();
   }
   else {
     if (_countNodes(root.left) <= _countNodes(root.right)) {
+      HapticFeedback.mediumImpact();
       root.left = insert(root.left, value);
     } else {
+      HapticFeedback.mediumImpact();
       root.right = insert(root.right, value);
     }
   }
@@ -34,6 +40,8 @@ int _countNodes(BinaryTreeNode? node) {
 }
 
 class BinaryTreeInorderTraversalAnimation extends StatefulWidget {
+  const BinaryTreeInorderTraversalAnimation({super.key});
+
   @override
   _BinaryTreeInorderTraversalAnimationState createState() => _BinaryTreeInorderTraversalAnimationState();
 }
@@ -46,23 +54,21 @@ class _BinaryTreeInorderTraversalAnimationState extends State<BinaryTreeInorderT
   bool isAnimating = false;
   String traversalType = "Preorder"; // Default traversal type
   int insertCount = 0;
+  bool isSearching = false;
+  bool isPaused = false;
 
   @override
   void initState() {
     super.initState();
-    _startAutoInsertion();
+    _insertAllImmediately();
   }
 
-  // Automatically insert nodes from values list with a delay
-  void _startAutoInsertion() async {
-    for (int i = 0; i < values.length; i++) {
-      await Future.delayed(const Duration(seconds: 1));
-
-      setState(() {
-        root = insert(root, values[i]);
-        insertCount++;
-      });
+  void _insertAllImmediately() {
+    for (int value in values) {
+      root = insert(root, value);
+      insertCount++;
     }
+    setState(() {});
   }
 
   // Start animation for the selected traversal type
@@ -79,8 +85,10 @@ class _BinaryTreeInorderTraversalAnimationState extends State<BinaryTreeInorderT
     setState(() {
       currentNodeValue = node.value;
       traversalValues.add(node.value);
+      HapticFeedback.mediumImpact();
     });
     await Future.delayed(Duration(seconds: 1));
+    HapticFeedback.mediumImpact();
     await _inorder(node.right);
   }
 
@@ -105,32 +113,69 @@ class _BinaryTreeInorderTraversalAnimationState extends State<BinaryTreeInorderT
 
         // Display traversal type and results
         Text(
-          "bejárás: ${traversalValues.join(", ")}",
+          "Inorder traversal: ${traversalValues.join(", ")}",
           style: TextStyle(fontSize: 16),
         ),
-        const SizedBox(height: 20),
 
-        // Button to control animation
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: isAnimating ? null : () async {
-                setState(() {
-                  isAnimating = true;
-                });
-                await performTraversal();
-                setState(() {
-                  isAnimating = false;
-                });
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFDFAEE8),
-                foregroundColor: Colors.white,
-              ),
-              child: Text("inorder_bejárás(gy)"),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            "inorderTraversal(root)",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-          ],
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              performTraversal();
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isSearching
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isSearching && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -155,8 +200,18 @@ class BinaryTreePainter extends CustomPainter {
   void _drawNode(Canvas canvas, BinaryTreeNode? node, double x, double y, double offset, double radius) {
     if (node == null) return;
 
+    Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 6);
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
     Paint nodePaint = Paint()
-      ..color = (node.value == highlightValue ? Colors.purple : Color(0xFFDFAEE8));
+      ..color = (node.value == highlightValue ? Color(0xFF1f7d53) : Color(0xFF255f38));
+
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
@@ -171,14 +226,20 @@ class BinaryTreePainter extends CustomPainter {
       _drawNode(canvas, node.right, x + offset, y + 60, offset / 1.5, radius);
     }
 
-    // Draw node circle
-    canvas.drawCircle(Offset(x, y), 20, nodePaint);
+    // Shadow
+    canvas.drawCircle(Offset(x + 2, y + 2), radius, shadowPaint);
 
-    // Draw node value
+    // Border (thin white stroke)
+    canvas.drawCircle(Offset(x, y), radius, borderPaint);
+
+    // Node circle (filled)
+    canvas.drawCircle(Offset(x, y), radius - 1, nodePaint);
+
+    // Node value
     TextPainter textPainter = TextPainter(
       text: TextSpan(
         text: node.value.toString(),
-        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
       ),
       textDirection: TextDirection.ltr,
     );
@@ -208,47 +269,69 @@ class BSTNode {
 
 // Insert function for BST
 BSTNode? insert1(BSTNode? root, int value) {
-  if (root == null) return BSTNode(value);
+  if (root == null) {
+    HapticFeedback.mediumImpact();
+    return BSTNode(value);
+  }
   if (value < root.value) {
+    HapticFeedback.mediumImpact();
     root.left = insert1(root.left, value);
-  } else if (value > root.value) {
+  }
+  else if (value > root.value) {
+    HapticFeedback.mediumImpact();
     root.right = insert1(root.right, value);
   }
   return root;
 }
 
 class BSTInorderAnimation extends StatefulWidget {
+  const BSTInorderAnimation({super.key});
+
   @override
   _BSTInorderAnimationState createState() => _BSTInorderAnimationState();
 }
 
 class _BSTInorderAnimationState extends State<BSTInorderAnimation> {
-  BSTNode? root;
+  BinaryTreeNode? root;
   List<int> values = [20, 5, 19, 3, 87, 56, 89];
-  List<int> inorderTraversal = [];
+  List<int> traversalValues = [];
   int? currentNodeValue;
+  bool isAnimating = false;
+  String traversalType = "Preorder"; // Default traversal type
+  int insertCount = 0;
+  bool isSearching = false;
+  bool isPaused = false;
 
   @override
   void initState() {
     super.initState();
-    for (int value in values) {
-      root = insert1(root, value);
-    }
+    _insertAllImmediately();
   }
 
-  // Perform inorder traversal and update UI step by step
-  Future<void> performInorderTraversal() async {
-    inorderTraversal.clear();
+  void _insertAllImmediately() {
+    for (int value in values) {
+      root = insert(root, value);
+      insertCount++;
+    }
+    setState(() {});
+  }
+
+  // Start animation for the selected traversal type
+  Future<void> performTraversal() async {
+    traversalValues.clear();
     setState(() {});
     await _inorder(root);
   }
 
-  Future<void> _inorder(BSTNode? node) async {
+  // Inorder Traversal (Left → Root → Right)
+  Future<void> _inorder(BinaryTreeNode? node) async {
     if (node == null) return;
     await _inorder(node.left);
+    HapticFeedback.mediumImpact();
     setState(() {
       currentNodeValue = node.value;
-      inorderTraversal.add(node.value);
+      traversalValues.add(node.value);
+      HapticFeedback.mediumImpact();
     });
     await Future.delayed(Duration(seconds: 1));
     await _inorder(node.right);
@@ -258,7 +341,7 @@ class _BSTInorderAnimationState extends State<BSTInorderAnimation> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // BST Visualization
+        // Tree Visualization
         Container(
           height: 300,
           padding: const EdgeInsets.all(10),
@@ -267,23 +350,77 @@ class _BSTInorderAnimationState extends State<BSTInorderAnimation> {
             borderRadius: BorderRadius.circular(12),
           ),*/
           child: CustomPaint(
-            painter: BSTPainter(root, currentNodeValue),
+            painter: BinaryTreePainter(root, currentNodeValue),
             child: Container(),
           ),
         ),
-
         const SizedBox(height: 20),
 
-        Text("Inorder Bejárás: ${inorderTraversal.join(", ")}"),
-        ElevatedButton(
-          onPressed: () async {
-            await performInorderTraversal();
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFDFAEE8),
-            foregroundColor: Colors.white,
+        // Display traversal type and results
+        Text(
+          "Traversal: ${traversalValues.join(", ")}",
+          style: TextStyle(fontSize: 16),
+        ),
+
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: Text(
+            "traversal(root)",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF1f7d53)),
           ),
-          child: Text("bejárás(gy)"),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              performTraversal();
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  isSearching
+                      ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
+                      : Icons.play_arrow_rounded,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  size: 22,
+                ),
+                Text(
+                  isSearching && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
+                  style: TextStyle(
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
