@@ -1,7 +1,4 @@
-import 'dart:io';
 import 'dart:ui';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
@@ -13,25 +10,13 @@ import 'package:learn_dsa/frontend/pages/test/testpages/list_tests_preview.dart'
 import 'package:learn_dsa/frontend/pages/test/testpages/queue_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/stack_testpage.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:pie_chart/pie_chart.dart' as pie;
-import '../../../backend/compiler/c_compiler.dart';
-import '../../../backend/database/firestore_service.dart';
-import '../../strings/test/test_strings.dart';
 import '../customClasses/custom_bar_chart.dart';
-import '../customClasses/custom_ring_chart.dart';
-import '../profile/test_results.dart';
-import 'exercises/array_exercises.dart';
-import 'exercises/binarytree_exercises.dart';
-import 'exercises/hashtable_exercises.dart';
-import 'exercises/list_exercises.dart';
-import 'exercises/queue_exercises.dart';
-import 'exercises/stack_exercises.dart';
 
 class TestsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const TestsPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const TestsPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<TestsPage> createState() => _TestsPageState();

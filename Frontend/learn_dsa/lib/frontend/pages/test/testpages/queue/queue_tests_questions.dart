@@ -6,6 +6,7 @@ import 'package:learn_dsa/frontend/pages/test/testpages/stack/stack_tests_result
 import 'package:learn_dsa/frontend/pages/test/testpages/stack_testpage.dart';
 import '../../../../../backend/database/firestore_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../helpers/code_identifier_for_tests.dart';
 import '../../../../helpers/essentials.dart';
 import '../../../../strings/firestore/firestore_docs.dart';
 
@@ -13,7 +14,7 @@ class QueueTestsQuestionsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const QueueTestsQuestionsPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const QueueTestsQuestionsPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<QueueTestsQuestionsPage> createState() => _QueueTestsQuestionsPageState();
@@ -264,11 +265,10 @@ class _QueueTestsQuestionsPageState extends State<QueueTestsQuestionsPage> with 
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  questionText,
-                  style: const TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
+                Text.rich(
+                  TextSpan(
+                    children: TextFormatter.formatTextWithCodeBlocks(questionText),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -307,17 +307,19 @@ class _QueueTestsQuestionsPageState extends State<QueueTestsQuestionsPage> with 
                           ),
                         ],
                       ),
-                      child: Text(
-                        '$answerId) $answerText',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: isSelected ? Colors.green[900] : Colors.black,
+                      child: Text.rich(
+                        TextSpan(
+                          children: TextFormatter.formatTextWithCodeBlocks('$answerId) $answerText'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: isSelected ? Colors.green[900] : Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   );
-                }).toList(),
+                }),
                 const SizedBox(height: 10),
                 if (hintText != null && hintText.isNotEmpty)
                   Align(

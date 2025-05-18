@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import '../../../../../backend/database/firestore_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../../helpers/code_identifier_for_tests.dart';
 import '../../../../strings/firestore/firestore_docs.dart';
 import '../list_tests_preview.dart';
 import 'list_tests_results.dart';
@@ -12,7 +13,7 @@ class ListTestQuestionsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ListTestQuestionsPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ListTestQuestionsPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<ListTestQuestionsPage> createState() => _ListTestQuestionsPageState();
@@ -73,9 +74,9 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                     Navigator.pop(
                       context,
                       Essentials().createSlideRoute(ListTestPage(
-                          toggleTheme: widget.toggleTheme,
-                          userId: widget.userId,
-                        ),
+                        toggleTheme: widget.toggleTheme,
+                        userId: widget.userId,
+                      ),
                       ),
                     );
                   },
@@ -190,7 +191,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                                       questionIndex,
                                       selectedAnswers[questionIndex]!,
                                       exercises,
-                                    ) ?? '';
+                                    );
                                   },
                                 );
 
@@ -262,11 +263,10 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  questionText,
-                  style: const TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
+                Text.rich(
+                  TextSpan(
+                    children: TextFormatter.formatTextWithCodeBlocks(questionText),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -305,17 +305,19 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                           ),
                         ],
                       ),
-                      child: Text(
-                        '$answerId) $answerText',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: isSelected ? Colors.green[900] : Colors.black,
+                      child: Text.rich(
+                        TextSpan(
+                          children: TextFormatter.formatTextWithCodeBlocks('$answerId) $answerText'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: isSelected ? Colors.green[900] : Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   );
-                }).toList(),
+                }),
                 const SizedBox(height: 10),
                 if (hintText != null && hintText.isNotEmpty)
                   Align(
