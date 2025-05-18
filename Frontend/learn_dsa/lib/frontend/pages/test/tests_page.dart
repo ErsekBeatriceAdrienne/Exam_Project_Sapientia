@@ -266,7 +266,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                     ),
                   ),
 
-                  const SizedBox(height: 20),
+                  /*const SizedBox(height: 20),
 
                   // All kind of test questions
                   Container(
@@ -329,7 +329,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
 
                       ],
                     ),
-                  ),
+                  ),*/
 
                   const SizedBox(height: 65),
                 ],

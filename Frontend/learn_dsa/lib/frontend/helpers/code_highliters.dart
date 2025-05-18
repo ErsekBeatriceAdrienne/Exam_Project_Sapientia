@@ -5,7 +5,7 @@ class CodeSnippet extends StatelessWidget {
   final String codeContent;
 
   // Constructor to pass code content to the widget
-  const CodeSnippet({Key? key, required this.codeContent}) : super(key: key);
+  const CodeSnippet({super.key, required this.codeContent});
 
   @override
   Widget build(BuildContext context) {

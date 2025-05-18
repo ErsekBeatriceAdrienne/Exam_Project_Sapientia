@@ -3,12 +3,13 @@ import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../profile/profile_page.dart';
 import '../test/tests_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WindowsMenu extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String userId;
 
-  const WindowsMenu({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const WindowsMenu({super.key, required this.toggleTheme, required this.userId});
 
   @override
   _WindowsMenuState createState() => _WindowsMenuState();
@@ -30,13 +31,14 @@ class _WindowsMenuState extends State<WindowsMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('')),
+      appBar: AppBar(),
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            DrawerHeader(child: Text('Welcome, Guest')),
+            //DrawerHeader(child: Text('Welcome, Guest')),
             ListTile(
-              title: const Text('Data Structures'),
+              title: Text(AppLocalizations.of(context)!
+                  .data_structures_menu),
               onTap: () {
                 setState(() {
                   _currentIndex = 0; // Set index to HomePage
@@ -45,7 +47,8 @@ class _WindowsMenuState extends State<WindowsMenu> {
               },
             ),
             ListTile(
-              title: const Text('Algorithms'),
+              title: Text(AppLocalizations.of(context)!
+                  .algorithms_menu),
               onTap: () {
                 setState(() {
                   _currentIndex = 1; // Set index to DataStructuresPage
@@ -54,7 +57,8 @@ class _WindowsMenuState extends State<WindowsMenu> {
               },
             ),
             ListTile(
-              title: const Text('Tests'),
+              title: Text(AppLocalizations.of(context)!
+                  .test_menu),
               onTap: () {
                 setState(() {
                   _currentIndex = 2; // Set index to AlgorithmsPage
@@ -63,7 +67,8 @@ class _WindowsMenuState extends State<WindowsMenu> {
               },
             ),
             ListTile(
-              title: const Text('Profile'),
+              title: Text(AppLocalizations.of(context)!
+                  .profile_menu),
               onTap: () {
                 setState(() {
                   _currentIndex = 3; // Set index to TestsPage

@@ -14,10 +14,10 @@ class CustomBottomNavigationBar extends StatefulWidget
   final String? userId;
 
   const CustomBottomNavigationBar({
-    Key? key,
+    super.key,
     required this.toggleTheme,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   _CustomBottomNavigationBarState createState() =>

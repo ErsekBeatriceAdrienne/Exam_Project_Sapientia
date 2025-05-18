@@ -8,7 +8,6 @@ import 'package:learn_dsa/frontend/pages/datastructures/tree/tree_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/firestore_service.dart';
 import '../../strings/firestore/firestore_docs.dart';
-import '../splashscreen/splashscreen.dart';
 import 'array/array_page.dart';
 import 'hash/hashtable_page.dart';
 import 'list/list_page.dart';
@@ -18,10 +17,10 @@ class DataStructuresPage extends StatefulWidget  {
   final String? userId;
 
   const DataStructuresPage({
-    Key? key,
+    super.key,
     required this.toggleTheme,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   _DataStructuresPageState createState() => _DataStructuresPageState();
@@ -30,7 +29,6 @@ class DataStructuresPage extends StatefulWidget  {
 class _DataStructuresPageState extends State<DataStructuresPage> {
   final FirestoreService _firestoreService = FirestoreService();
   late Future<Map<String, dynamic>> _dataFuture;
-  bool _showBlurOverlay = false;
 
   @override
   void initState() {
@@ -141,51 +139,27 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
 
                       const SizedBox(height: 10),
 
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
+                      Text(AppLocalizations.of(context)!.linear_dsa_description,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
                         ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                      ),
 
-
-                            Text(AppLocalizations.of(context)!.linear_dsa_description,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
-
-                            // Linear Data Structure Buttons
-                            GridView.count(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 2.2,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                _buildCategoryButton(context, AppLocalizations.of(context)!.array_button_text, isDarkTheme),
-                                _buildCategoryButton(context, AppLocalizations.of(context)!.stack_button_text, isDarkTheme),
-                                _buildCategoryButton(context, AppLocalizations.of(context)!.queue_button_text, isDarkTheme),
-                                _buildCategoryButton(context, AppLocalizations.of(context)!.list_button_text, isDarkTheme),
-                              ],
-                            ),
-                          ],
-                        ),
+                      // Linear Data Structure Buttons
+                      GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 2.2,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _buildCategoryButton(context, AppLocalizations.of(context)!.array_button_text, isDarkTheme),
+                          _buildCategoryButton(context, AppLocalizations.of(context)!.stack_button_text, isDarkTheme),
+                          _buildCategoryButton(context, AppLocalizations.of(context)!.queue_button_text, isDarkTheme),
+                          _buildCategoryButton(context, AppLocalizations.of(context)!.list_button_text, isDarkTheme),
+                        ],
                       ),
 
                       const SizedBox(height: 20),
@@ -201,49 +175,27 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
 
                       const SizedBox(height: 10),
 
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
+                      Text(AppLocalizations.of(context)!.nonlinear_dsa_description,
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
                         ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(AppLocalizations.of(context)!.nonlinear_dsa_description,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
+                      ),
 
-                            // Non-Linear Data Structure Buttons
-                            GridView.count(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 2.2,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              children: [
-                                _buildCategoryButton(context, AppLocalizations.of(context)!.bst_button_text,
-                                    isDarkTheme),
-                                _buildCategoryButton(context, AppLocalizations.of(context)!.hash_button_text,
-                                    isDarkTheme),
-                              ],
-                            ),
-                          ],
-                        ),
+                      // Non-Linear Data Structure Buttons
+                      GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 2.2,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          _buildCategoryButton(context, AppLocalizations.of(context)!.bst_button_text,
+                              isDarkTheme),
+                          _buildCategoryButton(context, AppLocalizations.of(context)!.hash_button_text,
+                              isDarkTheme),
+                        ],
                       ),
 
                       const SizedBox(height: 20),

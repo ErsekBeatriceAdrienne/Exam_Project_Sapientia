@@ -80,7 +80,7 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                   title: Text(
                     AppLocalizations.of(context)!.hash_page_title,
                     style: const TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF255f38),
                     ),
