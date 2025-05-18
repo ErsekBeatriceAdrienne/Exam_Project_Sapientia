@@ -4,20 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/algorithms_page.dart';
 
 import '../../../helpers/essentials.dart';
-import '../../customClasses/custom_closing_button_copyCode.dart';
 
 
-class SortingAlgorithmsPage extends StatefulWidget {
+class RecursiveAlgorithmsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const SortingAlgorithmsPage({super.key, required this.toggleTheme, required this.userId});
+  const RecursiveAlgorithmsPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
-  State<SortingAlgorithmsPage> createState() => _SortingAlgorithmsPageState();
+  State<RecursiveAlgorithmsPage> createState() => _RecursiveAlgorithmsPageState();
 }
 
-class _SortingAlgorithmsPageState extends State<SortingAlgorithmsPage> with SingleTickerProviderStateMixin {
+class _RecursiveAlgorithmsPageState extends State<RecursiveAlgorithmsPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool _isDropdownVisible = false;
@@ -69,7 +68,7 @@ class _SortingAlgorithmsPageState extends State<SortingAlgorithmsPage> with Sing
                 ),
                 centerTitle: true,
                 title: Text(
-                  AppLocalizations.of(context)!.sorting_algorithms_title,
+                  AppLocalizations.of(context)!.recursive_algorithms_title,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -113,68 +112,6 @@ class _SortingAlgorithmsPageState extends State<SortingAlgorithmsPage> with Sing
                     ),
                   ),
                 ),*/
-              ),
-
-              // Main Content
-              SliverPadding(
-                padding: const EdgeInsets.all(16.0),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      // Sorting question
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.sorting_alg_question,
-                              style: TextStyle(
-                                fontSize: 21,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-
-                            Text(
-                              AppLocalizations.of(context)!.sorting_alg_description,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Complete .h file
-                      //CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: ''),
-
-                      //const SizedBox(height: 20),
-
-                      // Complete .c file
-                      //CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: ''),
-
-                      const SizedBox(height: 40),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),

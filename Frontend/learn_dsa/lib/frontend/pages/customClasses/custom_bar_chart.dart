@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TestResultsChart extends StatelessWidget {
   final List<double> results;
 
-  TestResultsChart({required this.results});
+  const TestResultsChart({super.key, required this.results});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class TestResultsChart extends StatelessWidget {
           barGroups: results.asMap().entries.map((entry) {
             int index = entry.key;
             double value = entry.value;
-            final baseColor = Colors.primaries[index % Colors.primaries.length];
+            //final baseColor = Colors.primaries[index % Colors.primaries.length];
             return BarChartGroupData(
               x: index,
               barRods: [
@@ -82,12 +82,12 @@ class TestResultsChart extends StatelessWidget {
                     BarChartRodStackItem(
                       0,
                       value,
-                      baseColor,
+                      Colors.lightGreen, //baseColor,
                     ),
                     BarChartRodStackItem(
                       value,
                       30,
-                      baseColor.shade200,
+                      Colors.lightGreen.shade800,//baseColor.shade200,
                     ),
                   ],
                   width: 20,

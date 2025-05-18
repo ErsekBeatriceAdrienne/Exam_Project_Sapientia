@@ -14,7 +14,7 @@ class ArrayPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ArrayPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ArrayPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<ArrayPage> createState() => _ArrayPageState();
@@ -80,7 +80,7 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                 title: Text(
                   AppLocalizations.of(context)!.array_page_title,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF255f38),
                   ),

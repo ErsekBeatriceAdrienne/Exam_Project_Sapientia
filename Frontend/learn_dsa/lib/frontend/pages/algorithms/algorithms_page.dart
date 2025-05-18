@@ -1,21 +1,27 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learn_dsa/frontend/pages/algorithms/recursive/recursive_algorithms_page.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/searching/searching_algorithms_page.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/sorting/sorting_algorithms_page.dart';
 import '../../../backend/database/firestore_service.dart';
-import '../../language_supports/language_picker.dart';
+import '../../helpers/essentials.dart';
 import '../../strings/firestore/firestore_docs.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'backtracking/backtracking_algorithm.dart';
+import 'divide_at_impera_alg/divide_at_impera.dart';
+import 'greedy_algorithm/greedy_algorithms.dart';
 
 class AlgorithmsPage extends StatefulWidget  {
   final VoidCallback toggleTheme;
   final String? userId;
 
   const AlgorithmsPage({
-    Key? key,
+    super.key,
     required this.toggleTheme,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   _AlgorithmsPageState createState() => _AlgorithmsPageState();
@@ -38,268 +44,165 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            // Language picker right hand corner
-            child: LanguagePicker(),
-          ),
-        ],
-      ),
-    );
-  }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
 
-    return FutureBuilder<Map<String, dynamic>>(
-      future: _dataFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(child: Text('Error: ${snapshot.error}')),
-          );
-        } else if (!snapshot.hasData) {
-          return Scaffold(
-            body: Center(child: Text('No data available')),
-          );
-        }
-
-        // Extracting data from snapshot
-        final data = snapshot.data!;
-
-        return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                backgroundColor: Colors.transparent,
-                pinned: true,
-                floating: false,
-                expandedHeight: 70,
-                flexibleSpace: ClipRRect(
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                    child: Container(
-                      color: Theme.of(context)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.2),
-                      child: FlexibleSpaceBar(
-                        titlePadding: EdgeInsets.only(left: 16, bottom: 16),
-                        title: Text(
-                          data[FirestoreDocs.algorithmsPageTitle],
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFFDFAEE8),
-                          ),
-                        ),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            pinned: true,
+            floating: false,
+            expandedHeight: 70,
+            flexibleSpace: ClipRRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                child: Container(
+                  color: Theme
+                      .of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.2),
+                  child: FlexibleSpaceBar(
+                    titlePadding: EdgeInsets.only(left: 16, bottom: 16),
+                    title: Text(AppLocalizations.of(context)!.algorithms_menu,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF255f38), //Color(0xFFDFAEE8),
                       ),
                     ),
                   ),
                 ),
               ),
+            ),
+          ),
 
-              // Main Content as a SliverList
-              SliverPadding(
-                padding: const EdgeInsets.all(16.0),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      // Title and Description in a rounded rectangle with shadow
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.15),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
+          // Main Content as a SliverList
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  // Title and Description in a rounded rectangle with shadow
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
                         ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[FirestoreDocs.algorithmsPageSearchingButtonText],//data[FirestoreDocs.dataStructurePageDefinitionQuestion],
-                              style: TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                            const SizedBox(height: 8),
-                            Text(
-                              data[FirestoreDocs.algorithmsPageDefinitionText],
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(AppLocalizations.of(context)!.algorithms_page_question,
+                          style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Linear Data Structure Section
-                      Text(
-                        data[FirestoreDocs.algorithmsPageSortingTitle],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                        const SizedBox(height: 8),
+                        Text(
+                          AppLocalizations.of(context)!.algorithms_page_description,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageSortingDefinition],
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      ],
+                    ),
+                  ),
 
-                      // Button
-                      GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        childAspectRatio: 2.2,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          _buildCategoryButton(context, data[FirestoreDocs.algorithmsPageSortingButtonText] ?? 'See Sorting Details', isDarkTheme),
-                        ],
-                      ),
+                  const SizedBox(height: 20),
 
-                      const SizedBox(height: 24),
+                  Text(
+                    AppLocalizations.of(context)!.simple_algorithms,
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1f7d53),
+                    ),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.simple_algorithms_description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
 
-                      Text(
-                        data[FirestoreDocs.algorithmsPageSearchingTitle],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageSearchingDefinition],
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
+                  // Button
+                  GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2.2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.sorting_algorithms_button_title, isDarkTheme),
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.searching_algorithms_button_title, isDarkTheme),
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.recursive_algorithms_button_title, isDarkTheme),
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.greedy_algorithm_button_title, isDarkTheme),
+                    ],
+                  ),
 
-                      // Button
-                      GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10,
-                        childAspectRatio: 2.2,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          _buildCategoryButton(context, data[FirestoreDocs.algorithmsPageSearchingButtonText] ?? 'See Searching Details', isDarkTheme),
-                        ],
-                      ),
+                  const SizedBox(height: 20),
 
-                      const SizedBox(height: 16),
+                  Text(
+                    AppLocalizations.of(context)!.complex_algorithms,
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF1f7d53),
+                    ),
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.complex_algorithms_description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
 
-                      // Complexity Table Section
-                      /*Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white60,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[FirestoreDocs.dataStructurePageComplexityTableDsaText] ,
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),*/
+                  // Button
+                  GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2.2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.divide_at_impera_button_title, isDarkTheme),
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.backtracking_button_title, isDarkTheme),
+                    ],
+                  ),
 
-                      const SizedBox(height: 24),
-
-                      Text(
-                        data[FirestoreDocs.algorithmsPageGreedyTitle],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageGreedyDefinition],
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      Text(
-                        data[FirestoreDocs.algorithmsPageRecursiveTitle],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageRecursiveDefinition],
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
+                  /*const SizedBox(height: 24),
 
                       Text(
                         data[FirestoreDocs.algorithmsPageDivideEtImperaTitle],
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1f7d53),
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         data[FirestoreDocs.algorithmsPageDivideEtImperaDefinition],
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
@@ -309,16 +212,16 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
                       Text(
                         data[FirestoreDocs.algorithmsPageBacktrackingTitle],
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1f7d53),
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         data[FirestoreDocs.algorithmsPageBacktrackingDefinition],
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
@@ -328,16 +231,16 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
                       Text(
                         data[FirestoreDocs.algorithmsPageDynamicProgrammingTitle],
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1f7d53),
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         data[FirestoreDocs.algorithmsPageDynamicProgrammingDefinition],
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.grey,
                         ),
                       ),
@@ -347,79 +250,79 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
                       Text(
                         data[FirestoreDocs.algorithmsPageHashTitle],
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
+                          fontSize: 21,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF1f7d53),
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         data[FirestoreDocs.algorithmsPageHashDefinition],
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 16,
                           color: Colors.grey,
                         ),
-                      ),
+                      ),*/
 
-                      const SizedBox(height: 24),
+                  const SizedBox(height: 24),
 
-                      // Complexity Table Section
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white60,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
+                  // Complexity Table Section
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
                         ),
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              data[FirestoreDocs.algorithmsPageComplexityTableDsaText] ?? 'Algorithms Complexity Table',
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(AppLocalizations.of(context)!.algorithms_complexity_table,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
+                          ),
                         ),
-                      ),
-
-
-                      const SizedBox(height: 65),
-
-                    ],
+                        const SizedBox(height: 16),
+                      ],
+                    ),
                   ),
-                ),
+
+                  const SizedBox(height: 65),
+
+                ],
               ),
-            ],
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 
   Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
-    // Define the gradient colors
     final gradient = LinearGradient(
-      // Gradient colors
-      colors: [Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+      colors: [Color(0xFF255f38), Color(0xFF27391c)],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     );
 
-    // Define a map for title-to-page navigation
     final pageMap = {
-      "See Sorting Details": () => SortingAlgorithmsPage(),
-      "See Searching Details": () => SearchingAlgorithmsPage(),
+      AppLocalizations.of(context)!.sorting_algorithms_button_title: () => SortingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      AppLocalizations.of(context)!.searching_algorithms_button_title: () => SearchingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      AppLocalizations.of(context)!.recursive_algorithms_button_title: () => RecursiveAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      AppLocalizations.of(context)!.greedy_algorithm_button_title: () => GreedyAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      AppLocalizations.of(context)!.divide_at_impera_button_title: () => DivideAtImperaAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      AppLocalizations.of(context)!.backtracking_button_title: () => BacktrackingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
     };
 
     return ElevatedButton(
@@ -431,31 +334,30 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
         if (pageBuilder != null) {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => pageBuilder()),
+            Essentials().createSlideRoute(pageBuilder()),
           );
-        } else {
-          // Handle cases where the title doesn't match any page
-          print("Page not found for title: $title");
+          HapticFeedback.mediumImpact();
         }
+
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.transparent,
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
         ),
         elevation: 0,
       ),
       child: Ink(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           gradient: gradient,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withOpacity(0.5),
               spreadRadius: 1,
               blurRadius: 4,
-              offset: Offset(0, 2),
+              offset: Offset(2, 2),
             ),
           ],
         ),
@@ -491,5 +393,6 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
         ),
       ),
     );
-  }*/
+  }
+
 }

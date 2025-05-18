@@ -76,7 +76,7 @@ class Essentials {
       TextSpan(children: spans),
       style: const TextStyle(
         fontFamily: 'Courier',
-        fontSize: 14,
+        fontSize: 15,
         color: Colors.black,
         fontWeight: FontWeight.bold
       ),
@@ -145,11 +145,11 @@ class Essentials {
         case 'return':
         case 'if':
         case 'else':
-          color = Colors.green;
+          color = Colors.green.shade700;
           break;
         case 'int':
         case 'bool':
-          color = Colors.lightGreen;
+          color = Colors.lightGreen.shade800;
           break;
         case 'true':
         case 'false':
