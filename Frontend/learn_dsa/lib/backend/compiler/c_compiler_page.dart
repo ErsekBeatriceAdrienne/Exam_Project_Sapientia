@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -20,17 +21,97 @@ import 'package:flutter_highlight/themes/xcode.dart';
 import 'package:flutter_highlight/themes/androidstudio.dart';
 import 'package:flutter_highlight/themes/agate.dart';
 
-class CodeCompiler extends StatefulWidget {
+class CCompilerPage extends StatefulWidget  {
+  final VoidCallback toggleTheme;
+  final String? userId;
+
+  const CCompilerPage({
+    super.key,
+    required this.toggleTheme,
+    required this.userId,
+  });
+
+  @override
+  _CCompilerPageState createState() => _CCompilerPageState();
+}
+
+class _CCompilerPageState extends State<CCompilerPage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDarkTheme = Theme
+        .of(context)
+        .brightness == Brightness.dark;
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            pinned: true,
+            floating: false,
+            expandedHeight: 70,
+            flexibleSpace: ClipRRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                child: Container(
+                  color: Theme
+                      .of(context)
+                      .scaffoldBackgroundColor
+                      .withOpacity(0.2),
+                  child: FlexibleSpaceBar(
+                    titlePadding: EdgeInsets.only(left: 16, bottom: 16),
+                    title: Text(AppLocalizations.of(context)!.compiler_page_title,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF255f38),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // Main Content as a SliverList
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  CodeCompilerWidget(title: AppLocalizations.of(context)!.compilet_box_title, initialText: Compiler.main),
+
+                  const SizedBox(height: 40),
+
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+///----------------------------------------------------------------------------------------------------------------------------------------------
+
+class CodeCompilerWidget extends StatefulWidget {
   final String initialText;
   final String title;
 
-  const CodeCompiler({super.key, required this.initialText, required this.title});
+  const CodeCompilerWidget({super.key, required this.title, required this.initialText});
 
   @override
-  _CodeCompilerState createState() => _CodeCompilerState();
+  _CodeCompilerWidgetState createState() => _CodeCompilerWidgetState();
 }
 
-class _CodeCompilerState extends State<CodeCompiler>
+class _CodeCompilerWidgetState extends State<CodeCompilerWidget>
 {
   TextEditingController _controller = TextEditingController();
   List<String> _lines = [];
@@ -38,7 +119,7 @@ class _CodeCompilerState extends State<CodeCompiler>
   String output = "";
   bool isLoading = false;
   late CodeController _codeController;
-  String _selectedThemeName = 'VS'; // Default
+  String _selectedThemeName = 'VS';
   late SharedPreferences _prefs;
 
   late Map<String, TextStyle> _currentTheme;
@@ -82,6 +163,31 @@ class _CodeCompilerState extends State<CodeCompiler>
     setState(() {
       _selectedThemeName = themeName;
     });
+  }
+
+  void _showThemePicker() {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return ListView(
+          padding: EdgeInsets.all(16),
+          children: _availableThemes.keys.map((themeName) {
+            return ListTile(
+              title: Text(themeName),
+              onTap: () {
+                setState(() {
+                  _currentTheme = _availableThemes[themeName]!;
+                });
+                Navigator.pop(context);
+              },
+            );
+          }).toList(),
+        );
+      },
+    );
   }
 
   void _updateLines() {

@@ -166,7 +166,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.allocating_memory_function),
                             ],
                           ),
@@ -239,7 +239,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.printing_function),
                             ],
                           ),
@@ -312,7 +312,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.insert_first_function),
                             ],
                           ),
@@ -385,7 +385,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.insert_at_function),
                             ],
                           ),
@@ -458,7 +458,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.insert_last_function),
                             ],
                           ),
@@ -531,7 +531,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.isempty_function),
                             ],
                           ),
@@ -604,7 +604,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.isfull_function),
                             ],
                           ),
@@ -677,7 +677,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.search_function),
                             ],
                           ),
@@ -750,7 +750,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.update_function),
                             ],
                           ),
@@ -823,7 +823,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.get_at_function),
                             ],
                           ),
@@ -896,7 +896,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.delete_at_function),
                             ],
                           ),
@@ -969,7 +969,7 @@ class _ImplementationArrayPageState extends State<ImplementationArrayPage> with 
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code colored
-                              Essentials().buildHighlightedCodeLinesNormal(
+                              Essentials().buildHighlightedCodeLines(
                                   ArrayStrings.deallocating_memory_function),
                             ],
                           ),

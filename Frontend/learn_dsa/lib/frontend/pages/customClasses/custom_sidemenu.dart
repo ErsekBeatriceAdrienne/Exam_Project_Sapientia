@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../backend/compiler/c_compiler_page.dart';
 import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../profile/profile_page.dart';
@@ -23,6 +24,7 @@ class _WindowsMenuState extends State<WindowsMenu> {
     return [
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      CCompilerPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       ProfilePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
     ];
@@ -41,9 +43,9 @@ class _WindowsMenuState extends State<WindowsMenu> {
                   .data_structures_menu),
               onTap: () {
                 setState(() {
-                  _currentIndex = 0; // Set index to HomePage
+                  _currentIndex = 0;
                 });
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -51,9 +53,19 @@ class _WindowsMenuState extends State<WindowsMenu> {
                   .algorithms_menu),
               onTap: () {
                 setState(() {
-                  _currentIndex = 1; // Set index to DataStructuresPage
+                  _currentIndex = 1;
                 });
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text(AppLocalizations.of(context)!
+                  .compiler_menu),
+              onTap: () {
+                setState(() {
+                  _currentIndex = 2;
+                });
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -61,9 +73,9 @@ class _WindowsMenuState extends State<WindowsMenu> {
                   .test_menu),
               onTap: () {
                 setState(() {
-                  _currentIndex = 2; // Set index to AlgorithmsPage
+                  _currentIndex = 3;
                 });
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
               },
             ),
             ListTile(
@@ -71,15 +83,15 @@ class _WindowsMenuState extends State<WindowsMenu> {
                   .profile_menu),
               onTap: () {
                 setState(() {
-                  _currentIndex = 3; // Set index to TestsPage
+                  _currentIndex = 4;
                 });
-                Navigator.pop(context); // Close the drawer
+                Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
-      body: _getPages()[_currentIndex], // Display the current page
+      body: _getPages()[_currentIndex],
     );
   }
 }

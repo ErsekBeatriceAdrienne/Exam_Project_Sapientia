@@ -1,17 +1,16 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/frontend/pages/algorithms/recursive/recursive_algorithms_page.dart';
+import 'package:learn_dsa/frontend/pages/algorithms/complex/dynamic_programming/dynamic_prog.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/searching/searching_algorithms_page.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/sorting/sorting_algorithms_page.dart';
 import '../../../backend/database/firestore_service.dart';
 import '../../helpers/essentials.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'backtracking/backtracking_algorithm.dart';
-import 'divide_at_impera_alg/divide_at_impera.dart';
-import 'greedy_algorithm/greedy_algorithms.dart';
+import 'complex/backtracking/backtracking_algorithm.dart';
+import 'complex/divide_at_impera_alg/divide_at_impera.dart';
+import 'complex/greedy_algorithm/greedy_algorithms.dart';
 
 class AlgorithmsPage extends StatefulWidget  {
   final VoidCallback toggleTheme;
@@ -151,9 +150,7 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
                     children: [
                       _buildCategoryButton(context, AppLocalizations.of(context)!.sorting_algorithms_button_title, isDarkTheme),
                       _buildCategoryButton(context, AppLocalizations.of(context)!.searching_algorithms_button_title, isDarkTheme),
-                      _buildCategoryButton(context, AppLocalizations.of(context)!.recursive_algorithms_button_title, isDarkTheme),
-                      _buildCategoryButton(context, AppLocalizations.of(context)!.greedy_algorithm_button_title, isDarkTheme),
-                    ],
+                      ],
                   ),
 
                   const SizedBox(height: 20),
@@ -183,86 +180,12 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
+                      _buildCategoryButton(context, AppLocalizations.of(context)!.greedy_algorithm_button_title, isDarkTheme),
                       _buildCategoryButton(context, AppLocalizations.of(context)!.divide_at_impera_button_title, isDarkTheme),
                       _buildCategoryButton(context, AppLocalizations.of(context)!.backtracking_button_title, isDarkTheme),
+                      //_buildCategoryButton(context, AppLocalizations.of(context)!.dynamic_prog_button_text, isDarkTheme),
                     ],
                   ),
-
-                  /*const SizedBox(height: 24),
-
-                      Text(
-                        data[FirestoreDocs.algorithmsPageDivideEtImperaTitle],
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1f7d53),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageDivideEtImperaDefinition],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      Text(
-                        data[FirestoreDocs.algorithmsPageBacktrackingTitle],
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1f7d53),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageBacktrackingDefinition],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      Text(
-                        data[FirestoreDocs.algorithmsPageDynamicProgrammingTitle],
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1f7d53),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageDynamicProgrammingDefinition],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      Text(
-                        data[FirestoreDocs.algorithmsPageHashTitle],
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF1f7d53),
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        data[FirestoreDocs.algorithmsPageHashDefinition],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                      ),*/
 
                   const SizedBox(height: 24),
 
@@ -319,10 +242,10 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
     final pageMap = {
       AppLocalizations.of(context)!.sorting_algorithms_button_title: () => SortingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.searching_algorithms_button_title: () => SearchingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      AppLocalizations.of(context)!.recursive_algorithms_button_title: () => RecursiveAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.greedy_algorithm_button_title: () => GreedyAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.divide_at_impera_button_title: () => DivideAtImperaAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.backtracking_button_title: () => BacktrackingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      //AppLocalizations.of(context)!.dynamic_prog_button_text: () => DynamicProgAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
     };
 
     return ElevatedButton(

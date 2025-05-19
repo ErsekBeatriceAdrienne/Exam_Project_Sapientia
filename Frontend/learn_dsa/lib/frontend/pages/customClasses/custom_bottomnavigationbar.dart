@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/strings/firestore/firestore_docs.dart';
+import '../../../backend/compiler/c_compiler_page.dart';
 import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../profile/profile_page.dart';
@@ -37,6 +38,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     _pages.addAll([
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      CCompilerPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       ProfilePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
     ]);
@@ -149,7 +151,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                         _buildNavItem(Icons.home_outlined, 0),
                         _buildNavItem(Icons.code_rounded, 1),
                         _buildNavItem(Icons.terminal_rounded, 2),
-                        _buildNavItem(Icons.perm_identity_rounded, 3),
+                        _buildNavItem(Icons.quiz_outlined, 3),
+                        _buildNavItem(Icons.perm_identity_rounded, 4),
                       ],
                     ),
                   ),
