@@ -83,27 +83,17 @@ class Essentials {
     );
   }
 
-  Widget buildHighlightedCodeLinesNormal(String code) {
+  Widget buildHighlightedCodeLinesWithoutLineNumbers(String code) {
     final lines = code.split('\n');
 
     final spans = <TextSpan>[];
 
     for (var i = 0; i < lines.length; i++) {
-      final lineNumber = '${i + 1}'.padLeft(3);
       final lineText = lines[i];
 
       spans.add(
         TextSpan(
           children: [
-            TextSpan(
-              text: '$lineNumber  ',
-              style: const TextStyle(
-                fontFamily: 'Courier',
-                fontSize: 13,
-                color: Colors.grey,
-                fontWeight: FontWeight.bold
-              ),
-            ),
             ..._getHighlightedSpans(lineText),
             const TextSpan(text: '\n'),
           ],
@@ -114,10 +104,10 @@ class Essentials {
     return SelectableText.rich(
       TextSpan(children: spans),
       style: const TextStyle(
-        fontFamily: 'Courier',
-        fontSize: 13,
-        color: Colors.black,
-
+          fontFamily: 'Courier',
+          fontSize: 15,
+          color: Colors.black,
+          fontWeight: FontWeight.bold
       ),
     );
   }

@@ -186,89 +186,8 @@ class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
             ),
           ),
 
-          /*Container(
-            width: 70,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.4),
-                  blurRadius: 4,
-                  offset: Offset(0, 1),
-                ),
-              ],
-            ),
-            child: RawMaterialButton(
-              onPressed: () {
-                _startOrToggleAnimation();
-                HapticFeedback.mediumImpact();
-              },
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              constraints: const BoxConstraints.tightFor(width: 90, height: 40),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      isAnimating
-                          ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
-                          : Icons.play_arrow_rounded,
-                      color: Color(0xFF27391c),
-                      size: 24,
-                    ),
-                    Text(
-                      isAnimating && !isPaused ? 'Pause' : 'Play',
-                      style: const TextStyle(
-                        color: Color(0xFF27391c),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),*/
-
         ],
       ),
     );
   }
 }
-
-/*
-Container(
-            width: 45,
-            height: 45,
-            decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.4),
-                  blurRadius: 4,
-                  offset: Offset(0, 1),
-                ),
-              ],
-            ),
-            child: RawMaterialButton(
-              onPressed: _startOrToggleAnimation,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              constraints: const BoxConstraints.tightFor(width: 45, height: 45),
-              child: Icon(
-                isAnimating
-                    ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
-                    : Icons.play_arrow_rounded,
-                color:  Color(0xFF27391c),
-                size: 30,
-              ),
-            ),
-          ),
- */

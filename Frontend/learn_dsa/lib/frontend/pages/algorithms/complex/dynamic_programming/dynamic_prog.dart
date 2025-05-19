@@ -2,20 +2,19 @@ import 'dart:ui';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/algorithms_page.dart';
-import '../../../helpers/essentials.dart';
+import '../../../../helpers/essentials.dart';
 
-
-class BacktrackingAlgorithmsPage extends StatefulWidget {
+class DynamicProgAlgorithmsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const BacktrackingAlgorithmsPage({super.key, required this.toggleTheme, required this.userId});
+  const DynamicProgAlgorithmsPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
-  State<BacktrackingAlgorithmsPage> createState() => _BacktrackingAlgorithmsPageState();
+  State<DynamicProgAlgorithmsPage> createState() => _DynamicProgAlgorithmsPageState();
 }
 
-class _BacktrackingAlgorithmsPageState extends State<BacktrackingAlgorithmsPage> with SingleTickerProviderStateMixin {
+class _DynamicProgAlgorithmsPageState extends State<DynamicProgAlgorithmsPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
   bool _isDropdownVisible = false;
@@ -67,7 +66,7 @@ class _BacktrackingAlgorithmsPageState extends State<BacktrackingAlgorithmsPage>
                 ),
                 centerTitle: true,
                 title: Text(
-                  AppLocalizations.of(context)!.backtracking_button_title,
+                  AppLocalizations.of(context)!.dynamic_prog_button_text,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -99,7 +98,7 @@ class _BacktrackingAlgorithmsPageState extends State<BacktrackingAlgorithmsPage>
                       ),
                     ),
                   ),
-                ],
+                ],*/
                 flexibleSpace: ClipRRect(
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
@@ -110,7 +109,7 @@ class _BacktrackingAlgorithmsPageState extends State<BacktrackingAlgorithmsPage>
                           .withOpacity(0.2),
                     ),
                   ),
-                ),*/
+                ),
               ),
             ],
           ),

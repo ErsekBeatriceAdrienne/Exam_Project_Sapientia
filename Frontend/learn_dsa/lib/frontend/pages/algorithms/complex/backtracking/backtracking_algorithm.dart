@@ -1,30 +1,24 @@
 import 'dart:ui';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/algorithms_page.dart';
-import 'package:learn_dsa/frontend/strings/algorithms/searching_strings.dart';
-import '../../../../backend/compiler/c_compiler.dart';
-import '../../../helpers/essentials.dart';
-import '../../../strings/algorithms/sorting_strings.dart';
-import 'animation/binary_search.dart';
-import 'animation/linear_search.dart';
+import 'package:learn_dsa/frontend/strings/algorithms/backtracking_strings.dart';
+import '../../../../../backend/compiler/c_compiler.dart';
+import '../../../../helpers/essentials.dart';
 
-
-class SearchingAlgorithmsPage extends StatefulWidget {
+class BacktrackingAlgorithmsPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const SearchingAlgorithmsPage({super.key, required this.toggleTheme, required this.userId});
+  const BacktrackingAlgorithmsPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
-  State<SearchingAlgorithmsPage> createState() => _SearchingAlgorithmsPageState();
+  State<BacktrackingAlgorithmsPage> createState() => _BacktrackingAlgorithmsPageState();
 }
 
-class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with SingleTickerProviderStateMixin {
+class _BacktrackingAlgorithmsPageState extends State<BacktrackingAlgorithmsPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
 
 
@@ -73,7 +67,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                 ),
                 centerTitle: true,
                 title: Text(
-                  AppLocalizations.of(context)!.searching_algorithms_title,
+                  AppLocalizations.of(context)!.backtracking_button_title,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -125,7 +119,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      // Searching question
+                      // Backtracking question
                       Container(
                         decoration: BoxDecoration(
                           color: Theme
@@ -147,7 +141,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                           children: [
                             Text(
                               AppLocalizations.of(context)!
-                                  .searching_algorithms_question,
+                                  .backtracking_question,
                               style: TextStyle(
                                 fontSize: 21,
                                 fontWeight: FontWeight.bold,
@@ -157,7 +151,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
 
                             Text(
                               AppLocalizations.of(context)!
-                                  .searching_algorithms_description,
+                                  .backtracking_definition,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
@@ -169,7 +163,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
 
                       const SizedBox(height: 20),
 
-                      Text(AppLocalizations.of(context)!.linear_searching_title,
+                      Text(AppLocalizations.of(context)!.divide_at_impera_steps_title,
                         style: TextStyle(
                           color: Color(0xFF1f7d53),
                           fontSize: 21,
@@ -179,7 +173,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
 
                       const SizedBox(height: 10),
 
-                      // Calling
+                      // Steps
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -198,70 +192,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(AppLocalizations.of(context)!
-                                .linear_searching_definition,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey,
-                              ),
-                              softWrap: true,
-                            ),
-
-                            const SizedBox(height: 10),
-
-                            Center(
-                              child: Stack(
-                                children: [
-
-                                  Essentials()
-                                      .buildHighlightedCodeLines(
-                                      SearchingStrings
-                                          .linear_code),
-
-                                  // Copy button on right up corner
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.copy,
-                                        color: Colors.black,
-                                      ),
-                                      onPressed: () {
-                                        Clipboard.setData(
-                                            ClipboardData(
-                                                text: SearchingStrings
-                                                    .linear_code));
-                                        HapticFeedback.mediumImpact();
-                                        ScaffoldMessenger
-                                            .of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                AppLocalizations.of(
-                                                    context)!
-                                                    .code_copied_text),
-                                            behavior: SnackBarBehavior
-                                                .floating,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(12),
-                                            ),
-                                            margin: EdgeInsets.all(16),
-                                            elevation: 6,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            const SizedBox(height: 10),
-
-                            Text(AppLocalizations.of(context)!
-                                .linear_searching_param_1,
+                                .backtracking_step_1,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
@@ -269,8 +200,9 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                               ),
                               softWrap: true,
                             ),
+
                             Text(AppLocalizations.of(context)!
-                                .linear_searching_param_2,
+                                .backtracking_step_2,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
@@ -278,8 +210,29 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                               ),
                               softWrap: true,
                             ),
+
                             Text(AppLocalizations.of(context)!
-                                .linear_searching_param_3,
+                                .backtracking_step_3,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                              softWrap: true,
+                            ),
+
+                            Text(AppLocalizations.of(context)!
+                                .backtracking_step_4,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                              softWrap: true,
+                            ),
+
+                            Text(AppLocalizations.of(context)!
+                                .backtracking_step_5,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
@@ -290,18 +243,13 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
 
                             const SizedBox(height: 10),
 
-                            LinearSearchAnimationWidget(),
                           ],
                         ),
                       ),
 
                       const SizedBox(height: 20),
 
-                      CodeCompiler( initialText: SearchingStrings.linear_declaration, title: AppLocalizations.of(context)!.linear_searching_example),
-
-                      const SizedBox(height: 20),
-
-                      Text(AppLocalizations.of(context)!.non_linear_searching_title,
+                      Text(AppLocalizations.of(context)!.greedy_exercise_title,
                         style: TextStyle(
                           color: Color(0xFF1f7d53),
                           fontSize: 21,
@@ -311,7 +259,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
 
                       const SizedBox(height: 10),
 
-                      // Calling
+                      // Exercise
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -330,97 +278,7 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(AppLocalizations.of(context)!
-                                .non_linear_searching_definition,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.grey,
-                              ),
-                              softWrap: true,
-                            ),
-
-                            const SizedBox(height: 10),
-
-                            Center(
-                              child: Stack(
-                                children: [
-
-                                  Essentials()
-                                      .buildHighlightedCodeLines(
-                                      SearchingStrings
-                                          .binary_declaration),
-
-                                  // Copy button on right up corner
-                                  Positioned(
-                                    top: 0,
-                                    right: 0,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.copy,
-                                        color: Colors.black,
-                                      ),
-                                      onPressed: () {
-                                        Clipboard.setData(
-                                            ClipboardData(
-                                                text: SearchingStrings
-                                                    .binary_declaration));
-                                        HapticFeedback.mediumImpact();
-                                        ScaffoldMessenger
-                                            .of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                AppLocalizations.of(
-                                                    context)!
-                                                    .code_copied_text),
-                                            behavior: SnackBarBehavior
-                                                .floating,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(12),
-                                            ),
-                                            margin: EdgeInsets.all(16),
-                                            elevation: 6,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            const SizedBox(height: 10),
-
-                            Text(AppLocalizations.of(context)!
-                                .linear_searching_param_1,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                              softWrap: true,
-                            ),
-                            Text(AppLocalizations.of(context)!
-                                .non_linear_searching_param_2,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                              softWrap: true,
-                            ),
-                            Text(AppLocalizations.of(context)!
-                                .non_linear_searching_param_3,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                              softWrap: true,
-                            ),
-                            Text(AppLocalizations.of(context)!
-                                .linear_searching_param_3,
+                                .backtracking_exercise,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.normal,
@@ -430,15 +288,13 @@ class _SearchingAlgorithmsPageState extends State<SearchingAlgorithmsPage> with 
                             ),
 
                             const SizedBox(height: 10),
-
-                            BinarySearchAnimationWidget(),
                           ],
                         ),
                       ),
 
                       const SizedBox(height: 20),
 
-                      CodeCompiler( initialText: SearchingStrings.binary_code, title: AppLocalizations.of(context)!.non_linear_searching_example),
+                      CodeCompiler( initialText: BacktrackingStrings.code, title: AppLocalizations.of(context)!.backtracking_title),
 
                     ],
                   ),
