@@ -248,6 +248,7 @@ class _CodeCompilerState extends State<CodeCompiler>
                   textStyle: const TextStyle(
                     fontFamily: 'monospace',
                     fontSize: 14,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -255,16 +256,8 @@ class _CodeCompilerState extends State<CodeCompiler>
           ),
           SizedBox(height: 15),
 
-          /// Output title
-          Text(
-            AppLocalizations.of(context)!.results_title,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-
-          SizedBox(height: 5),
-
           /// Output box with padding
-          output.isEmpty ? Text(AppLocalizations.of(context)!.no_output_text_compiler, style: TextStyle(color: Colors.black)) :
+          output.isEmpty ? Essentials().buildHighlightedCodeLines(AppLocalizations.of(context)!.no_output_text_compiler) :
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Essentials().buildHighlightedCodeLines(output),
