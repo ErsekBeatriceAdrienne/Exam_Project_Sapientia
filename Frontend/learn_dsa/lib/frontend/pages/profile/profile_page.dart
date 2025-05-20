@@ -21,7 +21,7 @@ class ProfilePage extends StatefulWidget
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ProfilePage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ProfilePage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -131,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
           return CustomScrollView(
             slivers: [
-              // SliverAppBar with disappearing on scroll
+              // App bar
               SliverAppBar(
                 backgroundColor: Colors.transparent,
                 pinned: true,
@@ -160,16 +160,23 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 actions: [
+                  // Language picker
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: LanguagePicker(),
+                  ),
+
+                  // Popup menu button
                   PopupMenuButton<String>(
                     icon: const Icon(
-                        Icons.pending_outlined, color: Color(0xFF255f38),
-                        size: 30),
-                    shape: RoundedRectangleBorder(
+                      Icons.pending_outlined,
+                      color: Color(0xFF255f38),
+                      size: 30,
+                    ),
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(12.0)),
                     ),
-                    color: Theme
-                        .of(context)
-                        .scaffoldBackgroundColor,
+                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
                     onSelected: (String value) async {
                       if (value == 'settings') {
                         Navigator.push(
@@ -179,26 +186,24 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         );
                       } else if (value == 'logout') {
-                        await FirestoreService().signOut(
-                            context, widget.toggleTheme);
+                        await FirestoreService().signOut(context, widget.toggleTheme);
                       }
                     },
-                    itemBuilder: (BuildContext context) =>
-                    [
-                      PopupMenuItem<String>(
+                    itemBuilder: (BuildContext context) => [
+                      const PopupMenuItem<String>(
                         value: 'settings',
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(Icons.settings, color: Color(0xFF255f38)),
                             SizedBox(width: 8),
                             Text('Settings', style: TextStyle(fontSize: 16)),
                           ],
                         ),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'logout',
                         child: Row(
-                          children: const [
+                          children: [
                             Icon(Icons.logout, color: Color(0xFF255f38)),
                             SizedBox(width: 8),
                             Text('Logout', style: TextStyle(fontSize: 16)),
@@ -219,9 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         padding: const EdgeInsets.all(16.0),
                         decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(16.0),
                           boxShadow: [
                             BoxShadow(
@@ -246,19 +249,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               onNotes: () {},
                             ),*/
                             const SizedBox(height: 10),
-
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IntrinsicWidth(
-                                child: LanguagePicker(),
-                              ),
-                            ),
-                            //const SizedBox(height: 10),
                           ],
                         ),
                       ),
 
-                      const SizedBox(height: 20),
 
                       // Exercises
                       /*Container(
@@ -298,6 +292,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
                       const SizedBox(height: 20),
 
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          AppLocalizations.of(context)!
+                              .test_page_achievements_title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
                       // Tests
                       Container(
                         padding: const EdgeInsets.all(16),
@@ -318,15 +327,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(AppLocalizations.of(context)!
-                                .test_page_achievements_title,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
                             Center(
                               child: RingChartTestsWidget(
                                   userId: widget.userId),

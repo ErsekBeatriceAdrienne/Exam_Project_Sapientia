@@ -22,16 +22,11 @@ class LanguagePicker extends StatelessWidget {
         }
       },
       items: L10n.all.map((locale) {
-        final flag = {
-          'en': '🇬🇧',
-          'hu': '🇭🇺',
-          //'ro': '🇷🇴',
-        }[locale.languageCode] ?? '';
         final name = L10n.getLanguageName(locale.languageCode);
 
         return DropdownMenuItem(
           value: locale,
-          child: Text('$flag $name'),
+          child: Text('$name'),
         );
       }).toList(),
       isExpanded: false,

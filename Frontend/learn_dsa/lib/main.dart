@@ -4,15 +4,32 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'frontend/language_supports/provider_local.dart';
-import 'frontend/pages/customClasses/custom_bottomnavigationbar.dart';
-import 'frontend/pages/customClasses/custom_sidemenu.dart';
-import 'frontend/pages/profile/login/login_page.dart';
+import 'frontend/pages/splashscreen/staring_the_app.dart';
+import 'package:window_size/window_size.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  /*if (Platform.isWindows) {
+    setWindowTitle('Learn DSA');
+    const size = Size(600, 1100);
+    setWindowMinSize(size);
+    setWindowMaxSize(size);
+
+    final screen = await getCurrentScreen();
+    if (screen != null) {
+      final frame = Rect.fromLTWH(
+        screen.frame.left + (screen.frame.width - size.width) / 2,
+        screen.frame.top + (screen.frame.height - size.height) / 2,
+        size.width,
+        size.height,
+      );
+      setWindowFrame(frame);
+    }
+  }*/
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -59,24 +76,17 @@ class _MyAppState extends State <MyApp>
     });
   }
 
-  Future<void> _checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? userId = prefs.getString('userId');
-
-    print('Running on: ${Platform.operatingSystem}');
-
+  void _onInitializationComplete(Widget screen) {
     setState(() {
-      if (Platform.isWindows) {
-        // For Windows platform
-        _initialScreen = userId != null
-            ? WindowsMenu(toggleTheme: _toggleTheme, userId: userId)
-            : LoginPage(toggleTheme: _toggleTheme);
-      } else {
-        // For mobile platforms, show the Bottom Navigation Bar
-        _initialScreen = userId != null
-            ? CustomBottomNavigationBar(toggleTheme: _toggleTheme, userId: userId)
-            : LoginPage(toggleTheme: _toggleTheme);
-      }
+      _initialScreen = screen;
+    });
+  }
+
+  Future<void> _checkLoginStatus() async {
+    setState(() {
+      _initialScreen = InitialSplash(
+          toggleTheme: _toggleTheme,
+          onInitializationComplete: _onInitializationComplete);
       _isLoading = false;
     });
   }
@@ -89,10 +99,12 @@ class _MyAppState extends State <MyApp>
 
     if (_isLoading)
     {
-      return const MaterialApp(
+      return MaterialApp(
         home: Scaffold(
           body: Center(
-            child: CircularProgressIndicator(),
+            child: InitialSplash(
+                toggleTheme: _toggleTheme,
+                onInitializationComplete: _onInitializationComplete),
           ),
         ),
       );
