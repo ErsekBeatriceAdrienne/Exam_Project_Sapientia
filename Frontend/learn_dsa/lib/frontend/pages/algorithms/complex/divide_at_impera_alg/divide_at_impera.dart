@@ -275,7 +275,7 @@ class _DivideAtImperaAlgorithmsPageState extends State<DivideAtImperaAlgorithmsP
 
                       const SizedBox(height: 20),
 
-                      CodeCompiler( initialText: DivideAtImperaStrings.code, title: AppLocalizations.of(context)!.divide_at_impera_title),
+                      CodeCompiler( initialText: DivideAtImperaStrings.code, title: AppLocalizations.of(context)!.divide_at_impera_button_title),
 
                     ],
                   ),
