@@ -223,12 +223,12 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
     int index1 = 0, index2 = 1, index3 = 2, index4 = 3, index5 = 4, index6 = 5 ;
     setState(() {
       ringData = [
-        {"label": AppLocalizations.of(context)!.array_page_title, "color": Colors.primaries[index1 % Colors.primaries.length], "value": arrayValue},
-        {"label": AppLocalizations.of(context)!.stack_page_title, "color": Colors.primaries[index2 % Colors.primaries.length], "value": value},
-        {"label": AppLocalizations.of(context)!.queue_page_title, "color": Colors.primaries[index3 % Colors.primaries.length], "value": value},
-        {"label": AppLocalizations.of(context)!.list_page_title, "color": Colors.primaries[index4 % Colors.primaries.length], "value": listValue},
-        {"label": AppLocalizations.of(context)!.bt_page_title, "color": Colors.primaries[index5 % Colors.primaries.length], "value": bstValue},
-        {"label": AppLocalizations.of(context)!.hash_page_title, "color": Colors.primaries[index6 % Colors.primaries.length], "value": value},
+        {"label": AppLocalizations.of(context)!.array_page_title, "color": Colors.green.shade100, "value": arrayValue},
+        {"label": AppLocalizations.of(context)!.stack_page_title, "color": Colors.green.shade200, "value": value},
+        {"label": AppLocalizations.of(context)!.queue_page_title, "color": Colors.green.shade400, "value": value},
+        {"label": AppLocalizations.of(context)!.list_page_title, "color": Colors.green.shade600, "value": listValue},
+        {"label": AppLocalizations.of(context)!.bt_page_title, "color": Colors.green.shade800, "value": bstValue},
+        {"label": AppLocalizations.of(context)!.hash_page_title, "color": Colors.green.shade900, "value": value},
       ];
     });
 
