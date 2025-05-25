@@ -234,8 +234,7 @@ class _StackTestsQuestionsPageState extends State<StackTestsQuestionsPage> with 
       Set<int> shownHints,
       List<Map<String, dynamic>> exercises,
       String locale,
-      )
-  {
+      ) {
     final parsedExercises = FirestoreService().getQuestionsAndAnswers(exercises, locale);
 
     return parsedExercises.map((exercise) {
@@ -355,5 +354,4 @@ class _StackTestsQuestionsPageState extends State<StackTestsQuestionsPage> with 
       );
     }).toList();
   }
-
 }
