@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TestResultsChart extends StatelessWidget {
   final List<double> results;
@@ -39,22 +40,22 @@ class TestResultsChart extends StatelessWidget {
                   String label;
                   switch (value.toInt()) {
                     case 0:
-                      label = 'Array';
+                      label = AppLocalizations.of(context)!.array_page_title;
                       break;
                     case 1:
-                      label = 'Stack';
+                      label = AppLocalizations.of(context)!.stack_page_title;
                       break;
                     case 2:
-                      label = 'Queue';
+                      label = AppLocalizations.of(context)!.queue_page_title;
                       break;
                     case 3:
-                      label = 'List';
+                      label = AppLocalizations.of(context)!.list_page_title;
                       break;
                     case 4:
-                      label = 'Tree';
+                      label = AppLocalizations.of(context)!.bt_page_title;
                       break;
                     case 5:
-                      label = 'Hash';
+                      label = AppLocalizations.of(context)!.hash_page_title;
                       break;
                     default:
                       label = '';
