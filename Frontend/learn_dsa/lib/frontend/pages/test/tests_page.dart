@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
-import 'package:learn_dsa/frontend/pages/test/testpages/all_data_structure_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/array_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/bst_testpage.dart';
 import 'package:learn_dsa/frontend/pages/test/testpages/hash_testpage.dart';
@@ -92,7 +91,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(AppLocalizations.of(context)!.test_page_test_title,
+                        Text(AppLocalizations.of(context)!.data_structure_page_title,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 26,
@@ -259,7 +258,7 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                       children: [
                         SizedBox(
                           height: 200,
-                          child: TestResultsChart(results: [10, 15, 8, 12, 20, 18]),
+                          child: ChartWrapper(),
                         ),
                         const SizedBox(height: 10),
                         ],
