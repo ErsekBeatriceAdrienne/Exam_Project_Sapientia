@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:learn_dsa/frontend/strings/firestore/firestore_docs.dart';
+import '../../../../backend/database/firestore_service.dart';
 import '../../../helpers/essentials.dart';
 import '../../customClasses/custom_ring_chart.dart';
 import '../tests_page.dart';
 import 'array/array_tests_questions.dart';
-
 
 class ArrayTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -148,57 +148,101 @@ class _ArrayTestPageState extends State<ArrayTestPage> with SingleTickerProvider
                           ],
                         ),
                       ),
+
                       const SizedBox(height: 20),
 
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.4),
                               blurRadius: 10,
-                              offset: Offset(0, 4),
+                              offset: const Offset(0, 4),
                             ),
                           ],
                         ),
-
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text( AppLocalizations.of(context)!.answered_questions_text_title,
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF255f38),
-                                  ),
-                                ),
-                                //const SizedBox(height: 8),
+                            Text(
+                              AppLocalizations.of(context)!.answered_test_text_title,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF255f38),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            FutureBuilder<List<Map<String, dynamic>>>(
+                              future: FirestoreService().fetchAllAnswerStatsForCollection(
+                                userId: widget.userId!,
+                                questionCollection: FirestoreDocs.array_tests_doc,
+                              ),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const Center(child: CircularProgressIndicator());
+                                } else if (snapshot.hasError || snapshot.data == null || snapshot.data!.isEmpty) {
+                                  return const Text("");
+                                }
 
-                                /*Text(
-                                  AppLocalizations.of(context)!
-                                      .quick_recap_description,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.grey,
-                                  ),
-                                ),*/
+                                final data = snapshot.data!;
+                                String _monthName(BuildContext context, int month) {
+                                  final locale = AppLocalizations.of(context)!.localeName;
 
-                                const SizedBox(height: 20),
-                                Center(
-                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.array_tests_doc),
-                                ),
-                              ],
+                                  const monthsHu = [
+                                    '', 'január', 'február', 'március', 'április', 'május', 'június',
+                                    'július', 'augusztus', 'szeptember', 'október', 'november', 'december'
+                                  ];
+                                  const monthsEn = [
+                                    '', 'January', 'February', 'March', 'April', 'May', 'June',
+                                    'July', 'August', 'September', 'October', 'November', 'December'
+                                  ];
+
+                                  return locale == 'hu' ? monthsHu[month] : monthsEn[month];
+                                }
+
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: data.map((stat) {
+                                    final DateTime parsedDate = DateTime.tryParse(stat['timestamp']) ?? DateTime.now();
+                                    final formattedDate = "${parsedDate.year}. ${_monthName(context, parsedDate.month)} ${parsedDate.day}. ${parsedDate.hour}:${parsedDate.minute.toString().padLeft(2, '0')}";
+
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.check_circle_outline, color: Colors.green.shade700, size: 20),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text(
+                                                  formattedDate,
+                                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                                ),
+                                                Text(
+                                                  "${stat['total']} / ${stat['correct']}",
+                                                  style: const TextStyle(fontSize: 15),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                );
+
+                              },
                             ),
                           ],
                         ),
                       ),
+
                       const SizedBox(height: 40),
                     ],
                   ),

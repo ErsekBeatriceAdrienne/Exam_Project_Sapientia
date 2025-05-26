@@ -191,7 +191,7 @@ class _AllDataStructureTestPageState extends State<AllDataStructureTestPage> wit
 
                                 const SizedBox(height: 20),
                                 Center(
-                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.all_data_structures),
+                                  child: RingChartCorrectIncorrectWidget(userId: widget.userId!, questionCollection: FirestoreDocs.all_test),
                                 ),
                               ],
                             ),

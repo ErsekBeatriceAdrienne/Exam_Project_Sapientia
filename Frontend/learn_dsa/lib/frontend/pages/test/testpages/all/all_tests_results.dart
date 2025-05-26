@@ -26,7 +26,7 @@ class _AllTestEasyResultsPageState extends State<AllTestEasyResultsPage> with Si
   @override
   void initState() {
     super.initState();
-    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.all_data_structures);
+    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.all_test);
   }
 
   bool isAnswerCorrect(int index, String selectedAnswer, List<Map<String, dynamic>> exerciseData) {

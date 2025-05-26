@@ -33,7 +33,7 @@ class _AllTestsQuestionsPageState extends State<AllTestsQuestionsPage> with Sing
   {
     super.initState();
     // question, and responses
-    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.all_data_structures);
+    _dataFuture = _firestoreService.getAllExercisesFromDocument(FirestoreDocs.all_test);
   }
 
   // Return the id of the correct id
@@ -97,7 +97,7 @@ class _AllTestsQuestionsPageState extends State<AllTestsQuestionsPage> with Sing
                       setState(() {
                         selectedAnswers = {};
                         _dataFuture = _firestoreService.getAllExercisesFromDocument(
-                          FirestoreDocs.all_data_structures,
+                          FirestoreDocs.all_test,
                         );
                       });
                     },
@@ -185,7 +185,7 @@ class _AllTestsQuestionsPageState extends State<AllTestsQuestionsPage> with Sing
                                   userId: widget.userId!,
                                   selectedAnswers: selectedAnswers,
                                   collectionName: FirestoreDocs.user_answers,
-                                  questionCollectionName: FirestoreDocs.all_data_structures,
+                                  questionCollectionName: FirestoreDocs.all_test,
                                   getCorrectAnswerId: (int questionIndex) {
                                     return isAnswerCorrect(
                                       questionIndex,

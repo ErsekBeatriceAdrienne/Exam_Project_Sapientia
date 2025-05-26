@@ -195,7 +195,19 @@ class _StackTestsQuestionsPageState extends State<StackTestsQuestionsPage> with 
                                     ) ?? '';
                                   },
                                 );
-
+                                await FirestoreService().saveTests(
+                                  userId: widget.userId!,
+                                  selectedAnswers: selectedAnswers,
+                                  collectionName: FirestoreDocs.all_test,
+                                  questionCollectionName: FirestoreDocs.array_tests_doc,
+                                  getCorrectAnswerId: (int questionIndex) {
+                                    return isAnswerCorrect(
+                                      questionIndex,
+                                      selectedAnswers[questionIndex]!,
+                                      exercises,
+                                    ) ?? '';
+                                  },
+                                );
                                 Navigator.pushReplacement(
                                   context,
                                   Essentials().createSlideRoute(
