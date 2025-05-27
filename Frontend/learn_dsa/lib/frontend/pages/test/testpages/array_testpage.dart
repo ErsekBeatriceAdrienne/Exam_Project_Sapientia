@@ -63,8 +63,8 @@ class _ArrayTestPageState extends State<ArrayTestPage> with SingleTickerProvider
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  label: const Text(
-                    'Back',
+                  label: Text(
+                    AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 17,

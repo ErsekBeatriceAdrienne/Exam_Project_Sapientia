@@ -2,15 +2,11 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/frontend/pages/datastructures/hash/hashtable_animations.dart';
 import 'package:learn_dsa/frontend/pages/test/tests_page.dart';
 import '../../../../backend/database/firestore_service.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/firestore/firestore_docs.dart';
-import '../../../strings/test/testpages/hash_teststrings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../customClasses/custom_ring_chart.dart';
 import 'hash/hash_tests_questions.dart';
 
 class HashTableTestPage extends StatefulWidget {
@@ -146,6 +142,7 @@ class _HashTableTestPageState extends State<HashTableTestPage> with SingleTicker
                           ],
                         ),
                       ),
+
                       const SizedBox(height: 20),
 
                       Container(
