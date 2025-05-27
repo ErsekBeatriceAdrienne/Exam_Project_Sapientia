@@ -4,63 +4,32 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedArrayWidget extends StatefulWidget {
+  const AnimatedArrayWidget({super.key});
+
   @override
   _AnimatedArrayWidgetState createState() => _AnimatedArrayWidgetState();
 }
 
 class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
-  List<int?> array = List.filled(5, null);
+  List<int?> array = List.filled(4, null);
   int size = 0;
   final int capacity = 5;
-  final List<int> values = [3, 5, 8, 4, 2];
+  final List<int> values = [3, 5, 8, 4];
   int index = 0;
   bool isAnimating = false;
   bool isPaused = false;
 
-  void _startOrToggleAnimation() {
-    if (!isAnimating) {
-      // Reset everything and start fresh
-      setState(() {
-        array = List.filled(capacity, null);
-        size = 0;
-        index = 0;
-        isAnimating = true;
-        isPaused = false;
-      });
-      _runAnimationStep();
-    } else {
-      // Pause or resume
-      setState(() {
-        isPaused = !isPaused;
-      });
-      if (!isPaused) {
-        _runAnimationStep();
-      }
+  @override
+  void initState() {
+    super.initState();
+    array = List.filled(capacity, null);
+    for (int i = 0; i < values.length; i++) {
+      array[i] = values[i];
     }
+    size = values.length;
+    index = values.length;
   }
 
-  void _runAnimationStep() async {
-    if (!isAnimating || isPaused || index >= values.length) return;
-
-    await Future.delayed(Duration(seconds: 1));
-    HapticFeedback.heavyImpact();
-    if (!isAnimating || isPaused) return;
-
-    setState(() {
-      array[index] = values[index];
-      size++;
-      index++;
-    });
-
-    if (index < values.length) {
-      _runAnimationStep(); // Continue the animation
-    } else {
-      setState(() {
-        isAnimating = false;
-        isPaused = false;
-      });
-    }
-  }
 
   @override
   void dispose() {
@@ -131,61 +100,6 @@ class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
             '${AppLocalizations.of(context)!.size_text}: $size | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-
-          SizedBox(height: 10),
-
-          // Play button
-          Container(
-            width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
-            height: 40,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF255f38), Color(0xFF27391c)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.4),
-                  blurRadius: 4,
-                  offset: Offset(4, 4),
-                ),
-              ],
-            ),
-            child: RawMaterialButton(
-              onPressed: () {
-                _startOrToggleAnimation();
-                HapticFeedback.mediumImpact();
-              },
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    isAnimating
-                        ? (isPaused ? Icons.play_arrow_rounded : Icons.pause)
-                        : Icons.play_arrow_rounded,
-                    color: Theme.of(context).scaffoldBackgroundColor,
-                    size: 22,
-                  ),
-                  Text(
-                    isAnimating && !isPaused ? AppLocalizations.of(context)!.pause_animation_button_text : AppLocalizations.of(context)!.play_animation_button_text,
-                    style: TextStyle(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
         ],
       ),
     );

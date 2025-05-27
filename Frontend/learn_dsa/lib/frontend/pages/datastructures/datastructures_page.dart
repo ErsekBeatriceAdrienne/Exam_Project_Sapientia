@@ -282,7 +282,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
             context,
             Essentials().createSlideRoute(pageBuilder()),
           );
-          HapticFeedback.mediumImpact();
         }
 
       },

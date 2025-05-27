@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../test/exercises/array_exercises.dart';
 import '../datastructures_page.dart';
 import '../../customClasses/custom_closing_button_copyCode.dart';
+import 'animations/array_animations.dart';
 
 class ArrayPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -170,6 +171,8 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                             ),
                             const SizedBox(height: 10),
 
+                            // Animation of the struct array
+                            AnimatedArrayWidget(),
                           ],
                         ),
                       ),
@@ -183,9 +186,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
-                      const SizedBox(height: 10),
-
                       // Struct typedef
                       Container(
                         padding: const EdgeInsets.all(16),
@@ -204,33 +204,66 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
-                            // Struct array explanation
-                            Text(AppLocalizations.of(context)!
-                                .array_struct_explanation_1,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_struct_explanation_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_struct_explanation_12}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .array_struct_explanation_2,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_struct_explanation_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_struct_explanation_22}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .array_struct_explanation_3,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_struct_explanation_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_struct_explanation_32}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
 
@@ -285,23 +318,21 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               ],
                             ),
                             ),
+
                           ],
                         ),
                       ),
 
                       const SizedBox(height: 20),
 
-                      /*Text(AppLocalizations.of(context)!.animation_title,
+                      // Basic terms
+                      Text(AppLocalizations.of(context)!.basic_terms_title,
                         style: TextStyle(
                           color: Color(0xFF1f7d53),
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
-                      const SizedBox(height: 10),
-
-                      // Animation
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -317,30 +348,103 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                           ],
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            // Struct array explanation
-                            Text(AppLocalizations.of(context)!
-                                .array_animation_title,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_basics_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_basics_12}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
                             ),
 
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
 
-                            // Animation of the struct array
-                            AnimatedArrayWidget(),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_basics_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_basics_22}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
 
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_basics_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_basics_32}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.array_basics_41,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.array_basics_42}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
                           ],
                         ),
                       ),
 
-                      const SizedBox(height: 30),*/
+                      const SizedBox(height: 20),
 
                       Text(AppLocalizations.of(context)!
                           .when_to_use_title,
@@ -350,9 +454,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
-                      const SizedBox(height: 10),
-
                       // When to use it?
                       Stack(
                         clipBehavior: Clip.none,
@@ -607,21 +708,27 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
             ],
           ),
 
+
+          if (_isDropdownVisible)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _isDropdownVisible = false;
+                  });
+                },
+              ),
+            ),
           if (_isDropdownVisible)
             Positioned(
-              top: MediaQuery
-                  .of(context)
-                  .padding
-                  .top + 60,
+              top: MediaQuery.of(context).padding.top + 60,
               right: 12,
               child: Container(
                 width: 220,
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 decoration: BoxDecoration(
-                  color: Theme
-                      .of(context)
-                      .scaffoldBackgroundColor
-                      .withOpacity(0.9),
+                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -635,59 +742,44 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    /*_buildMenuItem(Icons.code,
-                        AppLocalizations.of(context)!.code_snippets_text, () {
-                          Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              ImplementationArrayPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
+                    _buildMenuItem(
+                      Icons.text_snippet,
+                      AppLocalizations.of(context)!.pseudocode_text,
+                          () {
+                        Navigator.push(
+                          context,
+                          Essentials().createSlideRoute(
+                            PseudocodeArrayPage(
+                              toggleTheme: widget.toggleTheme,
+                              userId: widget.userId,
                             ),
-                          );
-                          HapticFeedback.mediumImpact();
-                        }),*/
-                    _buildMenuItem(Icons.text_snippet,
-                        AppLocalizations.of(context)!.pseudocode_text, () {
-                          Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              PseudocodeArrayPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
+                          ),
+                        );
+                        HapticFeedback.mediumImpact();
+                        setState(() {
+                          _isDropdownVisible = false;
+                        });
+                      },
+                    ),
+                    _buildMenuItem(
+                      Icons.quiz,
+                      AppLocalizations.of(context)!.test_page_title,
+                          () {
+                        Navigator.push(
+                          context,
+                          Essentials().createSlideRoute(
+                            ArrayTestPage(
+                              toggleTheme: widget.toggleTheme,
+                              userId: widget.userId,
                             ),
-                          );
-                          HapticFeedback.mediumImpact();
-                        }),
-                    _buildMenuItem(Icons.pending_actions_rounded,
-                        AppLocalizations.of(context)!
-                            .test_page_exercises_title, () {
-                          Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              ArrayExercisesPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
-                            ),
-                          );
-                          HapticFeedback.mediumImpact();
-                        }),
-                    _buildMenuItem(Icons.quiz,
-                        AppLocalizations.of(context)!.test_page_title, () {
-                          Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              ArrayTestPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
-                            ),
-                          );
-                          HapticFeedback.mediumImpact();
-                        }),
+                          ),
+                        );
+                        HapticFeedback.mediumImpact();
+                        setState(() {
+                          _isDropdownVisible = false;
+                        });
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -718,119 +810,4 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
       ),
     );
   }
-
 }
-
-/*Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    ArrayStrings.header_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: ArrayStrings.header_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .code_copied_text),
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    margin: EdgeInsets.all(16),
-                                    elevation: 6,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),*/
-
-/*Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Code colored
-                                Essentials().buildHighlightedCodeLines(
-                                    ArrayStrings.source_file_content),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: 8,
-                            right: 8,
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.copy,
-                                color: Colors.black,
-                              ),
-                              onPressed: () {
-                                Clipboard.setData(ClipboardData(
-                                    text: ArrayStrings.source_file_content));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(AppLocalizations.of(context)!
-                                        .code_copied_text),
-                                    behavior: SnackBarBehavior.floating,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    margin: EdgeInsets.all(16),
-                                    elevation: 6,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),*/

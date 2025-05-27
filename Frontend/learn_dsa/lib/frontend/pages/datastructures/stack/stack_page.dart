@@ -6,12 +6,8 @@ import 'package:learn_dsa/frontend/pages/datastructures/stack/pseudocode_page.da
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_animations.dart';
 import '../../../strings/datastructure_strings/stack_strings.dart';
 import '../../customClasses/custom_closing_button_copyCode.dart';
-import '../../test/exercises/stack_exercises.dart';
 import '../../test/testpages/stack_testpage.dart';
 import '../datastructures_page.dart';
-import 'animations/stack_create.dart';
-import 'animations/stack_pop.dart';
-import 'animations/stack_push.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StackPage extends StatefulWidget {
@@ -174,6 +170,9 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                             ),
                             const SizedBox(height: 10),
 
+                            Center(
+                              child: AnimatedStackWidget(),
+                            ),
                           ],
                         ),
                       ),
@@ -187,7 +186,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       const SizedBox(height: 10),
 
                       // Struct typedef
@@ -210,33 +208,70 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.stack_struct_explanation_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.stack_struct_explanation_12}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
 
-                            // Struct stack explanation
-                            Text(AppLocalizations.of(context)!
-                                .stack_struct_explanation_1,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.stack_struct_explanation_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.stack_struct_explanation_22}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .stack_struct_explanation_2,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.stack_struct_explanation_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.stack_struct_explanation_32}',
+                                  ),
+                                ],
                               ),
-                              softWrap: true,
-                            ),
-                            Text(AppLocalizations.of(context)!
-                                .stack_struct_explanation_3,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
 
@@ -291,6 +326,81 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                                 ),
                               ],
                             ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Basic terms
+                      Text(AppLocalizations.of(context)!.basic_terms_title,
+                        style: TextStyle(
+                          color: Color(0xFF1f7d53),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.stack_basics_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.stack_basics_12}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.stack_basics_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.stack_basics_22}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
                             ),
                           ],
                         ),
@@ -615,6 +725,17 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
           ),
 
           if (_isDropdownVisible)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _isDropdownVisible = false;
+                  });
+                },
+              ),
+            ),
+          if (_isDropdownVisible)
             Positioned(
               top: MediaQuery
                   .of(context)
@@ -648,20 +769,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                             context,
                             Essentials().createSlideRoute(
                               PseudocodeStackPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
-                            ),
-                          );
-                          HapticFeedback.mediumImpact();
-                        }),
-                    _buildMenuItem(Icons.pending_actions_rounded,
-                        AppLocalizations.of(context)!
-                            .test_page_exercises_title, () {
-                          Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              StackExercisesPage(
                                 toggleTheme: widget.toggleTheme,
                                 userId: widget.userId,
                               ),
