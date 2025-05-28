@@ -10,11 +10,13 @@ import '../../test/testpages/list_tests_preview.dart';
 import '../datastructures_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'list_animations.dart';
+
 class ListPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ListPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ListPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<ListPage> createState() => _ListPageState();
@@ -164,6 +166,10 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                             ),
 
                             const SizedBox(height: 10),
+
+                            Center(
+                              child: LinkedListAnimation(),
+                            ),
                           ],
                         ),
                       ),
@@ -267,6 +273,142 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                                   ),
                                 ],
                               ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Basic terms
+                      Text(AppLocalizations.of(context)!.basic_terms_title,
+                        style: TextStyle(
+                          color: Color(0xFF1f7d53),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_basics_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_basics_12}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_basics_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_basics_22}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_basics_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_basics_32}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_basics_41,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_basics_42}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_basics_51,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_basics_52}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
                             ),
                           ],
                         ),
@@ -442,6 +584,122 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
 
                       const SizedBox(height: 20),
 
+                      // Basic terms
+                      Text(AppLocalizations.of(context)!.basic_terms_title,
+                        style: TextStyle(
+                          color: Color(0xFF1f7d53),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.dlist_basics_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.dlist_basics_12}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.dlist_basics_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.dlist_basics_22}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.dlist_basics_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.dlist_basics_32}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.dlist_basics_41,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.dlist_basics_42}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
                       // Complete .h file
                       CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: ListStrings.header_file_content1),
 
@@ -492,6 +750,8 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                             ),
 
                             const SizedBox(height: 10),
+
+                            //CircularLinkedListNodeAnimation(),
                           ],
                         ),
                       ),
@@ -596,6 +856,122 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                                 ],
                               ),
                             ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+
+                      // Basic terms
+                      Text(AppLocalizations.of(context)!.basic_terms_title,
+                        style: TextStyle(
+                          color: Color(0xFF1f7d53),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              spreadRadius: 1,
+                              blurRadius: 6,
+                              offset: Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.clist_basics_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.clist_basics_12}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.clist_basics_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.clist_basics_22}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.clist_basics_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.clist_basics_32}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+                            const SizedBox(height: 5),
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.clist_basics_41,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.clist_basics_42}',
+                                  ),
+                                ],
+                              ),
+                              textAlign: TextAlign.start,
+                              softWrap: true,
+                            ),
+
                           ],
                         ),
                       ),
@@ -868,6 +1244,18 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
 
             ],
           ),
+
+          if (_isDropdownVisible)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _isDropdownVisible = false;
+                  });
+                },
+              ),
+            ),
           if (_isDropdownVisible)
             Positioned(
               top: MediaQuery
@@ -902,20 +1290,6 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                             context,
                             Essentials().createSlideRoute(
                               PseudocodeListPage(
-                                toggleTheme: widget.toggleTheme,
-                                userId: widget.userId,
-                              ),
-                            ),
-                          );
-                          HapticFeedback.mediumImpact();
-                        }),
-                    _buildMenuItem(Icons.pending_actions_rounded,
-                        AppLocalizations.of(context)!
-                            .test_page_exercises_title, () {
-                          Navigator.push(
-                            context,
-                            Essentials().createSlideRoute(
-                              ListExercisesPage(
                                 toggleTheme: widget.toggleTheme,
                                 userId: widget.userId,
                               ),
