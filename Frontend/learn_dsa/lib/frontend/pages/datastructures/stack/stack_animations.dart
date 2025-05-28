@@ -84,7 +84,7 @@ class _AnimatedStackWidgetState extends State<AnimatedStackWidget>
 
         // Stack Info
         Text(
-          '${AppLocalizations.of(context)!.top_text} $top | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
+          '${AppLocalizations.of(context)!.top_text}: $top | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
       ],
