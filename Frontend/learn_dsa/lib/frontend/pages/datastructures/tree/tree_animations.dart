@@ -33,6 +33,8 @@ int _countNodes(BTNode? node) {
 }
 
 class BTAnimation extends StatefulWidget {
+  const BTAnimation({super.key});
+
   @override
   _BTAnimationState createState() => _BTAnimationState();
 }
@@ -41,69 +43,13 @@ class _BTAnimationState extends State<BTAnimation> {
   BTNode? root;
   List<int> values = [20, 5, 19, 3, 87, 56, 89, 88];
   int insertCount = 0;
-  bool _isRunning = true;
-  bool _resetNeeded = false;
 
   @override
   void initState() {
     super.initState();
-    _startAutoInsertion();
-  }
-
-  // Automatically insert nodes from values list with a delay
-  void _startAutoInsertion() async {
-    while (true) {
-      if (_resetNeeded) {
-        root = null;
-        insertCount = 0;
-        _resetNeeded = false;
-      }
-
-      if (_isRunning && insertCount < values.length) {
-        int waited = 0;
-        // 1 másodperces várás, de közben figyeljük, hogy _isRunning közben nem változik-e
-        while (waited < 1000) {
-          if (!_isRunning) {
-            await Future.delayed(const Duration(milliseconds: 100));
-            continue;
-          }
-          await Future.delayed(const Duration(milliseconds: 50));
-          waited += 50;
-        }
-
-        // Ha valaki közben leállította, akkor ne szúrjunk be új elemet!
-        if (!_isRunning) continue;
-
-        setState(() {
-          root = insert(root, values[insertCount]);
-          insertCount++;
-        });
-      } else if (insertCount >= values.length) {
-        // Befejeztük a beszúrást
-        // Most is: várjuk meg, amíg újra elindítják
-        while (!_isRunning) {
-          await Future.delayed(const Duration(milliseconds: 100));
-        }
-
-        // Most már újra mehet a reset és újraindul
-        await Future.delayed(const Duration(seconds: 2));
-        if (!_isRunning) continue; // Ha közben megint megállították, ne reseteljük!
-
-        setState(() {
-          _resetNeeded = true;
-          insertCount = 0;
-        });
-      } else {
-        // Általános várakozás, ha szünetel
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
+    for (int value in values) {
+      root = insert(root, value);
     }
-  }
-
-  void _toggleAnimation() {
-    setState(() {
-      _isRunning = !_isRunning;
-    });
   }
 
   @override
@@ -126,23 +72,6 @@ class _BTAnimationState extends State<BTAnimation> {
               ),
             ),
           ],
-        ),
-        Positioned(
-          top: 10,
-          right: 10,
-          child: ElevatedButton(
-            onPressed: _toggleAnimation,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF006a42),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text(
-              _isRunning ? "Stop" : "Start",
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
         ),
       ],
     );
@@ -168,22 +97,23 @@ class BTPainter extends CustomPainter {
   void _drawNode(Canvas canvas, BTNode? node, double x, double y, double offset, double radius) {
     if (node == null) return;
 
-    Paint nodePaint = Paint()..color = Color(0xFF006a42);
+    Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 6);
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
+    Paint nodePaint = Paint()
+      ..color = Color(0xFF255f38);
+
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
 
-    TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: node.value.toString(),
-        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-      ),
-      textDirection: TextDirection.ltr,
-    );
-
-    textPainter.layout();
-
-    // Draw edges to left and right children
+    // Draw edges
     if (node.left != null) {
       canvas.drawLine(Offset(x, y), Offset(x - offset, y + 60), linePaint);
       _drawNode(canvas, node.left, x - offset, y + 60, offset / 1.5, radius);
@@ -193,10 +123,24 @@ class BTPainter extends CustomPainter {
       _drawNode(canvas, node.right, x + offset, y + 60, offset / 1.5, radius);
     }
 
-    // Draw node circle
-    canvas.drawCircle(Offset(x, y), radius, nodePaint);
+    // Shadow
+    canvas.drawCircle(Offset(x + 2, y + 2), radius, shadowPaint);
 
-    // Draw node value
+    // Border (thin white stroke)
+    canvas.drawCircle(Offset(x, y), radius, borderPaint);
+
+    // Node circle (filled)
+    canvas.drawCircle(Offset(x, y), radius - 1, nodePaint);
+
+    // Node value
+    TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: node.value.toString(),
+        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
     textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
   }
 
@@ -224,12 +168,15 @@ class BSTNode
 BSTNode? insert1(BSTNode? root, int value)
 {
   if (root == null) return BSTNode(value);
-  if (value < root.value) root.left = insert1(root.left, value);
-  else if (value > root.value) root.right = insert1(root.right, value);
+  if (value < root.value) {
+    root.left = insert1(root.left, value);
+  } else if (value > root.value) root.right = insert1(root.right, value);
   return root;
 }
 
 class BSTAnimation extends StatefulWidget {
+  const BSTAnimation({super.key});
+
   @override
   _BSTAnimationState createState() => _BSTAnimationState();
 }
@@ -238,69 +185,13 @@ class _BSTAnimationState extends State<BSTAnimation> {
   BSTNode? root;
   List<int> values = [20 ,5, 19, 3, 87, 56, 89, 88];
   int insertCount = 0;
-  bool _isRunning = true;
-  bool _resetNeeded = false;
 
   @override
   void initState() {
     super.initState();
-    _startAutoInsertion();
-  }
-
-  // Automatically insert nodes from values list with a delay
-  void _startAutoInsertion() async {
-    while (true) {
-      if (_resetNeeded) {
-        root = null;
-        insertCount = 0;
-        _resetNeeded = false;
-      }
-
-      if (_isRunning && insertCount < values.length) {
-        int waited = 0;
-        // 1 másodperces várás, de közben figyeljük, hogy _isRunning közben nem változik-e
-        while (waited < 1000) {
-          if (!_isRunning) {
-            await Future.delayed(const Duration(milliseconds: 100));
-            continue;
-          }
-          await Future.delayed(const Duration(milliseconds: 50));
-          waited += 50;
-        }
-
-        // Ha valaki közben leállította, akkor ne szúrjunk be új elemet!
-        if (!_isRunning) continue;
-
-        setState(() {
-          root = insert1(root, values[insertCount]);
-          insertCount++;
-        });
-      } else if (insertCount >= values.length) {
-        // Befejeztük a beszúrást
-        // Most is: várjuk meg, amíg újra elindítják
-        while (!_isRunning) {
-          await Future.delayed(const Duration(milliseconds: 100));
-        }
-
-        // Most már újra mehet a reset és újraindul
-        await Future.delayed(const Duration(seconds: 2));
-        if (!_isRunning) continue; // Ha közben megint megállították, ne reseteljük!
-
-        setState(() {
-          _resetNeeded = true;
-          insertCount = 0;
-        });
-      } else {
-        // Általános várakozás, ha szünetel
-        await Future.delayed(const Duration(milliseconds: 100));
-      }
+    for (int value in values) {
+      root = insert1(root, value);
     }
-  }
-
-  void _toggleAnimation() {
-    setState(() {
-      _isRunning = !_isRunning;
-    });
   }
 
   @override
@@ -323,23 +214,6 @@ class _BSTAnimationState extends State<BSTAnimation> {
               ),
             ),
           ],
-        ),
-        Positioned(
-          top: 10,
-          right: 10,
-          child: ElevatedButton(
-            onPressed: _toggleAnimation,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF006a42),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            child: Text(
-              _isRunning ? "Stop" : "Start",
-              style: const TextStyle(color: Colors.white),
-            ),
-          ),
         ),
       ],
     );
@@ -365,20 +239,21 @@ class BSTPainter extends CustomPainter {
   void _drawNode(Canvas canvas, BSTNode? node, double x, double y, double offset, double radius) {
     if (node == null) return;
 
-    Paint nodePaint = Paint()..color = Color(0xFF006a42);
+    Paint shadowPaint = Paint()
+      ..color = Colors.black.withOpacity(0.4)
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, 6);
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1;
+
+    Paint nodePaint = Paint()
+      ..color = Color(0xFF255f38);
+
     Paint linePaint = Paint()
       ..color = Colors.black
       ..strokeWidth = 2;
-
-    TextPainter textPainter = TextPainter(
-      text: TextSpan(
-        text: node.value.toString(),
-        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-      ),
-      textDirection: TextDirection.ltr,
-    );
-
-    textPainter.layout();
 
     // Draw edges
     if (node.left != null) {
@@ -390,10 +265,24 @@ class BSTPainter extends CustomPainter {
       _drawNode(canvas, node.right, x + offset, y + 60, offset / 1.5, radius);
     }
 
-    // Draw node circle
-    canvas.drawCircle(Offset(x, y), radius, nodePaint);
+    // Shadow
+    canvas.drawCircle(Offset(x + 2, y + 2), radius, shadowPaint);
 
-    // Draw node value
+    // Border (thin white stroke)
+    canvas.drawCircle(Offset(x, y), radius, borderPaint);
+
+    // Node circle (filled)
+    canvas.drawCircle(Offset(x, y), radius - 1, nodePaint);
+
+    // Node value
+    TextPainter textPainter = TextPainter(
+      text: TextSpan(
+        text: node.value.toString(),
+        style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout();
     textPainter.paint(canvas, Offset(x - textPainter.width / 2, y - textPainter.height / 2));
   }
 

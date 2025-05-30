@@ -1,9 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedCircularQueueDequeueWidget extends StatefulWidget {
+  const AnimatedCircularQueueDequeueWidget({super.key});
+
   @override
   _AnimatedCircularQueueDequeueWidgetState createState() => _AnimatedCircularQueueDequeueWidgetState();
 }
@@ -102,10 +103,18 @@ class _AnimatedCircularQueueDequeueWidgetState extends State<AnimatedCircularQue
               return Container(
                 width: 50,
                 height: 50,
+                margin: EdgeInsets.symmetric(horizontal: 3),
                 decoration: BoxDecoration(
                   color: cellColor,
                   border: Border.all(color: Colors.white, width: 1),
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black45,
+                      blurRadius: 4,
+                      offset: Offset(2, 2),
+                    )
+                  ],
                 ),
                 alignment: Alignment.center,
                 child: Text(

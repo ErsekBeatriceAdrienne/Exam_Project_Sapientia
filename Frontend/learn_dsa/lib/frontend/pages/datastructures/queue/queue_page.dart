@@ -78,7 +78,7 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
                 title: Text(
                   AppLocalizations.of(context)!.queue_page_title,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF255f38),
                   ),
@@ -722,11 +722,11 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context)!.queue_basics_11,
+                                    text: AppLocalizations.of(context)!.circular_queue_basics_11,
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                    text: ' ${AppLocalizations.of(context)!.queue_basics_12}',
+                                    text: ' ${AppLocalizations.of(context)!.circular_queue_basics_12}',
                                   ),
                                 ],
                               ),
@@ -743,11 +743,11 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context)!.queue_basics_21,
+                                    text: AppLocalizations.of(context)!.circular_queue_basics_21,
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                    text: ' ${AppLocalizations.of(context)!.queue_basics_22}',
+                                    text: ' ${AppLocalizations.of(context)!.circular_queue_basics_22}',
                                   ),
                                 ],
                               ),
@@ -764,11 +764,11 @@ class _QueuePageState extends State<QueuePage> with SingleTickerProviderStateMix
                                 ),
                                 children: [
                                   TextSpan(
-                                    text: AppLocalizations.of(context)!.queue_basics_31,
+                                    text: AppLocalizations.of(context)!.circular_queue_basics_31,
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   TextSpan(
-                                    text: ' ${AppLocalizations.of(context)!.queue_basics_32}',
+                                    text: ' ${AppLocalizations.of(context)!.circular_queue_basics_32}',
                                   ),
                                 ],
                               ),
