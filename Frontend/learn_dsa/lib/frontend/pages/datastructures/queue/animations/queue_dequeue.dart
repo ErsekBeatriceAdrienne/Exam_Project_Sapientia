@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedQueueDequeueWidget extends StatefulWidget {
+  const AnimatedQueueDequeueWidget({super.key});
+
   @override
   _AnimatedQueueDequeueWidgetState createState() => _AnimatedQueueDequeueWidgetState();
 }

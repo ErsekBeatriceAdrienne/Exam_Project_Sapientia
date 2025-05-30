@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LinkedListAnimation extends StatefulWidget {
   const LinkedListAnimation({super.key});
@@ -9,7 +10,7 @@ class LinkedListAnimation extends StatefulWidget {
 }
 
 class _LinkedListAnimationState extends State<LinkedListAnimation> {
-  List<int> queue = [];
+  List<int> list = [];
   final int capacity = 5;
   final List<int> values = [30, 10, 50, 40, 20];
   int front = -1;
@@ -18,10 +19,10 @@ class _LinkedListAnimationState extends State<LinkedListAnimation> {
   @override
   void initState() {
     super.initState();
-    queue = List.from(values.take(capacity));
-    if (queue.isNotEmpty) {
+    list = List.from(values.take(capacity));
+    if (list.isNotEmpty) {
       front = 0;
-      rear = queue.length - 1;
+      rear = list.length - 1;
     }
   }
 
@@ -37,14 +38,14 @@ class _LinkedListAnimationState extends State<LinkedListAnimation> {
           child: Container(
             padding: EdgeInsets.all(16),
             child: Row(
-              children: queue.asMap().entries.map((entry) {
+              children: list.asMap().entries.map((entry) {
                 int index = entry.key;
                 int value = entry.value;
                 return Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _buildNode(value, nodeSize),
-                    if (index < queue.length - 1)
+                    if (index < list.length - 1)
                       _buildArrow(nodeSize)
                     else
                       _buildNullPointer(nodeSize),
@@ -145,20 +146,7 @@ class _DoublyLinkedListAnimationState extends State<DoublyLinkedListAnimation> {
   @override
   void initState() {
     super.initState();
-    _startAnimation();
-  }
-
-  void _startAnimation() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
-      if (currentIndex < values.length) {
-        setState(() {
-          nodes.add(values[currentIndex]);
-          currentIndex++;
-        });
-      } else {
-        timer.cancel();
-      }
-    });
+    nodes = List.from(values);
   }
 
   @override
@@ -312,7 +300,13 @@ class CircularLinkedListNodeAnimation extends StatefulWidget {
 }
 
 class _CircularLinkedListNodeAnimationState extends State<CircularLinkedListNodeAnimation> {
-  List<int> nodes = [20, 40, 30, 50, 60];
+  List<int> nodes = [20, 40, 30, 10];
+  bool isInserting = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -326,18 +320,25 @@ class _CircularLinkedListNodeAnimationState extends State<CircularLinkedListNode
           children: [
             Expanded(
               child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: nodes.asMap().entries.expand((entry) {
-                    int value = entry.value;
-                    return [
-                      _buildNode(value, nodeSize, fontSize),
-                      _buildArrow(nodeSize),
-                    ];
-                  }).toList(),
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 800),
+                  child: Row(
+                    key: ValueKey(nodes.toString()),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: nodes.asMap().entries.expand((entry) {
+                      int index = entry.key;
+                      int value = entry.value;
+                      return [
+                        _buildNode(value, nodeSize, fontSize),
+                        _buildArrow(nodeSize),
+                      ];
+                    }).toList()
+                      ..add(_buildLoopBackArrow(nodeSize)),
+                  ),
                 ),
               ),
             ),
+
           ],
         );
       },
@@ -345,7 +346,8 @@ class _CircularLinkedListNodeAnimationState extends State<CircularLinkedListNode
   }
 
   Widget _buildNode(int value, double size, double fontSize) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
       width: size,
       height: size,
       decoration: BoxDecoration(
@@ -380,6 +382,21 @@ class _CircularLinkedListNodeAnimationState extends State<CircularLinkedListNode
         color: Colors.black,
         size: size * 0.6,
       ),
+    );
+  }
+
+  Widget _buildLoopBackArrow(double size) {
+    return Row(
+      children: [
+        Text(
+          '20',
+          style: TextStyle(
+            fontSize: size * 0.25,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        )
+      ],
     );
   }
 }

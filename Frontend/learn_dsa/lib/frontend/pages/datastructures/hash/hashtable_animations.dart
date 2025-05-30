@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ChainedHashTableAnimation extends StatefulWidget {
+  const ChainedHashTableAnimation({super.key});
+
   @override
   _ChainedHashTableAnimationState createState() =>
       _ChainedHashTableAnimationState();
@@ -23,37 +25,18 @@ class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> w
   final int tableSize = 5;
   late List<List<MapEntry<int, int>>> hashTable;
   late List<int> visibleLengths;
-  bool _isAnimating = false;
 
   @override
   void initState() {
     super.initState();
-    _resetTable();
-  }
-
-  void _resetTable() {
     hashTable = List.generate(tableSize, (_) => []);
     visibleLengths = List.filled(tableSize, 0);
-    setState(() {}); // Trigger redraw
-  }
-
-  Future<void> _startAnimation() async {
-    if (_isAnimating) return;
-
-    _resetTable();
-    _isAnimating = true;
 
     for (final entry in entriesToInsert) {
       int index = _hash(entry.key);
       hashTable[index].add(entry);
-      await Future.delayed(Duration(milliseconds: 600));
-      HapticFeedback.heavyImpact();
-      setState(() {
-        visibleLengths[index]++;
-      });
+      visibleLengths[index]++;
     }
-
-    _isAnimating = false;
   }
 
   int _hash(int key) => key % tableSize;
@@ -70,16 +53,9 @@ class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> w
               padding: const EdgeInsets.all(10),
               child: CustomPaint(
                 painter: ChainedHashTablePainter(hashTable, visibleLengths),
-                child: Container(),
-              ),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: IconButton(
-                onPressed: _isAnimating ? null : _startAnimation,
-                icon: Icon(Icons.play_arrow_rounded, color: Color(0xFF006a42)),
-                tooltip: "Play animation",
+                child: Center(
+                  child: Container(),
+                ),
               ),
             ),
           ],

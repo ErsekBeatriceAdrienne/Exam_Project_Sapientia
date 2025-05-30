@@ -80,7 +80,7 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                 title: Text(
                   AppLocalizations.of(context)!.stack_page_title,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF255f38),
                   ),

@@ -75,7 +75,7 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                 title: Text(
                   AppLocalizations.of(context)!.list_page_title,
                   style: const TextStyle(
-                    fontSize: 25,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF255f38),
                   ),
@@ -205,23 +205,47 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            // Struct array explanation
-                            Text(AppLocalizations.of(context)!
-                                .list_struct_explanation_1,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_12}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .list_struct_explanation_2,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_22}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
 
@@ -465,6 +489,8 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                             ),
 
                             const SizedBox(height: 10),
+
+                            DoublyLinkedListAnimation(),
                           ],
                         ),
                       ),
@@ -500,32 +526,70 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            // Struct array explanation
-                            Text(AppLocalizations.of(context)!
-                                .dlist_struct_explanation_1,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_12}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .dlist_struct_explanation_2,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_31,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_32}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .dlist_struct_explanation_3,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_22}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
 
@@ -751,7 +815,10 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
 
                             const SizedBox(height: 10),
 
-                            //CircularLinkedListNodeAnimation(),
+                            SizedBox(
+                              height: 100,
+                              child: CircularLinkedListNodeAnimation(),
+                            ),
                           ],
                         ),
                       ),
@@ -787,23 +854,47 @@ class _ListPageState extends State<ListPage> with SingleTickerProviderStateMixin
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            // Struct array explanation
-                            Text(AppLocalizations.of(context)!
-                                .list_struct_explanation_1,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_11,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_12}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
-                            Text(AppLocalizations.of(context)!
-                                .list_struct_explanation_2,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
+
+                            const SizedBox(height: 5),
+
+                            RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.black,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: AppLocalizations.of(context)!.list_struct_explanation_21,
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  TextSpan(
+                                    text: ' ${AppLocalizations.of(context)!.list_struct_explanation_22}',
+                                  ),
+                                ],
                               ),
+                              textAlign: TextAlign.start,
                               softWrap: true,
                             ),
 

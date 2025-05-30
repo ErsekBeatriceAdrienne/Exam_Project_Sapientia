@@ -170,6 +170,10 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                               ),
 
                               const SizedBox(height: 10),
+
+                              Center(
+                                child: ChainedHashTableAnimation(),
+                              ),
                             ],
                           ),
                         ),
@@ -205,65 +209,147 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              Text(AppLocalizations.of(context)!
-                                  .static_hash_struct_explanation_1,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_11,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_12}',
+                                    ),
+                                  ],
                                 ),
+                                textAlign: TextAlign.start,
                                 softWrap: true,
                               ),
-                              Text(AppLocalizations.of(context)!
-                                  .static_hash_struct_explanation_2,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_21,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_22}',
+                                    ),
+                                  ],
                                 ),
+                                textAlign: TextAlign.start,
                                 softWrap: true,
                               ),
-                              Text(AppLocalizations.of(context)!
-                                  .static_hash_struct_explanation_3,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_31,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_32}',
+                                    ),
+                                  ],
                                 ),
+                                textAlign: TextAlign.start,
                                 softWrap: true,
                               ),
-                              Text(AppLocalizations.of(context)!
-                                  .static_hash_struct_explanation_4,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_41,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_42}',
+                                    ),
+                                  ],
                                 ),
+                                textAlign: TextAlign.start,
                                 softWrap: true,
                               ),
-                              Text(AppLocalizations.of(context)!
-                                  .static_hash_struct_explanation_5,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_51,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_52}',
+                                    ),
+                                  ],
                                 ),
+                                textAlign: TextAlign.start,
                                 softWrap: true,
                               ),
-                              Text(AppLocalizations.of(context)!
-                                  .static_hash_struct_explanation_6,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal,
-                                  color: Colors.black,
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_61,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_62}',
+                                    ),
+                                  ],
                                 ),
+                                textAlign: TextAlign.start,
                                 softWrap: true,
                               ),
 
                               const SizedBox(height: 10),
 
                               Center(
-                                child: Stack(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Essentials().buildHighlightedCodeLines(
                                       HashTableStrings.hash_empty_initialization,
@@ -707,6 +793,150 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
 
                         const SizedBox(height: 20),
 
+                        // Basic terms
+                        Text(AppLocalizations.of(context)!.basic_terms_title,
+                          style: TextStyle(
+                            color: Color(0xFF1f7d53),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.bt_basics_11,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.bt_basics_12}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.bt_basics_21,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.bt_basics_22}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.bt_basics_31,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.bt_basics_32}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.bt_basics_41,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.bt_basics_42}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.bt_basics_51,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.bt_basics_52}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
                         // Pseudocode Drop down
                         Container(
                           decoration: BoxDecoration(
@@ -1136,7 +1366,6 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 40),
 
                       ],
@@ -1146,6 +1375,17 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
               ],
             ),
 
+            if (_isDropdownVisible)
+              Positioned.fill(
+                child: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    setState(() {
+                      _isDropdownVisible = false;
+                    });
+                  },
+                ),
+              ),
             if (_isDropdownVisible)
               Positioned(
                 top: MediaQuery
@@ -1180,20 +1420,6 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                               context,
                               Essentials().createSlideRoute(
                                 PseudocodeHashTablePage(
-                                  toggleTheme: widget.toggleTheme,
-                                  userId: widget.userId,
-                                ),
-                              ),
-                            );
-                            HapticFeedback.mediumImpact();
-                          }),
-                      _buildMenuItem(Icons.pending_actions_rounded,
-                          AppLocalizations.of(context)!
-                              .test_page_exercises_title, () {
-                            Navigator.push(
-                              context,
-                              Essentials().createSlideRoute(
-                                HashTableExercisesPage(
                                   toggleTheme: widget.toggleTheme,
                                   userId: widget.userId,
                                 ),
