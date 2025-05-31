@@ -267,58 +267,49 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                               softWrap: true,
                             ),
 
-                            const SizedBox(height: 10),
-
                             Center(
-                              child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                              // Struct array code snippet with copy button
-                              Essentials()
-                                  .buildHighlightedCodeLines(
-                                  ArrayStrings
-                                      .struct_array_empty_initialization),
-
-                              // Copy button on right up corner
-                              Positioned(
-                                top: 8,
-                                right: 8,
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.copy,
-                                    color: Colors.black,
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Essentials().buildHighlightedCodeLines(
+                                      ArrayStrings
+                                          .struct_array_empty_initialization,
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                        ClipboardData(
-                                            text: ArrayStrings
-                                                .struct_array_empty_initialization));
-                                    HapticFeedback.mediumImpact();
-                                    ScaffoldMessenger
-                                        .of(context)
-                                        .showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                            AppLocalizations.of(
-                                                context)!
-                                                .code_copied_text),
-                                        behavior: SnackBarBehavior
-                                            .floating,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius
-                                              .circular(12),
-                                        ),
-                                        margin: EdgeInsets.all(16),
-                                        elevation: 6,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              ],
-                            ),
-                            ),
 
+                                  Positioned(
+                                    top: 8,
+                                    right: 8,
+                                    child: IconButton(
+                                      icon: Icon(Icons.copy, color: Colors.black),
+                                      onPressed: () {
+                                        Clipboard.setData(
+                                          ClipboardData(text: ArrayStrings
+                                              .struct_array_empty_initialization),
+                                        );
+                                        HapticFeedback.mediumImpact();
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(AppLocalizations.of(context)!.code_copied_text),
+                                            behavior: SnackBarBehavior.floating,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            margin: EdgeInsets.all(16),
+                                            elevation: 6,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
