@@ -1,7 +1,8 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 class CreateEmptyChainedHashTable extends StatelessWidget {
+  const CreateEmptyChainedHashTable({super.key});
+
   @override
   Widget build(BuildContext context) {
     final hashTable = List.generate(5, (_) => <int>[]);
@@ -31,12 +32,12 @@ class ChainedHashTablePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint borderPaint1 = Paint()
-      ..color = Colors.black
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
     final Paint fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()

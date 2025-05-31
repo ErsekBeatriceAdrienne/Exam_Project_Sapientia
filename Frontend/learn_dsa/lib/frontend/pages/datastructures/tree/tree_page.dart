@@ -266,44 +266,36 @@ class _BSTPageState extends State<BSTPage> {
                               softWrap: true,
                             ),
 
-                            const SizedBox(height: 10),
-
                             Center(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Stack(
                                 children: [
-                                  // Struct array code snippet with copy button
-                                  Essentials()
-                                      .buildHighlightedCodeLines(
-                                      BSTStrings.bst_empty_initialization2),
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Essentials().buildHighlightedCodeLines(
+                                      BSTStrings.bst_empty_initialization2,
+                                    ),
+                                  ),
 
-                                  // Copy button on right up corner
                                   Positioned(
                                     top: 8,
                                     right: 8,
                                     child: IconButton(
-                                      icon: Icon(
-                                        Icons.copy,
-                                        color: Colors.black,
-                                      ),
+                                      icon: Icon(Icons.copy, color: Colors.black),
                                       onPressed: () {
                                         Clipboard.setData(
-                                            ClipboardData(
-                                                text: BSTStrings.bst_empty_initialization2));
+                                          ClipboardData(text: BSTStrings.bst_empty_initialization2),
+                                        );
                                         HapticFeedback.mediumImpact();
-                                        ScaffoldMessenger
-                                            .of(context)
-                                            .showSnackBar(
+                                        ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(
-                                            content: Text(
-                                                AppLocalizations.of(
-                                                    context)!
-                                                    .code_copied_text),
-                                            behavior: SnackBarBehavior
-                                                .floating,
+                                            content: Text(AppLocalizations.of(context)!.code_copied_text),
+                                            behavior: SnackBarBehavior.floating,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(12),
+                                              borderRadius: BorderRadius.circular(12),
                                             ),
                                             margin: EdgeInsets.all(16),
                                             elevation: 6,
@@ -616,44 +608,36 @@ class _BSTPageState extends State<BSTPage> {
                               softWrap: true,
                             ),
 
-                            const SizedBox(height: 10),
-
                             Center(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Stack(
                                 children: [
-                                  // Struct array code snippet with copy button
-                                  Essentials()
-                                      .buildHighlightedCodeLines(
-                                      BSTStrings.bst_empty_initialization),
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: Essentials().buildHighlightedCodeLines(
+                                      BSTStrings.bst_empty_initialization,
+                                    ),
+                                  ),
 
-                                  // Copy button on right up corner
                                   Positioned(
                                     top: 8,
                                     right: 8,
                                     child: IconButton(
-                                      icon: Icon(
-                                        Icons.copy,
-                                        color: Colors.black,
-                                      ),
+                                      icon: Icon(Icons.copy, color: Colors.black),
                                       onPressed: () {
                                         Clipboard.setData(
-                                            ClipboardData(
-                                                text: BSTStrings.bst_empty_initialization));
+                                          ClipboardData(text: BSTStrings.bst_empty_initialization),
+                                        );
                                         HapticFeedback.mediumImpact();
-                                        ScaffoldMessenger
-                                            .of(context)
-                                            .showSnackBar(
+                                        ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(
-                                            content: Text(
-                                                AppLocalizations.of(
-                                                    context)!
-                                                    .code_copied_text),
-                                            behavior: SnackBarBehavior
-                                                .floating,
+                                            content: Text(AppLocalizations.of(context)!.code_copied_text),
+                                            behavior: SnackBarBehavior.floating,
                                             shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius
-                                                  .circular(12),
+                                              borderRadius: BorderRadius.circular(12),
                                             ),
                                             margin: EdgeInsets.all(16),
                                             elevation: 6,

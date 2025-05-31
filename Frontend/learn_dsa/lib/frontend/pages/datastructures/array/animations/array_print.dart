@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedArrayPrintWidget extends StatefulWidget {
+  const AnimatedArrayPrintWidget({super.key});
+
   @override
   _AnimatedArrayPrintWidgetState createState() => _AnimatedArrayPrintWidgetState();
 }

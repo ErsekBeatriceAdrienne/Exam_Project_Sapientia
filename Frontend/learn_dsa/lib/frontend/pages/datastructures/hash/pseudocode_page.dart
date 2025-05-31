@@ -4,7 +4,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:learn_dsa/frontend/helpers/essentials.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/queue/queue_page.dart';
 import '../../../strings/datastructure_strings/hashtable_strings.dart';
-import '../../../strings/datastructure_strings/list_strings.dart';
 import 'animations/hash_createTable.dart';
 import 'animations/hash_delete.dart';
 import 'animations/hash_hashcode.dart';
@@ -113,7 +112,7 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
                         ),
                       ),
 
-// Create Hash Table pseudo code title
+                      // Create Hash Table pseudo code title
                       Text(
                         HashTableStrings.func_create_hash_title,
                         style: TextStyle(
