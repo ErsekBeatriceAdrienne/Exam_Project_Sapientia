@@ -150,7 +150,7 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
                 ),
                 SizedBox(height: 5),
                 Text(
-                  '${values.take(size).join(', ')}',
+                  values.take(size).join(', '),
                   style: TextStyle(
                     color: Color(0xFF006a42),
                     fontWeight: FontWeight.bold,

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../../strings/datastructure_strings/hashtable_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SingleHashItemAnimation extends StatefulWidget {
+  const SingleHashItemAnimation({super.key});
+
   @override
   _SingleHashItemAnimationState createState() =>
       _SingleHashItemAnimationState();
@@ -26,52 +30,13 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              // Title text
-              children: [
-                Text(
-                  HashTableStrings.func_create_item_title,
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            // Play button
-            IconButton(
-              icon: Icon(Icons.play_arrow_outlined),
-              color: Colors.green,
-              onPressed: _showValue ? null : _showItem,
-              tooltip: 'Run animation',
-            ),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            HashTableStrings.func_create_item,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
-              fontFamily: 'Courier',
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
         if (_showValue)
           Center(
             child: Container(
               width: cellWidth,
               height: cellHeight,
               decoration: BoxDecoration(
-                color: Colors.purple.shade200,
+                color: Color(0xFF1f7d53),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
                   color: Colors.white, // White border around the whole cell
@@ -92,7 +57,7 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
                     flex: 1,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.purple.shade200,
+                        color: Color(0xFF1f7d53),
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(10),
                           bottomLeft: Radius.circular(10),
@@ -121,7 +86,7 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
                     flex: 2,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.purple.shade200,
+                        color: Color(0xFF1f7d53),
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(10),
                           bottomRight: Radius.circular(10),
@@ -143,395 +108,67 @@ class _SingleHashItemAnimationState extends State<SingleHashItemAnimation> {
               ),
             ),
           ),
-      ],
-    );
-  }
-}
 
-  /// version 2
-/*
-@override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+        SizedBox(height: 10),
+
+        Text(
+          'createItem(0, 23)',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+
+        SizedBox(height: 10),
+
+        // Play / Pause Button
         Container(
-          padding: const EdgeInsets.all(16),
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
           decoration: BoxDecoration(
-            color: Theme
-                .of(context)
-                .scaffoldBackgroundColor,
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.4),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: Offset(0, 4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
               ),
             ],
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // aligns text to the left
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: RawMaterialButton(
+            onPressed: () {
+              _showValue ? null : _showItem();
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Title text (left-aligned)
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
                   Text(
-                    HashTableStrings.func_create_item_title,
+                    AppLocalizations.of(context)!.play_animation_button_text,
                     style: TextStyle(
-                      fontSize: 19,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
                     ),
-                  ),
-                  // Play button (right-aligned)
-                  IconButton(
-                    icon: Icon(Icons.play_arrow_outlined),
-                    color: Colors.green,
-                    onPressed: _showValue ? null : _showItem,
-                    tooltip: 'Run animation',
                   ),
                 ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                HashTableStrings.func_create_item,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black,
-                  fontFamily: 'Courier',
-                ),
-              ),
-              const SizedBox(height: 16),
-              if (_showValue)
-                Center(
-                  child: Container(
-                    width: cellWidth,
-                    height: cellHeight,
-                    decoration: BoxDecoration(
-                      color: Colors.purple.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        // Key
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.purple.shade500,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                key.toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // Value
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.purple.shade200,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                bottomRight: Radius.circular(10),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                value.toString(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-            ],
+            ),
           ),
         ),
       ],
     );
   }
-*/
-
-
-  /// version 3
-  /*
-  @override
-Widget build(BuildContext context) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Balra a szöveg, jobbra a gomb
-            children: [
-              // Create item pseudo code title (bal oldalon)
-              Text(
-                HashTableStrings.func_create_item_title,
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              // Gomb (jobb oldalon)
-              IconButton(
-                icon: Icon(Icons.play_arrow_outlined),
-                color: Colors.green,
-                onPressed: _showValue ? null : _showItem,
-                tooltip: 'Run animation',
-              ),
-            ],
-          ),
-          // Create item pseudo code (bal oldalon)
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              HashTableStrings.func_create_item,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.black,
-                  fontFamily: 'Courier'
-              ),
-            ),
-          ),
-        ],
-      ),
-      const SizedBox(height: 10),
-      if (_showValue)
-        Container(
-          width: cellWidth,
-          height: cellHeight,
-          decoration: BoxDecoration(
-            color: Colors.purple.shade200,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Row(
-            children: [
-              // Key (bal oldalon)
-              Expanded(
-                flex: 1,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple.shade500,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      bottomLeft: Radius.circular(10),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      key.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Value (jobb oldalon)
-              Expanded(
-                flex: 2,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.purple.shade200,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(10),
-                      bottomRight: Radius.circular(10),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      value.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-    ],
-  );
 }
-
-  */
-
-// final
-/*
-@override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Theme
-                .of(context)
-                .scaffoldBackgroundColor,
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.4),
-                spreadRadius: 1,
-                blurRadius: 6,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // aligns text to the left
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    // Title text
-                    children: [
-                      Text(
-                      HashTableStrings.func_create_item_title,
-                      style: TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                      Text(
-                        'createItem(0, 23)',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.black,
-                          fontFamily: 'Courier',
-                        ),
-                      ),
-                    ],
-                  ),
-                  // Play button (right-aligned)
-                  IconButton(
-                    icon: Icon(Icons.play_arrow_outlined),
-                    color: Colors.green,
-                    onPressed: _showValue ? null : _showItem,
-                    tooltip: 'Run animation',
-                  ),
-
-                ],
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            HashTableStrings.func_create_item,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
-              fontFamily: 'Courier',
-            ),
-          ),
-        ),
-        const SizedBox(height: 16),
-        if (_showValue)
-          Center(
-            child: Container(
-              width: cellWidth,
-              height: cellHeight,
-              decoration: BoxDecoration(
-                color: Colors.purple.shade200,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                children: [
-                  // Key
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade500,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          key.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Value
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.purple.shade200,
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          value.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-      ],
-    );
-  }
- */

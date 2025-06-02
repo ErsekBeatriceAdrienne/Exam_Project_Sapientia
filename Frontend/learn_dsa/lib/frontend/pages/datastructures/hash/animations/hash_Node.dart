@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HashNewNodeAnimation extends StatefulWidget {
+  const HashNewNodeAnimation({super.key});
+
   @override
   _HashNewNodeAnimationState createState() =>
       _HashNewNodeAnimationState();
@@ -55,10 +59,63 @@ class _HashNewNodeAnimationState
                 ),
               ),
             ),
-            SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: _addNextNode,
-              child: Text('Hash_Item item <- createItem(0, 23)\nnewNode(item)'),
+            SizedBox(height: 10),
+
+            Text(
+              'newNode(item)',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+
+            SizedBox(height: 10),
+            // Play / Pause Button
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  _addNextNode();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         );
@@ -72,7 +129,7 @@ class _HashNewNodeAnimationState
       width: 80,
       height: 50,
       decoration: BoxDecoration(
-        color: Colors.purple.shade200,
+        color:  Color(0xFF1f7d53),
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: Colors.white, width: 2),
         boxShadow: [
