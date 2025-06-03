@@ -92,9 +92,62 @@ class _ChainedHashTableSearchAnimationState extends State<ChainedHashTableSearch
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () => _startSearchAnimation(11),
-          child: Text('search(11)'),
+
+        Text(
+          'search(table, 11)',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+
+        SizedBox(height: 10),
+
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _startSearchAnimation(11);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.play_animation_button_text,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -116,12 +169,12 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint borderPaint1 = Paint()
-      ..color = Colors.black
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
     final fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()
@@ -206,7 +259,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(10),
               bottomLeft: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -214,7 +267,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
               topRight: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
         } else if (isFirst && !isLast) {
           // Apply rounded corners only for the first cell (left side)
@@ -224,7 +277,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(10),
               bottomLeft: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -232,7 +285,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
               topRight: Radius.circular(0),
               bottomRight: Radius.circular(0),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
         } else if (isLast && !isFirst) {
           // Apply rounded corners only for the last cell (right side)
@@ -242,7 +295,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(0),
               bottomLeft: Radius.circular(0),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -250,23 +303,23 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
               topRight: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
         } else {
           // Regular cell without rounded corners for middle cells
           canvas.drawRect(
             Rect.fromLTWH(chainX, chainY, keyWidth, cellHeight),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
           canvas.drawRect(
             Rect.fromLTWH(chainX + keyWidth, chainY, valueWidth, cellHeight),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53),
           );
         }
 
-        Color color = Colors.purple.shade200;
+        Color color = Color(0xFF1f7d53);
         if (i == currentI && j == currentJ) {
-          color = found ? Colors.purpleAccent : Colors.purple.shade900;
+          color = found ? Colors.green : Colors.green;
         }
         final fillChainPaint = Paint()..color = color;
         canvas.drawRRect(totalRect, fillChainPaint);
@@ -535,7 +588,7 @@ class ChainedDynamicHashTableSearchPainter extends CustomPainter {
 
         final isHighlighted = (highlightedI == i && highlightedJ == j);
         final fillChainPaint = Paint()
-          ..color = isHighlighted ? Color(0xFF255f38) :  Color(0xFF1f7d53)
+          ..color = isHighlighted ? Colors.green :  Color(0xFF1f7d53)
           ..style = PaintingStyle.fill;
 
         canvas.drawRRect(chainRRect, fillChainPaint);

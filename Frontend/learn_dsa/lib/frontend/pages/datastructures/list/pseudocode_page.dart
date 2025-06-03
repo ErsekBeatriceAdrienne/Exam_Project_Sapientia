@@ -25,7 +25,7 @@ class PseudocodeListPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const PseudocodeListPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const PseudocodeListPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<PseudocodeListPage> createState() => _PseudocodeListPageState();
@@ -875,6 +875,17 @@ class _PseudocodeListPageState extends State<PseudocodeListPage> with SingleTick
             ],
           ),
 
+          if (_showExplanation)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _showExplanation = false;
+                  });
+                },
+              ),
+            ),
           if (_showExplanation)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,

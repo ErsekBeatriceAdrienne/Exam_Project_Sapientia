@@ -17,7 +17,7 @@ class PseudocodeQueuePage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const PseudocodeQueuePage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const PseudocodeQueuePage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<PseudocodeQueuePage> createState() => _PseudocodeQueuePageState();
@@ -513,6 +513,17 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
             ],
           ),
 
+          if (_showExplanation)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _showExplanation = false;
+                  });
+                },
+              ),
+            ),
           if (_showExplanation)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,

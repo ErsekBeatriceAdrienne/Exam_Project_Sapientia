@@ -473,6 +473,17 @@ class _PseudocodeBSTPageState extends State<PseudocodeBSTPage> with SingleTicker
           ),
 
           if (_showExplanation)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _showExplanation = false;
+                  });
+                },
+              ),
+            ),
+          if (_showExplanation)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,
               right: 12,

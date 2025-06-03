@@ -19,7 +19,7 @@ class PseudocodeArrayPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const PseudocodeArrayPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const PseudocodeArrayPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<PseudocodeArrayPage> createState() => _PseudocodeArrayPageState();
@@ -421,6 +421,17 @@ class _PseudocodeArrayPageState extends State<PseudocodeArrayPage> with SingleTi
             ],
           ),
 
+          if (_showExplanation)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _showExplanation = false;
+                  });
+                },
+              ),
+            ),
           if (_showExplanation)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,
