@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/hash/pseudocode_page.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/datastructure_strings/hashtable_strings.dart';
+import '../../customClasses/custom_closing_button_copyCode.dart';
 import '../../test/testpages/hash_testpage.dart';
 import '../datastructures_page.dart';
 import 'hashtable_animations.dart';
@@ -596,10 +597,26 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
 
                         const SizedBox(height: 20),
 
-                        /// Dynamic hash table
+                        // Complete .h file
+                        CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: HashTableStrings.header_file_content),
 
-                        // What is a dynamic hash table?
-                        /*Stack(
+                        const SizedBox(height: 20),
+
+                        // Complete .c file
+                        CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: HashTableStrings.source_file_content),
+
+                        const SizedBox(height: 20),
+
+                        Text(AppLocalizations.of(context)!
+                            .when_to_use_title,
+                          style: TextStyle(
+                            color: Color(0xFF1f7d53),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        // When to use it?
+                        Stack(
                           clipBehavior: Clip.none,
                           children: [
                             Container(
@@ -608,395 +625,191 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                                 color: Theme
                                     .of(context)
                                     .scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(20),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.4),
+                                    color: Colors.black.withOpacity(0.5),
                                     spreadRadius: 1,
                                     blurRadius: 6,
                                     offset: Offset(0, 4),
                                   ),
                                 ],
                               ),
+
+                              // When to use it
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-
-                                  // Hash Table description, what is?
-                                  Text(
-                                    HashTableStrings.hash_definition1,
+                                  // YES
+                                  Text(AppLocalizations.of(context)!.yes_text,
                                     style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.normal,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.black,
                                     ),
                                   ),
 
                                   const SizedBox(height: 10),
-
-                                  // Hash Table code example
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-
-                                        // hash item
-                                        Center(
-                                          child: Stack(
-                                            children: [
-                                              // Hash Table code snippet
-                                              Container(
-                                                padding: const EdgeInsets.all(
-                                                    8),
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFDFAEE8),
-                                                  borderRadius: BorderRadius
-                                                      .circular(8),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.15),
-                                                      offset: const Offset(
-                                                          2, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 2,
-                                                    ),
-                                                  ],
-                                                ),
-
-                                                child: SelectableText(
-                                                  HashTableStrings
-                                                      .hash_empty_initialization2,
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'monospace',
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-
-                                              // Copy button on right up corner
-                                              Positioned(
-                                                top: 8,
-                                                right: 8,
-                                                child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.copy,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onPressed: () {
-                                                    Clipboard.setData(
-                                                        ClipboardData(
-                                                            text: HashTableStrings
-                                                                .hash_empty_initialization2));
-                                                    ScaffoldMessenger.of(
-                                                        context).showSnackBar(
-                                                      SnackBar(content: Text(
-                                                          'Code copied!')),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          HashTableStrings.hash_definition2,
+                                  // Reason 1
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.check_circle_outline_rounded,
+                                        color: Colors.green,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!
+                                            .hash_table_when_to_use_1,
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.normal,
                                             color: Colors.black,
                                           ),
+                                          softWrap: true,
                                         ),
-
-                                        const SizedBox(height: 10),
-
-                                        // Hash item node
-                                        Center(
-                                          child: Stack(
-                                            children: [
-                                              // Hash Table code snippet
-                                              Container(
-                                                padding: const EdgeInsets.all(
-                                                    8),
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFDFAEE8),
-                                                  borderRadius: BorderRadius
-                                                      .circular(8),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.15),
-                                                      offset: const Offset(
-                                                          2, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 2,
-                                                    ),
-                                                  ],
-                                                ),
-
-                                                child: SelectableText(
-                                                  HashTableStrings
-                                                      .hash_empty_initialization4,
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'monospace',
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-
-                                              // Copy button on right up corner
-                                              Positioned(
-                                                top: 8,
-                                                right: 8,
-                                                child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.copy,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onPressed: () {
-                                                    Clipboard.setData(
-                                                        ClipboardData(
-                                                            text: HashTableStrings
-                                                                .hash_empty_initialization4));
-                                                    ScaffoldMessenger.of(
-                                                        context).showSnackBar(
-                                                      SnackBar(content: Text(
-                                                          'Code copied!')),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          HashTableStrings.hash_definition3,
+                                      ),
+                                    ],
+                                  ),
+                                  // Reason 2
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.check_circle_outline_rounded,
+                                        color: Colors.green,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!
+                                            .hash_table_when_to_use_2,
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.normal,
                                             color: Colors.black,
                                           ),
+                                          softWrap: true,
                                         ),
-
-                                        const SizedBox(height: 10),
-
-                                        // Capacity
-                                        Center(
-                                          child: Stack(
-                                            children: [
-                                              // Hash Table code snippet
-                                              Container(
-                                                padding: const EdgeInsets.all(
-                                                    8),
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFDFAEE8),
-                                                  borderRadius: BorderRadius
-                                                      .circular(8),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.15),
-                                                      offset: const Offset(
-                                                          2, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 2,
-                                                    ),
-                                                  ],
-                                                ),
-
-                                                child: SelectableText(
-                                                  HashTableStrings
-                                                      .hash_empty_initialization12,
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'monospace',
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-
-                                              // Copy button on right up corner
-                                              Positioned(
-                                                top: 8,
-                                                right: 8,
-                                                child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.copy,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onPressed: () {
-                                                    Clipboard.setData(
-                                                        ClipboardData(
-                                                            text: HashTableStrings
-                                                                .hash_empty_initialization12));
-                                                    ScaffoldMessenger.of(
-                                                        context).showSnackBar(
-                                                      SnackBar(content: Text(
-                                                          'Code copied!')),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          HashTableStrings.hash_cap_definition1,
+                                      ),
+                                    ],
+                                  ),
+                                  // Reason 3
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.check_circle_outline_rounded,
+                                        color: Colors.green,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!
+                                            .hash_table_when_to_use_3,
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.normal,
                                             color: Colors.black,
                                           ),
+                                          softWrap: true,
                                         ),
-                                        const SizedBox(height: 10),
-
-                                        // Hash Table code snippet with copy button
-                                        Center(
-                                          child: Stack(
-                                            children: [
-                                              // Hash Table code snippet
-                                              Container(
-                                                padding: const EdgeInsets.all(
-                                                    8),
-                                                margin: const EdgeInsets.only(
-                                                    bottom: 10),
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFDFAEE8),
-                                                  borderRadius: BorderRadius
-                                                      .circular(8),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.15),
-                                                      offset: const Offset(
-                                                          2, 2),
-                                                      blurRadius: 6,
-                                                      spreadRadius: 2,
-                                                    ),
-                                                  ],
-                                                ),
-
-                                                child: SelectableText(
-                                                  HashTableStrings
-                                                      .hash_empty_initialization5,
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontFamily: 'monospace',
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-
-                                              // Copy button on right up corner
-                                              Positioned(
-                                                top: 8,
-                                                right: 8,
-                                                child: IconButton(
-                                                  icon: Icon(
-                                                    Icons.copy,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onPressed: () {
-                                                    Clipboard.setData(
-                                                        ClipboardData(
-                                                            text: HashTableStrings
-                                                                .hash_empty_initialization5));
-                                                    ScaffoldMessenger.of(
-                                                        context).showSnackBar(
-                                                      SnackBar(content: Text(
-                                                          'Code copied!')),
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          HashTableStrings.hash_definition4,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-
-                                        // Hash Table explanation
-                                        Text(
-                                          HashTableStrings
-                                              .hash_animation_title1,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 20),
-
-                                        // Animation of the Hash Table
-                                        Center(
-                                          child: ChainedDynamicHashTableAnimation(),
-                                        ),
-
-                                        const SizedBox(height: 10),
-
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
 
+                                  const SizedBox(height: 10),
+
+                                  // NO
+                                  Text(AppLocalizations.of(context)!.dont_text,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+
+                                  // Reason 1
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.dangerous_outlined,
+                                        color: Colors.red,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 8),
+                                      // When to use it
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!
+                                            .hash_table_when_not_to_use_1,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Reason 2
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.dangerous_outlined,
+                                        color: Colors.red,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 8),
+                                      // When to use it
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!
+                                            .hash_table_when_not_to_use_2,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Reason 3
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Icon(
+                                        Icons.dangerous_outlined,
+                                        color: Colors.red,
+                                        size: 20,
+                                      ),
+                                      SizedBox(width: 8),
+                                      // When to use it
+                                      Expanded(
+                                        child: Text(AppLocalizations.of(context)!
+                                            .hash_table_when_not_to_use_3,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
-
-                            // What is a Hash Table question box
-                            Positioned(
-                              top: -23,
-                              left: 16,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    // Gradient colors
-                                    colors: [
-                                      Color(0xFFa1f7ff),
-                                      Color(0xFFDFAEE8)
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 8.0,
-                                ),
-                                child: Text(
-                                  HashTableStrings.question1,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
                           ],
-                        ),*/
+                        ),
+
+                        const SizedBox(height: 20),
+
+
 
                         const SizedBox(height: 40),
 

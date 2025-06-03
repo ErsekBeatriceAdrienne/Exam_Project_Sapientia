@@ -1,9 +1,11 @@
 import 'dart:math';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HashTableDeleteAnimation extends StatefulWidget {
+  const HashTableDeleteAnimation({super.key});
+
   @override
   _HashTableDeleteAnimationState createState() => _HashTableDeleteAnimationState();
 }
@@ -245,6 +247,8 @@ class ChainedHashTablePainter extends CustomPainter {
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class ChainedDynamicHashTableDeleteAnimation extends StatefulWidget {
+  const ChainedDynamicHashTableDeleteAnimation({super.key});
+
   @override
   _ChainedDynamicHashTableDeleteAnimationState createState() =>
       _ChainedDynamicHashTableDeleteAnimationState();
@@ -319,9 +323,62 @@ class _ChainedDynamicHashTableDeleteAnimationState extends State<ChainedDynamicH
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () => _deleteKey(6),
-          child: Text("deleteNode(head, 6)"),
+
+        Text(
+          'delete(table, 6)',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+
+        SizedBox(height: 10),
+
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _deleteKey(6);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.play_animation_button_text,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -345,13 +402,8 @@ class ChainedDynamicHashTableDeletePainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
-    final Paint borderPaint1 = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
     final Paint fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()
@@ -374,7 +426,7 @@ class ChainedDynamicHashTableDeletePainter extends CustomPainter {
 
       canvas.drawRRect(bucketRRect.shift(Offset(5, 4)), shadowPaint);
       canvas.drawRRect(bucketRRect, fillPaint);
-      canvas.drawRRect(bucketRRect, borderPaint1);
+      canvas.drawRRect(bucketRRect, borderPaint);
 
       textPainter.text = TextSpan(text: '$i', style: textStyle);
       textPainter.layout();
@@ -393,7 +445,7 @@ class ChainedDynamicHashTableDeletePainter extends CustomPainter {
 
         final isHighlighted = (highlightedI == i && highlightedJ == j);
         final fillChainPaint = Paint()
-          ..color = isHighlighted ? Colors.purple.shade600 : Colors.purple.shade200
+          ..color = isHighlighted ? Colors.purple.shade600 : Color(0xFF1f7d53)
           ..style = PaintingStyle.fill;
 
         canvas.drawRRect(chainRRect, fillChainPaint);
