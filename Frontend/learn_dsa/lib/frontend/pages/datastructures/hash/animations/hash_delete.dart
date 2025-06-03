@@ -48,14 +48,62 @@ class _HashTableDeleteAnimationState extends State<HashTableDeleteAnimation> {
             child: Container(),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: hasInserted ? _removeValue : null,
-              child: Text("delete(table, 0)"),
+
+        Text(
+          'delete(table, 0)',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+
+        SizedBox(height: 10),
+
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
-          ],
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              hasInserted ? _removeValue() : null;
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.play_animation_button_text,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -73,17 +121,12 @@ class ChainedHashTablePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final borderPaint = Paint()
-      ..color = Colors.transparent //Colors.grey.shade500
+      ..color = Colors.white
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
-    final blackBorder = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
-    final fillPaint = Paint()
-      ..color = Colors.purple.shade500
+    final Paint fillPaint = Paint()
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()
@@ -113,7 +156,7 @@ class ChainedHashTablePainter extends CustomPainter {
       );
 
       canvas.drawRRect(bucketRRect, fillPaint);
-      canvas.drawRRect(bucketRRect, blackBorder);
+      canvas.drawRRect(bucketRRect, borderPaint);
 
       textPainter.text = TextSpan(text: '$i', style: textStyleCell);
       textPainter.layout();
@@ -159,7 +202,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topLeft: Radius.circular(10),
               bottomLeft: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53)
           );
           canvas.drawRRect(
             RRect.fromRectAndCorners(
@@ -167,7 +210,7 @@ class ChainedHashTablePainter extends CustomPainter {
               topRight: Radius.circular(10),
               bottomRight: Radius.circular(10),
             ),
-            Paint()..color = Colors.purple.shade200,
+            Paint()..color = Color(0xFF1f7d53)
           );
         }
 
@@ -445,7 +488,7 @@ class ChainedDynamicHashTableDeletePainter extends CustomPainter {
 
         final isHighlighted = (highlightedI == i && highlightedJ == j);
         final fillChainPaint = Paint()
-          ..color = isHighlighted ? Colors.purple.shade600 : Color(0xFF1f7d53)
+          ..color = isHighlighted ? Color(0xFF255f38) : Color(0xFF1f7d53)
           ..style = PaintingStyle.fill;
 
         canvas.drawRRect(chainRRect, fillChainPaint);

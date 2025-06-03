@@ -139,8 +139,177 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
 
                       const SizedBox(height: 20),
 
+                      // Create table pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_create,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Create table pseudo code
+                      Text(
+                        HashTableStrings.func_create_hash,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: CreateEmptyChainedHashTable(),
+                      ),
+
+                      // Insert into table title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_insert_title,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Insert into table
+                      Text(
+                        HashTableStrings.func_insert,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: HashTableInsertAnimation(),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Print hash table pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_print,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Print hash table pseudo code
+                      Text(
+                        HashTableStrings.func_display,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Size of hash table pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_size,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Size of hash table pseudo code
+                      Text(
+                        HashTableStrings.func_size,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Delete item pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_delete_item,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Delete item pseudo code
+                      Text(
+                        HashTableStrings.delete_item1,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Center(
+                        child: HashTableDeleteAnimation(),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Search item pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_item_search,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Search item pseudo code
+                      Text(
+                        HashTableStrings.func_search,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Center(
+                        child: ChainedHashTableSearchAnimation(),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Delete hash table pseudo code title
+                      Text(
+                        AppLocalizations.of(context)!.static_hash_table_delete,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      // Delete hash table pseudo code
+                      Text(
+                        HashTableStrings.func_delete_hash,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.black,
+                          fontFamily: 'Courier',
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+                      Divider(),
+
                       /// Dynamic
-                      /*Text(
+                      Text(
                         AppLocalizations.of(context)!.dynamic_hashtable_title,
                         style: TextStyle(
                           fontSize: 14,
@@ -197,7 +366,7 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
                       ),
 
                       const SizedBox(height: 20),
-                      // Create Node pseudo code title
+                      // Create table pseudo code title
                       Text(
                         AppLocalizations.of(context)!.static_hash_table_create,
                         style: TextStyle(
@@ -206,7 +375,7 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
                           color: Colors.black,
                         ),
                       ),
-                      // Create Node pseudo code
+                      // Create table pseudo code
                       Text(
                         HashTableStrings.create_table,
                         style: TextStyle(
@@ -532,7 +701,7 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
                           color: Colors.black,
                           fontFamily: 'Courier',
                         ),
-                      ),*/
+                      ),
                     ],
                   ),
                 ),
@@ -540,6 +709,17 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
             ],
           ),
 
+          if (_showExplanation)
+            Positioned.fill(
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  setState(() {
+                    _showExplanation = false;
+                  });
+                },
+              ),
+            ),
           if (_showExplanation)
             Positioned(
               top: MediaQuery.of(context).padding.top + 60,
@@ -571,15 +751,17 @@ class _PseudocodeHashTablePageState extends State<PseudocodeHashTablePage> with 
                       ),
                     ),
 
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_1),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_2),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_3),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_4),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_5),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_6),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_7),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_8),
-                    _buildExplanationRow(AppLocalizations.of(context)!.list_naming_conv_9),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_1),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_2),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_3),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_4),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_5),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_6),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_7),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_8),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_9),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_10),
+                    _buildExplanationRow(AppLocalizations.of(context)!.hash_table_naming_conv_11),
                   ],
                 ),
               ),
