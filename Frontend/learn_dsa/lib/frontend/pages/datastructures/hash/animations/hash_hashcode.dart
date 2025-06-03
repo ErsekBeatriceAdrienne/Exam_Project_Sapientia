@@ -177,14 +177,65 @@ class _HashCode2AnimationState extends State<HashCode2Animation> {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple,
+                    color: Color(0xFF1f7d53),
                   ),
                 ),
               ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _startAnimation,
-              child: Text('hashCode($key)'),
+            Text(
+              'hashCode($key)',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+
+            SizedBox(height: 10),
+
+            Container(
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              height: 40,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.4),
+                    blurRadius: 4,
+                    offset: Offset(4, 4),
+                  ),
+                ],
+              ),
+              child: RawMaterialButton(
+                onPressed: () {
+                  _startAnimation();
+                  HapticFeedback.mediumImpact();
+                },
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+                child: Center(
+                  child : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.play_arrow_rounded,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        size: 24,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.play_animation_button_text,
+                        style: TextStyle(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),

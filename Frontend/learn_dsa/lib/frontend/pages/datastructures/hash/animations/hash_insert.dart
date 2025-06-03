@@ -300,6 +300,8 @@ class ChainedHashTablePainter extends CustomPainter {
 // ---------------------------------------------------------------------------------------------------------------------------------------------------
 
 class ChainedDynamicHashTableInsertAnimation extends StatefulWidget {
+  const ChainedDynamicHashTableInsertAnimation({super.key});
+
   @override
   _ChainedDynamicHashTableInsertAnimationState createState() =>
       _ChainedDynamicHashTableInsertAnimationState();
@@ -350,13 +352,6 @@ class _ChainedDynamicHashTableInsertAnimationState
       visibleLengths[index] = hashTable[index].length;
       _hasInserted = true;
     });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('insertIntoHashTable($key, $value)'),
-        duration: Duration(seconds: 2),
-      ),
-    );
   }
 
   @override
@@ -375,23 +370,65 @@ class _ChainedDynamicHashTableInsertAnimationState
                 ),
               ),
             ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: IconButton(
-                onPressed: () => _insertEntry(13, 7),
-                icon: Icon(Icons.play_arrow_rounded, color: Colors.purple),
-                tooltip: 'insertIntoHashTable(13, 7)',
-              ),
-            ),
           ],
         ),
         const Text(
-          'insertIntoHashTable(13, 7)',
+          'insert(table, 13, 7)',
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
             color: Colors.black,
+          ),
+        ),
+        SizedBox(height: 10),
+
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _insertEntry(13, 7);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.play_animation_button_text,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ],
@@ -415,13 +452,8 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
-    final Paint borderPaint1 = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
     final Paint fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color =  Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()
@@ -455,7 +487,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
 
       canvas.drawRRect(bucketRRect.shift(Offset(5, 4)), shadowPaint);
       canvas.drawRRect(bucketRRect, fillPaint);
-      canvas.drawRRect(bucketRRect, borderPaint1);
+      canvas.drawRRect(bucketRRect, borderPaint);
 
       textPainter.text = TextSpan(text: '$i', style: textStyle);
       textPainter.layout();
@@ -478,7 +510,7 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
         canvas.drawRRect(chainRRect.shift(Offset(4, 4)), shadowPaint);
 
         final fillChainPaint = Paint()
-          ..color = Colors.purple.shade200
+          ..color = Color(0xFF1f7d53)
           ..style = PaintingStyle.fill;
 
         canvas.drawRRect(chainRRect, fillChainPaint);

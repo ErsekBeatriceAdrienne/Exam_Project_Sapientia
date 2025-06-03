@@ -2,8 +2,11 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChainedHashTableSearchAnimation extends StatefulWidget {
+  const ChainedHashTableSearchAnimation({super.key});
+
   @override
   _ChainedHashTableSearchAnimationState createState() =>
       _ChainedHashTableSearchAnimationState();
@@ -346,9 +349,10 @@ class ChainedDynamicHashTablePainter extends CustomPainter {
 //---------------------------------------------------------------------------------------------------------------
 
 class ChainedDynamicHashTableSearchAnimation extends StatefulWidget {
+  const ChainedDynamicHashTableSearchAnimation({super.key});
+
   @override
-  _ChainedDynamicHashTableSearchAnimationState createState() =>
-      _ChainedDynamicHashTableSearchAnimationState();
+  _ChainedDynamicHashTableSearchAnimationState createState() => _ChainedDynamicHashTableSearchAnimationState();
 }
 
 class _ChainedDynamicHashTableSearchAnimationState extends State<ChainedDynamicHashTableSearchAnimation>
@@ -368,7 +372,6 @@ class _ChainedDynamicHashTableSearchAnimationState extends State<ChainedDynamicH
   @override
   void initState() {
     super.initState();
-    // Teljes táblát megjelenítjük alapból
     visibleLengths = List.generate(hashTable.length, (i) => hashTable[i].length);
   }
 
@@ -410,9 +413,62 @@ class _ChainedDynamicHashTableSearchAnimationState extends State<ChainedDynamicH
             ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () => _searchForKey(6),
-          child: Text("searchNode(head, 6)"),
+
+        Text(
+          'searchItem(table, 6)',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+
+        SizedBox(height: 10),
+
+        Container(
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          height: 40,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Color(0xFF255f38), Color(0xFF27391c)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.4),
+                blurRadius: 4,
+                offset: Offset(4, 4),
+              ),
+            ],
+          ),
+          child: RawMaterialButton(
+            onPressed: () {
+              _searchForKey(6);
+              HapticFeedback.mediumImpact();
+            },
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            constraints: const BoxConstraints.tightFor(width: 45, height: 45),
+            child: Center(
+              child : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.play_arrow_rounded,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    size: 24,
+                  ),
+                  Text(
+                    AppLocalizations.of(context)!.play_animation_button_text,
+                    style: TextStyle(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );
@@ -436,13 +492,8 @@ class ChainedDynamicHashTableSearchPainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke;
 
-    final Paint borderPaint1 = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-
     final Paint fillPaint = Paint()
-      ..color = Colors.purple.shade500
+      ..color = Color(0xFF255f38)
       ..style = PaintingStyle.fill;
 
     final Paint shadowPaint = Paint()
@@ -465,7 +516,7 @@ class ChainedDynamicHashTableSearchPainter extends CustomPainter {
 
       canvas.drawRRect(bucketRRect.shift(Offset(5, 4)), shadowPaint);
       canvas.drawRRect(bucketRRect, fillPaint);
-      canvas.drawRRect(bucketRRect, borderPaint1);
+      canvas.drawRRect(bucketRRect, borderPaint);
 
       textPainter.text = TextSpan(text: '$i', style: textStyle);
       textPainter.layout();
@@ -484,7 +535,7 @@ class ChainedDynamicHashTableSearchPainter extends CustomPainter {
 
         final isHighlighted = (highlightedI == i && highlightedJ == j);
         final fillChainPaint = Paint()
-          ..color = isHighlighted ? Colors.purple.shade600 : Colors.purple.shade200
+          ..color = isHighlighted ? Color(0xFF255f38) :  Color(0xFF1f7d53)
           ..style = PaintingStyle.fill;
 
         canvas.drawRRect(chainRRect, fillChainPaint);
