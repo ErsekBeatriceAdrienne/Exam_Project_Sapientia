@@ -607,6 +607,513 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
 
                         const SizedBox(height: 20),
 
+                        // What is a dynamic Hash table?
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(AppLocalizations.of(context)!.dynamic_hash_question,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              // Array description, what is an array
+                              Text(AppLocalizations.of(context)!.dynamic_hash_description,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                  color: Colors.grey,
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              Center(
+                                child: ChainedDynamicHashTableAnimation(),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        Text(AppLocalizations.of(context)!.struct_title,
+                          style: TextStyle(
+                            color: Color(0xFF1f7d53),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+
+                        // Struct typedef
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme
+                                .of(context)
+                                .scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_11,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_12}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_21,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_22}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_31,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_32}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_41,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_42}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_51,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_52}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_61,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_62}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_struct_explanation_71,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_struct_explanation_72}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              Center(
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(16),
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: Essentials().buildHighlightedCodeLines(
+                                        HashTableStrings.hash_empty_initialization2,
+                                      ),
+                                    ),
+
+                                    Positioned(
+                                      top: 8,
+                                      right: 8,
+                                      child: IconButton(
+                                        icon: Icon(Icons.copy, color: Colors.black),
+                                        onPressed: () {
+                                          Clipboard.setData(
+                                            ClipboardData(text: HashTableStrings.hash_empty_initialization2),
+                                          );
+                                          HapticFeedback.mediumImpact();
+                                          ScaffoldMessenger.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text(AppLocalizations.of(context)!.code_copied_text),
+                                              behavior: SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              margin: EdgeInsets.all(16),
+                                              elevation: 6,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Basic terms
+                        Text(AppLocalizations.of(context)!.basic_terms_title,
+                          style: TextStyle(
+                            color: Color(0xFF1f7d53),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_11,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_12}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_21,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_22}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_31,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_32}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_41,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_42}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_51,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_52}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_61,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_62}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_71,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_72}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+
+                              const SizedBox(height: 5),
+
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.static_hash_basics_81,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.static_hash_basics_82}',
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Complete .h file
+                        CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: HashTableStrings.header_file_content1),
+
+                        const SizedBox(height: 20),
+
+                        // Complete .c file
+                        CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: HashTableStrings.source_file_content1),
+
+                        const SizedBox(height: 20),
+
                         Text(AppLocalizations.of(context)!
                             .when_to_use_title,
                           style: TextStyle(
@@ -806,10 +1313,6 @@ class _HashTablePageState extends State<HashTablePage> with SingleTickerProvider
                             ),
                           ],
                         ),
-
-                        const SizedBox(height: 20),
-
-
 
                         const SizedBox(height: 40),
 

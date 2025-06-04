@@ -228,6 +228,11 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                               ),
                             ),
                             const SizedBox(height: 16),
+
+                            Image.asset(
+                              'assets/images/tabledsa.jpg',
+                              fit: BoxFit.contain,
+                            ),
                           ],
                         ),
                       ),
