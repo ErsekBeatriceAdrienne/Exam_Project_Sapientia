@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,8 +6,7 @@ class ChainedHashTableAnimation extends StatefulWidget {
   const ChainedHashTableAnimation({super.key});
 
   @override
-  _ChainedHashTableAnimationState createState() =>
-      _ChainedHashTableAnimationState();
+  _ChainedHashTableAnimationState createState() => _ChainedHashTableAnimationState();
 }
 
 class _ChainedHashTableAnimationState extends State<ChainedHashTableAnimation> with TickerProviderStateMixin {
@@ -525,6 +523,8 @@ class ChainedHashTablePainter extends CustomPainter {
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class ChainedDynamicHashTableAnimation extends StatefulWidget {
+  const ChainedDynamicHashTableAnimation({super.key});
+
   @override
   _ChainedDynamicHashTableAnimationState createState() => _ChainedDynamicHashTableAnimationState();
 }
@@ -539,33 +539,11 @@ class _ChainedDynamicHashTableAnimationState extends State<ChainedDynamicHashTab
   ];
 
   late List<int> visibleLengths;
-  bool _isAnimating = false;
 
   @override
   void initState() {
     super.initState();
-    visibleLengths = List.filled(hashTable.length, 0);
-  }
-
-  Future<void> _startAnimation() async {
-    setState(() {
-      _isAnimating = true;
-      visibleLengths = List.filled(hashTable.length, 0);
-    });
-
-    for (int i = 0; i < hashTable.length; i++) {
-      for (int j = 0; j < hashTable[i].length; j++) {
-        await Future.delayed(Duration(milliseconds: 600));
-        HapticFeedback.heavyImpact();
-        setState(() {
-          visibleLengths[i]++;
-        });
-      }
-    }
-
-    setState(() {
-      _isAnimating = false;
-    });
+    visibleLengths = hashTable.map((list) => list.length).toList();
   }
 
   @override
@@ -582,15 +560,6 @@ class _ChainedDynamicHashTableAnimationState extends State<ChainedDynamicHashTab
                   painter: ChainedDynamicHashTablePainter(hashTable, visibleLengths),
                   child: Container(),
                 ),
-              ),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: IconButton(
-                onPressed: _isAnimating ? null : _startAnimation,
-                icon: Icon(Icons.play_arrow_rounded, color: Color(0xFF255f38)),
-                tooltip: 'Play',
               ),
             ),
           ],

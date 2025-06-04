@@ -399,56 +399,15 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
 
                       const SizedBox(height: 20),
 
-                      /*Text(AppLocalizations.of(context)!
-                          .animation_title,
-                        style: TextStyle(
-                          color: Color(0xFF1f7d53),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      // Complete .h file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: StackStrings.header_file_content),
 
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
 
-                      // Animation
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            // Struct array explanation
-                            Text(AppLocalizations.of(context)!
-                                .stack_animation_title,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black,
-                              ),
-                            ),
+                      // Complete .c file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: StackStrings.source_file_content),
 
-                            const SizedBox(height: 10),
-
-                            // Animation of the struct array
-                            AnimatedStackWidget(),
-
-                            const SizedBox(height: 10),
-                          ],
-                        ),
-                      ),*/
+                      const SizedBox(height: 20),
 
                       Text(AppLocalizations.of(context)!
                           .when_to_use_title,
@@ -458,8 +417,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
-                      const SizedBox(height: 10),
 
                       // When to use it?
                       Stack(
@@ -696,16 +653,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                           ),
                         ],
                       ),
-
-                      const SizedBox(height: 20),
-
-                      // Complete .h file
-                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: StackStrings.header_file_content),
-
-                      const SizedBox(height: 20),
-
-                      // Complete .c file
-                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: StackStrings.source_file_content),
 
                       const SizedBox(height: 40),
                     ],

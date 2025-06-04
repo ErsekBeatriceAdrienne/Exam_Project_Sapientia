@@ -437,6 +437,16 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
 
                       const SizedBox(height: 20),
 
+                      // Complete .h file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: ArrayStrings.header_file_content),
+
+                      const SizedBox(height: 20),
+
+                      // Complete .c file
+                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: ArrayStrings.source_file_content),
+
+                      const SizedBox(height: 20),
+
                       Text(AppLocalizations.of(context)!
                           .when_to_use_title,
                         style: TextStyle(
@@ -680,16 +690,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
                           ),
                         ],
                       ),
-
-                      const SizedBox(height: 20),
-
-                      // Complete .h file
-                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.header_file_title, codeContent: ArrayStrings.header_file_content),
-
-                      const SizedBox(height: 20),
-
-                      // Complete .c file
-                      CollapsibleCodeBlock(title: AppLocalizations.of(context)!.source_file_title, codeContent: ArrayStrings.source_file_content),
 
                       const SizedBox(height: 40),
                     ],
