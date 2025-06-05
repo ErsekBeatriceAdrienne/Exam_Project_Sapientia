@@ -229,10 +229,7 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
                             ),
                             const SizedBox(height: 16),
 
-                            Image.asset(
-                              'assets/images/tabledsa.jpg',
-                              fit: BoxFit.contain,
-                            ),
+                            complexityTable(context),
                           ],
                         ),
                       ),
@@ -251,11 +248,78 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
 
   }
 
+  Widget complexityTable(BuildContext context) {
+    const headers = [
+      'Data Structure',
+      'Array',
+      'Stack',
+      'Queue',
+      'Singly Linked List',
+      'Doubly Linked List',
+      'Hash Table',
+      'Binary Search Tree',
+    ];
+
+    final rows = [
+      ['Avg Access', 'O(1)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'N/A', 'O(log(n))'],
+      ['Avg Search', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(1)', 'O(log(n))'],
+      ['Avg Insertion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(log(n))'],
+      ['Avg Deletion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(log(n))'],
+      ['Worst Access', 'O(1)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'N/A', 'O(n)'],
+      ['Worst Search', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)'],
+      ['Worst Insertion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(n)', 'O(n)'],
+      ['Worst Deletion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(n)', 'O(n)'],
+      ['Space (Worst)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(log(n))'],
+    ];
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Table(
+        defaultColumnWidth: FixedColumnWidth(140),
+        border: TableBorder.all(color: Colors.black),
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        children: [
+
+          TableRow(
+            decoration: BoxDecoration(color: Colors.grey[300]),
+            children: headers
+                .map(
+                  (text) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  text,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+                .toList(),
+          ),
+
+          for (var row in rows)
+            TableRow(
+              children: row
+                  .map(
+                    (cell) => Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    cell,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+                  .toList(),
+            ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildCategoryButton(BuildContext context, String title, bool isDarkTheme) {
     // Define the gradient colors
     final gradient = LinearGradient(
       // Gradient colors
-      colors: [Color(0xFF255f38), Color(0xFF27391c)], //[Color(0xFFa1f7ff), Color(0xFFDFAEE8)],
+      colors: [Color(0xFF255f38), Color(0xFF27391c)],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     );
