@@ -14,7 +14,7 @@ class StackPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const StackPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const StackPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<StackPage> createState() => _StackPageState();
@@ -33,8 +33,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    //final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -67,7 +65,7 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                     Icons.arrow_back_ios_new_rounded,
                     size: 20,
                   ),
-                  // Button back
+
                   label: Text(
                     AppLocalizations.of(context)!.back_button_text,
                     style: TextStyle(
@@ -98,7 +96,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          //color: Color(0xFF255f38),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Icon(
@@ -160,7 +157,7 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
 
                             const SizedBox(height: 10),
 
-                            // Array description, what is an array
+                            // Stack description
                             Text(AppLocalizations.of(context)!.stack_definition,
                               style: TextStyle(
                                 fontSize: 16,
@@ -752,39 +749,6 @@ class _StackPageState extends State<StackPage> with SingleTickerProviderStateMix
                 fontSize: 16,
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCardItem(String title, IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.4),
-              blurRadius: 4,
-              offset: Offset(0, 0),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: Color(0xFF27391c)),
-            const SizedBox(width: 12),
-            Text(
-              title,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Color(0xFF27391c)),
-            ),
-            Spacer(),
-            Icon(Icons.chevron_right, color: Color(0xFF27391c)),
           ],
         ),
       ),

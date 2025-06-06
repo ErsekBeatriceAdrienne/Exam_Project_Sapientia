@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayInsertAtWidget extends StatefulWidget {
+  const ArrayInsertAtWidget({super.key});
+
   @override
   _ArrayInsertAtWidgetState createState() => _ArrayInsertAtWidgetState();
 }
@@ -63,7 +65,7 @@ class _ArrayInsertAtWidgetState extends State<ArrayInsertAtWidget> {
         hasInserted = false;
       });
       Future.delayed(Duration(milliseconds: 200), () {
-        _insertAt(2, 7); // restart animation after reset
+        _insertAt(2, 7);
       });
     } else {
       _insertAt(2, 7);
@@ -87,12 +89,15 @@ class _ArrayInsertAtWidgetState extends State<ArrayInsertAtWidget> {
                     (i) {
                   BorderRadius borderRadius;
 
-                  if (i == 0)
+                  if (i == 0) {
                     borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                  else if (i == capacity - 1)
-                    borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                  else
+                  } else if (i == capacity - 1) {
+                    borderRadius =
+                        BorderRadius.horizontal(right: Radius.circular(12));
+                  }
+                  else {
                     borderRadius = BorderRadius.zero;
+                  }
 
                   final bool isHighlighted = i < size;
 
@@ -148,7 +153,7 @@ class _ArrayInsertAtWidgetState extends State<ArrayInsertAtWidget> {
             SizedBox(height: 10),
 
             Container(
-              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(

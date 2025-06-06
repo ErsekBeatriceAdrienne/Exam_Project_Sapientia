@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackPeekWidget extends StatefulWidget {
+  const AnimatedStackPeekWidget({super.key});
+
   @override
   _AnimatedStackPeekWidgetState createState() => _AnimatedStackPeekWidgetState();
 }
@@ -113,7 +115,7 @@ class _AnimatedStackPeekWidgetState extends State<AnimatedStackPeekWidget> {
         ],
 
         Container(
-          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(

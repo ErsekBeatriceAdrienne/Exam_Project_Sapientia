@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayDeleteAtWidget extends StatefulWidget {
+  const ArrayDeleteAtWidget({super.key});
+
   @override
   _ArrayDeleteAtWidgetState createState() => _ArrayDeleteAtWidgetState();
 }
@@ -61,16 +63,16 @@ class _ArrayDeleteAtWidgetState extends State<ArrayDeleteAtWidget> {
                     (i) {
                   BorderRadius borderRadius;
 
-                  if (i == 0)
+                  if (i == 0) {
                     borderRadius =
                         BorderRadius.horizontal(left: Radius.circular(12));
-                  else if (i == capacity - 1)
+                  } else if (i == capacity - 1) {
                     borderRadius =
                         BorderRadius.horizontal(right: Radius.circular(12));
-                  else
+                  }
+                  else {
                     borderRadius = BorderRadius.zero;
-
-                  final bool isHighlighted = i < size;
+                  }
 
                   return Container(
                     width: 50,
@@ -124,7 +126,7 @@ class _ArrayDeleteAtWidgetState extends State<ArrayDeleteAtWidget> {
             ),
 
             Container(
-              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(

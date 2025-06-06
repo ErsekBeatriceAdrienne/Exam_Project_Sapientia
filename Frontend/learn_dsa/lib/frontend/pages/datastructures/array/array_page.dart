@@ -6,7 +6,6 @@ import 'package:learn_dsa/frontend/pages/datastructures/array/pseudocode_page.da
 import 'package:learn_dsa/frontend/pages/test/testpages/array_testpage.dart';
 import '../../../strings/datastructure_strings/array_strings.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../test/exercises/array_exercises.dart';
 import '../datastructures_page.dart';
 import '../../customClasses/custom_closing_button_copyCode.dart';
 import 'animations/array_animations.dart';
@@ -34,8 +33,6 @@ class _ArrayPageState extends State<ArrayPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-    //final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       body: Stack(
         children: [

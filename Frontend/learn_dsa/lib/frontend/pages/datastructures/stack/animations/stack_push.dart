@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackPushWidget extends StatefulWidget {
+  const AnimatedStackPushWidget({super.key});
+
   @override
   _AnimatedStackPushWidgetState createState() => _AnimatedStackPushWidgetState();
 }
@@ -95,7 +97,7 @@ class _AnimatedStackPushWidgetState extends State<AnimatedStackPushWidget> {
 
         // Play button
         Container(
-          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          width: 120 + 20,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(

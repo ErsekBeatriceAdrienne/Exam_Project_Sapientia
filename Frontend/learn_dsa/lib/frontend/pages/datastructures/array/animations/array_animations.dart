@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedArrayWidget extends StatefulWidget {
@@ -53,12 +51,15 @@ class _AnimatedArrayWidgetState extends State<AnimatedArrayWidget> {
                   (i) {
                 BorderRadius borderRadius;
 
-                if (i == 0)
+                if (i == 0) {
                   borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                else if (i == capacity - 1)
-                  borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                else
+                } else if (i == capacity - 1) {
+                  borderRadius =
+                      BorderRadius.horizontal(right: Radius.circular(12));
+                }
+                else {
                   borderRadius = BorderRadius.zero;
+                }
 
                 return Container(
                   width: 50,

@@ -86,12 +86,15 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
                   (i) {
                 BorderRadius borderRadius;
 
-                if (i == 0)
+                if (i == 0) {
                   borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                else if (i == capacity - 1)
-                  borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                else
+                } else if (i == capacity - 1) {
+                  borderRadius =
+                      BorderRadius.horizontal(right: Radius.circular(12));
+                }
+                else {
                   borderRadius = BorderRadius.zero;
+                }
 
                 final bool isHighlighted = i < size;
 
@@ -132,7 +135,6 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
 
           SizedBox(height: 10),
 
-          // Size / Capacity Display
           Text(
             '${AppLocalizations.of(context)!.size_text}: $size | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -161,9 +163,9 @@ class _AnimatedArrayPrintWidgetState extends State<AnimatedArrayPrintWidget> {
             ),
 
           SizedBox(height: 10),
-          // Play / Pause Button
+          // Button
           Container(
-            width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+            width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
             height: 40,
             decoration: BoxDecoration(
               gradient: const LinearGradient(

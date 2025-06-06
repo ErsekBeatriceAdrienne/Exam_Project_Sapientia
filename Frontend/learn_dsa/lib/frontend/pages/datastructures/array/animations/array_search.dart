@@ -93,12 +93,15 @@ class _AnimatedArraySearchWidgetState extends State<AnimatedArraySearchWidget> {
                 }
 
                 BorderRadius borderRadius;
-                if (i == 0)
+                if (i == 0) {
                   borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                else if (i == values.length - 1)
-                  borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                else
+                } else if (i == values.length - 1) {
+                  borderRadius =
+                      BorderRadius.horizontal(right: Radius.circular(12));
+                }
+                else {
                   borderRadius = BorderRadius.zero;
+                }
 
                 return Container(
                   width: 50,
@@ -170,7 +173,7 @@ class _AnimatedArraySearchWidgetState extends State<AnimatedArraySearchWidget> {
           ),
 
           Container(
-            width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+            width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
             height: 40,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
