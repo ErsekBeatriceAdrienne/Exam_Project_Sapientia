@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayAllocationWidget extends StatefulWidget {
+  const ArrayAllocationWidget({super.key});
+
   @override
   _ArrayAllocationWidgetState createState() => _ArrayAllocationWidgetState();
 }
@@ -52,12 +54,14 @@ class _ArrayAllocationWidgetState extends State<ArrayAllocationWidget> {
                     (i) {
                   BorderRadius borderRadius;
 
-                  if (i == 0)
+                  if (i == 0) {
                     borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                  else if (i == capacity - 1)
+                  } else if (i == capacity - 1) {
                     borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                  else
+                  }
+                  else {
                     borderRadius = BorderRadius.zero;
+                  }
 
                   return Container(
                     width: 50,

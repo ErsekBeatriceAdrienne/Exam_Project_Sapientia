@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedArrayUpdateWidget extends StatefulWidget {
+  const AnimatedArrayUpdateWidget({super.key});
+
   @override
   _AnimatedArrayUpdateWidgetState createState() => _AnimatedArrayUpdateWidgetState();
 }
@@ -75,12 +77,15 @@ class _AnimatedArrayUpdateWidgetState extends State<AnimatedArrayUpdateWidget> {
                 }
 
                 BorderRadius borderRadius;
-                if (i == 0)
+                if (i == 0) {
                   borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                else if (i == values.length - 1)
-                  borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                else
+                } else if (i == values.length - 1) {
+                  borderRadius =
+                      BorderRadius.horizontal(right: Radius.circular(12));
+                }
+                else {
                   borderRadius = BorderRadius.zero;
+                }
 
                 return Container(
                   width: 50,
@@ -132,7 +137,7 @@ class _AnimatedArrayUpdateWidgetState extends State<AnimatedArrayUpdateWidget> {
           ),
 
           Container(
-            width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+            width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
             height: 40,
             decoration: BoxDecoration(
               gradient: const LinearGradient(

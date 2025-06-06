@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackPopWidget extends StatefulWidget {
+  const AnimatedStackPopWidget({super.key});
+
   @override
   _AnimatedStackPopWidgetState createState() => _AnimatedStackPopWidgetState();
 }
@@ -27,6 +29,7 @@ class _AnimatedStackPopWidgetState extends State<AnimatedStackPopWidget> {
   void _popElement() {
     if (stack.isNotEmpty) {
       setState(() {
+        HapticFeedback.mediumImpact();
         stack.removeLast();
         top--;
       });
@@ -102,7 +105,7 @@ class _AnimatedStackPopWidgetState extends State<AnimatedStackPopWidget> {
 
         // Play button
         Container(
-          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          width: 120 + 20,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(

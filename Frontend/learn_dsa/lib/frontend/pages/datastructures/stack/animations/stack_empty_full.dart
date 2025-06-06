@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AnimatedStackIsEmptyWidget extends StatefulWidget {
+  const AnimatedStackIsEmptyWidget({super.key});
+
   @override
   _AnimatedStackIsEmptyWidgetState createState() => _AnimatedStackIsEmptyWidgetState();
 }
@@ -94,7 +96,7 @@ class _AnimatedStackIsEmptyWidgetState extends State<AnimatedStackIsEmptyWidget>
           ),
 
         Container(
-          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -156,6 +158,8 @@ class _AnimatedStackIsEmptyWidgetState extends State<AnimatedStackIsEmptyWidget>
 /// Is full
 
 class AnimatedStackIsFullWidget extends StatefulWidget {
+  const AnimatedStackIsFullWidget({super.key});
+
   @override
   _AnimatedStackIsFullWidgetState createState() => _AnimatedStackIsFullWidgetState();
 }
@@ -247,7 +251,7 @@ class _AnimatedStackIsFullWidgetState extends State<AnimatedStackIsFullWidget> {
           ),
 
         Container(
-          width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+          width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
           height: 40,
           decoration: BoxDecoration(
             gradient: const LinearGradient(

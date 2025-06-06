@@ -249,27 +249,27 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
   }
 
   Widget complexityTable(BuildContext context) {
-    const headers = [
-      'Data Structure',
-      'Array',
-      'Stack',
-      'Queue',
-      'Singly Linked List',
-      'Doubly Linked List',
-      'Hash Table',
-      'Binary Search Tree',
+    final headers = [
+      AppLocalizations.of(context)!.data_structure_page_title,
+      AppLocalizations.of(context)!.array_page_title,
+      AppLocalizations.of(context)!.stack_page_title,
+      AppLocalizations.of(context)!.queue_page_title,
+      AppLocalizations.of(context)!.singly_linked_list_title,
+      AppLocalizations.of(context)!.doubly_linked_list_title,
+      AppLocalizations.of(context)!.hash_page_title,
+      AppLocalizations.of(context)!.bst_page_title,
     ];
 
     final rows = [
-      ['Avg Access', 'O(1)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'N/A', 'O(log(n))'],
-      ['Avg Search', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(1)', 'O(log(n))'],
-      ['Avg Insertion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(log(n))'],
-      ['Avg Deletion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(log(n))'],
-      ['Worst Access', 'O(1)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'N/A', 'O(n)'],
-      ['Worst Search', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)'],
-      ['Worst Insertion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(n)', 'O(n)'],
-      ['Worst Deletion', 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(n)', 'O(n)'],
-      ['Space (Worst)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(log(n))'],
+      [AppLocalizations.of(context)!.avg_access_title, 'O(1)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'N/A', 'O(log(n))'],
+      [AppLocalizations.of(context)!.avg_search_title, 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(1)', 'O(log(n))'],
+      [AppLocalizations.of(context)!.avg_insertion_title, 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(log(n))'],
+      [AppLocalizations.of(context)!.avg_deletion, 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(log(n))'],
+      [AppLocalizations.of(context)!.worst_access_title, 'O(1)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'N/A', 'O(n)'],
+      [AppLocalizations.of(context)!.worst_search_title, 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)'],
+      [AppLocalizations.of(context)!.worst_insertion_title, 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(n)', 'O(n)'],
+      [AppLocalizations.of(context)!.worst_deletion, 'O(n)', 'O(1)', 'O(1)', 'O(1)', 'O(1)', 'O(n)', 'O(n)'],
+      [AppLocalizations.of(context)!.worst_space, 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(n)', 'O(log(n))'],
     ];
 
     return SingleChildScrollView(
@@ -324,7 +324,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
       end: Alignment.bottomRight,
     );
 
-    // Define a map for title-to-page navigation
     final pageMap = {
       AppLocalizations.of(context)!.array_button_text: () => ArrayPage(
         toggleTheme: widget.toggleTheme,

@@ -10,7 +10,7 @@ class ImplementationArrayPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ImplementationArrayPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ImplementationArrayPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<ImplementationArrayPage> createState() => _ImplementationArrayPageState();

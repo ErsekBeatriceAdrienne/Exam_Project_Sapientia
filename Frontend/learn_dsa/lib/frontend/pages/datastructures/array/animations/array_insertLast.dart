@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayInsertLastWidget extends StatefulWidget {
+  const ArrayInsertLastWidget({super.key});
+
   @override
   _ArrayInsertLastWidgetState createState() => _ArrayInsertLastWidgetState();
 }
@@ -49,12 +51,15 @@ class _ArrayInsertLastWidgetState extends State<ArrayInsertLastWidget> {
                     (i) {
                   BorderRadius borderRadius;
 
-                  if (i == 0)
+                  if (i == 0) {
                     borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                  else if (i == capacity - 1)
-                    borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                  else
+                  } else if (i == capacity - 1) {
+                    borderRadius =
+                        BorderRadius.horizontal(right: Radius.circular(12));
+                  }
+                  else {
                     borderRadius = BorderRadius.zero;
+                  }
 
                   final bool isHighlighted = i < size;
 
@@ -107,37 +112,8 @@ class _ArrayInsertLastWidgetState extends State<ArrayInsertLastWidget> {
               ),
             ),
 
-            /*IconButton(
-              icon: Icon(
-                hasInserted ? Icons.play_arrow_rounded : Icons.play_arrow_rounded,
-                size: 32,
-              ),
-              color: Color(0xFF006a42),
-              tooltip: hasInserted ? "Restart" : "Play",
-              onPressed: isAnimating ? null : () {
-                if (!hasInserted) {
-                  _insertLast(9);
-                  setState(() {
-                    hasInserted = true;
-                  });
-                } else {
-                  setState(() {
-                    array = [3, 5, 8, null, null];
-                    size = 3;
-                    hasInserted = false;
-                  });
-                  Future.delayed(Duration(milliseconds: 200), () {
-                    _insertLast(9);
-                    setState(() {
-                      hasInserted = true;
-                    });
-                  });
-                }
-              },
-            ),*/
-
             Container(
-              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(

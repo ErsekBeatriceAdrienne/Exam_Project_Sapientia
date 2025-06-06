@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayInsertFirstWidget extends StatefulWidget {
+  const ArrayInsertFirstWidget({super.key});
+
   @override
   _ArrayInsertFirstWidgetState createState() => _ArrayInsertFirstWidgetState();
 }
@@ -28,7 +30,6 @@ class _ArrayInsertFirstWidgetState extends State<ArrayInsertFirstWidget> {
     if (isAnimating) return;
 
     if (hasInsertedOne) {
-      // Reset state
       setState(() {
         array = [3, 5, 8, null, null];
         size = 3;
@@ -36,10 +37,10 @@ class _ArrayInsertFirstWidgetState extends State<ArrayInsertFirstWidget> {
         insertedValuesText = "";
       });
       Future.delayed(Duration(milliseconds: 200), () {
-        _insertFirst(1); // restart animation after reset
+        _insertFirst(1);
       });
     } else {
-      _insertFirst(1); // start animation first time
+      _insertFirst(1);
     }
   }
 
@@ -87,12 +88,15 @@ class _ArrayInsertFirstWidgetState extends State<ArrayInsertFirstWidget> {
                     (i) {
                   BorderRadius borderRadius;
 
-                  if (i == 0)
+                  if (i == 0) {
                     borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                  else if (i == capacity - 1)
-                    borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                  else
+                  } else if (i == capacity - 1) {
+                    borderRadius =
+                        BorderRadius.horizontal(right: Radius.circular(12));
+                  }
+                  else {
                     borderRadius = BorderRadius.zero;
+                  }
 
                   final bool isHighlighted = i < size;
 
@@ -148,7 +152,7 @@ class _ArrayInsertFirstWidgetState extends State<ArrayInsertFirstWidget> {
             SizedBox(height: 10),
 
             Container(
-              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(

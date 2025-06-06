@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArrayAllocationEmptyWidget extends StatefulWidget {
+  const ArrayAllocationEmptyWidget({super.key});
+
   @override
   _ArrayAllocationEmptyWidgetState createState() => _ArrayAllocationEmptyWidgetState();
 }
@@ -31,7 +33,7 @@ class _ArrayAllocationEmptyWidgetState extends State<ArrayAllocationEmptyWidget>
       showArray = true;
       isAnimating = false;
       isPaused = false;
-      isEmptyResult = null; // Reset result
+      isEmptyResult = null;
     });
   }
 
@@ -55,12 +57,15 @@ class _ArrayAllocationEmptyWidgetState extends State<ArrayAllocationEmptyWidget>
                     (i) {
                   BorderRadius borderRadius;
 
-                  if (i == 0)
+                  if (i == 0) {
                     borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                  else if (i == capacity - 1)
-                    borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
-                  else
+                  } else if (i == capacity - 1) {
+                    borderRadius =
+                        BorderRadius.horizontal(right: Radius.circular(12));
+                  }
+                  else {
                     borderRadius = BorderRadius.zero;
+                  }
 
                   return Container(
                     width: 50,
@@ -130,7 +135,7 @@ class _ArrayAllocationEmptyWidgetState extends State<ArrayAllocationEmptyWidget>
             SizedBox(height: 10),
 
             Container(
-              width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+              width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
               height: 40,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
@@ -193,6 +198,8 @@ class _ArrayAllocationEmptyWidgetState extends State<ArrayAllocationEmptyWidget>
 //--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class AnimatedArrayFullWidget extends StatefulWidget {
+  const AnimatedArrayFullWidget({super.key});
+
   @override
   _AnimatedArrayFullWidgetState createState() => _AnimatedArrayFullWidgetState();
 }
@@ -221,9 +228,9 @@ class _AnimatedArrayFullWidgetState extends State<AnimatedArrayFullWidget> {
                   (i) {
                 BorderRadius borderRadius;
 
-                if (i == 0)
+                if (i == 0) {
                   borderRadius = BorderRadius.horizontal(left: Radius.circular(12));
-                else if (i == capacity - 1)
+                } else if (i == capacity - 1)
                   borderRadius = BorderRadius.horizontal(right: Radius.circular(12));
                 else
                   borderRadius = BorderRadius.zero;
@@ -266,7 +273,6 @@ class _AnimatedArrayFullWidgetState extends State<AnimatedArrayFullWidget> {
 
           SizedBox(height: 10),
 
-          // Size / Capacity Display
           Text(
             '${AppLocalizations.of(context)!.size_text}: $size | ${AppLocalizations.of(context)!.capacity_text}: $capacity',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -299,7 +305,7 @@ class _AnimatedArrayFullWidgetState extends State<AnimatedArrayFullWidget> {
             ),
 
           Container(
-            width: AppLocalizations.of(context)!.play_animation_button_text.length * 10 + 20,
+            width: AppLocalizations.of(context)!.play_animation_button_text.length * 20 + 20,
             height: 40,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
