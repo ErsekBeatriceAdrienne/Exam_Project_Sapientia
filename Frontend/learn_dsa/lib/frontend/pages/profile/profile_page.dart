@@ -53,9 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Text(AppLocalizations.of(context)!.user_not_found));
           }
 
-          _profileImageUrl = userData[FirestoreDocs.userProfilePic];
-          _oldProfileImageUrl = _profileImageUrl;
-
+          final profileImageUrl = userData[FirestoreDocs.userProfilePic];
           final String firstName = userData[FirestoreDocs.userFirstName];
           final String lastName = userData[FirestoreDocs.userLastName];
           final String email = FirebaseAuth.instance.currentUser?.email ??
@@ -123,14 +121,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: [
                             ProfileHeader(
-                              profileImageUrl: _oldProfileImageUrl,
+                              profileImageUrl: profileImageUrl,
                               firstName: firstName,
                               lastName: lastName,
                               email: email,
                             ),
                             const SizedBox(height: 20),
                             ProfileActions(
-                              onEditProfile: () => showEditProfileSheet(context, widget.userId!),
+                              onEditProfile: () => showEditProfileSheet(context, widget.userId!, profileImageUrl),
                               onLogout: () async {
                                 if (widget.userId != null) {
                                   await FirestoreService().signOut(context, widget.toggleTheme, widget.userId!);
@@ -203,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void showEditProfileSheet(BuildContext context, String userId) {
+  void showEditProfileSheet(BuildContext context, String userId, String? profileImageUrl) {
     final controller = ProfileEditController();
 
     showModalBottomSheet(
@@ -216,158 +214,173 @@ class _ProfilePageState extends State<ProfilePage> {
         String? passwordErrorText;
         String? confirmPasswordErrorText;
 
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-            top: 16,
-            left: 16,
-            right: 16,
-          ),
-          child: StatefulBuilder(
-            builder: (c, setState) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(AppLocalizations.of(context)!.edit_profile_text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 16),
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery
+                  .of(context)
+                  .viewInsets
+                  .bottom,
+              top: 16,
+              left: 16,
+              right: 16,
+            ),
+            child: StatefulBuilder(
+              builder: (c, setState) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(AppLocalizations.of(context)!.edit_profile_text,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 16),
 
-                  GestureDetector(
-                    onTap: () => controller.pickImage((file) {
-                      setState(() => controller.profileImage = file);
-                    }),
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: controller.profileImage != null
-                          ? FileImage(controller.profileImage!) as ImageProvider
-                          : NetworkImage(_profileImageUrl!),
-                      child: Icon(Icons.edit, color: Colors.white),
+                    GestureDetector(
+                      onTap: () =>
+                          controller.pickImage((file) {
+                            setState(() => controller.profileImage = file);
+                          }),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage: controller.profileImage != null
+                            ? FileImage(controller.profileImage!) as ImageProvider
+                            : (profileImageUrl != null && profileImageUrl.isNotEmpty
+                            ? NetworkImage(profileImageUrl)
+                            : const AssetImage('assets/images/default_profile.png')),
+                        child: Icon(Icons.edit, color: Colors.white),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                  _buildRoundedField(controller.firstNameController, AppLocalizations.of(context)!.firstname, context),
-                  const SizedBox(height: 8),
-                  _buildRoundedField(controller.lastNameController, AppLocalizations.of(context)!.lastname, context),
-                  const SizedBox(height: 8),
+                    _buildRoundedField(controller.firstNameController,
+                        AppLocalizations.of(context)!.firstname, context),
+                    const SizedBox(height: 8),
+                    _buildRoundedField(controller.lastNameController,
+                        AppLocalizations.of(context)!.lastname, context),
+                    const SizedBox(height: 8),
 
-                  TextField(
-                    controller: controller.oldPasswordController,
-                    obscureText: controller.obscurePassword,
-                    decoration: _decoration('Jelenlegi jelszó', context, errorText: passwordErrorText),
-                  ),
-                  const SizedBox(height: 8),
-
-                  TextField(
-                    controller: controller.newPasswordController,
-                    obscureText: controller.obscurePassword,
-                    decoration: _decoration('Új jelszó', context),
-                  ),
-                  const SizedBox(height: 8),
-
-                  TextField(
-                    controller: controller.confirmPasswordController,
-                    obscureText: controller.obscurePassword,
-                    decoration: _decoration('Új jelszó megerősítése', context, errorText: confirmPasswordErrorText),
-                  ),
-                  const SizedBox(height: 16),
-
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ).copyWith(
-                      backgroundColor: MaterialStateProperty.resolveWith((_) => null),
-                      elevation: MaterialStateProperty.resolveWith((_) => 0),
+                    TextField(
+                      controller: controller.oldPasswordController,
+                      obscureText: controller.obscurePassword,
+                      decoration: _decoration('Jelenlegi jelszó', context,
+                          errorText: passwordErrorText),
                     ),
-                    onPressed: () async {
-                      setState(() {
-                        passwordErrorText = null;
-                        confirmPasswordErrorText = null;
-                      });
+                    const SizedBox(height: 8),
 
-                      final oldPwd = controller.oldPasswordController.text.trim();
-                      final newPwd = controller.newPasswordController.text.trim();
-                      final confirmPwd = controller.confirmPasswordController.text.trim();
-                      final newFirstName = controller.firstNameController.text.trim();
-                      final newLastName = controller.lastNameController.text.trim();
+                    TextField(
+                      controller: controller.newPasswordController,
+                      obscureText: controller.obscurePassword,
+                      decoration: _decoration('Új jelszó', context),
+                    ),
+                    const SizedBox(height: 8),
 
-                      bool shouldUpdatePassword = newPwd.isNotEmpty || confirmPwd.isNotEmpty || oldPwd.isNotEmpty;
+                    TextField(
+                      controller: controller.confirmPasswordController,
+                      obscureText: controller.obscurePassword,
+                      decoration: _decoration('Új jelszó megerősítése', context,
+                          errorText: confirmPasswordErrorText),
+                    ),
+                    const SizedBox(height: 16),
 
-                      // Should update password
-                      if (shouldUpdatePassword) {
-                        if (newPwd != confirmPwd) {
-                          setState(() => confirmPasswordErrorText = AppLocalizations.of(context)!.error_confirm_password);
-                          return;
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 24),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ).copyWith(
+                        backgroundColor: MaterialStateProperty.resolveWith((
+                            _) => null),
+                        elevation: MaterialStateProperty.resolveWith((_) => 0),
+                      ),
+                      onPressed: () async {
+                        setState(() {
+                          passwordErrorText = null;
+                          confirmPasswordErrorText = null;
+                        });
+
+                        final oldPwd = controller.oldPasswordController.text
+                            .trim();
+                        final newPwd = controller.newPasswordController.text
+                            .trim();
+                        final confirmPwd = controller.confirmPasswordController
+                            .text.trim();
+                        final newFirstName = controller.firstNameController.text
+                            .trim();
+                        final newLastName = controller.lastNameController.text
+                            .trim();
+
+                        bool shouldUpdatePassword = newPwd.isNotEmpty ||
+                            confirmPwd.isNotEmpty || oldPwd.isNotEmpty;
+
+                        // Should update password
+                        if (shouldUpdatePassword) {
+                          if (newPwd != confirmPwd) {
+                            setState(() =>
+                            confirmPasswordErrorText =
+                                AppLocalizations.of(context)!
+                                    .error_confirm_password);
+                            return;
+                          }
+
+                          try {
+                            final user = FirebaseAuth.instance.currentUser;
+                            final cred = EmailAuthProvider.credential(
+                                email: user!.email!, password: oldPwd);
+                            await user.reauthenticateWithCredential(cred);
+                            await user.updatePassword(newPwd);
+                          } catch (e) {
+                            setState(() =>
+                            passwordErrorText =
+                                AppLocalizations.of(context)!.error_password);
+                            return;
+                          }
                         }
 
                         try {
-                          final user = FirebaseAuth.instance.currentUser;
-                          final cred = EmailAuthProvider.credential(email: user!.email!, password: oldPwd);
-                          await user.reauthenticateWithCredential(cred);
-                          await user.updatePassword(newPwd);
+                          await FirestoreService().updateUserProfile(
+                            userId: userId,
+                            firstName: controller.firstNameController.text
+                                .trim(),
+                            lastName: controller.lastNameController.text.trim(),
+                            profileImageFile: controller.profileImage,
+                          );
+
+                          controller.dispose();
+                          if (mounted) {
+                            Navigator.pop(context);
+                          }
+
                         } catch (e) {
-                          setState(() => passwordErrorText = AppLocalizations.of(context)!.error_password);
-                          return;
+                          debugPrint("Profile update failed: $e");
                         }
-                      }
-
-                      try {
-                        final user = FirebaseAuth.instance.currentUser;
-
-                        await FirestoreService().updateUserProfile(
-                          userId: userId,
-                          firstName: controller.firstNameController.text.trim(),
-                          lastName: controller.lastNameController.text.trim(),
-                          profileImageFile: controller.profileImage,
-                        );
-
-                        controller.dispose();
-                        Navigator.pop(context);
-                      } catch (e) {
-
-                        debugPrint("Profile update failed: $e");
-                      }
-                    },
-                    child: Ink(
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFF255f38), Color(0xFF27391c)],
-                          begin: Alignment.topLeft, end: Alignment.bottomRight,
+                      },
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
+                            colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 48,
-                        child: Text(AppLocalizations.of(context)!.save_text, style: const TextStyle(color: Colors.white)),
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 48,
+                          child: Text(AppLocalizations.of(context)!.save_text,
+                              style: const TextStyle(color: Colors.white)),
+                        ),
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 16),
-                ],
-              );
-            },
+                    const SizedBox(height: 16),
+                  ],
+                );
+              },
+            ),
           ),
         );
       },
-    );
-  }
-
-  InputDecoration roundedInputDecoration(String label, BuildContext context) {
-    return InputDecoration(
-      labelText: label,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: Colors.grey),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: Theme.of(context).primaryColor),
-      ),
     );
   }
 
@@ -378,20 +391,26 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  Widget _buildRoundedField(TextEditingController ctrl, String label, BuildContext ctx) {
-    return TextField(
-      controller: ctrl,
-      decoration: _decoration(label, ctx),
-    );
-  }
-
-  InputDecoration _decoration(String label, BuildContext ctx, {String? errorText}) {
+  InputDecoration _decoration(String label, BuildContext context, {String? errorText}) {
     return InputDecoration(
       labelText: label,
       errorText: errorText,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      filled: true,
+      fillColor: Theme.of(context).cardColor,
+      contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
     );
   }
+
+  Widget _buildRoundedField(TextEditingController controller, String label, BuildContext context) {
+    return TextField(
+      controller: controller,
+      decoration: _decoration(label, context),
+    );
+  }
+
 }
 
 class ProfileEditController {
