@@ -9,27 +9,29 @@ class LanguagePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<LocaleProvider>(context);
     final supportedLocales = L10n.all;
-    final locale = provider.locale ?? Localizations.localeOf(context);
-    final currentLocale = supportedLocales.contains(locale) ? locale : supportedLocales.first;
 
-    return DropdownButton<Locale>(
-      value: currentLocale,
-      icon: const Icon(Icons.language),
-      underline: const SizedBox(),
-      onChanged: (Locale? newLocale) {
-        if (newLocale != null) {
-          provider.setLocale(newLocale);
-        }
-      },
-      items: L10n.all.map((locale) {
-        final name = L10n.getLanguageName(locale.languageCode);
-
-        return DropdownMenuItem(
-          value: locale,
-          child: Text('$name'),
-        );
-      }).toList(),
-      isExpanded: false,
+    return DropdownButtonHideUnderline(
+      child: DropdownButton<Locale>(
+        icon: const Icon(Icons.language, color: Colors.black),
+        borderRadius: BorderRadius.circular(12),
+        onChanged: (Locale? newLocale) {
+          if (newLocale != null) {
+            provider.setLocale(newLocale);
+          }
+        },
+        items: supportedLocales.map((locale) {
+          final name = L10n.getLanguageName(locale.languageCode);
+          return DropdownMenuItem(
+            value: locale,
+            child: Text(
+              name,
+              style: const TextStyle(fontSize: 16),
+            ),
+          );
+        }).toList(),
+        isExpanded: false,
+        dropdownColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learn_dsa/frontend/pages/algorithms/complex/dynamic_programming/dynamic_prog.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/searching/searching_algorithms_page.dart';
 import 'package:learn_dsa/frontend/pages/algorithms/sorting/sorting_algorithms_page.dart';
 import '../../../backend/database/firestore_service.dart';
@@ -245,7 +244,6 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
       AppLocalizations.of(context)!.greedy_algorithm_button_title: () => GreedyAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.divide_at_impera_button_title: () => DivideAtImperaAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AppLocalizations.of(context)!.backtracking_button_title: () => BacktrackingAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      //AppLocalizations.of(context)!.dynamic_prog_button_text: () => DynamicProgAlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
     };
 
     return ElevatedButton(
