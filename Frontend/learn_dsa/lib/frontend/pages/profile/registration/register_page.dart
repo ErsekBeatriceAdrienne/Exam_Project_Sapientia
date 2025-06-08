@@ -9,6 +9,8 @@ import '../../../strings/cloudinary/cloudinary_apis.dart';
 
 class RegisterPage extends StatefulWidget
 {
+  const RegisterPage({super.key});
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
@@ -98,7 +100,6 @@ class _RegisterPageState extends State<RegisterPage>
         'lastName': lastNameController.text,
         'username': usernameController.text,
         'email': emailController.text,
-        'password': passwordController.text,
         'birthdate': DateTime(selectedYear!, selectedMonth!, selectedDay!).toString(),
         'profilePicture': profileImageUrl ?? '',
       });
