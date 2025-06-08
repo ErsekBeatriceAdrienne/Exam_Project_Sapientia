@@ -1,20 +1,17 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learn_dsa/backend/database/firestore_service.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
 import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
-import 'package:learn_dsa/frontend/pages/profile/settings/settings_page.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/cloudinary_service.dart';
 import '../../language_supports/language_picker.dart';
+import '../../strings/cloudinary/cloudinary_apis.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import '../customClasses/custom_ring_chart.dart';
-import 'login/login_page.dart';
 
 class ProfilePage extends StatefulWidget
 {
@@ -30,82 +27,17 @@ class ProfilePage extends StatefulWidget
 class _ProfilePageState extends State<ProfilePage> {
   String? _profileImageUrl;
   String? _oldProfileImageUrl;
-
-  final CloudinaryService _cloudinaryService = CloudinaryService();
-  final ImagePicker _picker = ImagePicker();
-
-  Future<Map<String, dynamic>?> _fetchUserData() async
-  {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser == null) return null;
-
-    DocumentSnapshot userDoc = await FirebaseFirestore.instance
-        .collection(FirestoreDocs.user_doc)
-        .doc(currentUser.uid)
-        .get();
-
-    return userDoc.data() as Map<String, dynamic>?;
-  }
-
-  Future<void> _updateProfileImage(File image) async
-  {
-    try {
-      // Upload the new image to Cloudinary
-      String? imageUrl = await _cloudinaryService.uploadImageUnsigned(
-          image, '?');
-
-      if (imageUrl != null) {
-        // Update Firestore with the new image URL
-        User? currentUser = FirebaseAuth.instance.currentUser;
-        if (currentUser != null) {
-          await FirebaseFirestore.instance
-              .collection(FirestoreDocs.user_doc)
-              .doc(currentUser.uid)
-              .update({FirestoreDocs.userProfilePic: imageUrl});
-
-          // If there was an old image URL, delete it from Cloudinary
-          if (_oldProfileImageUrl != null) {
-            String publicId = _getPublicIdFromUrl(_oldProfileImageUrl!);
-            await _cloudinaryService.deleteImage(publicId);
-          }
-
-          setState(() {
-            _profileImageUrl = imageUrl;
-            _oldProfileImageUrl = imageUrl;
-          });
-        }
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error updating profile image: $e")),
-      );
-    }
-  }
-
-  Future<void> _pickImage() async
-  {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      File image = File(pickedFile.path);
-      await _updateProfileImage(image);
-    }
-  }
-
-  String _getPublicIdFromUrl(String url) {
-    // Extract the publicId from the URL (you may need to adjust this based on your Cloudinary setup)
-    final uri = Uri.parse(url);
-    final segments = uri.pathSegments;
-    return segments.isNotEmpty ? segments.last
-        .split('.')
-        .first : '';
-  }
+  final gradient = const LinearGradient(
+    colors: [Color(0xFF255f38), Color(0xFF27391c)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder<Map<String, dynamic>?>(
-        future: _fetchUserData(),
+        future: FirestoreService().fetchUserData2(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -160,57 +92,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 actions: [
-                  // Language picker
+                  // Pick a language
                   Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
+                    padding: const EdgeInsets.only(right: 16.0),
                     child: LanguagePicker(),
-                  ),
-
-                  // Popup menu button
-                  PopupMenuButton<String>(
-                    icon: const Icon(
-                      Icons.pending_outlined,
-                      color: Color(0xFF255f38),
-                      size: 30,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                    ),
-                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
-                    onSelected: (String value) async {
-                      if (value == 'settings') {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SettingsPage(),
-                          ),
-                        );
-                      } else if (value == 'logout') {
-                        await FirestoreService().signOut(context, widget.toggleTheme);
-                      }
-                    },
-                    itemBuilder: (BuildContext context) => [
-                      const PopupMenuItem<String>(
-                        value: 'settings',
-                        child: Row(
-                          children: [
-                            Icon(Icons.settings, color: Color(0xFF255f38)),
-                            SizedBox(width: 8),
-                            Text('Settings', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                      const PopupMenuItem<String>(
-                        value: 'logout',
-                        child: Row(
-                          children: [
-                            Icon(Icons.logout, color: Color(0xFF255f38)),
-                            SizedBox(width: 8),
-                            Text('Logout', style: TextStyle(fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                    ],
                   ),
                 ],
               ),
@@ -238,57 +123,25 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: [
                             ProfileHeader(
-                              profileImageUrl: _profileImageUrl,
+                              profileImageUrl: _oldProfileImageUrl,
                               firstName: firstName,
                               lastName: lastName,
                               email: email,
                             ),
-                            /*const SizedBox(height: 10),
+                            const SizedBox(height: 20),
                             ProfileActions(
-                              onPickImage: _pickImage,
-                              onNotes: () {},
-                            ),*/
+                              onEditProfile: () => showEditProfileSheet(context, widget.userId!),
+                              onLogout: () async {
+                                if (widget.userId != null) {
+                                  await FirestoreService().signOut(context, widget.toggleTheme, widget.userId!);
+                                }
+                              },
+                              toggleTheme: widget.toggleTheme,
+                            ),
                             const SizedBox(height: 10),
                           ],
                         ),
                       ),
-
-
-                      // Exercises
-                      /*Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Theme
-                              .of(context)
-                              .scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 6,
-                              offset: Offset(0, 4),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(AppLocalizations.of(context)!
-                                .test_page_achievements_title,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Center(
-                              child: RingChartBTExercisesWidget( userId: widget.userId),
-                            ),
-                          ],
-                        ),
-                      ),*/
 
                       const SizedBox(height: 20),
 
@@ -296,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           AppLocalizations.of(context)!
-                              .test_page_achievements_title,
+                              .answered_questions_text_title,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -304,8 +157,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                       ),
-
-                      const SizedBox(height: 10),
 
                       // Tests
                       Container(
@@ -335,6 +186,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
 
+                      const SizedBox(height: 20),
+
+
+
                       const SizedBox(height: 65),
                     ],
                   ),
@@ -347,30 +202,233 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-}
 
-// Donut chart
-/*DonutChart(),
+  void showEditProfileSheet(BuildContext context, String userId) {
+    final controller = ProfileEditController();
 
-                  const SizedBox(height: 20),
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        String? passwordErrorText;
+        String? confirmPasswordErrorText;
 
-                  Text(
-                    TestStrings.compiler_description,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            top: 16,
+            left: 16,
+            right: 16,
+          ),
+          child: StatefulBuilder(
+            builder: (c, setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(AppLocalizations.of(context)!.edit_profile_text, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 16),
+
+                  GestureDetector(
+                    onTap: () => controller.pickImage((file) {
+                      setState(() => controller.profileImage = file);
+                    }),
+                    child: CircleAvatar(
+                      radius: 40,
+                      backgroundImage: controller.profileImage != null
+                          ? FileImage(controller.profileImage!) as ImageProvider
+                          : NetworkImage(_profileImageUrl!),
+                      child: Icon(Icons.edit, color: Colors.white),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  _buildRoundedField(controller.firstNameController, AppLocalizations.of(context)!.firstname, context),
+                  const SizedBox(height: 8),
+                  _buildRoundedField(controller.lastNameController, AppLocalizations.of(context)!.lastname, context),
+                  const SizedBox(height: 8),
+
+                  TextField(
+                    controller: controller.oldPasswordController,
+                    obscureText: controller.obscurePassword,
+                    decoration: _decoration('Jelenlegi jelszó', context, errorText: passwordErrorText),
+                  ),
+                  const SizedBox(height: 8),
+
+                  TextField(
+                    controller: controller.newPasswordController,
+                    obscureText: controller.obscurePassword,
+                    decoration: _decoration('Új jelszó', context),
+                  ),
+                  const SizedBox(height: 8),
+
+                  TextField(
+                    controller: controller.confirmPasswordController,
+                    obscureText: controller.obscurePassword,
+                    decoration: _decoration('Új jelszó megerősítése', context, errorText: confirmPasswordErrorText),
+                  ),
+                  const SizedBox(height: 16),
+
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    ).copyWith(
+                      backgroundColor: MaterialStateProperty.resolveWith((_) => null),
+                      elevation: MaterialStateProperty.resolveWith((_) => 0),
+                    ),
+                    onPressed: () async {
+                      setState(() {
+                        passwordErrorText = null;
+                        confirmPasswordErrorText = null;
+                      });
+
+                      final oldPwd = controller.oldPasswordController.text.trim();
+                      final newPwd = controller.newPasswordController.text.trim();
+                      final confirmPwd = controller.confirmPasswordController.text.trim();
+                      final newFirstName = controller.firstNameController.text.trim();
+                      final newLastName = controller.lastNameController.text.trim();
+
+                      bool shouldUpdatePassword = newPwd.isNotEmpty || confirmPwd.isNotEmpty || oldPwd.isNotEmpty;
+
+                      // Should update password
+                      if (shouldUpdatePassword) {
+                        if (newPwd != confirmPwd) {
+                          setState(() => confirmPasswordErrorText = AppLocalizations.of(context)!.error_confirm_password);
+                          return;
+                        }
+
+                        try {
+                          final user = FirebaseAuth.instance.currentUser;
+                          final cred = EmailAuthProvider.credential(email: user!.email!, password: oldPwd);
+                          await user.reauthenticateWithCredential(cred);
+                          await user.updatePassword(newPwd);
+                        } catch (e) {
+                          setState(() => passwordErrorText = AppLocalizations.of(context)!.error_password);
+                          return;
+                        }
+                      }
+
+                      try {
+                        final user = FirebaseAuth.instance.currentUser;
+
+                        await FirestoreService().updateUserProfile(
+                          userId: userId,
+                          firstName: controller.firstNameController.text.trim(),
+                          lastName: controller.lastNameController.text.trim(),
+                          profileImageFile: controller.profileImage,
+                        );
+
+                        controller.dispose();
+                        Navigator.pop(context);
+                      } catch (e) {
+
+                        debugPrint("Profile update failed: $e");
+                      }
+                    },
+                    child: Ink(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                          begin: Alignment.topLeft, end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 48,
+                        child: Text(AppLocalizations.of(context)!.save_text, style: const TextStyle(color: Colors.white)),
+                      ),
                     ),
                   ),
 
-                  // Linear Data Structure Buttons
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 2.2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    children: [
-                      _buildCategoryButton(context, TestStrings.compiler_button, isDarkTheme),
-                    ],
-                  ),*/
+                  const SizedBox(height: 16),
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  InputDecoration roundedInputDecoration(String label, BuildContext context) {
+    return InputDecoration(
+      labelText: label,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Theme.of(context).primaryColor),
+      ),
+    );
+  }
+
+  Future<void> changePassword(String newPassword) async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      await user.updatePassword(newPassword);
+    }
+  }
+
+  Widget _buildRoundedField(TextEditingController ctrl, String label, BuildContext ctx) {
+    return TextField(
+      controller: ctrl,
+      decoration: _decoration(label, ctx),
+    );
+  }
+
+  InputDecoration _decoration(String label, BuildContext ctx, {String? errorText}) {
+    return InputDecoration(
+      labelText: label,
+      errorText: errorText,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+    );
+  }
+}
+
+class ProfileEditController {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final oldPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  File? profileImage;
+  bool obscurePassword = true;
+
+  final ImagePicker picker = ImagePicker();
+  final CloudinaryService cloudinaryService = CloudinaryService();
+
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    oldPasswordController.dispose();
+    newPasswordController.dispose();
+    confirmPasswordController.dispose();
+  }
+
+  Future<void> pickImage(Function(File) onImagePicked) async {
+    final XFile? xfile = await picker.pickImage(source: ImageSource.gallery);
+    if (xfile != null) {
+      onImagePicked(File(xfile.path));
+    }
+  }
+
+  Future<String?> uploadImage() async {
+    if (profileImage == null) return null;
+    return cloudinaryService.uploadImageUnsigned(
+      profileImage!,
+      CloudinaryData.presetName,
+    );
+  }
+}
+
+

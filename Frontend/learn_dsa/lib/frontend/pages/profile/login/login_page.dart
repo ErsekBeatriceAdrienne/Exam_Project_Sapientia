@@ -124,8 +124,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
     // Color animation for RGB effect (alternating between two colors)
     _colorAnimation = ColorTween(
-      begin: Color(0xFFa1f7ff), // Pastel Cyan
-      end: Color(0xFFDFAEE8),   // Pastel Pink
+      begin: Color(0xFF255f38), // Pastel Cyan
+      end: Color(0xFF1f7d53),   // Pastel Pink
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // Make the status bar transparent
@@ -159,8 +159,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 begin: Alignment(_animation.value.dx, _animation.value.dy), // Animate gradient direction
                 end: Alignment.bottomRight, // Gradient will always end at the bottom-right
                 colors: [
-                  _colorAnimation.value ?? Color(0xFFa1f7ff), // Pastel Cyan (animated)
-                  _colorAnimation.value ?? Color(0xFFDFAEE8), // Pastel Pink (animated)
+                  _colorAnimation.value ?? Color(0xFF255f38), // Pastel Cyan (animated)
+                  _colorAnimation.value ?? Color(0xFF1f7d53), // Pastel Pink (animated)
                 ],
                 stops: [0.2, 0.8], // Adjust stops for smoother transition
               ),

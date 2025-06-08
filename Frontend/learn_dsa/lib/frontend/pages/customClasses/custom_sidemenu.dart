@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../backend/compiler/c_compiler_page.dart';
 import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
+import '../login_authenticator/login_required.dart';
 import '../profile/profile_page.dart';
 import '../test/tests_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,9 +25,15 @@ class _WindowsMenuState extends State<WindowsMenu> {
     return [
       DataStructuresPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
       AlgorithmsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      CCompilerPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId),
-      ProfilePage(toggleTheme: widget.toggleTheme, userId: widget.userId),
+      widget.userId != null
+          ? CCompilerPage(toggleTheme: widget.toggleTheme, userId: widget.userId)
+          : LoginRequiredPage(toggleTheme: widget.toggleTheme),
+      widget.userId != null
+          ? TestsPage(toggleTheme: widget.toggleTheme, userId: widget.userId)
+          : LoginRequiredPage(toggleTheme: widget.toggleTheme),
+      widget.userId != null
+          ? ProfilePage(toggleTheme: widget.toggleTheme, userId: widget.userId)
+          : LoginRequiredPage(toggleTheme: widget.toggleTheme),
     ];
   }
 
