@@ -175,7 +175,7 @@ class _LegendItemBTExercises extends StatelessWidget {
 class RingChartTestsWidget extends StatefulWidget {
   final String? userId;
 
-  const RingChartTestsWidget({Key? key, required this.userId}) : super(key: key);
+  const RingChartTestsWidget({super.key, required this.userId});
 
   @override
   _RingChartTestsWidgetState createState() => _RingChartTestsWidgetState();
