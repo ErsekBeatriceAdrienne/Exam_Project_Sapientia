@@ -1,15 +1,21 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:learn_dsa/frontend/pages/profile/login/login_page.dart';
 import '../../../../backend/database/cloudinary_service.dart';
+import '../../../helpers/essentials.dart';
 import '../../../strings/cloudinary/cloudinary_apis.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterPage extends StatefulWidget
 {
-  const RegisterPage({super.key});
+  final VoidCallback toggleTheme;
+
+  const RegisterPage({super.key, required this.toggleTheme});
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -27,9 +33,10 @@ class _RegisterPageState extends State<RegisterPage>
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final ImagePicker _picker = ImagePicker();
   final CloudinaryService _cloudinaryService = CloudinaryService();
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
 
   File? _profileImage;
-  bool _obscurePassword = true;
   Map<String, String> _errors = {};
   int? selectedYear, selectedMonth, selectedDay;
 
@@ -113,365 +120,355 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Account'),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                GestureDetector(
-                  onTap: _pickImage,
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: _profileImage != null
-                        ? FileImage(_profileImage!)
-                        : AssetImage('assets/default_profile_picture.jpg') as ImageProvider,
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              // Page title
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                pinned: true,
+                floating: false,
+                expandedHeight: 70,
+                leadingWidth: 90,
+                automaticallyImplyLeading: false,
+                leading: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.green,
+                    padding: const EdgeInsets.only(left: 8.0),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(
+                      context,
+                      Essentials().createSlideRoute(LoginPage(
+                        toggleTheme: widget.toggleTheme
+                      ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 20,
+                  ),
+                  // Button back
+                  label: Text(
+                    AppLocalizations.of(context)!.back_button_text,
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 17,
+                    ),
                   ),
                 ),
+                centerTitle: true,
+                title: Text(
+                  AppLocalizations.of(context)!.create_account_title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF255f38),
+                  ),
+                ),
+                actions: [
 
-                const SizedBox(height: 20),
+                ],
+                flexibleSpace: ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                    child: Container(
+                      color: Theme
+                          .of(context)
+                          .scaffoldBackgroundColor
+                          .withOpacity(0.2),
+                    ),
+                  ),
+                ),
+              ),
 
-                // First Name and Last Name fields side by side
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Row(
-                    children: [
+              // Main Content as a SliverList
+              SliverPadding(
+                padding: const EdgeInsets.all(16.0),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      SingleChildScrollView(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: GestureDetector(
+                                onTap: _pickImage,
+                                child: Container(
+                                  width: 120,
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.4),
+                                        blurRadius: 4,
+                                        offset: const Offset(4, 4),
+                                      ),
+                                    ],
+                                    image: DecorationImage(
+                                      image: _profileImage != null
+                                          ? FileImage(_profileImage!)
+                                          : const AssetImage('assets/default_profile_picture.jpg')
+                                      as ImageProvider,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
 
-                      // First Name TextField
-                      Expanded(
-                        child: TextField(
-                          key: Key('firstNameField'),
-                          controller: firstNameController,
-                          decoration: InputDecoration(
-                            labelText: 'Firstname',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.blue),
-                            ),
-                            errorText: _errors['firstName'],
-                          ),
-                        ),
-                      ),
+                            const SizedBox(height: 20),
 
-                      const SizedBox(width: 16),
+                            // First and Last Name Fields
+                            Row(
+                              children: [
+                                // First Name
+                                Expanded(
+                                  child: TextField(
+                                    key: const Key('firstNameField'),
+                                    controller: firstNameController,
+                                    decoration: InputDecoration(
+                                      labelText: AppLocalizations.of(context)!.firstname,
+                                      border: _inputBorder(),
+                                      enabledBorder: _inputBorder(),
+                                      focusedBorder: _focusedBorder(),
+                                      errorText: _errors['firstName'],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                // Last Name
+                                Expanded(
+                                  child: TextField(
+                                    key: const Key('lastNameField'),
+                                    controller: lastNameController,
+                                    decoration: InputDecoration(
+                                      labelText: AppLocalizations.of(context)!.lastname,
+                                      border: _inputBorder(),
+                                      enabledBorder: _inputBorder(),
+                                      focusedBorder: _focusedBorder(),
+                                      errorText: _errors['lastName'],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
 
-                      // Last Name TextField
-                      Expanded(
-                        child: TextField(
-                          key: Key('lastNameField'),
-                          controller: lastNameController,
-                          decoration: InputDecoration(
-                            labelText: 'Lastname',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
+                            const SizedBox(height: 16),
+
+                            // Username
+                            TextField(
+                              key: const Key('usernameField'),
+                              controller: usernameController,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.username,
+                                border: _inputBorder(),
+                                enabledBorder: _inputBorder(),
+                                focusedBorder: _focusedBorder(),
+                                errorText: _errors['username'],
+                              ),
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
+
+                            const SizedBox(height: 16),
+
+                            // Birthdate label
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                AppLocalizations.of(context)!.birthdate,
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.blue),
+
+                            // Birthdate Dropdowns
+                            Row(
+                              children: [
+                                // Year
+                                Expanded(
+                                  child: DropdownButtonFormField<int>(
+                                    value: selectedYear,
+                                    hint: Text(AppLocalizations.of(context)!.year),
+                                    items: years
+                                        .map((y) => DropdownMenuItem(value: y, child: Text('$y')))
+                                        .toList(),
+                                    onChanged: (val) => setState(() => selectedYear = val),
+                                    decoration: _dropdownDecoration(),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                // Month
+                                Expanded(
+                                  child: DropdownButtonFormField<int>(
+                                    value: selectedMonth,
+                                    hint: Text(AppLocalizations.of(context)!.month),
+                                    items: months
+                                        .map((m) => DropdownMenuItem(
+                                        value: m, child: Text(m.toString().padLeft(2, '0'))))
+                                        .toList(),
+                                    onChanged: (val) => setState(() => selectedMonth = val),
+                                    decoration: _dropdownDecoration(),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                // Day
+                                Expanded(
+                                  child: DropdownButtonFormField<int>(
+                                    value: selectedDay,
+                                    hint: Text(AppLocalizations.of(context)!.day),
+                                    items: days
+                                        .map((d) => DropdownMenuItem(
+                                        value: d, child: Text(d.toString().padLeft(2, '0'))))
+                                        .toList(),
+                                    onChanged: (val) => setState(() => selectedDay = val),
+                                    decoration: _dropdownDecoration(),
+                                  ),
+                                ),
+                              ],
                             ),
-                            errorText: _errors['lastName'],
-                          ),
+
+                            const SizedBox(height: 16),
+
+                            // Email
+                            TextField(
+                              key: const Key('emailField'),
+                              controller: emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.email,
+                                border: _inputBorder(),
+                                enabledBorder: _inputBorder(),
+                                focusedBorder: _focusedBorder(),
+                                errorText: _errors['email'],
+                              ),
+                            ),
+
+                            const SizedBox(height: 16),
+
+                            // Password
+                            TextField(
+                              key: const Key('passwordField'),
+                              controller: passwordController,
+                              obscureText: _obscurePassword,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.password,
+                                border: _inputBorder(),
+                                enabledBorder: _inputBorder(),
+                                focusedBorder: _focusedBorder(),
+                                errorText: _errors['password'],
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                                    color: Color(0xFF27391c),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscurePassword = !_obscurePassword;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 16),
+
+                            // Confirm Password
+                            TextField(
+                              key: const Key('confirmPasswordField'),
+                              controller: confirmPasswordController,
+                              obscureText: _obscureConfirmPassword,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.confirm_password,
+                                border: _inputBorder(),
+                                enabledBorder: _inputBorder(),
+                                focusedBorder: _focusedBorder(),
+                                errorText: _errors['confirmPassword'],
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscureConfirmPassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                    color: Color(0xFF27391c),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscureConfirmPassword = !_obscureConfirmPassword;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 20),
+
+                            // Register Button
+                            Center(
+                              child: Container(
+                                width: AppLocalizations
+                                    .of(context)!
+                                    .play_animation_button_text
+                                    .length * 10 + 20,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [Color(0xFF255f38), Color(0xFF27391c)],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.4),
+                                      blurRadius: 4,
+                                      offset: Offset(4, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    _register();
+                                    HapticFeedback.mediumImpact();
+                                  },
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.register_text,
+                                        style: TextStyle(
+                                          color: Theme
+                                              .of(context)
+                                              .scaffoldBackgroundColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
+              ),
 
-                const SizedBox(height: 16),
-
-                // Username TextField
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: TextField(
-                    key: Key('usernameField'),
-                    controller: usernameController,
-                    decoration: InputDecoration(
-                      labelText: 'Username',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.blue),
-                      ),
-                      errorText: _errors['username'],
-                    ),
-                    keyboardType: TextInputType.text,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Birth Date Selection Instruction
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Birthdate:',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Birth Date Picker with separate year, month, and day dropdowns
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Row(
-                    children: [
-                      // Year Dropdown
-                      Expanded(
-                        child: DropdownButtonFormField<int>(
-                          value: selectedYear,
-                          hint: const Text('Year'),
-                          items: years.map((year) {
-                            return DropdownMenuItem<int>(
-                              value: year,
-                              child: Text(year.toString()),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedYear = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.blue),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-
-                      // Month Dropdown
-                      Expanded(
-                        child: DropdownButtonFormField<int>(
-                          value: selectedMonth,
-                          hint: const Text('Month'),
-                          items: months.map((month) {
-                            return DropdownMenuItem<int>(
-                              value: month,
-                              child: Text(month.toString().padLeft(2, '0')),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedMonth = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.blue),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-
-                      // Day Dropdown
-                      Expanded(
-                        child: DropdownButtonFormField<int>(
-                          value: selectedDay,
-                          hint: const Text('Day'),
-                          items: days.map((day) {
-                            return DropdownMenuItem<int>(
-                              value: day,
-                              child: Text(day.toString().padLeft(2, '0')),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedDay = value;
-                            });
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.blue),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Email TextField
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: TextField(
-                    key: Key('emailField'),
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.blue),
-                      ),
-                      errorText: _errors['email'],
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Password TextField
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: TextField(
-                    key: Key('passwordField'),
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.blue),
-                      ),
-                      errorText: _errors['password'],
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons.visibility, // Megfordított ikonok
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
-                        },
-                      ),
-                    ),
-                    obscureText: _obscurePassword,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Confirm Password TextField
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: TextField(
-                    key: Key('confirmPasswordField'),
-                    controller: confirmPasswordController,
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.blue),
-                      ),
-                      errorText: _errors['confirmPassword'],
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword ? Icons.visibility_off : Icons.visibility, // Megfordított ikonok
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword; // Esetleg, külön változó is lehet
-                          });
-                        },
-                      ),
-                    ),
-                    obscureText: _obscurePassword,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Register Button
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: ElevatedButton(
-                    onPressed: _register,
-                    child: const Text('Register'),
-                  ),
-                ),
-              ],
-            ),
+            ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -486,4 +483,28 @@ class _RegisterPageState extends State<RegisterPage>
     confirmPasswordController.dispose();
     super.dispose();
   }
+
+  InputBorder _inputBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.grey),
+    );
+  }
+
+  InputBorder _focusedBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.green),
+    );
+  }
+
+  InputDecoration _dropdownDecoration() {
+    return InputDecoration(
+      border: _inputBorder(),
+      enabledBorder: _inputBorder(),
+      focusedBorder: _focusedBorder(),
+    );
+  }
+
+
 }

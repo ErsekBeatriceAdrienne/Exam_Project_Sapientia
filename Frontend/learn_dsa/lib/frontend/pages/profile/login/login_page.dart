@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:regexed_validator/regexed_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../helpers/essentials.dart';
 import '../../customClasses/custom_bottomnavigationbar.dart';
 import '../registration/register_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -124,8 +126,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
     // Color animation for RGB effect (alternating between two colors)
     _colorAnimation = ColorTween(
-      begin: Color(0xFF255f38), // Pastel Cyan
-      end: Color(0xFF1f7d53),   // Pastel Pink
+      begin: Color(0xFFcdebc5),
+      end: Color(0xFFcdebc5),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // Make the status bar transparent
@@ -159,8 +161,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 begin: Alignment(_animation.value.dx, _animation.value.dy), // Animate gradient direction
                 end: Alignment.bottomRight, // Gradient will always end at the bottom-right
                 colors: [
-                  _colorAnimation.value ?? Color(0xFF255f38), // Pastel Cyan (animated)
-                  _colorAnimation.value ?? Color(0xFF1f7d53), // Pastel Pink (animated)
+                  _colorAnimation.value ?? Color(0xFFb4d3b2), // Pastel Cyan (animated)
+                  _colorAnimation.value ?? Color(0xFFb4d3b2), // Pastel Pink (animated)
                 ],
                 stops: [0.2, 0.8], // Adjust stops for smoother transition
               ),
@@ -189,7 +191,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       child: TextField(
                         controller: emailController,
                         decoration: InputDecoration(
-                          labelText: 'Email',
+                          labelText: AppLocalizations.of(context)!.email,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.grey),
@@ -216,7 +218,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         controller: passwordController,
                         obscureText: _obscurePassword,
                         decoration: InputDecoration(
-                          labelText: 'Password',
+                          labelText: AppLocalizations.of(context)!.password,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.grey),
@@ -252,10 +254,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         HapticFeedback.lightImpact();
                         _handleLogin();
                       },
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: isDarkMode ? Colors.black :Colors.black,
@@ -263,6 +261,10 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
+                      ),
+                      child: Text(
+                        AppLocalizations.of(context)!.signin_text,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
 
@@ -277,13 +279,14 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                         // Navigate to the Register page
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => RegisterPage(),
+                          Essentials().createSlideRoute(RegisterPage(
+                              toggleTheme: widget.toggleTheme
+                          ),
                           ),
                         );
                       },
-                      child: const Text(
-                        'Register',
+                      child: Text(
+                        AppLocalizations.of(context)!.register_text,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,

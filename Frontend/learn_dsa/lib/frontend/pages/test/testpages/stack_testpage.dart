@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -7,15 +6,13 @@ import 'package:learn_dsa/frontend/pages/test/testpages/stack/stack_tests_questi
 import '../../../../backend/database/firestore_service.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/firestore/firestore_docs.dart';
-import '../../customClasses/custom_ring_chart.dart';
-import '../../datastructures/stack/stack_animations.dart';
 import '../tests_page.dart';
 
 class StackTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const StackTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const StackTestPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<StackTestPage> createState() => _StackTestPageState();
@@ -24,7 +21,6 @@ class StackTestPage extends StatefulWidget {
 class _StackTestPageState extends State<StackTestPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
 
   @override
@@ -190,7 +186,7 @@ class _StackTestPageState extends State<StackTestPage> with SingleTickerProvider
                                 }
 
                                 final data = snapshot.data!;
-                                String _monthName(BuildContext context, int month) {
+                                String monthName(BuildContext context, int month) {
                                   final locale = AppLocalizations.of(context)!.localeName;
 
                                   const monthsHu = [
@@ -209,7 +205,7 @@ class _StackTestPageState extends State<StackTestPage> with SingleTickerProvider
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: data.map((stat) {
                                     final DateTime parsedDate = DateTime.tryParse(stat['timestamp']) ?? DateTime.now();
-                                    final formattedDate = "${parsedDate.year}. ${_monthName(context, parsedDate.month)} ${parsedDate.day}. ${parsedDate.hour}:${parsedDate.minute.toString().padLeft(2, '0')}";
+                                    final formattedDate = "${parsedDate.year}. ${monthName(context, parsedDate.month)} ${parsedDate.day}. ${parsedDate.hour}:${parsedDate.minute.toString().padLeft(2, '0')}";
 
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
