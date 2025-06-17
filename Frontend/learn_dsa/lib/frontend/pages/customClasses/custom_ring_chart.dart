@@ -6,7 +6,7 @@ import '../../../backend/database/firestore_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 /// EXERCISES
-
+/*
 class RingChartExercisesWidget extends StatefulWidget {
   final String? userId;
 
@@ -169,6 +169,7 @@ class _LegendItemBTExercises extends StatelessWidget {
     );
   }
 }
+*/
 
 /// TEST
 
@@ -185,10 +186,9 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
   late AnimationController _controller;
   late Animation<double> _animation;
   List<Map<String, dynamic>> ringData = [];
+  Locale? _lastLocale;
 
-  /// Make the tests
-  Future<void> _loadChartData() async
-  {
+  Future<void> _loadChartData() async {
     final result_bt = await FirestoreService().getAnsweredAndTotalCount(
       userId: widget.userId!,
       answerCollectionName: FirestoreDocs.user_answers,
@@ -207,7 +207,6 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
       questionCollectionName: FirestoreDocs.array_tests_doc,
     );
 
-
     int answered_bt = result_bt[0] ?? 0;
     int total_bt = result_bt[1] ?? 1;
     int answered_list = result_list[0] ?? 0;
@@ -220,7 +219,6 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
     double arrayValue = answered_array / total_array;
     double value = 0;
 
-    int index1 = 0, index2 = 1, index3 = 2, index4 = 3, index5 = 4, index6 = 5 ;
     setState(() {
       ringData = [
         {"label": AppLocalizations.of(context)!.array_page_title, "color": Colors.green.shade100, "value": arrayValue},
@@ -249,6 +247,17 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final currentLocale = Localizations.localeOf(context);
+    if (_lastLocale != currentLocale) {
+      _lastLocale = currentLocale;
+      _loadChartData();
+    }
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -264,7 +273,6 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Chart
               CustomPaint(
                 size: const Size(160, 160),
                 painter: _RingChartTestsPainter(ringData, _animation.value),
@@ -287,6 +295,7 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
     );
   }
 }
+
 
 class _RingChartTestsPainter extends CustomPainter {
   final List<Map<String, dynamic>> ringData;

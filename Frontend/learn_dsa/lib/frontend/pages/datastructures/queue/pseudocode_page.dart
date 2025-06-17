@@ -555,7 +555,7 @@ class _PseudocodeQueuePageState extends State<PseudocodeQueuePage> with SingleTi
                       ),
                     ),
 
-                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_1),
+                    _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_1), // queueu!!!
                     _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_2),
                     _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_3),
                     _buildExplanationRow(AppLocalizations.of(context)!.array_naming_conv_4),

@@ -5,10 +5,10 @@ class SplashScreen extends StatefulWidget {
   final String? userId;
 
   const SplashScreen({
-    Key? key,
+    super.key,
     required this.toggleTheme,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();

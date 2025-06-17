@@ -228,14 +228,12 @@ class _TestsPageState extends State<TestsPage> with SingleTickerProviderStateMix
                   const SizedBox(height: 20),
 
                   Text(
-                    AppLocalizations.of(context)!.answered_questions_text_title,
+                    AppLocalizations.of(context)!.all_questions,
                     style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF1f7d53)),
                   ),
-
-                  const SizedBox(height: 10),
 
                   Container(
                     padding: const EdgeInsets.all(16),

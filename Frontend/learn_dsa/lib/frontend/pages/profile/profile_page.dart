@@ -2,20 +2,15 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:learn_dsa/backend/database/firestore_service.dart';
-import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_functionality/profile_page_actions.dart';
-import 'package:learn_dsa/frontend/pages/profile/profile_components/profile_userinfo/profile_page_userinfo.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../backend/database/cloudinary_service.dart';
-import '../../../main.dart';
 import '../../language_supports/language_picker.dart';
 import '../../strings/cloudinary/cloudinary_apis.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import '../customClasses/custom_ring_chart.dart';
-import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatefulWidget
 {
@@ -130,27 +125,71 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: Column(
                           children: [
-                            ProfileHeader(
-                              profileImageUrl: profileImageUrl,
-                              firstName: firstName,
-                              lastName: lastName,
-                              email: email,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage: profileImageUrl != null && profileImageUrl!.isNotEmpty
+                                      ? NetworkImage(profileImageUrl!)
+                                      : const AssetImage('assets/default_profile_picture.png') as ImageProvider,
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        '$firstName $lastName',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        '$email',
+                                        style: const TextStyle(fontSize: 14, color: Colors.grey),
+                                      ),
+
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          // Edit icon button
+                                          IconButton(
+                                            onPressed: () =>
+                                                showEditProfileSheet(
+                                                    context, widget.userId!,
+                                                    profileImageUrl),
+                                            icon: const Icon(
+                                                Icons.edit, color: Color(0xFF255f38)),
+                                            tooltip: AppLocalizations.of(context)!
+                                                .edit_profile_text,
+                                          ),
+                                          // Sign out icon button
+                                          IconButton(
+                                            onPressed: () async {
+                                              if (widget.userId != null) {
+                                                await FirestoreService().signOut(
+                                                    context, widget.toggleTheme,
+                                                    widget.userId!);
+                                              }
+                                              toggleTheme:
+                                              widget.toggleTheme;
+                                            },
+                                            icon: const Icon(
+                                                Icons.logout, color: Color(0xFF255f38)),
+                                            tooltip: AppLocalizations.of(context)!
+                                                .sign_out_text,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(height: 20),
-                            ProfileActions(
-                              onEditProfile: () =>
-                                  showEditProfileSheet(
-                                      context, widget.userId!, profileImageUrl),
-                              onLogout: () async {
-                                if (widget.userId != null) {
-                                  await FirestoreService().signOut(
-                                      context, widget.toggleTheme,
-                                      widget.userId!);
-                                }
-                              },
-                              toggleTheme: widget.toggleTheme,
-                            ),
-                            const SizedBox(height: 10),
                           ],
                         ),
                       ),
@@ -194,145 +233,24 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: RingChartTestsWidget(
                                   userId: widget.userId),
                             ),
+
+                            const SizedBox(height: 15),
+
+                            Text(
+                              AppLocalizations.of(context)!
+                                  .answered_questions_description,
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15
+                              ),
+                            ),
                           ],
                         ),
                       ),
 
                       const SizedBox(height: 20),
 
-                      // Reminder Section
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          AppLocalizations.of(context)!.reminder_section_title,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      FutureBuilder<List<Map<String, dynamic>>>(
-                        future: FirestoreService().fetchReminders(widget.userId!),
-                        builder: (context, snapshot) {
-                          final reminders = snapshot.data ?? [];
 
-                          return Container(
-                            padding: const EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.5),
-                                  spreadRadius: 1,
-                                  blurRadius: 6,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                if (snapshot.connectionState == ConnectionState.waiting)
-                                  const Center(child: CircularProgressIndicator())
-                                else if (reminders.isEmpty)
-                                  Text(AppLocalizations.of(context)!.no_reminders_yet)
-                                else
-                                  Column(
-                                    children: reminders.map((reminder) {
-                                      final date = DateTime.tryParse(reminder['date'] ?? '');
-                                      final formattedDate = date != null
-                                          ? DateFormat('yyyy.MM.dd HH:mm').format(date)
-                                          : 'N/A';
-
-                                      if (!reminder['done']) {
-                                        return ListTile(
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: Checkbox(
-                                            value: reminder['done'] ?? false,
-                                            onChanged: (value) async {
-                                              if (value == true) {
-                                                await FirestoreService().updateReminderDoneStatus(
-                                                  widget.userId!,
-                                                  reminder['id'],
-                                                  true,
-                                                );
-                                                setState(() {});
-                                              }
-                                            },
-                                          ),
-                                          title: Text(
-                                            reminder['title'] ?? '',
-                                            style: const TextStyle(fontWeight: FontWeight.bold),
-                                          ),
-                                          subtitle: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(reminder['description'] ?? ''),
-                                            ],
-                                          ),
-                                          trailing: Text(formattedDate),
-                                          isThreeLine: true,
-                                        );
-                                      }
-
-                                      return null;
-                                    }).whereType<Widget>().toList(),
-                                  ),
-
-                                // Button, save reminder
-                                Container(
-                                  decoration: BoxDecoration(
-                                    gradient: gradient,
-                                    borderRadius: BorderRadius.circular(15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 4,
-                                        offset: const Offset(2, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(20),
-                                          ),
-                                        ),
-                                        builder: (context) => Padding(
-                                          padding: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context).viewInsets.bottom,
-                                            left: 16,
-                                            right: 16,
-                                            top: 20,
-                                          ),
-                                          child: _buildMemoryInputSheet(context),
-                                        ),
-                                      ).then((_) => setState(() {}));
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.transparent,
-                                      shadowColor: Colors.transparent,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      AppLocalizations.of(context)!.create_reminder,
-                                      style: const TextStyle(fontSize: 13, color: Colors.white),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
                       const SizedBox(height: 65),
                     ],
                   ),
@@ -428,95 +346,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ],
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                ).copyWith(
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                  elevation: MaterialStateProperty.all(0),
-                ),
-                onPressed: () async {
-                  final String title = titleController.text.trim();
-                  final String description = descriptionController.text.trim();
 
-                  if (title.isEmpty || description.isEmpty || selectedDate == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Kérlek tölts ki minden mezőt."),
-                      ),
-                    );
-                    return;
-                  }
-
-                  try {
-                    await FirestoreService().saveReminder(
-                      widget.userId!,
-                      title,
-                      description,
-                      selectedDate!,
-                    );
-
-                    final int notificationId = DateTime.now().millisecondsSinceEpoch.remainder(100000);
-                    await flutterLocalNotificationsPlugin.zonedSchedule(
-                      notificationId,
-                      title,
-                      description,
-                      tz.TZDateTime.from(selectedDate!, tz.local),
-                      const NotificationDetails(
-                        android: AndroidNotificationDetails(
-                          'reminder_channel',
-                          'Emlékeztetők',
-                          channelDescription: 'Ez a csatorna emlékeztető értesítésekhez van.',
-                          importance: Importance.max,
-                          priority: Priority.high,
-                        ),
-                      ),
-                      androidAllowWhileIdle: true,
-                      uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
-                      matchDateTimeComponents: DateTimeComponents.dateAndTime,
-                    );
-
-                    Navigator.of(context).pop();
-
-                    titleController.text = '';
-                    descriptionController.text = '';
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(AppLocalizations.of(context)!.reminder_saved_message),
-                      ),
-                    );
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Hiba történt a mentés során: $e'),
-                      ),
-                    );
-                  }
-                },
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [Color(0xFF255f38), Color(0xFF27391c)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: 48,
-                    child: Text(
-                      AppLocalizations.of(context)!.save_text,
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
@@ -568,7 +398,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             ? FileImage(controller.profileImage!) as ImageProvider
                             : (profileImageUrl != null && profileImageUrl.isNotEmpty
                             ? NetworkImage(profileImageUrl)
-                            : const AssetImage('assets/images/default_profile.png')),
+                            : const AssetImage('assets/default_profile_picture.jpg')),
                         child: Icon(Icons.edit, color: Colors.white),
                       ),
                     ),
@@ -776,4 +606,138 @@ class ProfileEditController {
   }
 }
 
+/*
+// Reminder Section
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          AppLocalizations.of(context)!.reminder_section_title,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      FutureBuilder<List<Map<String, dynamic>>>(
+                        future: FirestoreService().fetchReminders(widget.userId!),
+                        builder: (context, snapshot) {
+                          final reminders = snapshot.data ?? [];
 
+                          return Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 6,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (snapshot.connectionState == ConnectionState.waiting)
+                                  const Center(child: CircularProgressIndicator())
+                                else if (reminders.isEmpty)
+                                  Text(AppLocalizations.of(context)!.no_reminders_yet)
+                                else
+                                  Column(
+                                    children: reminders.map((reminder) {
+                                      final date = DateTime.tryParse(reminder['date'] ?? '');
+                                      final formattedDate = date != null
+                                          ? DateFormat('yyyy.MM.dd HH:mm').format(date)
+                                          : 'N/A';
+
+                                      if (!reminder['done']) {
+                                        return ListTile(
+                                          contentPadding: EdgeInsets.zero,
+                                          leading: Checkbox(
+                                            value: reminder['done'] ?? false,
+                                            onChanged: (value) async {
+                                              if (value == true) {
+                                                await FirestoreService().updateReminderDoneStatus(
+                                                  widget.userId!,
+                                                  reminder['id'],
+                                                  true,
+                                                );
+                                                setState(() {});
+                                              }
+                                            },
+                                          ),
+                                          title: Text(
+                                            reminder['title'] ?? '',
+                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(reminder['description'] ?? ''),
+                                            ],
+                                          ),
+                                          trailing: Text(formattedDate),
+                                          isThreeLine: true,
+                                        );
+                                      }
+
+                                      return null;
+                                    }).whereType<Widget>().toList(),
+                                  ),
+
+                                // Button, save reminder
+                                Container(
+                                  decoration: BoxDecoration(
+                                    gradient: gradient,
+                                    borderRadius: BorderRadius.circular(15),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 4,
+                                        offset: const Offset(2, 2),
+                                      ),
+                                    ],
+                                  ),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                        context: context,
+                                        isScrollControlled: true,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20),
+                                          ),
+                                        ),
+                                        builder: (context) => Padding(
+                                          padding: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context).viewInsets.bottom,
+                                            left: 16,
+                                            right: 16,
+                                            top: 20,
+                                          ),
+                                          child: _buildMemoryInputSheet(context),
+                                        ),
+                                      ).then((_) => setState(() {}));
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.transparent,
+                                      shadowColor: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.create_reminder,
+                                      style: const TextStyle(fontSize: 13, color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+ */
