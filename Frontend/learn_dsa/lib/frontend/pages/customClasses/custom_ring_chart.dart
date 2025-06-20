@@ -207,26 +207,47 @@ class _RingChartTestsWidgetState extends State<RingChartTestsWidget> with Single
       questionCollectionName: FirestoreDocs.array_tests_doc,
     );
 
+    final result_hash = await FirestoreService().getAnsweredAndTotalCount(
+      userId: widget.userId!,
+      answerCollectionName: FirestoreDocs.user_answers,
+      questionCollectionName: FirestoreDocs.hash_tests_doc,
+    );
+
+    final result_queue = await FirestoreService().getAnsweredAndTotalCount(
+      userId: widget.userId!,
+      answerCollectionName: FirestoreDocs.user_answers,
+      questionCollectionName: FirestoreDocs.queue_tests_doc,
+    );
+
     int answered_bt = result_bt[0] ?? 0;
     int total_bt = result_bt[1] ?? 1;
     int answered_list = result_list[0] ?? 0;
     int total_list = result_list[1] ?? 1;
     int answered_array = result_array[0] ?? 0;
     int total_array = result_array[1] ?? 1;
+    int answered_hash = result_hash[0] ?? 0;
+    int total_hash = result_hash[1] ?? 1;
+    int answered_queue = result_hash[0] ?? 0;
+    int total_queue = result_hash[1] ?? 1;
+    int answered_stack = result_hash[0] ?? 0;
+    int total_stack = result_hash[1] ?? 1;
 
     double bstValue = answered_bt / total_bt;
     double listValue = answered_list / total_list;
     double arrayValue = answered_array / total_array;
+    double hashValue = answered_hash / total_hash;
+    double queueValue = answered_queue / total_queue;
+    double stackValue = answered_stack / total_stack;
     double value = 0;
 
     setState(() {
       ringData = [
         {"label": AppLocalizations.of(context)!.array_page_title, "color": Colors.green.shade100, "value": arrayValue},
-        {"label": AppLocalizations.of(context)!.stack_page_title, "color": Colors.green.shade200, "value": value},
-        {"label": AppLocalizations.of(context)!.queue_page_title, "color": Colors.green.shade400, "value": value},
+        {"label": AppLocalizations.of(context)!.stack_page_title, "color": Colors.green.shade200, "value": stackValue},
+        {"label": AppLocalizations.of(context)!.queue_page_title, "color": Colors.green.shade400, "value": queueValue},
         {"label": AppLocalizations.of(context)!.list_page_title, "color": Colors.green.shade600, "value": listValue},
         {"label": AppLocalizations.of(context)!.bt_page_title, "color": Colors.green.shade800, "value": bstValue},
-        {"label": AppLocalizations.of(context)!.hash_page_title, "color": Colors.green.shade900, "value": value},
+        {"label": AppLocalizations.of(context)!.hash_page_title, "color": Colors.green.shade900, "value": hashValue},
       ];
     });
 

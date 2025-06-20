@@ -97,7 +97,7 @@ class _StackTestPageState extends State<StackTestPage> with SingleTickerProvider
                 sliver: SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      // bt exercises title and description
+                      // exercises title and description
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -129,7 +129,7 @@ class _StackTestPageState extends State<StackTestPage> with SingleTickerProvider
                             const SizedBox(height: 8),
                             Text(
                               AppLocalizations.of(context)!
-                                  .bt_exercises_description,
+                                  .stack_page_tests_description_title,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,

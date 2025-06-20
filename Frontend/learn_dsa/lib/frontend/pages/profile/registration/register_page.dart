@@ -94,6 +94,19 @@ class _RegisterPageState extends State<RegisterPage>
   }
 
   Future<void> _register() async {
+    final password = passwordController.text;
+
+    if (password.length < 8) {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('A jelszónak legalább 8 karakter hosszúnak kell lennie.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
     try {
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: emailController.text,

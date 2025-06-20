@@ -178,13 +178,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // DSA image
-                    /*Image.asset(
-                      'assets/images/dsa_shadow.png',
-                      width: 150,
-                      height: 150,
-                    ),*/
-
                     // Email TextField
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,

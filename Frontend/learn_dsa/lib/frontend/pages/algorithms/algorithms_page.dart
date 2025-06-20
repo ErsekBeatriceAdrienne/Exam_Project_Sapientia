@@ -216,6 +216,8 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
                           ),
                         ),
                         const SizedBox(height: 16),
+
+                        algorithmComplexityTable(context),
                       ],
                     ),
                   ),
@@ -312,6 +314,66 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget algorithmComplexityTable(BuildContext context) {
+    final headers = [
+      AppLocalizations.of(context)!.algorithms_menu,
+      AppLocalizations.of(context)!.best_case_title,
+      AppLocalizations.of(context)!.average_case_title,
+      AppLocalizations.of(context)!.worst_case_title,
+      AppLocalizations.of(context)!.space_complexity_title,
+    ];
+
+    final rows = [
+      [AppLocalizations.of(context)!.bubble_sort_alg_title, 'O(n)', 'O(n²)', 'O(n²)', 'O(1)'],
+      [AppLocalizations.of(context)!.selection_sort_alg_title, 'O(n²)', 'O(n²)', 'O(n²)', 'O(1)'],
+      [AppLocalizations.of(context)!.insertion_sort_alg_title, 'O(n)', 'O(n²)', 'O(n²)', 'O(1)'],
+      [AppLocalizations.of(context)!.qsort_alg_title, 'O(n log n)', 'O(n log n)', 'O(n²)', 'O(log n)'],
+      [AppLocalizations.of(context)!.merge_sort_alg_title, 'O(n log n)', 'O(n log n)', 'O(n log n)', 'O(n)'],
+      [AppLocalizations.of(context)!.non_linear_searching_title, 'O(1)', 'O(log n)', 'O(log n)', 'O(1)'],
+      [AppLocalizations.of(context)!.linear_searching_title, 'O(1)', 'O(n)', 'O(n)', 'O(1)'],
+      /*[AppLocalizations.of(context)!.greedy_algorithm_title, 'Depends', 'O(E log E)', 'O(E log E)', 'O(V)'],
+      [AppLocalizations.of(context)!.divide_at_impera_button_title, 'O(n log n)', 'O(n log n)', 'O(n log n)', 'O(n)'],
+      [AppLocalizations.of(context)!.backtracking_button_title, 'O(1)', 'Exponential', 'Exponential', 'O(n²)'],*/
+    ];
+
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Table(
+        defaultColumnWidth: FixedColumnWidth(140),
+        border: TableBorder.all(color: Colors.black),
+        defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+        children: [
+          TableRow(
+            decoration: BoxDecoration(color: Colors.grey[300]),
+            children: headers.map((text) {
+              return Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  text,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }).toList(),
+          ),
+          for (var row in rows)
+            TableRow(
+              children: row.map((cell) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    cell,
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              }).toList(),
+            ),
+        ],
       ),
     );
   }

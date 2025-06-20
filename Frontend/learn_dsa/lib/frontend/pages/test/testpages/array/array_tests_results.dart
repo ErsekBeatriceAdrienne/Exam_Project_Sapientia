@@ -11,7 +11,7 @@ class ArrayTestEasyResultsPage extends StatefulWidget {
   final String? userId;
   final Map<int, String>? selectedAnswers;
 
-  const ArrayTestEasyResultsPage({Key? key, required this.toggleTheme, required this.userId, required this.selectedAnswers}) : super(key: key);
+  const ArrayTestEasyResultsPage({super.key, required this.toggleTheme, required this.userId, required this.selectedAnswers});
 
   @override
   State<ArrayTestEasyResultsPage> createState() => _ArrayTestEasyResultsPageState();
@@ -34,8 +34,9 @@ class _ArrayTestEasyResultsPageState extends State<ArrayTestEasyResultsPage> wit
 
     final correctAnswer = answerItems.firstWhere((answer) => answer['isCorrect'] == 'true', orElse: () => null);
 
-    if (correctAnswer != null) return correctAnswer['id'] == selectedAnswer;
-    else return false;
+    if (correctAnswer != null) {
+      return correctAnswer['id'] == selectedAnswer;
+    } else return false;
 
   }
 
@@ -167,7 +168,7 @@ class _ArrayTestEasyResultsPageState extends State<ArrayTestEasyResultsPage> wit
                                 final textMap = answerMap['text'] as Map<String, dynamic>?;
                                 return {
                                   'id': answerMap['id'],
-                                  'text': textMap?[locale] ?? "Unknown answer text", // Fallback text
+                                  'text': textMap?[locale] ?? "Unknown answer text",
                                   'isCorrect': answerMap['isCorrect'] == 'true',
                                 };
                               }).toList();
