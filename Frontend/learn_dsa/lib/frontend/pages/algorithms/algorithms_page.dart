@@ -259,7 +259,6 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
             context,
             Essentials().createSlideRoute(pageBuilder()),
           );
-          HapticFeedback.mediumImpact();
         }
 
       },
@@ -339,7 +338,6 @@ class _AlgorithmsPageState extends State<AlgorithmsPage> {
       [AppLocalizations.of(context)!.divide_at_impera_button_title, 'O(n log n)', 'O(n log n)', 'O(n log n)', 'O(n)'],
       [AppLocalizations.of(context)!.backtracking_button_title, 'O(1)', 'Exponential', 'Exponential', 'O(n²)'],*/
     ];
-
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,

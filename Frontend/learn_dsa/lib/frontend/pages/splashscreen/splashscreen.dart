@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  final String title = "Learn DSA";
+  final String title = "DSA";
   late List<AnimationController> _controllers;
   late List<Animation<Offset>> _animations;
 
@@ -53,13 +53,9 @@ class _SplashScreenState extends State<SplashScreen>
       await Future.delayed(perLetterDelay);
     }
 
-    // Wait for the remaining time
     final int animationTimeMs = title.length * perLetterDelay.inMilliseconds;
     final remainingTime = totalSplashDuration - Duration(milliseconds: animationTimeMs);
     await Future.delayed(remainingTime);
-
-    // Optional: Navigate to next screen after splash
-    // Navigator.pushReplacement(...);
   }
 
   @override
@@ -75,22 +71,27 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(title.length, (index) {
-            return SlideTransition(
-              position: _animations[index],
-              child: Text(
-                title[index],
-                style: const TextStyle(
-                  fontSize: 42,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.green,
-                  letterSpacing: 1.5,
-                ),
-              ),
-            );
-          }),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(title.length, (index) {
+                return SlideTransition(
+                  position: _animations[index],
+                  child: Text(
+                    title[index],
+                    style: const TextStyle(
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                      letterSpacing: 4,
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ],
         ),
       ),
     );
