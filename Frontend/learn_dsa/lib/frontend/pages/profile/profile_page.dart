@@ -10,7 +10,6 @@ import '../../language_supports/language_picker.dart';
 import '../../strings/cloudinary/cloudinary_apis.dart';
 import '../../strings/firestore/firestore_docs.dart';
 import '../customClasses/custom_ring_chart.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfilePage extends StatefulWidget
 {
@@ -24,8 +23,6 @@ class ProfilePage extends StatefulWidget
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String? _profileImageUrl;
-  String? _oldProfileImageUrl;
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   DateTime? selectedDate;
@@ -229,9 +226,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 15),
+
                             Center(
-                              child: RingChartTestsWidget(
-                                  userId: widget.userId),
+                              child: RingChartTestsWidget(userId: widget.userId),
                             ),
 
                             const SizedBox(height: 15),
@@ -296,8 +294,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                     ).copyWith(
-                      backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                      elevation: MaterialStateProperty.all(0),
+                      backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                      elevation: WidgetStateProperty.all(0),
                     ),
                     onPressed: () async {
                       final picked = await showDatePicker(
@@ -414,7 +412,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     TextField(
                       controller: controller.oldPasswordController,
                       obscureText: controller.obscurePassword,
-                      decoration: _decoration('Jelenlegi jelszó', context,
+                      decoration: _decoration(AppLocalizations.of(context)!.curr_password, context,
                           errorText: passwordErrorText),
                     ),
                     const SizedBox(height: 8),
@@ -422,14 +420,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     TextField(
                       controller: controller.newPasswordController,
                       obscureText: controller.obscurePassword,
-                      decoration: _decoration('Új jelszó', context),
+                      decoration: _decoration(AppLocalizations.of(context)!.password, context),
                     ),
                     const SizedBox(height: 8),
 
                     TextField(
                       controller: controller.confirmPasswordController,
                       obscureText: controller.obscurePassword,
-                      decoration: _decoration('Új jelszó megerősítése', context,
+                      decoration: _decoration(AppLocalizations.of(context)!.confirm_password, context,
                           errorText: confirmPasswordErrorText),
                     ),
                     const SizedBox(height: 16),
@@ -445,70 +443,76 @@ class _ProfilePageState extends State<ProfilePage> {
                             _) => null),
                         elevation: MaterialStateProperty.resolveWith((_) => 0),
                       ),
-                      onPressed: () async {
-                        setState(() {
-                          passwordErrorText = null;
-                          confirmPasswordErrorText = null;
-                        });
+                        onPressed: () async {
+                          setState(() {
+                            passwordErrorText = null;
+                            confirmPasswordErrorText = null;
+                          });
 
-                        final oldPwd = controller.oldPasswordController.text
-                            .trim();
-                        final newPwd = controller.newPasswordController.text
-                            .trim();
-                        final confirmPwd = controller.confirmPasswordController
-                            .text.trim();
-                        final newFirstName = controller.firstNameController.text
-                            .trim();
-                        final newLastName = controller.lastNameController.text
-                            .trim();
+                          final oldPwd = controller.oldPasswordController.text.trim();
+                          final newPwd = controller.newPasswordController.text.trim();
+                          final confirmPwd = controller.confirmPasswordController.text.trim();
+                          final newFirstName = controller.firstNameController.text.trim();
+                          final newLastName = controller.lastNameController.text.trim();
 
-                        bool shouldUpdatePassword = newPwd.isNotEmpty ||
-                            confirmPwd.isNotEmpty || oldPwd.isNotEmpty;
+                          bool shouldUpdatePassword = newPwd.isNotEmpty || confirmPwd.isNotEmpty || oldPwd.isNotEmpty;
 
-                        // Should update password
-                        if (shouldUpdatePassword) {
-                          if (newPwd != confirmPwd) {
-                            setState(() =>
-                            confirmPasswordErrorText =
-                                AppLocalizations.of(context)!
-                                    .error_confirm_password);
-                            return;
+                          if (shouldUpdatePassword) {
+                            if (newPwd.length < 8) {
+                              setState(() {
+                                passwordErrorText = AppLocalizations.of(context)!.password_length;
+                              });
+                              return;
+                            }
+
+                            if (confirmPwd.length < 8) {
+                              setState(() {
+                                confirmPasswordErrorText = AppLocalizations.of(context)!.password_length;
+                              });
+                              return;
+                            }
+
+                            if (newPwd != confirmPwd) {
+                              setState(() {
+                                confirmPasswordErrorText = AppLocalizations.of(context)!.error_confirm_password;
+                              });
+                              return;
+                            }
+
+                            try {
+                              final user = FirebaseAuth.instance.currentUser;
+                              final cred = EmailAuthProvider.credential(
+                                  email: user!.email!, password: oldPwd);
+                              await user.reauthenticateWithCredential(cred);
+                              await user.updatePassword(newPwd);
+                            } catch (e) {
+                              setState(() {
+                                passwordErrorText = AppLocalizations.of(context)!.error_password;
+                              });
+                              return;
+                            }
                           }
 
                           try {
-                            final user = FirebaseAuth.instance.currentUser;
-                            final cred = EmailAuthProvider.credential(
-                                email: user!.email!, password: oldPwd);
-                            await user.reauthenticateWithCredential(cred);
-                            await user.updatePassword(newPwd);
+                            await FirestoreService().updateUserProfile(
+                              userId: userId,
+                              firstName: newFirstName,
+                              lastName: newLastName,
+                              profileImageFile: controller.profileImage,
+                            );
+
+                            if (mounted) {
+                              Navigator.pop(context);
+                            }
                           } catch (e) {
-                            setState(() =>
-                            passwordErrorText =
-                                AppLocalizations.of(context)!.error_password);
+                            setState(() {
+                              passwordErrorText = AppLocalizations.of(context)!.error_password;
+                            });
+                            debugPrint('Re-authentication error: $e');
                             return;
                           }
-                        }
-
-                        try {
-                          await FirestoreService().updateUserProfile(
-                            userId: userId,
-                            firstName: controller.firstNameController.text
-                                .trim(),
-                            lastName: controller.lastNameController.text.trim(),
-                            profileImageFile: controller.profileImage,
-                          );
-
-                          if (mounted) {
-                            Navigator.pop(context);
-                          }
-
-                        } catch (e) {
-                          setState(() => passwordErrorText = AppLocalizations.of(context)!.error_password);
-                          debugPrint('Re-authentication error: $e');
-                          return;
-                        }
-                      },
-                      child: Ink(
+                        },
+                        child: Ink(
                         decoration: BoxDecoration(
                           gradient: const LinearGradient(
                             colors: [Color(0xFF255f38), Color(0xFF27391c)],
@@ -538,10 +542,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> changePassword(String newPassword) async {
+    if (newPassword.length < 8) return;
+
     final user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      await user.updatePassword(newPassword);
-    }
+    if (user != null) await user.updatePassword(newPassword);
   }
 
   InputDecoration _decoration(String label, BuildContext context,

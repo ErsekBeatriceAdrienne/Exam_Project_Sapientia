@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_dsa/frontend/pages/datastructures/stack/stack_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../../strings/datastructure_strings/tree_strings.dart';
 import 'animations/tree_delete_node.dart';
 import 'animations/tree_inorder.dart';
@@ -514,12 +513,15 @@ class _PseudocodeBSTPageState extends State<PseudocodeBSTPage> with SingleTicker
                       ),
                     ),
 
-                    _buildExplanationRow(AppLocalizations.of(context)!.stack_naming_conv_1),
-                    _buildExplanationRow(AppLocalizations.of(context)!.stack_naming_conv_2),
-                    _buildExplanationRow(AppLocalizations.of(context)!.stack_naming_conv_3),
-                    _buildExplanationRow(AppLocalizations.of(context)!.stack_naming_conv_4),
-                    _buildExplanationRow(AppLocalizations.of(context)!.stack_naming_conv_5),
-                    _buildExplanationRow(AppLocalizations.of(context)!.stack_naming_conv_6),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_1),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_2),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_3),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_4),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_5),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_6),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_7),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_8),
+                    _buildExplanationRow(AppLocalizations.of(context)!.bt_naming_conv_9),
                   ],
                 ),
               ),

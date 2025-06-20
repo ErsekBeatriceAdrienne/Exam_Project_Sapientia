@@ -13,7 +13,7 @@ class HashTableTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const HashTableTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const HashTableTestPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<HashTableTestPage> createState() => _HashTableTestPageState();
@@ -22,7 +22,6 @@ class HashTableTestPage extends StatefulWidget {
 class _HashTableTestPageState extends State<HashTableTestPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
 
   @override
@@ -126,7 +125,7 @@ class _HashTableTestPageState extends State<HashTableTestPage> with SingleTicker
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              AppLocalizations.of(context)!.bt_exercises_description,
+                              AppLocalizations.of(context)!.hash_table_page_tests_description_title,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,

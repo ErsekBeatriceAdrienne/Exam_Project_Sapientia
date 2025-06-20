@@ -15,7 +15,7 @@ class ListTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ListTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ListTestPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<ListTestPage> createState() => _ListTestPageState();
@@ -24,7 +24,6 @@ class ListTestPage extends StatefulWidget {
 class _ListTestPageState extends State<ListTestPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
 
   @override

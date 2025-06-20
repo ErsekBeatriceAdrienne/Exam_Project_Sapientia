@@ -185,7 +185,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                                   userId: widget.userId!,
                                   selectedAnswers: selectedAnswers,
                                   collectionName: FirestoreDocs.user_answers,
-                                  questionCollectionName: FirestoreDocs.array_tests_doc,
+                                  questionCollectionName: FirestoreDocs.list_tests_doc,
                                   getCorrectAnswerId: (int questionIndex) {
                                     return isAnswerCorrect(
                                       questionIndex,
@@ -198,7 +198,7 @@ class _ListTestQuestionsPageState extends State<ListTestQuestionsPage> with Sing
                                   userId: widget.userId!,
                                   selectedAnswers: selectedAnswers,
                                   collectionName: FirestoreDocs.all_test,
-                                  questionCollectionName: FirestoreDocs.array_tests_doc,
+                                  questionCollectionName: FirestoreDocs.list_tests_doc,
                                   getCorrectAnswerId: (int questionIndex) {
                                     return isAnswerCorrect(
                                       questionIndex,

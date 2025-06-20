@@ -12,7 +12,7 @@ class ArrayTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const ArrayTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const ArrayTestPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<ArrayTestPage> createState() => _ArrayTestPageState();
@@ -21,7 +21,6 @@ class ArrayTestPage extends StatefulWidget {
 class _ArrayTestPageState extends State<ArrayTestPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
 
   @override
@@ -313,109 +312,3 @@ class _ArrayTestPageState extends State<ArrayTestPage> with SingleTickerProvider
     );
   }
 }
-
-/*const SizedBox(height: 10),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .create_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Center(
-                                  child: ArrayAllocationWidget(),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .insert_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .print_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .empty_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .full_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .get_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .delete_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .search_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .update_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .delete_data_structure_function_title,
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold
-                                  ),
-                                ),*/

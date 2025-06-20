@@ -199,7 +199,7 @@ class _QueueTestsQuestionsPageState extends State<QueueTestsQuestionsPage> with 
                                   userId: widget.userId!,
                                   selectedAnswers: selectedAnswers,
                                   collectionName: FirestoreDocs.all_test,
-                                  questionCollectionName: FirestoreDocs.array_tests_doc,
+                                  questionCollectionName: FirestoreDocs.queue_tests_doc,
                                   getCorrectAnswerId: (int questionIndex) {
                                     return isAnswerCorrect(
                                       questionIndex,

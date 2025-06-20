@@ -244,8 +244,6 @@ class _DataStructuresPageState extends State<DataStructuresPage> {
         ],
       ),
     );
-
-
   }
 
   Widget complexityTable(BuildContext context) {

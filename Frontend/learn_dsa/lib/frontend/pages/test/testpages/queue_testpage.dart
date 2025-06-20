@@ -6,8 +6,6 @@ import 'package:learn_dsa/frontend/pages/test/testpages/queue/queue_tests_questi
 import '../../../../backend/database/firestore_service.dart';
 import '../../../helpers/essentials.dart';
 import '../../../strings/firestore/firestore_docs.dart';
-import '../../customClasses/custom_ring_chart.dart';
-import '../../datastructures/queue/queue_animations.dart';
 import '../tests_page.dart';
 
 
@@ -15,7 +13,7 @@ class QueueTestPage extends StatefulWidget {
   final VoidCallback toggleTheme;
   final String? userId;
 
-  const QueueTestPage({Key? key, required this.toggleTheme, required this.userId}) : super(key: key);
+  const QueueTestPage({super.key, required this.toggleTheme, required this.userId});
 
   @override
   State<QueueTestPage> createState() => _QueueTestPageState();
@@ -24,7 +22,6 @@ class QueueTestPage extends StatefulWidget {
 class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProviderStateMixin {
   bool showOverlay = false;
   bool showLockedDialog = false;
-  bool _isDropdownVisible = false;
   bool showArrayInfo = false;
 
   @override
@@ -133,7 +130,7 @@ class _QueueTestPageState extends State<QueueTestPage> with SingleTickerProvider
                             const SizedBox(height: 8),
                             Text(
                               AppLocalizations.of(context)!
-                                  .bt_exercises_description,
+                                  .queue_page_tests_description_title,
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Colors.grey,
