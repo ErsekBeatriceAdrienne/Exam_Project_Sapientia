@@ -6,8 +6,11 @@ import 'package:regexed_validator/regexed_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../helpers/essentials.dart';
 import '../../customClasses/custom_bottomnavigationbar.dart';
+import '../../customClasses/custom_sidemenu.dart';
 import '../registration/register_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LoginPage extends StatefulWidget {
   final VoidCallback toggleTheme;
@@ -36,8 +39,8 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     String password = passwordController.text.trim();
 
     setState(() {
-      emailError = null; // Reset the email error message
-      passwordError = null; // Reset the password error message
+      emailError = null;
+      passwordError = null;
     });
 
     if (email.isEmpty || password.isEmpty) {
@@ -58,7 +61,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     }
 
     try {
-      // Sign in with email and password
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -68,18 +70,26 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       var userSnapshot = await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
       if (userSnapshot.exists) {
-        // Save user ID to SharedPreferences
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('userId', userId!);
+        Widget nextPage;
 
-        // Navigate to HomePage with userId
+        if (!kIsWeb && Platform.isWindows) {
+          nextPage = WindowsMenu(
+            toggleTheme: widget.toggleTheme,
+            userId: userId,
+          );
+        } else {
+          nextPage = CustomBottomNavigationBar(
+            toggleTheme: widget.toggleTheme,
+            userId: userId,
+          );
+        }
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => CustomBottomNavigationBar(
-              toggleTheme: widget.toggleTheme,
-              userId: userId,
-            ),
+            builder: (context) => nextPage
           ),
         );
       } else {
@@ -118,10 +128,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
       vsync: this,
     )..repeat(reverse: true);
 
-    // Animating the gradient direction
     _animation = Tween<Offset>(
-      begin: Offset(0, 0), // Start at the top-left corner
-      end: Offset(1, 1),   // End at the bottom-right corner
+      begin: Offset(0, 0),
+      end: Offset(1, 1),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // Color animation for RGB effect (alternating between two colors)
@@ -133,17 +142,17 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     // Make the status bar transparent
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // Transparent status bar
-        statusBarIconBrightness: Brightness.dark, // Adjust status bar icons (dark for light background)
-        systemNavigationBarColor: Colors.transparent, // Transparent navigation bar if needed
-        systemNavigationBarIconBrightness: Brightness.dark, // Adjust navigation bar icons
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Dispose of the controller when the widget is removed
+    _controller.dispose();
     super.dispose();
   }
 
@@ -158,13 +167,13 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
           return Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment(_animation.value.dx, _animation.value.dy), // Animate gradient direction
-                end: Alignment.bottomRight, // Gradient will always end at the bottom-right
+                begin: Alignment(_animation.value.dx, _animation.value.dy),
+                end: Alignment.bottomRight,
                 colors: [
-                  _colorAnimation.value ?? Color(0xFFb4d3b2), // Pastel Cyan (animated)
-                  _colorAnimation.value ?? Color(0xFFb4d3b2), // Pastel Pink (animated)
+                  _colorAnimation.value ?? Color(0xFFb4d3b2),
+                  _colorAnimation.value ?? Color(0xFFb4d3b2),
                 ],
-                stops: [0.2, 0.8], // Adjust stops for smoother transition
+                stops: [0.2, 0.8],
               ),
             ),
             child: child,
