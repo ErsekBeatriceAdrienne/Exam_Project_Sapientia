@@ -36,7 +36,7 @@ class _InitialSplashState extends State<InitialSplash> {
     if (Platform.isWindows) {
       nextScreen = WindowsMenu(
         toggleTheme: widget.toggleTheme,
-        userId: userId!,
+        userId: userId,
       );
     } else {
       nextScreen = CustomBottomNavigationBar(

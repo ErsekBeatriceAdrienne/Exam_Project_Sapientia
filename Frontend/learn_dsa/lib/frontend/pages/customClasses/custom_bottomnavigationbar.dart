@@ -22,8 +22,7 @@ class CustomBottomNavigationBar extends StatefulWidget
   });
 
   @override
-  _CustomBottomNavigationBarState createState() =>
-      _CustomBottomNavigationBarState();
+  _CustomBottomNavigationBarState createState() => _CustomBottomNavigationBarState();
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>

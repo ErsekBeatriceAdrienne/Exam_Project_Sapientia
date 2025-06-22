@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../backend/compiler/c_compiler_page.dart';
+import '../../../backend/database/firestore_service.dart';
 import '../algorithms/algorithms_page.dart';
 import '../datastructures/datastructures_page.dart';
 import '../login_authenticator/login_required.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WindowsMenu extends StatefulWidget {
   final VoidCallback toggleTheme;
-  final String userId;
+  final String? userId;
 
   const WindowsMenu({super.key, required this.toggleTheme, required this.userId});
 
@@ -18,7 +19,7 @@ class WindowsMenu extends StatefulWidget {
 }
 
 class _WindowsMenuState extends State<WindowsMenu> {
-  int _currentIndex = 0; // Keep track of the selected page index
+  int _currentIndex = 0;
 
   // Function to update the pages list with the latest toggleTheme and userId
   List<Widget> _getPages() {
@@ -44,7 +45,6 @@ class _WindowsMenuState extends State<WindowsMenu> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
-            //DrawerHeader(child: Text('Welcome, Guest')),
             ListTile(
               title: Text(AppLocalizations.of(context)!
                   .data_structures_menu),
